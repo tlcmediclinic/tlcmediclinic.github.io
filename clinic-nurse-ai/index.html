@@ -410,6 +410,36 @@ table.tbl td b{font-weight:800}
 .tag.gd-gold{background:#FFF3D6;color:#9A6A00}
 .tag.gd-purple{background:#F1EBFB;color:#6A3FA8}
 .tag.gd-black{background:#E9E7EE;color:#231F2B}
+.tag.veh{background:#E8F4FB;color:#1B6A96}
+.chip .g-amt{font-weight:700;font-size:11px;opacity:.8}
+.chip.on .g-amt{opacity:.95}
+
+/* ---------- 멤버십 기준 박스 (v1.4) ---------- */
+.membase{background:#F4FAFB;border:1px solid #D8E9EC;border-radius:12px;padding:9px 11px;margin-bottom:8px}
+.mb-t{font-size:12px;font-weight:800;color:var(--pp-d);line-height:1.45}
+.mb-rows{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.mb-r{font-size:11.5px;font-weight:700;border-radius:999px;padding:4px 9px;color:var(--ink2);background:#fff;border:1px solid var(--line)}
+.mb-r b{font-weight:900}
+.mb-r.gd-gold{background:#FFF6E3;border-color:#F0DCAE;color:#8A5E00}
+.mb-r.gd-purple{background:#F4EFFC;border-color:#DFD2F4;color:#5F3799}
+.mb-r.gd-black{background:#ECEAEF;border-color:#D5D2DB;color:#231F2B}
+.mb-n{font-size:11px;color:var(--ink3);margin-top:6px;line-height:1.45}
+.vehrow{margin-top:8px}
+.vehrow .veh-note{font-size:11px;color:var(--ink3);margin-top:5px;line-height:1.45}
+.mem-crit{margin-bottom:9px}
+.mc-h{font-size:12.5px;font-weight:800;color:var(--pp-d);margin-bottom:7px;line-height:1.45}
+.mc-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:7px 0;border-bottom:1px solid var(--line);font-size:12px;color:var(--ink2)}
+.mc-row:last-of-type{border-bottom:0}
+.mc-g{font-weight:900;border-radius:999px;padding:3px 9px;font-size:12px}
+.mc-g.gd-gold{background:#FFF3D6;color:#9A6A00}
+.mc-g.gd-purple{background:#F1EBFB;color:#6A3FA8}
+.mc-g.gd-black{background:#E9E7EE;color:#231F2B}
+.mc-amt{font-weight:700}
+.mc-rate{font-weight:900;color:var(--pp-d)}
+.mc-vt{margin-left:auto;font-size:11px;font-weight:800;background:var(--org-l);color:#B5620A;border-radius:999px;padding:3px 8px}
+.mc-n{font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.5}
+.mg-s{font-size:11.5px;font-weight:700;color:var(--pp-d);margin:2px 0 3px}
+@media(max-width:360px){.mc-vt{margin-left:0}}
 
 /* ---------- 📊 일일마감 연동 ---------- */
 .issclose{display:flex;align-items:center;gap:9px;background:#fff;border-radius:14px;padding:9px 11px;box-shadow:var(--sh);
@@ -434,6 +464,7 @@ table.tbl td b{font-weight:800}
 .auto-row{display:flex;flex-wrap:wrap;align-items:center;gap:5px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 9px}
 .auto-t{font:800 11px/1 ui-monospace,monospace;color:var(--pp);background:var(--pp-l);border-radius:6px;padding:4px 5px}
 .auto-b{font-size:11px;color:var(--ink3)}
+.auto-basis{font-size:11px;font-weight:700;color:var(--pp-d);background:#F2FAF9;border:1px solid #DCEFEC;border-radius:9px;padding:5px 8px;margin-bottom:6px;line-height:1.45}
 .auto-x{flex:1 1 100%;color:var(--ink);font-size:12.5px;line-height:1.45}
 .auto-empty{font-size:12px;color:var(--ink3);line-height:1.5;background:#FBFEFD;border:1px dashed var(--line);border-radius:10px;padding:9px 10px}
 .auto-add{margin-top:8px;width:auto;display:inline-flex}
@@ -469,7 +500,7 @@ a.feat{display:block;text-decoration:none;color:inherit}
     <div class="logo"><i class="tlcm" role="img" aria-label="티엘씨 공식 로고"></i></div>
     <div class="brand">TLC 인수인계<small>티엘씨 청담·분당 실무 인수인계</small></div>
     <div class="vwrap">
-      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.3</span></a>
+      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.4</span></a>
       <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기">🔄 새로고침</a>
     </div>
   </div>
@@ -488,7 +519,7 @@ a.feat{display:block;text-decoration:none;color:inherit}
 
 <div class="updbar" id="updBar" role="status" aria-live="polite">
   <div class="in">
-    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.3</span></b>이 준비되었습니다.</div>
+    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.4</span></b>이 준비되었습니다.</div>
     <a class="upd-a" id="updBtn" href="#" rel="noopener">지금 새로고침</a>
   </div>
 </div>
@@ -616,8 +647,13 @@ a.feat{display:block;text-decoration:none;color:inherit}
       </div>
       <div class="field hide" id="memberBox">
         <label>멤버십 회원 <span class="muted">· 선택 사항 · 가명/차트순번만</span></label>
+        <div class="membase" id="issMemBase"></div>
         <div class="chips" id="issGrades"></div>
-        <button class="chip valet" id="issValet" style="margin-top:8px">🚗 발렛 무료 확인</button>
+        <div class="vehrow hide" id="issVehRow">
+          <input class="inp" id="issVeh" maxlength="12" autocomplete="off" placeholder="차량번호 (선택) 예) 12가3456">
+          <div class="veh-note">🚗 차량 무료 발렛 — 차량번호를 적으면 접수 서식 ② 멤버십 발렛주차 명단에 그대로 정리됩니다.</div>
+        </div>
+        <button class="chip valet" id="issValet" style="margin-top:8px">🚗 차량 무료 발렛 확인</button>
       </div>
       <div class="field">
         <label>교차근무 인계 <span class="muted">(해당되면 눌러 주세요)</span></label>
@@ -828,8 +864,9 @@ a.feat{display:block;text-decoration:none;color:inherit}
   </div>
 
   <div class="sec" id="memberSec">
-    <div class="sec-h"><h2>🥇 멤버십 회원 · 발렛 무료 안내</h2><span class="sub">접수 파트</span></div>
-    <div class="privacy">🚗 <b>골드·퍼플·블랙 회원</b>이 방문하면 <b>발렛 무료 적용</b>을 확인하고, 접수 인계문에 남겨 주세요. 실명 대신 차트순번·가명으로 기록합니다.</div>
+    <div class="sec-h"><h2>🥇 적립금 멤버십 · 차량 무료 발렛</h2><span class="sub">접수 파트</span></div>
+    <div class="privacy">📌 <b>시행일 2026.10.01 부터 누적 적립금 기준</b> — 🥇골드 1,000만 원(10% 적립) · 💜퍼플 2,000만 원(15% 적립) · 🖤블랙 3,000만 원(20% 적립). <b>세 등급 모두 차량 무료 발렛</b>이 적용되며, 실명 대신 차트순번·가명과 차량번호로 기록합니다.</div>
+    <div class="card mem-crit" id="memCriteria"></div>
     <div class="card" id="memberGuide"></div>
   </div>
 </section>
@@ -840,7 +877,7 @@ a.feat{display:block;text-decoration:none;color:inherit}
 
 <div class="footer wrap" id="globalFooter" style="margin-top:20px">
   <div class="cp">아이디어·개발·제작·저작권: <span>티엘씨메디켈그룹 총괄운영실장 김효숙</span></div>
-  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.3</span></div>
+  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.4</span></div>
   <div class="nt">의료기기(SaMD) 아님 · 실제 환자 개인정보 입력 금지 · 기기 내 로컬 저장만 사용 · 공식기관 인증 프로그램 아님</div>
 </div>
 
@@ -889,16 +926,40 @@ function partLabel(id){ var p = DATA.partMap[id]; return p ? p.e + ' ' + p.n : '
 /* ---------- 근무 구분 · 이슈 분류 ---------- */
 DATA.units = ['오전 근무','오후 근무','마감'];
 
+/* ---------- 적립금 멤버십 회원 조건 (v1.4 · 효숙 님 기준) ----------
+   등급 : 🥇골드 1,000만 원(10% 적립) · 💜퍼플 2,000만 원(15% 적립) · 🖤블랙 3,000만 원(20% 적립)
+   시행일 : 2026.10.01 부터 누적 적립금 기준 · 골드·퍼플·블랙 모두 🚗 차량 무료 발렛 */
+DATA.membership = {
+  since: '2026.10.01',
+  basis: '2026.10.01 부터 누적 적립금 기준',
+  note: '2026.10.01 이후 누적 적립금으로 등급이 정해지며, 골드·퍼플·블랙 모두 🚗 차량 무료 발렛이 적용됩니다.',
+  tiers: [
+    { g:'gold',   e:'🥇', n:'골드', amt:10000000, amtTxt:'1,000만 원', amtShort:'1,000만', rate:10 },
+    { g:'purple', e:'💜', n:'퍼플', amt:20000000, amtTxt:'2,000만 원', amtShort:'2,000만', rate:15 },
+    { g:'black',  e:'🖤', n:'블랙', amt:30000000, amtTxt:'3,000만 원', amtShort:'3,000만', rate:20 }
+  ]
+};
+DATA.membership.tierMap = {};
+DATA.membership.tiers.forEach(function(t){ DATA.membership.tierMap[t.g] = t; });
+function memberTier(g){ return DATA.membership.tierMap[g] || null; }
+function memberBasisLine(){ return DATA.membership.basis; }
+function memberBasisShort(){
+  return '시행일 ' + DATA.membership.since + ' 부터 누적 적립금 기준 · ' +
+    DATA.membership.tiers.map(function(t){ return t.e + t.n + ' ' + t.amtShort + '(' + t.rate + '%)'; }).join(' · ') +
+    ' · 🚗 차량 무료 발렛';
+}
+
 /* ---------- 멤버십 회원 등급 (접수 파트) ---------- */
-DATA.grades = [
-  { id:'none',   n:'일반',   e:'⚪', d:'멤버십 아님' },
-  { id:'gold',   n:'골드',   e:'🥇', d:'골드 회원 — 발렛 무료 적용' },
-  { id:'purple', n:'퍼플',   e:'💜', d:'퍼플 회원 — 발렛 무료 적용' },
-  { id:'black',  n:'블랙',   e:'🖤', d:'블랙 회원 — 발렛 무료 적용' }
-];
+DATA.grades = [{ id:'none', n:'일반', e:'⚪', d:'멤버십 아님' }].concat(
+  DATA.membership.tiers.map(function(t){
+    return { id:t.g, n:t.n, e:t.e,
+      d:t.n + ' 회원 — 누적 적립금 ' + t.amtTxt + ' 이상 · ' + t.rate + '% 적립 · 🚗 차량 무료 발렛',
+      amt:t.amt, amtTxt:t.amtTxt, amtShort:t.amtShort, rate:t.rate };
+  })
+);
 DATA.gradeMap = {};
 DATA.grades.forEach(function(g){ DATA.gradeMap[g.id] = g; });
-DATA.valetTag = '🚗 발렛 무료 확인';
+DATA.valetTag = '🚗 차량 무료 발렛';
 
 DATA.tags = [
   /* 간호 파트 (의료) */
@@ -994,7 +1055,7 @@ DATA.partGuides = {
   recv: {
     title:'🖥️ 접수 파트',
     desc:'예약·수납·서류·문의·마감까지, 비의료 원무/행정 업무만 모아 봅니다.',
-    items:['📅 예약·변경·노쇼 연락','💳 미수·적립금·선불권 잔액','📄 시술 동의서·제증명·서류','⚠️ 고객 문의·컴플레인','🥇 골드·💜 퍼플·🖤 블랙 회원 응대 + 🚗 발렛 무료','🧾 일일 마감·정산·영수증','📝 다음 근무 인계 메모']
+    items:['📅 예약·변경·노쇼 연락','💳 미수·적립금·선불권 잔액','📄 시술 동의서·제증명·서류','⚠️ 고객 문의·컴플레인','🥇 골드 1,000만 · 💜 퍼플 2,000만 · 🖤 블랙 3,000만 회원 응대 + 🚗 차량 무료 발렛','🧾 일일 마감·정산·영수증','📝 다음 근무 인계 메모']
   }
 };
 /* ---------- 약물·수액 안전 스크리닝 ---------- */
@@ -1184,27 +1245,30 @@ DATA.calcs = [
 ];
 
 /* ---------- 멤버십 등급별 응대·발렛 안내 (접수 파트) ---------- */
-DATA.memberGuide = [
-  { g:'gold', t:'🥇 골드', b:[
-    '접수 시 등급 확인 후 이름 대신 “차트순번 + 회원”으로 호칭',
-    '🚗 발렛 무료 적용 여부 확인 후 주차 안내',
-    '대기 시간이 길어지면 예상 시간 먼저 안내',
-    '다음 예약 리마인드 문자 발송 여부 확인'
-  ] },
-  { g:'purple', t:'💜 퍼플', b:[
-    '🚗 발렛 무료 적용 + 주차 위치 메모',
-    '시술 후 관리 안내 문자 발송',
-    '예약 변경 요청은 우선 처리 후 차트에 기록',
-    '대기 중 음료·상담실 안내'
-  ] },
-  { g:'black', t:'🖤 블랙', b:[
-    '🚗 발렛 무료 적용 + 차량 인수 담당자 지정',
-    '원장·실장 인사 연결, 별도 상담 공간 안내',
-    '정기 관리·생일 케어 일정 확인',
-    '특이 요청은 접수 인계문에 반드시 남기기'
-  ] }
-];
-DATA.valetNote = '골드·퍼플·블랙 회원 방문 시 🚗 발렛 무료 적용을 확인하고, 접수 인계문에 남겨 주세요.';
+DATA.memberGuide = DATA.membership.tiers.map(function(t){
+  var rows = {
+    gold: [
+      '접수 시 등급 확인 후 이름 대신 “차트순번 + 회원”으로 호칭',
+      '🚗 차량 무료 발렛 — 차량번호를 받아 발렛주차 명단에 기록',
+      '대기 시간이 길어지면 예상 시간 먼저 안내',
+      '다음 예약 리마인드 문자 발송 여부 확인'
+    ],
+    purple: [
+      '🚗 차량 무료 발렛 + 주차 위치 메모',
+      '시술 후 관리 안내 문자 발송',
+      '예약 변경 요청은 우선 처리 후 차트에 기록',
+      '대기 중 음료·상담실 안내'
+    ],
+    black: [
+      '🚗 차량 무료 발렛 + 차량 인수 담당자 지정',
+      '원장·실장 인사 연결, 별도 상담 공간 안내',
+      '정기 관리·생일 케어 일정 확인',
+      '특이 요청은 접수 인계문에 반드시 남기기'
+    ]
+  };
+  return { g:t.g, t:t.e + ' ' + t.n, s:'누적 적립금 ' + t.amtTxt + ' 이상 · ' + t.rate + '% 적립 · 🚗 차량 무료 발렛', b:rows[t.g] || [] };
+});
+DATA.valetNote = '시행일 2026.10.01 부터 누적 적립금 기준입니다. 골드·퍼플·블랙 회원 방문 시 🚗 차량 무료 발렛을 확인하고, 차량번호와 함께 접수 인계문(서식 ②)에 남겨 주세요.';
 
 /* ---------- 신규직원 입사 인수인계 (지점 공통 · 파트별) ---------- */
 DATA.onboard = {
@@ -1224,8 +1288,8 @@ DATA.onboard = {
   recv: [
     { k:'on_r1',  n:'예약 등록·변경·취소 처리 순서' },
     { k:'on_r2',  n:'노쇼·지연 고객 연락과 기록 방법' },
-    { k:'on_r3',  n:'멤버십 골드·퍼플·블랙 등급 확인과 응대' },
-    { k:'on_r4',  n:'회원 방문 시 🚗 발렛 무료 적용 확인' },
+    { k:'on_r3',  n:'멤버십 등급 확인과 응대 (🥇골드 1,000만·10% / 💜퍼플 2,000만·15% / 🖤블랙 3,000만·20%)' },
+    { k:'on_r4',  n:'회원 방문 시 🚗 차량 무료 발렛 적용 확인 + 차량번호 기록 (시행일 2026.10.01 누적 적립금 기준)' },
     { k:'on_r5',  n:'미수금 확인과 안내 문자 발송' },
     { k:'on_r6',  n:'적립금·선불권 사용·잔액 확인' },
     { k:'on_r7',  n:'시술 동의서·사진 촬영 여부 확인' },
@@ -1249,7 +1313,7 @@ DATA.recvForm = [
   /* 원내 종이 서식 순서 그대로 — 직접 작성 / 이슈 자동 / 일일마감 연동 */
   { k:'schedule', n:'원장님 스케줄', e:'🗓️', kind:'text', ph:'예) 오후 휴진 / 14:00 이후 시술만 / 15:00 외출' },
   { k:'valet', n:'멤버십 발렛주차 명단', e:'🚗', kind:'auto', auto:{ grade:true }, goTag:'appt',
-    note:'이슈 등록에서 회원 등급(🥇💜🖤)을 고르면 여기에 자동으로 모입니다' },
+    note:'이슈 등록에서 회원 등급(🥇골드 1,000만·💜퍼플 2,000만·🖤블랙 3,000만 · 시행일 2026.10.01 누적 적립금 기준)과 차량번호를 남기면 여기에 자동으로 모입니다' },
   { k:'memo', n:'전달 메모', e:'📋', kind:'text', ph:'교대·인계 때 꼭 전할 말' },
   { k:'cash', n:'오늘 입·출금내역', e:'💰', kind:'link', closeLine:'일일마감 앱 확인 (입·출금 마감)',
     note:'일일마감 앱에서 입력·확인합니다 — 여기서 또 적지 않습니다' },
@@ -1275,7 +1339,7 @@ DATA.recvForm = [
    TLC 인수인계 — 화면 로직 (티엘씨 청담·분당 실무 인수인계)
    아이디어·개발·제작·저작권: 김효숙 (티엘씨메디켈그룹 총괄운영실장)
    ========================================================================= */
-var VERSION = 'v1.3';
+var VERSION = 'v1.4';
 /* 기존 Apps Script 배포본(참고용 폴백) — GitHub Pages에서는 ./version.json 사용 */
 var EXEC_URL = 'https://script.google.com/macros/s/AKfycbyTf8lTMRCtbmnc3SCOcYH25O_ncRE0IUtm4K8h91-C5MG6ETQo9G4DiF57sgBsicE6/exec';
 var VER_POLL_MS = 180000;
@@ -2013,7 +2077,7 @@ function updateSummary(){
 /* =========================================================================
    이슈 등록 · 인계문 · 일별 기록함
    ========================================================================= */
-var issState = { unit:'오전 근무', part:'nur', tag:'iv', grade:'none', valet:false, handoff:false, carry:false, filter:'all' };
+var issState = { unit:'오전 근무', part:'nur', tag:'iv', grade:'none', car:'', valet:false, handoff:false, carry:false, filter:'all' };
 
 function pruneIssues(){
   var list = store.get('tlc_issues', []);
@@ -2039,6 +2103,7 @@ function renderIssParts(){
       if(!ts.some(function(t){ return t.id === issState.tag; })) issState.tag = ts[0].id;
       renderIssParts(); renderIssTags();
       var mb = $('#memberBox'); if(mb) mb.classList.toggle('hide', issState.part !== 'recv');
+      syncVehRow();
       var ta = $('#issText');
       if(ta) ta.placeholder = issState.part === 'recv'
         ? '예) 차트 24-118 내일 14:00 시술 예약 — 미수 5만5천원, 동의서 미수령, 발렛 무료 확인 필요'
@@ -2046,6 +2111,7 @@ function renderIssParts(){
     });
   });
   var mb = $('#memberBox'); if(mb) mb.classList.toggle('hide', issState.part !== 'recv');
+  syncVehRow();
   var ta = $('#issText');
   if(ta) ta.placeholder = issState.part === 'recv'
     ? '예) 차트 24-118 내일 14:00 시술 예약 — 미수 5만5천원, 동의서 미수령, 발렛 무료 확인 필요'
@@ -2064,10 +2130,24 @@ function renderIssTags(){
     });
   });
 }
+function renderMemberBase(){
+  var box = $('#issMemBase'); if(!box) return;
+  box.innerHTML = '<div class="mb-t">📌 ' + esc(DATA.membership.basis) + '</div>' +
+    '<div class="mb-rows">' + DATA.membership.tiers.map(function(t){
+      return '<span class="mb-r gd-' + t.g + '">' + t.e + ' ' + esc(t.n) + ' <b>' + esc(t.amtTxt) + '</b> · ' + t.rate + '% 적립</span>';
+    }).join('') + '</div>' +
+    '<div class="mb-n">🥇💜🖤 세 등급 모두 🚗 차량 무료 발렛 · 차량번호는 선택 입력</div>';
+}
+function syncVehRow(){
+  var row = $('#issVehRow'); if(!row) return;
+  var on = issState.part === 'recv' && issState.grade && issState.grade !== 'none';
+  row.classList.toggle('hide', !on);
+}
 function renderGrades(){
   var box = $('#issGrades'); if(!box) return;
   box.innerHTML = DATA.grades.map(function(g){
-    return '<button class="chip grade-' + g.id + (issState.grade===g.id?' on':'') + '" data-g="'+g.id+'">'+g.e+' '+esc(g.n)+'</button>';
+    var amt = (g.id !== 'none' && g.amtShort) ? ' <span class="g-amt">' + esc(g.amtShort) + '</span>' : '';
+    return '<button class="chip grade-' + g.id + (issState.grade===g.id?' on':'') + '" data-g="'+g.id+'">'+g.e+' '+esc(g.n)+amt+'</button>';
   }).join('');
   $$('#issGrades .chip').forEach(function(b){
     b.addEventListener('click', function(){
@@ -2076,8 +2156,10 @@ function renderGrades(){
       if(issState.grade !== 'none'){
         issState.valet = true;
         var v = $('#issValet'); if(v) v.classList.add('on');
-        toast('멤버십 회원 — 🚗 발렛 무료 적용을 함께 확인하세요');
+        var t = memberTier(issState.grade);
+        toast(t ? (t.e + ' ' + t.n + ' 회원 — ' + t.rate + '% 적립 · 🚗 차량 무료 발렛을 함께 확인하세요') : '멤버십 회원 — 🚗 차량 무료 발렛을 함께 확인하세요');
       }
+      syncVehRow();
     });
   });
   var v = $('#issValet'); if(v && !v._bound){
@@ -2087,6 +2169,7 @@ function renderGrades(){
     });
     v._bound = true;
   }
+  syncVehRow();
 }
 function initIss(){
   var ub = $('#issUnits');
@@ -2104,6 +2187,7 @@ function initIss(){
   }
   renderIssParts();
   renderIssTags();
+  renderMemberBase();
   renderGrades();
   initMic('issMic','issText','issMicHint');
 
@@ -2123,15 +2207,18 @@ function initIss(){
     var txt = (ta.value||'').trim();
     if(!txt){ toast('이슈 내용을 입력해 주세요'); if(ta) ta.focus(); return; }
     var list = getIssues();
+    var veh = $('#issVeh');
+    var car = (issState.part === 'recv' && issState.grade !== 'none' && veh) ? String(veh.value || '').trim().slice(0, 12) : '';
     list.push({
       id:'i'+Date.now(), t:nowHM(), tag:issState.tag, part:issState.part, unit:issState.unit,
       text:txt, date:todayStr(), done:false,
       handoff:!!issState.handoff, carry:!!issState.carry,
-      grade:(issState.part==='recv'? issState.grade : ''), valet:(issState.part==='recv' && !!issState.valet)
+      grade:(issState.part==='recv'? issState.grade : ''), car:car, valet:(issState.part==='recv' && !!issState.valet)
     });
     saveIssues(list);
     ta.value='';
-    issState.handoff = false; issState.carry = false; issState.valet = false; issState.grade = 'none';
+    issState.handoff = false; issState.carry = false; issState.valet = false; issState.grade = 'none'; issState.car = '';
+    if(veh) veh.value = '';
     if(hb) hb.classList.remove('on');
     if(cb) cb.classList.remove('on');
     var v = $('#issValet'); if(v) v.classList.remove('on');
@@ -2188,6 +2275,7 @@ function renderIssues(){
     var badges = '';
     if(gd && gd.id !== 'none') badges += '<span class="tag gd-'+gd.id+'">'+gd.e+' '+esc(gd.n)+'</span>';
     if(it.valet) badges += '<span class="tag y">🚗 발렛 무료</span>';
+    if(it.car) badges += '<span class="tag veh">🚙 '+esc(it.car)+'</span>';
     if(it.handoff && !it.done) badges += '<span class="tag r">🔄 인계 필수</span>';
     if(it.carry && !it.done) badges += '<span class="tag b">📅 내일</span>';
     return '<div class="is-item'+(it.done?' done':'')+'" data-id="'+it.id+'">'+
@@ -2225,7 +2313,8 @@ function bulletOf(x){
   var gd = DATA.gradeMap[x.grade];
   var pre = '';
   if(gd && gd.id !== 'none') pre += gd.e+' '+gd.n+' · ';
-  if(x.valet) pre += '🚗 발렛 무료 · ';
+  if(x.valet) pre += '🚗 차량 무료 발렛 · ';
+  if(x.car) pre += '차량 '+x.car+' · ';
   return '· ' + x.t + ' [' + tagName(x.tag) + '] ' + pre + x.text + (x.done ? ' (처리 완료)' : '');
 }
 function makeShiftText(list){
@@ -2314,11 +2403,12 @@ function sbarOf(part, list){
     if(tagCount('comp')) R.push('· 문의·컴플레인: 처리 결과와 재방문 안내를 확인해 주세요.');
     var mem = list.filter(function(x){ return x.grade && x.grade !== 'none'; });
     if(mem.length){
-      var mg = { gold:0, purple:0, black:0 }, vt = 0;
-      mem.forEach(function(x){ if(mg[x.grade]!==undefined) mg[x.grade]++; if(x.valet) vt++; });
+      var mg = { gold:0, purple:0, black:0 }, vt = 0, cars = [];
+      mem.forEach(function(x){ if(mg[x.grade]!==undefined) mg[x.grade]++; if(x.valet) vt++; if(x.car) cars.push(x.car); });
       R.push('· 멤버십 응대: ' + ['black','purple','gold'].filter(function(k){ return mg[k]; })
         .map(function(k){ return DATA.gradeMap[k].e + ' ' + DATA.gradeMap[k].n + ' ' + mg[k]; }).join(' · ') +
-        (vt ? ' — 🚗 발렛 무료 적용 ' + vt + '건 확인' : ''));
+        (vt ? ' — 🚗 차량 무료 발렛 ' + vt + '건 확인' : '') + ' (시행일 2026.10.01 누적 적립금 기준)');
+      if(cars.length) R.push('· 발렛 차량: ' + cars.join(', ') + ' — 서식 ② 멤버십 발렛주차 명단에서 확인');
     }
     R.push('· 마감 정산(현금·카드·간편결제) 대조 결과를 함께 확인해 주세요.');
   }
@@ -3148,11 +3238,26 @@ function resetChecks(){
   renderChecklist(); updateSummary();
   toast('오늘 점검을 초기화했습니다');
 }
+function renderMemberCriteria(){
+  var box = $('#memCriteria'); if(!box) return;
+  box.innerHTML = '<div class="mc-h">📌 시행일 <b>' + esc(DATA.membership.since) + ' 부터 누적 적립금 기준</b></div>' +
+    DATA.membership.tiers.map(function(t){
+      return '<div class="mc-row">' +
+        '<span class="mc-g gd-' + t.g + '">' + t.e + ' ' + esc(t.n) + '</span>' +
+        '<span class="mc-amt">누적 <b>' + esc(t.amtTxt) + '</b> 이상</span>' +
+        '<span class="mc-rate">' + t.rate + '% 적립</span>' +
+        '<span class="mc-vt">🚗 차량 무료 발렛</span>' +
+        '</div>';
+    }).join('') +
+    '<div class="mc-n">' + esc(DATA.membership.note) + '</div>';
+}
 function renderMemberGuide(){
   var box = $('#memberGuide'); if(!box) return;
+  renderMemberCriteria();
   box.innerHTML = DATA.memberGuide.map(function(m){
     return '<div class="mguide">' +
       '<div class="mg-t">' + esc(m.t) + '</div>' +
+      (m.s ? '<div class="mg-s">' + esc(m.s) + '</div>' : '') +
       '<ul class="pts">' + m.b.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
   }).join('') + '<div class="muted" style="margin-top:10px">' + esc(DATA.valetNote) + '</div>';
 }
@@ -3288,10 +3393,11 @@ function recvSubText(){
 function recvAutoBody(sec){
   var rows = recvAutoIssues(sec);
   var html = '';
+  if(sec.auto && sec.auto.grade) html = '<div class="auto-basis">📌 ' + esc(memberBasisShort()) + '</div>';
   if(!rows.length){
-    html = '<div class="auto-empty">아직 없습니다 — 이슈 등록에서 남기면 여기에 자동으로 모입니다.</div>';
+    html += '<div class="auto-empty">아직 없습니다 — 이슈 등록에서 남기면 여기에 자동으로 모입니다.</div>';
   } else {
-    html = '<div class="auto-list">' + rows.map(function(x){
+    html += '<div class="auto-list">' + rows.map(function(x){
       var gd = DATA.gradeMap[x.grade];
       var tg = DATA.tagMap[x.tag] || DATA.tagMap.etc;
       return '<div class="auto-row">' +
@@ -3299,6 +3405,7 @@ function recvAutoBody(sec){
         '<span class="auto-b">' + tg.e + ' ' + esc(tg.n) + '</span>' +
         ((gd && gd.id !== 'none') ? '<span class="tag gd-' + gd.id + '">' + gd.e + ' ' + esc(gd.n) + '</span>' : '') +
         (x.valet ? '<span class="tag y">🚗 발렛</span>' : '') +
+        (x.car ? '<span class="tag veh">🚙 ' + esc(x.car) + '</span>' : '') +
         '<span class="auto-x">' + esc(x.text) + '</span>' +
         '</div>';
     }).join('') + '</div>';
@@ -3410,13 +3517,14 @@ function recvFormText(){
       return;
     }
     if(sec.kind === 'auto'){
+      if(sec.auto && sec.auto.grade) L.push('— ' + memberBasisShort());
       var ar = recvAutoIssues(sec);
       if(!ar.length){ L.push('— 없음'); return; }
       ar.forEach(function(x){
         var gd = DATA.gradeMap[x.grade], tg = DATA.tagMap[x.tag] || DATA.tagMap.etc;
         L.push('· ' + x.t + ' ' + tg.e + ' ' + tg.n +
           ((gd && gd.id !== 'none') ? ' · ' + gd.e + ' ' + gd.n : '') +
-          (x.valet ? ' · 🚗 발렛' : '') + ' — ' + x.text);
+          (x.valet ? ' · 🚗 발렛' : '') + (x.car ? ' · 차량 ' + x.car : '') + ' — ' + x.text);
       });
       return;
     }
