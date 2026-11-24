@@ -25,7 +25,7 @@ window.onerror=function(m,src,l,c){
 </script>
 <style>:root{
   --pp:#0F766E; --pp-d:#0A5650; --pp-l:#E1F4F0; --pp-l2:#F1FBF9;
-  --ink:#172B29; --ink2:#4C6360; --ink3:#879795;
+  --ink:#172B29; --ink2:#4C6360; --ink3:#7B8D8A;
   --bg:#F2F8F7; --card:#FFFFFF; --line:#DFEEEA;
   --red:#E8455F; --red-l:#FDEDF0; --org:#E78323; --org-l:#FFF4E6;
   --yel:#C79A16; --yel-l:#FFF9E4; --grn:#1F9E68; --grn-l:#E9F8F1;
@@ -33,73 +33,75 @@ window.onerror=function(m,src,l,c){
   --sh:0 4px 18px rgba(20,48,45,.07); --sh2:0 10px 30px rgba(20,48,45,.13);
   --r:18px;
 }
+/* v1.3 — 아이폰에서 눈이 편하도록 전체 글씨를 한 단계씩 키웠습니다.
+   본문 16.5px · 입력/버튼/선택상자 16px 이상(아이폰 자동 확대 방지) · 최소 보조 글씨 13.5px */
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
-  background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
-  padding-bottom:84px}
-button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+  background:var(--bg);color:var(--ink);font-size:16.5px;line-height:1.58;-webkit-font-smoothing:antialiased;
+  padding-bottom:92px}
+button,input,select,textarea{font-family:inherit;font-size:16px;color:inherit}
 button{cursor:pointer;border:none;background:none}
-h1,h2,h3,h4{margin:0;line-height:1.3;letter-spacing:-.02em}
+h1,h2,h3,h4{margin:0;line-height:1.32;letter-spacing:-.02em}
 p{margin:0}
 .wrap{max-width:1080px;margin:0 auto;padding:0 14px}
 .hide{display:none!important}
 
 /* ---------- top bar ---------- */
 .top{position:sticky;top:0;z-index:40;background:rgba(242,248,247,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;gap:10px;height:58px}
-.logo{width:36px;height:36px;border-radius:12px;background:#fff;border:1px solid var(--line);
+.top .wrap{display:flex;align-items:center;gap:10px;height:62px}
+.logo{width:38px;height:38px;border-radius:12px;background:#fff;border:1px solid var(--line);
   display:grid;place-items:center;flex:0 0 auto;box-shadow:0 4px 12px rgba(15,118,110,.16);overflow:hidden}
-.logo .emblem{width:30px;height:30px;display:block}
+.logo .emblem{width:31px;height:31px;display:block}
 .emblem{display:block}
 .emblem-tile{width:46px;height:46px;border-radius:14px;background:#fff;display:grid;place-items:center;flex:0 0 auto;
   box-shadow:0 6px 16px rgba(4,60,55,.22)}
 .emblem-tile .emblem{width:38px;height:38px}
-.brand{font-weight:800;font-size:15px;letter-spacing:-.03em;line-height:1.2}
-.brand small{display:block;font-weight:600;font-size:10.5px;color:var(--ink3);letter-spacing:0}
-.vbadge{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--pp);
-  background:var(--pp-l);border-radius:999px;padding:5px 10px;white-space:nowrap;text-decoration:none}
-.vbadge .dot{width:6px;height:6px;border-radius:50%;background:var(--grn)}
+.brand{font-weight:800;font-size:17px;letter-spacing:-.03em;line-height:1.2}
+.brand small{display:block;font-weight:600;font-size:13.5px;color:var(--ink3);letter-spacing:0;margin-top:1px}
+.vbadge{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--pp);
+  background:var(--pp-l);border-radius:999px;padding:6px 11px;white-space:nowrap;text-decoration:none}
+.vbadge .dot{width:7px;height:7px;border-radius:50%;background:var(--grn)}
 .vbadge:active{background:#CBE9E3}
 .vwrap{display:flex;align-items:center;gap:6px;margin-left:auto}
-.rbtn{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(--ink2);
-  background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:4.5px 9px;white-space:nowrap;text-decoration:none}
+.rbtn{display:inline-flex;align-items:center;gap:4px;font-size:13.5px;font-weight:800;color:var(--ink2);
+  background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:5.5px 10px;white-space:nowrap;text-decoration:none}
 .rbtn:active{background:var(--pp-l);border-color:#C9ECE5;color:var(--pp)}
 /* 새 버전 알림 바 */
-.updbar{display:none;background:linear-gradient(120deg,#FFB020,#F08A00);color:#fff;position:sticky;top:58px;z-index:39;
+.updbar{display:none;background:linear-gradient(120deg,#FFB020,#F08A00);color:#fff;position:sticky;top:62px;z-index:39;
   box-shadow:0 4px 14px rgba(240,138,0,.28)}
 .updbar.on{display:block;animation:updslide .35s ease}
 @keyframes updslide{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
-.updbar .in{display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:12.5px;line-height:1.35}
+.updbar .in{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:14px;line-height:1.4}
 .updbar .tx{flex:1;min-width:0}
 .updbar .tx b{font-weight:800}
-.upd-a{flex:0 0 auto;background:#fff;color:#B5620A;font-weight:800;font-size:12px;border-radius:999px;
-  padding:6px 12px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12)}
-.pillnew{background:rgba(255,255,255,.92);color:#B5620A;font-weight:900;font-size:9.5px;letter-spacing:.06em;border-radius:5px;padding:2px 5px}
+.upd-a{flex:0 0 auto;background:#fff;color:#B5620A;font-weight:800;font-size:13.5px;border-radius:999px;
+  padding:7px 13px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.pillnew{background:rgba(255,255,255,.92);color:#B5620A;font-weight:900;font-size:11.5px;letter-spacing:.06em;border-radius:5px;padding:2px 5px}
 .upd-a:active{transform:scale(.97)}
 
 /* ---------- generic ---------- */
 .sec{margin:18px 0}
-.sec-h{display:flex;align-items:baseline;gap:8px;margin:0 2px 10px}
-.sec-h h2{font-size:17px}
-.sec-h .sub{font-size:12px;color:var(--ink3)}
-.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:16px}
+.sec-h{display:flex;align-items:baseline;gap:8px;margin:0 2px 10px;flex-wrap:wrap}
+.sec-h h2{font-size:20px}
+.sec-h .sub{font-size:13.5px;color:var(--ink3)}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:17px}
 .card+.card{margin-top:12px}
-.muted{color:var(--ink3);font-size:12.5px}
-.small{font-size:12.5px}
-.tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;border-radius:999px;padding:3px 9px;background:var(--pp-l);color:var(--pp)}
+.muted{color:var(--ink3);font-size:14px}
+.small{font-size:14.5px}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:13.5px;font-weight:700;border-radius:999px;padding:4px 10px;background:var(--pp-l);color:var(--pp)}
 .tag.g{background:var(--grn-l);color:var(--grn)} .tag.r{background:var(--red-l);color:var(--red)}
 .tag.o{background:var(--org-l);color:var(--org)} .tag.y{background:var(--yel-l);color:var(--yel)}
 .tag.b{background:var(--blue-l);color:var(--blue)} .tag.n{background:#EDF5F3;color:var(--ink2)}
-.btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:14px 16px;border-radius:14px;
-  background:var(--pp);color:#fff;font-weight:800;font-size:15px;box-shadow:0 6px 16px rgba(15,118,110,.26);
-  transition:transform .07s,box-shadow .15s,background .15s;user-select:none}
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:15px 16px;border-radius:14px;
+  background:var(--pp);color:#fff;font-weight:800;font-size:17px;box-shadow:0 6px 16px rgba(15,118,110,.26);
+  transition:transform .07s,box-shadow .15s,background .15s;user-select:none;word-break:keep-all}
 .btn:active{transform:scale(.975);box-shadow:0 2px 8px rgba(15,118,110,.2)}
 .btn.ghost{background:#fff;color:var(--pp);border:1.5px solid #C9ECE5;box-shadow:none}
 .btn.ghost:active{background:var(--pp-l)}
 .btn.soft{background:var(--pp-l);color:var(--pp-d);box-shadow:none;font-weight:700}
 .btn.soft:active{background:#CBE9E3}
-.btn.sm{padding:10px 12px;font-size:13px;border-radius:11px}
+.btn.sm{padding:11px 12px;font-size:16px;border-radius:11px}
 .btn.gray{background:#EDF5F3;color:var(--ink2);box-shadow:none}
 .btn.gray:active{background:#E4EFEC}
 .btn.red{background:var(--red);box-shadow:0 6px 16px rgba(232,69,95,.25)}
@@ -107,17 +109,17 @@ p{margin:0}
 .row{display:flex;gap:8px}
 .row>*{flex:1}
 .chips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font-size:13px;font-weight:700;color:var(--ink2);transition:all .12s}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 14px;font-size:15px;font-weight:700;color:var(--ink2);transition:all .12s;word-break:keep-all}
 .chip:active{transform:scale(.96)}
 .chip.on{background:var(--pp);border-color:var(--pp);color:#fff;box-shadow:0 4px 12px rgba(15,118,110,.24)}
 .field{margin-bottom:12px}
-.field>label{display:block;font-size:12px;font-weight:800;color:var(--ink2);margin:0 0 6px 2px;letter-spacing:-.01em}
-.inp,select.inp,textarea.inp{width:100%;border:1.5px solid var(--line);background:#F8FCFB;border-radius:12px;padding:12px 13px;font-size:15px;outline:none;transition:border .15s,background .15s}
+.field>label{display:block;font-size:14.5px;font-weight:800;color:var(--ink2);margin:0 0 7px 2px;letter-spacing:-.01em}
+.inp,select.inp,textarea.inp{width:100%;border:1.5px solid var(--line);background:#F8FCFB;border-radius:12px;padding:12px 13px;font-size:16px;outline:none;transition:border .15s,background .15s}
 .inp:focus,textarea.inp:focus{border-color:var(--pp);background:#fff;box-shadow:0 0 0 3px rgba(15,118,110,.1)}
-textarea.inp{resize:vertical;min-height:104px;line-height:1.7}
+textarea.inp{resize:vertical;min-height:110px;line-height:1.7}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.empty{text-align:center;color:var(--ink3);font-size:13px;padding:22px 10px}
+.empty{text-align:center;color:var(--ink3);font-size:15px;padding:22px 10px}
 .divider{height:1px;background:var(--line);margin:14px 0}
 
 /* ---------- home ---------- */
@@ -126,66 +128,67 @@ textarea.inp{resize:vertical;min-height:104px;line-height:1.7}
 .hero-top{display:flex;align-items:center;gap:11px;margin-bottom:10px}
 .hero .k{margin:0}
 .hero-new{display:block;margin-top:13px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.26);
-  border-radius:12px;padding:7px 10px;font-size:11px;font-weight:700;line-height:1.5}
+  border-radius:12px;padding:8px 11px;font-size:13.5px;font-weight:700;line-height:1.55}
 .hero:after{content:"";position:absolute;width:210px;height:210px;border-radius:50%;background:rgba(255,255,255,.12);right:-70px;top:-90px}
-.hero .k{font-size:10px;font-weight:800;opacity:.92;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hero h1{font-size:21px;margin:6px 0 8px;letter-spacing:-.04em}
-.hero p{font-size:13px;opacity:.92;line-height:1.6}
+.hero .k{font-size:13.5px;font-weight:800;opacity:.92;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero h1{font-size:25px;margin:8px 0 9px;letter-spacing:-.04em}
+.hero p{font-size:15.5px;opacity:.95;line-height:1.62}
 .hero .pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
-.hero .pills span{background:rgba(255,255,255,.2);border-radius:999px;padding:5px 10px;font-size:11.5px;font-weight:700}
+.hero .pills span{background:rgba(255,255,255,.2);border-radius:999px;padding:6px 11px;font-size:13.5px;font-weight:700}
 .quote{margin:0;padding:14px 16px;background:#fff;border-left:4px solid var(--pp);border-radius:0 14px 14px 0;box-shadow:var(--sh)}
-.quote p{font-size:13.5px;color:var(--ink2);line-height:1.75}
+.quote p{font-size:15.5px;color:var(--ink2);line-height:1.75}
 .quote b{color:var(--ink)}
 .feats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .feat{background:#fff;border-radius:18px;box-shadow:var(--sh);padding:15px 14px;text-align:left;transition:transform .08s,box-shadow .15s}
 .feat:active{transform:scale(.975);box-shadow:var(--sh2)}
-.feat .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:19px;margin-bottom:9px}
-.feat h3{font-size:14px;margin-bottom:3px}
-.feat p{font-size:11.5px;color:var(--ink3);line-height:1.45}
+.feat .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:21px;margin-bottom:9px}
+.feat h3{font-size:17.5px;margin-bottom:4px}
+.feat p{font-size:14px;color:var(--ink3);line-height:1.5}
 .steps{display:grid;gap:10px}
 .step{display:flex;gap:11px;align-items:flex-start;background:#fff;border-radius:14px;padding:13px 14px;box-shadow:var(--sh)}
-.step .n{flex:0 0 24px;height:24px;border-radius:8px;background:var(--pp-l);color:var(--pp);font-weight:800;font-size:12px;display:grid;place-items:center}
-.step h4{font-size:13.5px} .step p{font-size:12px;color:var(--ink3)}
+.step .n{flex:0 0 26px;height:26px;border-radius:8px;background:var(--pp-l);color:var(--pp);font-weight:800;font-size:14px;display:grid;place-items:center}
+.step h4{font-size:17px} .step p{font-size:14px;color:var(--ink3);line-height:1.55}
 
 /* ---------- tabs ---------- */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);
-  border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
-.tabbar .inner{max-width:1080px;margin:0 auto;display:flex;justify-content:space-around;gap:2px}
-.tb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px 4px;border-radius:12px;color:var(--ink3);
-  font-size:10px;font-weight:700;transition:background .15s,color .15s,transform .08s}
+  border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom))}
+.tabbar .inner{max-width:1080px;margin:0 auto;display:flex;justify-content:space-around;gap:1px}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 1px 4px;border-radius:12px;color:var(--ink3);
+  font-size:12.5px;font-weight:700;letter-spacing:-.04em;white-space:nowrap;transition:background .15s,color .15s,transform .08s}
 .tb:active{transform:scale(.94)}
-.tb .i{font-size:19px;line-height:1}
+.tb .i{font-size:21px;line-height:1}
 .tb.on{color:var(--pp);background:var(--pp-l)}
 
 /* ---------- handover ---------- */
-.cover{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.cov{flex:1;min-width:70px;background:#EDF5F3;border-radius:11px;padding:8px 6px;text-align:center;border:1.5px solid transparent;transition:all .15s}
-.cov .l{font-size:10.5px;font-weight:800;color:var(--ink3)}
-.cov .v{font-size:15px;font-weight:900;margin-top:1px}
+/* SBAR 커버리지: 휴대폰에서는 두 칸씩(긴 영어 라벨이 잘리지 않도록), PC에서는 네 칸 */
+.cover{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.cov{min-width:0;background:#EDF5F3;border-radius:11px;padding:9px 6px;text-align:center;border:1.5px solid transparent;transition:all .15s}
+.cov .l{font-size:13px;font-weight:800;color:var(--ink3)}
+.cov .v{font-size:18px;font-weight:900;margin-top:1px}
 .cov.ok{background:var(--grn-l);border-color:#BCE9D6} .cov.ok .v{color:var(--grn)} .cov.ok .l{color:var(--grn)}
 .cov.miss{background:var(--red-l);border-color:#F8CFD8} .cov.miss .v{color:var(--red)} .cov.miss .l{color:var(--red)}
 .cov.part{background:var(--org-l);border-color:#FBE0BE} .cov.part .v{color:var(--org)} .cov.part .l{color:var(--org)}
 .score{display:flex;align-items:center;gap:14px}
-.donut{width:86px;height:86px;flex:0 0 86px;border-radius:50%;display:grid;place-items:center;position:relative;
+.donut{width:88px;height:88px;flex:0 0 88px;border-radius:50%;display:grid;place-items:center;position:relative;
   background:conic-gradient(var(--pp) calc(var(--p)*1%), #DFEEEA 0)}
-.donut i{position:absolute;inset:8px;background:#fff;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:20px;color:var(--pp)}
+.donut i{position:absolute;inset:8px;background:#fff;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:22px;color:var(--pp)}
 .donut.grad{background:conic-gradient(var(--grn) calc(var(--p)*1%), #E9F8F1 0)}
 .donut.grad i{color:var(--grn)}
 .donut.warn{background:conic-gradient(var(--org) calc(var(--p)*1%), #FFF4E6 0)} .donut.warn i{color:var(--org)}
 .checklist{list-style:none;margin:0;padding:0}
-.checklist li{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.checklist li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line);font-size:15px}
 .checklist li:last-child{border-bottom:none}
-.checklist .mk{flex:0 0 18px;font-weight:900;font-size:13px;line-height:1.5}
+.checklist .mk{flex:0 0 18px;font-weight:900;font-size:15px;line-height:1.5}
 .checklist .mk.y{color:var(--grn)} .checklist .mk.n{color:#CFDFDB}
 .checklist .mk.r{color:var(--red)}
-.checklist small{display:block;color:var(--ink3);font-size:11.5px;line-height:1.45}
-.microw{display:flex;gap:8px;align-items:center;margin-bottom:8px}
-.mic{flex:0 0 auto;width:52px;height:52px;border-radius:50%;background:var(--pp);color:#fff;font-size:22px;display:grid;place-items:center;
+.checklist small{display:block;color:var(--ink3);font-size:13.5px;line-height:1.5}
+.microw{display:flex;gap:10px;align-items:center;margin-bottom:9px}
+.mic{flex:0 0 auto;width:56px;height:56px;border-radius:50%;background:var(--pp);color:#fff;font-size:24px;display:grid;place-items:center;
   box-shadow:0 6px 18px rgba(15,118,110,.3);transition:transform .08s,background .2s}
 .mic:active{transform:scale(.94)}
 .mic.rec{background:var(--red);animation:pulse 1.4s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,69,95,.45)}70%{box-shadow:0 0 0 16px rgba(232,69,95,0)}100%{box-shadow:0 0 0 0 rgba(232,69,95,0)}}
-.mic-hint{font-size:12px;color:var(--ink3);line-height:1.45}
+.mic-hint{font-size:14px;color:var(--ink3);line-height:1.5}
 .mic-hint b{color:var(--pp)}
 .bar{height:7px;border-radius:99px;background:#E6F2EF;overflow:hidden;margin-top:6px}
 .bar>i{display:block;height:100%;border-radius:99px;background:var(--pp);transition:width .5s}
@@ -194,51 +197,51 @@ textarea.inp{resize:vertical;min-height:104px;line-height:1.7}
 /* ---------- plan ---------- */
 .pcard{border-left:4px solid var(--pp);padding-left:12px;margin:14px 0}
 .pcard:first-child{margin-top:0}
-.pcard .ph{display:flex;align-items:center;gap:7px;margin-bottom:6px}
-.pcard .ph h4{font-size:14.5px}
-.pcard .why{font-size:11.5px;color:var(--ink3);margin:2px 0 8px}
-.pcard ul{margin:0;padding-left:16px}
-.pcard li{font-size:13px;margin:3px 0;line-height:1.55}
-.pcard .rp{background:var(--red-l);border-radius:10px;padding:8px 10px;margin-top:7px;font-size:12px;color:#A62B3F}
+.pcard .ph{display:flex;align-items:center;gap:7px;margin-bottom:6px;flex-wrap:wrap}
+.pcard .ph h4{font-size:17.5px}
+.pcard .why{font-size:13.5px;color:var(--ink3);margin:2px 0 8px;line-height:1.55}
+.pcard ul{margin:0;padding-left:17px}
+.pcard li{font-size:15px;margin:4px 0;line-height:1.6}
+.pcard .rp{background:var(--red-l);border-radius:10px;padding:9px 11px;margin-top:8px;font-size:14px;color:#A62B3F;line-height:1.6}
 .pcard .rp b{color:var(--red)}
 .mini{display:grid;gap:6px;margin-top:8px}
-.mini .m{display:flex;gap:8px;background:#F9FCFB;border-radius:10px;padding:8px 10px;font-size:12.5px}
-.mini .m b{flex:0 0 62px;color:var(--ink2);font-size:11.5px;padding-top:1px}
-.sbar{padding:13px 15px;border-radius:14px;font-size:13px;line-height:1.75;background:#F8FCFB;border:1px dashed #D5E8E3}
+.mini .m{display:flex;gap:8px;background:#F9FCFB;border-radius:10px;padding:9px 11px;font-size:14.5px;line-height:1.55}
+.mini .m b{flex:0 0 72px;color:var(--ink2);font-size:13.5px;padding-top:1px}
+.sbar{padding:14px 15px;border-radius:14px;font-size:15.5px;line-height:1.78;background:#F8FCFB;border:1px dashed #D5E8E3}
 .sbar b{color:var(--pp-d)}
 
 /* ---------- drug ---------- */
 .alert{border-radius:14px;padding:13px 14px;margin-bottom:10px;border:1px solid transparent}
-.alert .ah{display:flex;align-items:center;gap:7px;font-weight:800;font-size:14px;margin-bottom:4px}
-.alert .why{font-size:12.5px;line-height:1.6;color:var(--ink2)}
-.alert .act{margin-top:8px;font-size:12.5px;line-height:1.6;background:rgba(255,255,255,.7);border-radius:9px;padding:8px 10px}
-.alert .act b{display:block;font-size:11px;color:var(--ink3);margin-bottom:2px}
+.alert .ah{display:flex;align-items:center;gap:7px;font-weight:800;font-size:16.5px;margin-bottom:5px;line-height:1.4}
+.alert .why{font-size:14.5px;line-height:1.62;color:var(--ink2)}
+.alert .act{margin-top:8px;font-size:14.5px;line-height:1.62;background:rgba(255,255,255,.7);border-radius:9px;padding:9px 11px}
+.alert .act b{display:block;font-size:13px;color:var(--ink3);margin-bottom:2px}
 .a-red{background:var(--red-l);border-color:#F8CFD8} .a-red .ah{color:#B7223B}
 .a-org{background:var(--org-l);border-color:#FAE2C4} .a-org .ah{color:#B5620A}
 .a-yel{background:var(--yel-l);border-color:#F4E7B4} .a-yel .ah{color:#8A6C05}
 .a-grn{background:var(--grn-l);border-color:#BCE9D6} .a-grn .ah{color:#137A50}
 .a-blu{background:var(--blue-l);border-color:#C9DDFB} .a-blu .ah{color:#1B5DB3}
 .calc-tabs{display:flex;gap:6px;background:#EDF5F3;padding:4px;border-radius:12px;margin-bottom:12px}
-.calc-tabs button{flex:1;padding:9px 4px;border-radius:9px;font-size:12px;font-weight:800;color:var(--ink2)}
+.calc-tabs button{flex:1;padding:10px 4px;border-radius:9px;font-size:14px;font-weight:800;color:var(--ink2);letter-spacing:-.02em}
 .calc-tabs button.on{background:#fff;color:var(--pp);box-shadow:0 2px 8px rgba(20,48,45,.08)}
 .res-box{margin-top:12px;background:var(--pp-l2);border:1px solid #CBE9E3;border-radius:14px;padding:14px}
-.res-box .big{font-size:24px;font-weight:900;color:var(--pp-d);letter-spacing:-.02em}
-.res-box .ln{font-size:12px;color:var(--ink2);margin-top:3px;line-height:1.6}
+.res-box .big{font-size:27px;font-weight:900;color:var(--pp-d);letter-spacing:-.02em}
+.res-box .ln{font-size:14px;color:var(--ink2);margin-top:4px;line-height:1.62}
 
 /* ---------- eval ---------- */
 .qitem{background:#fff;border-radius:14px;padding:13px 14px;box-shadow:var(--sh);margin-bottom:9px}
-.qitem .qh{display:flex;gap:8px;font-size:13.5px;line-height:1.5;margin-bottom:10px}
-.qitem .qh .no{flex:0 0 20px;height:20px;border-radius:6px;background:var(--pp-l);color:var(--pp);font-size:11px;font-weight:800;display:grid;place-items:center;margin-top:1px}
+.qitem .qh{display:flex;gap:8px;font-size:16px;line-height:1.5;margin-bottom:10px}
+.qitem .qh .no{flex:0 0 22px;height:22px;border-radius:6px;background:var(--pp-l);color:var(--pp);font-size:12.5px;font-weight:800;display:grid;place-items:center;margin-top:1px}
 .scale{display:flex;gap:5px}
-.scale button{flex:1;padding:9px 0;border-radius:9px;background:#F5F3FA;font-size:12.5px;font-weight:800;color:var(--ink3);border:1.5px solid transparent;transition:all .1s}
+.scale button{flex:1;padding:10px 0;border-radius:9px;background:#F5F3FA;font-size:14.5px;font-weight:800;color:var(--ink3);border:1.5px solid transparent;transition:all .1s}
 .scale button:active{transform:scale(.95)}
 .scale button.on{background:var(--pp);color:#fff;border-color:var(--pp);box-shadow:0 3px 10px rgba(15,118,110,.25)}
 .scale button.on.safe{background:var(--red);border-color:var(--red);box-shadow:0 3px 10px rgba(232,69,95,.25)}
-table.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
-table.tbl th,table.tbl td{padding:9px 8px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-table.tbl th{font-size:11px;color:var(--ink3);font-weight:800;background:#F8FCFB}
+table.tbl{width:100%;border-collapse:collapse;font-size:14px}
+table.tbl th,table.tbl td{padding:10px 5px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;word-break:keep-all}
+table.tbl th{font-size:12.5px;color:var(--ink3);font-weight:800;background:#F8FCFB;line-height:1.35}
 table.tbl td b{font-weight:800}
-.pill{display:inline-block;font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 8px}
+.pill{display:inline-block;font-size:12.5px;font-weight:800;border-radius:999px;padding:3px 9px}
 .lv{background:var(--pp-l);color:var(--pp)} .lv.g{background:var(--grn-l);color:var(--grn)} .lv.o{background:var(--org-l);color:var(--org)} .lv.r{background:var(--red-l);color:var(--red)}
 
 /* ---------- vision ---------- */
@@ -247,90 +250,92 @@ table.tbl td b{font-weight:800}
 .tli{position:relative;margin-bottom:16px}
 .tli:before{content:"";position:absolute;left:-23px;top:5px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--pp)}
 .tli.soon:before{border-color:#CFDFDB}
-.tli h4{font-size:14px} .tli .st{font-size:11px;font-weight:800;color:var(--pp);letter-spacing:.02em}
-.tli p{font-size:12.5px;color:var(--ink2);margin-top:3px;line-height:1.6}
+.tli h4{font-size:17px} .tli .st{font-size:13px;font-weight:800;color:var(--pp);letter-spacing:.02em}
+.tli p{font-size:14.5px;color:var(--ink2);margin-top:4px;line-height:1.62}
 .glass{background:linear-gradient(135deg,#2A2540,#3E3660);border-radius:20px;padding:18px;color:#fff;margin:14px 0}
-.glass .lens{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:13px;font-size:12px;line-height:1.7}
+.glass .lens{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:13px;font-size:14.5px;line-height:1.75}
 .glass .lens .hl{color:#B9A6FF;font-weight:800}
 .kpi{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .kpi .k{background:#fff;border-radius:14px;padding:13px 14px;box-shadow:var(--sh)}
-.kpi .k .v{font-size:20px;font-weight:900;color:var(--pp-d);letter-spacing:-.02em}
-.kpi .k .l{font-size:11.5px;color:var(--ink3);margin-top:2px;line-height:1.4}
+.kpi .k .v{font-size:22px;font-weight:900;color:var(--pp-d);letter-spacing:-.02em}
+.kpi .k .l{font-size:13.5px;color:var(--ink3);margin-top:2px;line-height:1.45}
 
 /* ---------- footer / notice ---------- */
 .footer{margin:26px 0 8px;padding:18px 16px;border-radius:16px;background:#fff;box-shadow:var(--sh);text-align:center}
-.footer .cp{font-size:12px;font-weight:800;color:var(--ink2);line-height:1.7}
+.footer .cp{font-size:14px;font-weight:800;color:var(--ink2);line-height:1.7}
 .footer .cp span{color:var(--pp)}
-.footer .cp2{font-size:11px;font-weight:700;color:var(--ink3);margin-top:2px}
-.footer .nt{font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.6}
+.footer .cp2{font-size:13px;font-weight:700;color:var(--ink3);margin-top:3px;word-break:keep-all}
+.footer .nt{font-size:13.5px;color:var(--ink3);margin-top:9px;line-height:1.68}
 
 /* ---------- 법적 고지 ---------- */
 .legal{padding:6px 14px}
-.legal .lg{padding:12px 0;border-bottom:1px solid var(--line)}
+.legal .lg{padding:13px 0;border-bottom:1px solid var(--line)}
 .legal .lg:last-child{border-bottom:0}
-.legal .lg-h{display:flex;gap:7px;align-items:flex-start;font-size:13px;line-height:1.45;color:var(--ink)}
+.legal .lg-h{display:flex;gap:7px;align-items:flex-start;font-size:16.5px;line-height:1.45;color:var(--ink)}
 .legal .lg-h b{font-weight:800;letter-spacing:-.02em}
 .legal .lg-h .n{flex:0 0 auto;color:var(--pp);font-weight:800}
-.legal p{font-size:11.8px;color:var(--ink2);line-height:1.62;margin:5px 0 0 18px;word-break:keep-all}
-.legal-warn{background:var(--red-l);border:1px solid #F6C9D1;border-radius:14px;padding:11px 13px;
-  font-size:11.8px;line-height:1.62;color:#8E2B3C;word-break:keep-all;margin-bottom:12px}
+.legal p{font-size:14px;color:var(--ink2);line-height:1.68;margin:6px 0 0 18px;word-break:keep-all}
+.legal-warn{background:var(--red-l);border:1px solid #F6C9D1;border-radius:14px;padding:12px 13px;
+  font-size:14px;line-height:1.68;color:#8E2B3C;word-break:keep-all;margin-bottom:12px}
 .legal-warn b{color:#B01F38}
 /* ---------- 실시간 이슈 타임라인 ---------- */
 .is-item{display:flex;gap:9px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
 .is-item:last-child{border-bottom:0}
-.is-t{flex:0 0 auto;font:800 11.5px/1 ui-monospace,monospace;color:var(--pp);background:var(--pp-l);border-radius:7px;padding:5px 6px}
+.is-t{flex:0 0 auto;font:800 13.5px/1 ui-monospace,monospace;color:var(--pp);background:var(--pp-l);border-radius:7px;padding:5px 6px}
 .is-mid{flex:1;min-width:0}
 .is-top{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:3px}
-.is-tx{font-size:13px;line-height:1.5;color:var(--ink);word-break:keep-all}
+.is-tx{font-size:15px;line-height:1.55;color:var(--ink);word-break:keep-all}
 .is-item.done .is-tx{text-decoration:line-through;color:var(--ink3)}
-.is-ops{display:flex;gap:4px;flex:0 0 auto}
-.is-ops button{width:29px;height:29px;border-radius:9px;background:#EDF5F3;font-size:14px;display:grid;place-items:center;color:var(--ink2)}
+.is-ops{display:flex;gap:5px;flex:0 0 auto}
+.is-ops button{width:32px;height:32px;border-radius:9px;background:#EDF5F3;font-size:16px;display:grid;place-items:center;color:var(--ink2)}
 .is-ops button:active{transform:scale(.92);background:#E4EFEC}
 .is-ops button.ok{background:var(--grn-l);color:var(--grn)}
 .is-ops button.del{background:var(--red-l);color:var(--red)}
 .sb{border-left:3px solid var(--pp);background:#F8FCFB;border-radius:0 11px 11px 0;padding:9px 11px;margin-bottom:8px}
-.sb .k{font-weight:900;font-size:12.5px;color:var(--pp)}
-.sb .v{font-size:12.5px;line-height:1.62;color:var(--ink2);margin-top:4px;white-space:pre-wrap;word-break:keep-all}
+.sb .k{font-weight:900;font-size:14.5px;color:var(--pp)}
+.sb .v{font-size:15px;line-height:1.68;color:var(--ink2);margin-top:4px;white-space:pre-wrap;word-break:keep-all}
 .sb.b{border-color:var(--blue)} .sb.b .k{color:var(--blue)}
 .sb.a{border-color:var(--grn)} .sb.a .k{color:var(--grn)}
 .sb.r{border-color:var(--org)} .sb.r .k{color:var(--org)}
 .pts{margin:6px 0 0;padding-left:0;list-style:none}
-.pts li{font-size:12px;color:var(--ink2);line-height:1.6;padding:2px 0 2px 16px;position:relative}
+.pts li{font-size:14px;color:var(--ink2);line-height:1.65;padding:3px 0 3px 17px;position:relative}
 .pts li:before{content:'·';position:absolute;left:5px;font-weight:900;color:var(--pp)}
 .day{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
 .day:last-child{border-bottom:0}
-.day .d-date{flex:0 0 auto;text-align:center;background:var(--pp-l);border-radius:10px;padding:7px 9px;min-width:58px}
-.day .d-date b{display:block;font-size:12.5px;color:var(--pp);font-weight:900}
-.day .d-date span{font-size:10px;color:var(--ink3);font-weight:700}
+.day .d-date{flex:0 0 auto;text-align:center;background:var(--pp-l);border-radius:10px;padding:7px 9px;min-width:62px}
+.day .d-date b{display:block;font-size:14.5px;color:var(--pp);font-weight:900}
+.day .d-date span{font-size:12.5px;color:var(--ink3);font-weight:700}
 .day .d-mid{flex:1;min-width:0}
-.day .d-t{font-size:12.8px;font-weight:800;color:var(--ink);margin-bottom:2px}
-.day .d-s{font-size:11.5px;color:var(--ink3);line-height:1.5}
-.day .d-btns{display:flex;gap:4px;margin-top:7px;flex-wrap:wrap}
-.day .d-btns button{font-size:11px;font-weight:800;border-radius:8px;padding:6px 9px;background:#EDF5F3;color:var(--ink2)}
+.day .d-t{font-size:15.5px;font-weight:800;color:var(--ink);margin-bottom:3px;line-height:1.45}
+.day .d-s{font-size:13.5px;color:var(--ink3);line-height:1.5}
+.day .d-btns{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.day .d-btns button{font-size:13px;font-weight:800;border-radius:8px;padding:7px 10px;background:#EDF5F3;color:var(--ink2)}
 .day .d-btns button.p{background:var(--pp-l);color:var(--pp-d)}
 .day .d-btns button:active{transform:scale(.96)}
 
-.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(30px);bottom:96px;z-index:90;background:#221E2E;color:#fff;
-  border-radius:12px;padding:11px 16px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:all .28s;box-shadow:0 10px 26px rgba(0,0,0,.25);max-width:88vw;text-align:center}
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(30px);bottom:104px;z-index:90;background:#221E2E;color:#fff;
+  border-radius:12px;padding:12px 17px;font-size:15px;font-weight:700;opacity:0;pointer-events:none;transition:all .28s;box-shadow:0 10px 26px rgba(0,0,0,.25);max-width:88vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .sheet{position:fixed;inset:0;z-index:80;background:rgba(28,22,45,.42);display:flex;align-items:flex-end;justify-content:center;padding:0;opacity:0;pointer-events:none;transition:opacity .2s}
 .sheet.on{opacity:1;pointer-events:auto}
 .sheet .body{background:#fff;width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom));transform:translateY(30px);transition:transform .24s;max-height:88vh;overflow:auto}
 .sheet.on .body{transform:translateY(0)}
-.sheet h3{font-size:16px;margin-bottom:4px}
+.sheet h3{font-size:19px;margin-bottom:5px}
 .sheet .close{position:absolute;right:14px;top:12px}
 
 @media(min-width:760px){
-  body{font-size:15.5px;padding-bottom:0}
-  .top .wrap{height:64px}
-  .updbar{top:64px}
-  .tabbar{position:sticky;top:63px;bottom:auto;border-top:none;border-bottom:1px solid var(--line);padding:8px 12px;background:rgba(255,255,255,.97)}
+  body{font-size:17.5px;padding-bottom:0}
+  .top .wrap{height:68px}
+  .updbar{top:68px}
+  .tabbar{position:sticky;top:67px;bottom:auto;border-top:none;border-bottom:1px solid var(--line);padding:8px 12px;background:rgba(255,255,255,.97)}
   .tabbar .inner{justify-content:center;gap:6px}
-  .tb{flex:0 0 auto;flex-direction:row;gap:7px;padding:9px 16px;font-size:12.5px;border-radius:11px}
-  .tb .i{font-size:15px}
+  .tb{flex:0 0 auto;flex-direction:row;gap:7px;padding:9px 16px;font-size:14.5px;border-radius:11px}
+  .tb .i{font-size:17px}
   .hero{padding:30px 32px}
-  .hero h1{font-size:27px}
+  .hero h1{font-size:31px}
+  .hero .k{font-size:14px}
   .feats{grid-template-columns:repeat(3,1fr)}
+  .cover{grid-template-columns:repeat(4,1fr)}
   .grid2.pc3{grid-template-columns:1fr 1fr 1fr}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
   .two.wide{grid-template-columns:1.15fr .85fr}
@@ -345,6 +350,7 @@ table.tbl td b{font-weight:800}
 <body>
 
 <!-- v1.2 전용 엠블럼(간호 십자 + AI 생체파형 + 음성 파형). 헤더·홈 히어로에서 <use>로 재사용 -->
+<!-- v1.3: 모바일 전체 글씨 확대 · 아이폰 마이크(iOS Safari·홈 화면 앱) 안정화 -->
 <svg width="0" height="0" style="position:absolute;left:-9999px" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="ncpCross" gradientUnits="userSpaceOnUse" x1="120" y1="110" x2="392" y2="398">
@@ -385,7 +391,7 @@ table.tbl td b{font-weight:800}
     <div class="logo"><svg class="emblem" viewBox="0 0 512 512" aria-hidden="true"><use href="#ncpEmblem"/></svg></div>
     <div class="brand">AI 인계 코파일럿<small>신규간호사 · 프리셉터</small></div>
     <div class="vwrap">
-      <a class="vbadge" id="vbadgeBtn" href="#" target="_top" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.2</span></a>
+      <a class="vbadge" id="vbadgeBtn" href="#" target="_top" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.3</span></a>
       <a class="rbtn" id="btnRefresh" href="#" target="_top" rel="noopener" title="최신 화면으로 새로 열기">새로고침</a>
     </div>
   </div>
@@ -393,7 +399,7 @@ table.tbl td b{font-weight:800}
 
 <div class="updbar" id="updBar" role="status" aria-live="polite">
   <div class="wrap in">
-    <div class="tx"><span class="pillnew">NEW</span> <b>새 버전 <span id="updVer">v1.2</span></b>이 준비되었습니다.</div>
+    <div class="tx"><span class="pillnew">NEW</span> <b>새 버전 <span id="updVer">v1.3</span></b>이 준비되었습니다.</div>
     <a class="upd-a" id="updBtn" href="#" target="_top" rel="noopener">지금 새로고침</a>
   </div>
 </div>
@@ -416,13 +422,13 @@ table.tbl td b{font-weight:800}
     <div class="hero">
       <div class="hero-top">
         <span class="emblem-tile"><svg class="emblem" viewBox="0 0 512 512" aria-label="AI 인계 코파일럿 엠블럼"><use href="#ncpEmblem"/></svg></span>
-        <div class="k">NURSE HANDOVER COPILOT · v1.2</div>
+        <div class="k">NURSE HANDOVER COPILOT · v1.3</div>
       </div>
       <h1>인계 시간이 두렵지 않은 병동</h1>
       <p>SBAR 뼈대로 말하는 연습, 환자에 맞는 간호계획, 투약 금기 1차 확인,
          그리고 프리셉터와 신규가 서로를 키우는 평가까지 — 한 화면에서.</p>
       <div class="pills"><span>🗣️ 음성·텍스트 인계</span><span>💊 금기 스크리닝</span><span>📈 레벨업</span></div>
-      <div class="hero-new">v1.2 새로워진 점 — 전용 아이콘 · 마이크 정상 작동(설치형 링크) · 음성 인식 속도 개선</div>
+      <div class="hero-new">v1.3 새로워진 점 — 휴대폰 화면 글씨를 한 단계 크게(읽기 편하게) · 아이폰 마이크(홈 화면 앱·Safari) 안정화 · 받아쓰기 안내</div>
     </div>
   </div>
 
@@ -452,7 +458,7 @@ table.tbl td b{font-weight:800}
       <p>“새벽 6시 50분, 나이트 인계실. 선배들이 다 모여 앉아 있고, 내 차례가 다가오면
         손이 얼고 목소리가 갈라진다. <b>틀리면 혼나는 게 아니라, 환자가 다친다</b>는 걸 알기 때문이다.”
       </p>
-      <p style="margin-top:8px;font-size:12px;color:var(--ink3)">— 이 앱이 풀려는 문제는 지식이 아니라 <b>그 자리에서 말할 수 있는 구조</b>입니다.</p>
+      <p style="margin-top:8px;font-size:13.5px;color:var(--ink3)">— 이 앱이 풀려는 문제는 지식이 아니라 <b>그 자리에서 말할 수 있는 구조</b>입니다.</p>
     </div>
   </div>
 
@@ -614,12 +620,12 @@ table.tbl td b{font-weight:800}
       </div>
       <div class="field"><label>활력징후</label>
         <div class="grid3">
-          <div><input class="inp" id="pSbp" type="number" inputmode="numeric" value="96" placeholder="수축기"><div class="muted" style="font-size:10.5px;text-align:center;margin-top:3px">SBP</div></div>
-          <div><input class="inp" id="pDbp" type="number" inputmode="numeric" value="58" placeholder="이완기"><div class="muted" style="font-size:10.5px;text-align:center;margin-top:3px">DBP</div></div>
-          <div><input class="inp" id="pHr" type="number" inputmode="numeric" value="104" placeholder="맥박"><div class="muted" style="font-size:10.5px;text-align:center;margin-top:3px">HR</div></div>
-          <div><input class="inp" id="pRr" type="number" inputmode="numeric" value="26" placeholder="호흡"><div class="muted" style="font-size:10.5px;text-align:center;margin-top:3px">RR</div></div>
-          <div><input class="inp" id="pBt" type="number" inputmode="decimal" step="0.1" value="38.4" placeholder="체온"><div class="muted" style="font-size:10.5px;text-align:center;margin-top:3px">BT</div></div>
-          <div><input class="inp" id="pSpo2" type="number" inputmode="numeric" value="91" placeholder="SpO2"><div class="muted" style="font-size:10.5px;text-align:center;margin-top:3px">SpO2 %</div></div>
+          <div><input class="inp" id="pSbp" type="number" inputmode="numeric" value="96" placeholder="수축기"><div class="muted" style="font-size:12.5px;text-align:center;margin-top:3px">SBP</div></div>
+          <div><input class="inp" id="pDbp" type="number" inputmode="numeric" value="58" placeholder="이완기"><div class="muted" style="font-size:12.5px;text-align:center;margin-top:3px">DBP</div></div>
+          <div><input class="inp" id="pHr" type="number" inputmode="numeric" value="104" placeholder="맥박"><div class="muted" style="font-size:12.5px;text-align:center;margin-top:3px">HR</div></div>
+          <div><input class="inp" id="pRr" type="number" inputmode="numeric" value="26" placeholder="호흡"><div class="muted" style="font-size:12.5px;text-align:center;margin-top:3px">RR</div></div>
+          <div><input class="inp" id="pBt" type="number" inputmode="decimal" step="0.1" value="38.4" placeholder="체온"><div class="muted" style="font-size:12.5px;text-align:center;margin-top:3px">BT</div></div>
+          <div><input class="inp" id="pSpo2" type="number" inputmode="numeric" value="91" placeholder="SpO2"><div class="muted" style="font-size:12.5px;text-align:center;margin-top:3px">SpO2 %</div></div>
         </div>
       </div>
       <div class="grid2">
@@ -705,7 +711,7 @@ table.tbl td b{font-weight:800}
 
   <div class="sec">
     <div class="card">
-      <div class="sec-h"><h2 style="font-size:15px">✅ 고위험 약 투여 전 확인</h2></div>
+      <div class="sec-h"><h2 style="font-size:19px">✅ 고위험 약 투여 전 확인</h2></div>
       <div class="chips" id="safeChips"></div>
       <div class="muted" style="margin-top:8px">체크는 이 화면에서만 유지됩니다. 실제 병동에서는 2인 확인 기록을 남기세요.</div>
     </div>
@@ -768,7 +774,7 @@ table.tbl td b{font-weight:800}
   <div class="sec">
     <div class="card" style="padding:0;overflow:hidden">
       <div class="glass">
-        <div class="muted" style="color:#7FD8C9;font-size:11px;font-weight:800;letter-spacing:.06em">SMART GLASS PREVIEW</div>
+        <div class="muted" style="color:#7FD8C9;font-size:13px;font-weight:800;letter-spacing:.06em">SMART GLASS PREVIEW</div>
         <div class="lens" style="margin-top:8px">
           <div><span class="hl">6호실 김OO</span> · 78F · 폐렴 D3</div>
           <div style="margin-top:6px">🔴 SpO2 91% (O2 3L) · RR 26 · BT 38.4</div>
@@ -776,7 +782,7 @@ table.tbl td b{font-weight:800}
           <div>⏰ 09:00 세프트리악손 (알레르기: 페니실린)</div>
           <div style="margin-top:6px;opacity:.75">“보고할까요?” <span class="hl">[예]</span> [아니오]</div>
         </div>
-        <div class="muted" style="color:#8FB7B0;font-size:10.5px;margin-top:10px">위 화면은 3단계 비전의 개념 시안입니다.</div>
+        <div class="muted" style="color:#9CC4BC;font-size:13px;margin-top:10px">위 화면은 3단계 비전의 개념 시안입니다.</div>
       </div>
     </div>
   </div>
@@ -797,7 +803,7 @@ table.tbl td b{font-weight:800}
 <div class="wrap">
   <div class="footer global" id="appFooter">
     <div class="cp">아이디어·개발·제작·저작권: <span>김효숙</span></div>
-    <div class="cp2">티엘씨메디켈그룹 총괄운영실장 · © 김효숙 2026 · 프로토타입 v1.2</div>
+    <div class="cp2">티엘씨메디켈그룹 총괄운영실장 · © 김효숙 2026 · 프로토타입&nbsp;v1.3</div>
     <div class="nt">교육·시연용 프로토타입이며 의료기기(SaMD)가 아닙니다. 의학적 진단·처방·최종 임상 결정을 대신하지 않으며, 모든 경고는 담당 의사·약사 확인을 위한 1차 스크리닝입니다.<br>환자 개인정보(실명·등록번호 등)는 입력하지 마세요 — 연습 기록은 이 기기에만 저장되고 서버로 전송되지 않습니다.</div>
   </div>
 </div>
@@ -1394,7 +1400,7 @@ DATA.pool = [
    ========================================================= */
 var APP = (function(){
 'use strict';
-var VERSION = 'v1.2';
+var VERSION = 'v1.3';
 var EXEC_URL = 'https://script.google.com/macros/s/AKfycby8wFW-cn9rIfNlS0GpM5BOo3NRWYk5MT52G0h8-nrfous5-cfUzig9dhcLDhODtDmr/exec';
 /* GitHub Pages·로컬처럼
    독립 실행(= 최상위 문서)이면 버전은 같은 폴더의 version.json 에서 읽는다.
@@ -1429,7 +1435,7 @@ function frameGuard(){
   try{ if(window.top.location.href) return; }catch(e){}                      /* 동일 출처 미리보기는 통과 */
   var d = document.createElement('div');
   d.style.cssText = 'position:fixed;left:0;right:0;top:0;z-index:9998;background:#0F766E;color:#fff;'
-    + 'font:700 12.5px/1.5 -apple-system,sans-serif;padding:9px 12px;display:flex;gap:10px;align-items:center';
+    + 'font:700 14px/1.5 -apple-system,sans-serif;padding:9px 12px;display:flex;gap:10px;align-items:center';
   d.innerHTML = '<span style="flex:1">미리보기 창에서는 마이크가 제한됩니다.</span>'
     + '<a href="' + location.href + '" target="_blank" rel="noopener" '
     + 'style="background:#fff;color:#0F766E;border-radius:999px;padding:4px 10px;text-decoration:none">새 창에서 열기</a>';
@@ -1554,7 +1560,7 @@ function renderHand(res, text){
 
   var listHtml = '';
   if(res.missing.length){
-    listHtml = '<div class="card"><div class="sec-h"><h2 style="font-size:15px">빠진 항목 '+res.missing.length+'개</h2><span class="sub">이 항목을 넣으면 점수가 올라갑니다</span></div><ul class="checklist">'+
+    listHtml = '<div class="card"><div class="sec-h"><h2 style="font-size:19px">빠진 항목 '+res.missing.length+'개</h2><span class="sub">이 항목을 넣으면 점수가 올라갑니다</span></div><ul class="checklist">'+
       res.missing.map(function(m){
         return '<li><span class="mk r">✕</span><div><b>'+esc(m.t)+'</b> <span class="tag n">'+esc(m.sec)+'</span><small>'+esc(m.hint)+'</small></div></li>';
       }).join('')+'</ul></div>';
@@ -1573,16 +1579,16 @@ function renderHand(res, text){
   $('#handResult').innerHTML =
     '<div class="sec"><div class="card">'+
       '<div class="score"><div class="donut '+cls+'" style="--p:'+res.score+'"><i>'+res.score+'</i></div>'+
-        '<div style="flex:1"><div style="font-weight:900;font-size:15px">인계 완성도 '+res.score+'점</div>'+
+        '<div style="flex:1"><div style="font-weight:900;font-size:18px">인계 완성도 '+res.score+'점</div>'+
         '<div class="small muted" style="margin-top:3px">'+esc(verdict)+'</div>'+
         '<div class="small" style="margin-top:6px">필수 '+res.mustCov+'/'+res.mustTot+' · 선택 '+res.optCov+'/'+res.optTot+(S.custom.length?' · 병동항목 '+res.customHit+'/'+S.custom.length:'')+'</div></div>'+
       '</div>'+
       '<div class="cover" style="margin-top:14px">'+secHtml+'</div>'+
     '</div></div>'+
     listHtml+
-    '<div class="sec"><div class="card"><div class="sec-h"><h2 style="font-size:15px">구조·표현 피드백</h2></div><ul class="checklist">'+
+    '<div class="sec"><div class="card"><div class="sec-h"><h2 style="font-size:19px">구조·표현 피드백</h2></div><ul class="checklist">'+
       tips.map(function(x){ return '<li><span class="mk r">!</span><div>'+esc(x)+'</div></li>'; }).join('')+'</ul></div></div>'+
-    '<div class="sec"><div class="card"><div class="sec-h"><h2 style="font-size:15px">이렇게 말해 보세요 (모범 인계)</h2><span class="sub">'+(S.caseId?'선택한 케이스 기준':'표준 뼈대')+'</span></div>'+
+    '<div class="sec"><div class="card"><div class="sec-h"><h2 style="font-size:19px">이렇게 말해 보세요 (모범 인계)</h2><span class="sub">'+(S.caseId?'선택한 케이스 기준':'표준 뼈대')+'</span></div>'+
       '<div class="sbar">'+esc(modelAnswer()).replace(/\n/g,'<br>').replace(/\[([SBAR])\]/g,'<b>[$1]</b>')+'</div>'+
       '<div class="row" style="margin-top:12px"><button class="btn ghost sm" id="btnCopy">모범 인계 복사</button><button class="btn soft sm" id="btnAgain">다시 연습</button></div>'+
     '</div></div>';
@@ -1602,6 +1608,29 @@ function renderHand(res, text){
 function micSupport(){
   return !!(window.SpeechRecognition||window.webkitSpeechRecognition);
 }
+/* 아이폰(iOS) 감지 — iPhone·iPad(아이패드OS 데스크톱 모드 포함).
+   iOS Safari 는 continuous=true 에서 단어가 겹치거나 멈추는 일이 있어 false 로 쓰고,
+   한 문장이 끝나면(=onend) 자동으로 다시 듣는다. */
+var IS_IOS = (function(){
+  try{
+    var ua = navigator.userAgent || '';
+    if(/iPad|iPhone|iPod/.test(ua)) return true;
+    if(navigator.platform === 'MacIntel' && (navigator.maxTouchPoints||0) > 1) return true;  /* iPadOS 13+ */
+  }catch(e){}
+  return false;
+})();
+/* 홈 화면에 추가해서 연 앱(standalone)인지 — 아이폰에서 웹 마이크가 가장 자주 막히는 환경 */
+function isStandaloneApp(){
+  try{
+    if(window.navigator && window.navigator.standalone === true) return true;
+    if(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
+  }catch(e){}
+  return false;
+}
+/* 아이폰에서 웹 마이크가 막혔을 때의 안내 — 키보드 받아쓰기로 넘긴다 */
+var IOS_DICT_MSG = '아이폰 홈 화면 앱에서는 웹 마이크가 제한될 수 있어요. 입력칸을 누른 뒤 '
+  + '키보드 오른쪽 아래 🎙️(받아쓰기)를 쓰시면 한·영·숫자 모두 빠르고 정확하게 입력됩니다! '
+  + '(Safari 탭에서도 마이크 사용 가능)';
 /* 음성 인식 후처리 — 한국어로 받아쓴 영어 의학용어·단위·숫자를 화면 표기로 되돌린다. */
 var SPEECH_FIX = [
   [/에스피오투|에스피오2|에스피\s?오투/g,'SpO2'],
@@ -1630,66 +1659,144 @@ function initMic(){
   bindMic('#btnMic','#handText','#micHint');
   bindMic('#btnIss','#issText','#issHint');
 }
+/* 인계 연습(#btnMic)·이슈·인계(#btnIss) 공용 — 두 탭 모두 같은 규칙으로 동작한다. */
 function bindMic(btnSel, textSel, hintSel){
   var btn=$(btnSel), hint=$(hintSel), inp=$(textSel);
   if(!btn||!inp||!hint) return;
-  if(!micSupport()){
-    hint.innerHTML='이 브라우저에서는 음성 인식을 지원하지 않습니다. <b>아이폰·안드로이드 키보드의 마이크(받아쓰기)</b>로 말하면 똑같이 입력됩니다.';
-    btn.style.opacity='.5';
-    btn.addEventListener('click',function(){ toast('키보드의 마이크(받아쓰기)를 사용해 주세요'); });
-    return;
-  }
+  var IOSLIKE = IS_IOS || isStandaloneApp();
+  var HOMEAPP = IS_IOS && isStandaloneApp();     /* 아이폰 홈 화면 앱 */
   var SR = window.SpeechRecognition||window.webkitSpeechRecognition;
-  var rec=null, wantOn=false, base='', failStreak=0;
+  var rec=null, wantOn=false, base='', failStreak=0, quietStreak=0, restarts=0, restartAt=0, gen=0;
+
+  /* 입력칸으로 시선·커서를 옮긴다(키보드 받아쓰기를 바로 쓸 수 있게) */
+  function focusInput(scroll){
+    try{
+      inp.focus();
+      var n = String(inp.value||'').length;
+      try{ inp.setSelectionRange(n,n); }catch(e){}
+      if(scroll && inp.scrollIntoView) inp.scrollIntoView({block:'center', behavior:'smooth'});
+    }catch(e){}
+  }
+  /* 아이폰: 마이크가 막히면 헛돌지 않고 바로 멈추고 → 입력칸 포커스 + 받아쓰기 안내 */
+  function dictationFallback(){
+    stopMic(IOS_DICT_MSG);
+    focusInput(true);
+    toast('키보드 오른쪽 아래 🎙️(받아쓰기)로 입력해 보세요');
+  }
   function stopMic(msg){
-    wantOn=false;
-    try{ if(rec) rec.stop(); }catch(e){}
+    wantOn=false; gen++;                       /* 진행 중이던 인식의 콜백은 모두 무시 */
+    try{ if(rec && rec.stop) rec.stop(); }catch(e){}
+    try{ if(rec && rec.abort) rec.abort(); }catch(e){}
+    rec=null;
     btn.classList.remove('rec');
     if(msg) hint.innerHTML=msg;
   }
+
+  if(!micSupport()){
+    hint.innerHTML = IOSLIKE
+      ? '이 화면에서는 웹 음성인식을 쓸 수 없습니다. <b>입력칸을 누른 뒤 키보드 오른쪽 아래 🎙️(받아쓰기)</b>로 말하면 한·영·숫자 모두 그대로 입력됩니다.'
+      : '이 브라우저에서는 음성 인식을 지원하지 않습니다. <b>아이폰·안드로이드 키보드의 마이크(받아쓰기)</b>로 말하면 똑같이 입력됩니다.';
+    btn.style.opacity='.5';
+    btn.addEventListener('click',function(){
+      if(IOSLIKE) hint.innerHTML = IOS_DICT_MSG;
+      focusInput(true);
+      toast('키보드 오른쪽 아래 🎙️(받아쓰기)를 사용해 주세요');
+    });
+    return;
+  }
+
+  if(HOMEAPP){
+    hint.innerHTML = '아이폰 <b>홈 화면 앱</b>에서는 웹 마이크가 막힐 수 있습니다. 마이크를 눌러 보고, '
+      + '안 되면 <b>입력칸을 누른 뒤 키보드 오른쪽 아래 🎙️(받아쓰기)</b>를 쓰세요.';
+  }
+
   function startMic(){
+    var myGen = ++gen;
     try{
-      rec = new SR();
-      rec.lang='ko-KR'; rec.interimResults=true; rec.continuous=true; rec.maxAlternatives=1;
+      var r = new SR();
+      rec = r;
+      r.lang='ko-KR'; r.interimResults=true; r.maxAlternatives=1;
+      /* 아이폰(Safari·홈 화면 앱)은 continuous=true 에서 단어 중복·멈춤이 생겨 false 로 둔다. */
+      r.continuous = IS_IOS ? false : true;
       base = inp.value;
-      rec.onstart=function(){ btn.classList.add('rec'); hint.innerHTML='<b>듣고 있습니다…</b> 말이 끝나도 자동으로 다시 듣습니다. 멈추려면 다시 누르세요.'; };
-      rec.onresult=function(e){
+      r.onstart=function(){
+        if(myGen!==gen) return;
+        quietStreak=0;
+        btn.classList.add('rec');
+        hint.innerHTML = IS_IOS
+          ? '<b>듣고 있습니다…</b> 한 문장씩 받아씁니다. 말이 끝나면 자동으로 다시 듣고, 멈추려면 다시 누르세요.'
+          : '<b>듣고 있습니다…</b> 말이 끝나도 자동으로 다시 듣습니다. 멈추려면 다시 누르세요.';
+      };
+      r.onresult=function(e){
+        if(myGen!==gen) return;
         var fin='', itr='';
         for(var i=e.resultIndex;i<e.results.length;i++){
           if(e.results[i].isFinal) fin+=e.results[i][0].transcript;
           else itr+=e.results[i][0].transcript;
         }
-        if(fin){ base = (base? base.replace(/\s+$/,'')+' ':'') + normSpeech(fin); failStreak=0; }
+        if(fin){ base = (base? base.replace(/\s+$/,'')+' ':'') + normSpeech(fin); failStreak=0; quietStreak=0; }
         inp.value = base + (itr? ' '+itr : '');
       };
-      rec.onerror=function(e){
-        var err=e.error||'';
-        if(wantOn && (err==='no-speech'||err==='aborted')){ return; }        /* 자동 재시작 */
-        if(wantOn && err==='network' && failStreak < 2){ failStreak++; return; }  /* 일시 오류는 한두 번만 재시도 */
+      r.onerror=function(e){
+        if(myGen!==gen) return;
+        var err=(e && e.error) || '';
+        /* 권한 거부·마이크 없음: 아이폰이면 받아쓰기로 넘기고 종료 */
+        if(err==='not-allowed' || err==='service-not-allowed' || err==='audio-capture'){
+          failStreak=0;
+          if(IOSLIKE){ dictationFallback(); return; }
+          stopMic(err==='audio-capture'
+            ? '마이크를 찾지 못했습니다. 다른 앱이 마이크를 쓰고 있는지 확인하거나 <b>키보드의 마이크(받아쓰기)</b>를 사용해 주세요.'
+            : '마이크 권한이 막혀 있습니다. 주소창의 자물쇠(또는 설정)에서 마이크를 허용하거나 <b>키보드의 마이크(받아쓰기)</b>를 사용해 주세요.');
+          return;
+        }
+        if(err==='language-not-supported' || err==='bad-grammar'){
+          stopMic('이 브라우저는 한국어 음성 인식을 지원하지 않습니다. <b>키보드의 마이크(받아쓰기)</b>를 사용해 주세요.');
+          return;
+        }
+        if(wantOn && err==='aborted'){ return; }                    /* 멈춤·재시작 과정에서 나는 정상 신호 */
+        if(wantOn && err==='no-speech'){
+          quietStreak++;
+          if(quietStreak<=3){ return; }                             /* 잠깐 뜸을 들인 것 → 계속 듣기 */
+          if(IOSLIKE){ dictationFallback(); return; }
+        }
+        if(wantOn && err==='network' && failStreak<2){ failStreak++; return; }  /* 일시 오류는 한두 번만 재시도 */
         failStreak=0;
-        if(err==='not-allowed'||err==='service-not-allowed'){
-          stopMic('마이크 권한이 막혀 있습니다. 주소창의 자물쇠(또는 설정)에서 마이크를 허용하거나, 아이폰·안드로이드 <b>키보드의 마이크(받아쓰기)</b>를 사용해 주세요.');
-        } else if(err==='audio-capture'){
-          stopMic('마이크를 찾지 못했습니다. 다른 앱이 마이크를 쓰고 있는지 확인해 주세요.');
-        } else if(err==='network'){
+        if(err==='network'){
           stopMic('음성 인식 서버에 연결하지 못했습니다. 잠시 뒤 다시 시도하거나 <b>키보드의 마이크(받아쓰기)</b>를 사용해 주세요.');
+        } else if(err==='no-speech'){
+          stopMic('잠시 조용해서 인식을 멈췄습니다. 다시 누르면 이어서 받아씁니다. <b>키보드의 마이크(받아쓰기)</b>도 같은 방식으로 쓸 수 있습니다.');
         } else {
-          stopMic('음성 인식을 시작하지 못했습니다('+err+'). 키보드의 마이크(받아쓰기)를 사용해 주세요.');
+          stopMic('음성 인식을 시작하지 못했습니다(' + err + '). <b>키보드의 마이크(받아쓰기)</b>를 사용해 주세요.');
         }
       };
-      rec.onend=function(){
-        if(wantOn){ setTimeout(function(){ if(wantOn) startMic(); }, 220); return; }
+      r.onend=function(){
+        if(myGen!==gen) return;
+        if(wantOn){
+          var now=Date.now();
+          if(!restartAt || now-restartAt>90000){ restartAt=now; restarts=0; }   /* 90초 창에서 몇 번까지 다시 들을지 */
+          restarts++;
+          if(restarts>60){                                                     /* 헛도는 루프 차단 */
+            stopMic(IOSLIKE ? IOS_DICT_MSG
+              : '음성 인식이 반복해서 끊겼습니다. 다시 마이크를 누르거나 <b>키보드의 마이크(받아쓰기)</b>를 사용해 주세요.');
+            if(IOSLIKE) focusInput(true);
+            return;
+          }
+          setTimeout(function(){ if(wantOn && myGen===gen) startMic(); }, 220);
+          return;
+        }
         btn.classList.remove('rec');
         hint.innerHTML='다시 누르면 이어서 말할 수 있습니다. 말한 내용은 위 입력창에 쌓입니다.';
       };
-      rec.start();
+      r.start();
     }catch(err){
-      stopMic('음성 인식을 시작하지 못했습니다. 키보드의 마이크(받아쓰기)를 사용해 주세요.');
+      if(IOSLIKE){ dictationFallback(); return; }                 /* iOS: 제스처 없이 시작 불가 등 */
+      stopMic('음성 인식을 시작하지 못했습니다. <b>키보드의 마이크(받아쓰기)</b>를 사용해 주세요.');
     }
   }
   btn.addEventListener('click',function(){
     if(wantOn){ stopMic('음성을 멈췄습니다. 다시 누르면 이어서 받아씁니다.'); return; }
-    wantOn=true; startMic();
+    wantOn=true; restarts=0; restartAt=0; quietStreak=0;
+    startMic();
   });
 }
 
@@ -1705,7 +1812,7 @@ function guideSheet(){
     html+='<div style="margin-bottom:14px"><div class="tag" style="background:'+sec.color+'1a;color:'+sec.color+'">'+sec.key+' · '+esc(sec.name)+'</div>'+
       '<div class="muted" style="margin:5px 0 6px">'+esc(sec.desc)+'</div><ul class="checklist">'+
       sec.items.map(function(it){
-        return '<li><span class="mk '+(it.must?'y':'n')+'">'+(it.must?'●':'○')+'</span><div><b>'+esc(it.t)+'</b>'+(it.must?' <span class="tag r" style="padding:1px 5px;font-size:10px">필수</span>':'')+'<small>'+esc(it.hint)+'</small></div></li>';
+        return '<li><span class="mk '+(it.must?'y':'n')+'">'+(it.must?'●':'○')+'</span><div><b>'+esc(it.t)+'</b>'+(it.must?' <span class="tag r" style="padding:1px 6px;font-size:12px">필수</span>':'')+'<small>'+esc(it.hint)+'</small></div></li>';
       }).join('')+'</ul></div>';
   });
   html+='<div class="alert a-blu"><div class="ah">말할 때 이 세 문장을 습관으로</div><div class="why">① “제가 이해한 게 맞는지 확인하겠습니다”(read-back)<br>② “이 부분은 제가 모르겠습니다. 확인해 보겠습니다”<br>③ “지금 말씀하신 것 중 ○○이 가장 급해 보입니다”</div></div>';
@@ -1737,8 +1844,8 @@ function renderCustomList(){
   if(!S.custom.length){ box.innerHTML='<div class="empty">아직 추가한 항목이 없습니다.<br>예: “격리 표시 확인”, “보호자 연락처”, “욕창 재평가”</div>'; return; }
   box.innerHTML=S.custom.map(function(c,i){
     return '<div style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)">'+
-      '<div style="flex:1"><b style="font-size:13px">'+esc(c.name)+'</b><div class="muted" style="font-size:11.5px">찾는 말: '+esc(c.kw)+'</div></div>'+
-      '<button class="btn gray sm" data-del="'+i+'" style="width:auto;padding:6px 10px;font-size:12px">삭제</button></div>';
+      '<div style="flex:1"><b style="font-size:15px">'+esc(c.name)+'</b><div class="muted" style="font-size:13px">찾는 말: '+esc(c.kw)+'</div></div>'+
+      '<button class="btn gray sm" data-del="'+i+'" style="width:auto;padding:6px 10px;font-size:13.5px">삭제</button></div>';
   }).join('');
   $$('[data-del]',box).forEach(function(b){
     b.addEventListener('click',function(){ S.custom.splice(+b.getAttribute('data-del'),1); store('ncp_custom',S.custom); $('#customCount').textContent=S.custom.length; renderCustomList(); toast('삭제했습니다'); });
@@ -1853,12 +1960,12 @@ function genPlan(){
   var alertBox = P.filter(function(x){return x.s===1;});
   var html =
     '<div class="sec"><div class="card">'+
-      '<div class="sec-h"><h2 style="font-size:16px">'+esc(dm.name)+' · 우선순위</h2><span class="sub">'+esc(dm.focus)+'</span></div>'+
+      '<div class="sec-h"><h2 style="font-size:19px">'+esc(dm.name)+' · 우선순위</h2><span class="sub">'+esc(dm.focus)+'</span></div>'+
       (alertBox.length ? '<div class="alert a-red"><div class="ah">🔴 지금 먼저 볼 것 '+alertBox.length+'가지</div><div class="why">'+alertBox.slice(0,3).map(function(x){return esc(x.p);}).join(' · ')+((alertBox.length>3)?' 외 '+(alertBox.length-3)+'개':'')+'</div></div>' : '<div class="alert a-grn"><div class="ah">✅ 즉시 위험 신호 없음</div><div class="why">정해진 관찰 주기와 보고 기준을 유지하세요.</div></div>')+
       '<div class="chips" style="margin-top:10px">'+dm.watch.map(function(w){return '<span class="tag b">👁 '+esc(w)+'</span>';}).join('')+'</div>'+
     '</div></div>'+
 
-    '<div class="sec"><div class="card"><div class="sec-h"><h2 style="font-size:16px">간호계획·수행</h2><span class="sub">위험한 순서</span></div>'+
+    '<div class="sec"><div class="card"><div class="sec-h"><h2 style="font-size:19px">간호계획·수행</h2><span class="sub">위험한 순서</span></div>'+
       P.slice(0,9).map(function(x){
         return '<div class="pcard" style="border-left-color:'+(x.s===1?'var(--red)':x.s===2?'var(--org)':'var(--pp)')+'">'+
           '<div class="ph"><span class="tag '+(x.s===1?'r':x.s===2?'o':'n')+'">'+(x.s===1?'우선':x.s===2?'주의':'기본')+'</span><h4>'+esc(x.p)+'</h4></div>'+
@@ -1868,12 +1975,12 @@ function genPlan(){
       }).join('')+
     '</div></div>'+
 
-    '<div class="sec"><div class="card"><div class="sec-h"><h2 style="font-size:16px">인계 초안 (자동)</h2><span class="sub">그대로 읽고 고쳐 쓰세요</span></div>'+
+    '<div class="sec"><div class="card"><div class="sec-h"><h2 style="font-size:19px">인계 초안 (자동)</h2><span class="sub">그대로 읽고 고쳐 쓰세요</span></div>'+
       '<div class="sbar">'+esc(sbar).replace(/\n/g,'<br>').replace(/\[([SBAR])\]/g,'<b>[$1]</b>')+'</div>'+
       '<div class="muted" style="margin-top:10px">※ 자동 초안입니다. 병실·이름·입원일·검사 결과는 직접 채우세요.</div>'+
     '</div></div>'+
 
-    '<div class="sec"><div class="card"><div class="sec-h"><h2 style="font-size:16px">이 환자에서 특히 조심할 것</h2></div><ul class="checklist">'+
+    '<div class="sec"><div class="card"><div class="sec-h"><h2 style="font-size:19px">이 환자에서 특히 조심할 것</h2></div><ul class="checklist">'+
       dm.caution.map(function(c){ return '<li><span class="mk r">!</span><div>'+esc(c)+'</div></li>'; }).join('')+
       (allergy.length? '<li><span class="mk r">!</span><div>알레르기('+esc(allergy.join(', '))+') — 투여 전 2인 확인</div></li>':'')+
     '</ul></div></div>';
@@ -1938,7 +2045,7 @@ function screen(){
   var lvName={red:'금기 · 투여 전 반드시 확인',org:'주의 · 모니터링 필요',yel:'확인 · 정보 부족 또는 상한',green:'이상 없음'};
   var lvCls={red:'a-red',org:'a-org',yellow:'a-yel',yel:'a-yel',green:'a-grn'};
 
-  var html='<div class="card"><div class="sec-h"><h2 style="font-size:16px">스크리닝 결과</h2><span class="sub">1차 규칙 기반</span></div>';
+  var html='<div class="card"><div class="sec-h"><h2 style="font-size:19px">스크리닝 결과</h2><span class="sub">1차 규칙 기반</span></div>';
   if(!c.drugs.length){
     html+='<div class="alert a-yel"><div class="ah">⚠️ 약 이름을 찾지 못했습니다</div><div class="why">입력한 처방에서 등록된 약 이름을 확인하지 못했습니다. 성분명으로 다시 입력해 주세요(예: 세프트리악손, 케토롤락, 와파린).</div></div>';
   }
@@ -2058,7 +2165,7 @@ function renderEval(){
   $('#evalDesc').textContent=d.desc;
   S.evalAns={}; S.evalAns.ans=[];
   $('#evalItems').innerHTML = d.items.map(function(it,i){
-    return '<div class="qitem"><div class="qh"><span class="no">'+(i+1)+'</span><div>'+esc(it.t)+(it.safe?' <span class="tag r" style="padding:1px 6px;font-size:10px">안전</span>':'')+'</div></div>'+
+    return '<div class="qitem"><div class="qh"><span class="no">'+(i+1)+'</span><div>'+esc(it.t)+(it.safe?' <span class="tag r" style="padding:1px 6px;font-size:12px">안전</span>':'')+'</div></div>'+
       '<div class="scale" data-q="'+i+'">'+[1,2,3,4,5].map(function(n){
         return '<button data-v="'+n+'">'+n+'</button>';
       }).join('')+'</div></div>';
@@ -2109,7 +2216,7 @@ function evalResult(){
 
   var html='<div class="sec"><div class="card">'+
     '<div class="score"><div class="donut '+(avg>=4.5?'grad':avg>=3.5?'':'warn')+'" style="--p:'+score+'"><i>'+score+'</i></div>'+
-      '<div style="flex:1"><div style="font-weight:900;font-size:15px">'+esc(verdict)+'</div>'+
+      '<div style="flex:1"><div style="font-weight:900;font-size:18px">'+esc(verdict)+'</div>'+
       '<div class="small muted" style="margin-top:3px">평균 '+avg.toFixed(2)+' / 5 · 안전문항 '+safeAvg.toFixed(2)+'</div>'+
       '<div class="small" style="margin-top:6px">'+esc(vtext)+'</div></div></div>'+
     '<div class="divider"></div>'+
@@ -2126,7 +2233,7 @@ function evalResult(){
 function renderPool(){
   var b=$('#poolBody'); if(!b) return;
   b.innerHTML=DATA.pool.map(function(p){
-    return '<tr><td><b>'+esc(p.name)+'</b><br><span class="muted" style="font-size:10.5px">'+esc(p.role)+'</span></td>'+
+    return '<tr><td><b>'+esc(p.name)+'</b><br><span class="muted" style="font-size:13px">'+esc(p.role)+'</span></td>'+
       '<td>'+p.n.toFixed(1)+'</td><td>'+p.s.toFixed(1)+'</td>'+
       '<td><span class="pill lv '+p.c+'">'+esc(p.cert)+'</span></td></tr>';
   }).join('');
@@ -2135,8 +2242,8 @@ function renderLevels(){
   var box=$('#levelCards'); if(!box) return;
   box.innerHTML=DATA.levels.map(function(l){
     return '<div class="card" style="padding:13px 15px"><div style="display:flex;align-items:center;gap:8px">'+
-      '<span class="pill lv '+l.c+'" style="font-size:12px;padding:3px 10px">'+l.lv+'</span>'+
-      '<b style="font-size:14px">'+esc(l.name)+'</b><span class="muted" style="font-size:11.5px">'+esc(l.period)+'</span></div>'+
+      '<span class="pill lv '+l.c+'" style="font-size:13.5px;padding:3px 10px">'+l.lv+'</span>'+
+      '<b style="font-size:16px">'+esc(l.name)+'</b><span class="muted" style="font-size:13px">'+esc(l.period)+'</span></div>'+
       '<div class="small" style="margin-top:6px;color:var(--ink2);line-height:1.6">'+esc(l.desc)+'</div>'+
       '<div class="muted" style="margin-top:4px">기준: '+esc(l.need)+'</div></div>';
   }).join('');
@@ -2447,10 +2554,10 @@ function buildSbar(show){
     '<div class="sb b"><div class="k">B 배경</div><div class="v">'+bgHtml+'</div></div>'+
     '<div class="sb a"><div class="k">A 사정</div><div class="v">'+(p.A.length?esc(p.A.join('\n')):'〈등록된 사정 항목 없음〉')+'</div></div>'+
     '<div class="sb r"><div class="k">R 요청·인계할 일</div><div class="v">'+(p.R.length?esc(p.R.join('\n')):'〈등록된 요청 항목 없음〉')+'</div></div>'+
-    '<div style="margin-top:10px"><div class="k" style="font-size:12.5px;font-weight:900;color:var(--ink)">✅ 인계 전 체크 포인트</div><ul class="pts">'+
+    '<div style="margin-top:10px"><div class="k" style="font-size:14.5px;font-weight:900;color:var(--ink)">✅ 인계 전 체크 포인트</div><ul class="pts">'+
       p.points.map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('')+'</ul></div>'+
-    '<div style="margin-top:10px"><div class="k" style="font-size:12.5px;font-weight:900;color:var(--ink)">한 번에 말하기 (초안)</div>'+
-      '<textarea class="inp" readonly id="sbarDraft" style="min-height:120px;margin-top:6px;font-size:12.5px;line-height:1.7">'+esc(sbarDraft(p))+'</textarea>'+
+    '<div style="margin-top:10px"><div class="k" style="font-size:14.5px;font-weight:900;color:var(--ink)">한 번에 말하기 (초안)</div>'+
+      '<textarea class="inp" readonly id="sbarDraft" style="min-height:130px;margin-top:6px;font-size:16px;line-height:1.7">'+esc(sbarDraft(p))+'</textarea>'+
       '<div class="row" style="margin-top:8px"><button class="btn ghost sm" id="btnSbarCopy">📋 초안 복사</button></div></div>';
   var cp=$('#btnSbarCopy'); if(cp) cp.addEventListener('click',function(){ copyText(sbarDraft(p),'SBAR 초안을 복사했습니다'); });
   if(show) toast('SBAR로 정리했습니다');
