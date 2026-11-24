@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="AI 인계 코파일럿 — 간호 십자와 음성 파형">
+  <title>AI 인계 코파일럿</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.55" stop-color="#F4FCFA"/>
+      <stop offset="1" stop-color="#E3F6F0"/>
+    </linearGradient>
+    <linearGradient id="cross" gradientUnits="userSpaceOnUse" x1="120" y1="110" x2="392" y2="398">
+      <stop offset="0" stop-color="#2DD4BF"/>
+      <stop offset="0.48" stop-color="#14B8A6"/>
+      <stop offset="1" stop-color="#0F766E"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0F766E"/>
+      <stop offset="1" stop-color="#0A5650"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.45" r="0.55">
+      <stop offset="0" stop-color="#14B8A6" stop-opacity="0.18"/>
+      <stop offset="0.7" stop-color="#14B8A6" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#14B8A6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="512" height="512" rx="116" fill="url(#bg)"/>
+  <circle cx="250" cy="250" r="208" fill="url(#halo)"/>
+  <circle cx="250" cy="250" r="196" fill="none" stroke="#C6EBE4" stroke-width="6" opacity="0.9"/>
+
+  <!-- 간호 십자 (대칭) -->
+  <g fill="url(#cross)">
+    <rect x="204" y="112" width="92" height="276" rx="26"/>
+    <rect x="112" y="204" width="276" height="92" rx="26"/>
+  </g>
+  <!-- 상단 하이라이트 -->
+  <path d="M204 138 a26 26 0 0 1 26 -26 h40 v92 h-66 z" fill="#FFFFFF" opacity="0.13"/>
+  <path d="M138 204 a26 26 0 0 1 26 -26 h40 v28 h-66 z" fill="#FFFFFF" opacity="0.13"/>
+
+  <!-- 생체 파형 (AI pulse) -->
+  <path d="M128 250 h56 l14 -20 16 46 20 -70 18 86 16 -42 10 20 h56"
+        fill="none" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" opacity="0.97"/>
+
+  <!-- 음성 파형 배지 -->
+  <circle cx="388" cy="388" r="62" fill="url(#badge)" stroke="#FFFFFF" stroke-width="10"/>
+  <g fill="#FFFFFF">
+    <rect x="360" y="377" width="10" height="22" rx="5"/>
+    <rect x="377" y="366" width="10" height="44" rx="5"/>
+    <rect x="394" y="357" width="10" height="62" rx="5"/>
+    <rect x="411" y="373" width="10" height="30" rx="5"/>
+  </g>
+</svg>
