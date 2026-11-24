@@ -1,0 +1,3066 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0E8F7E">
+<title>TLC 인수인계 · 티엘씨 청담·분당 실무 인수인계</title>
+<meta name="description" content="티엘씨 청담의원·분당클리닉 실무 인수인계 — 간호 파트(수액·시술·검사·백신·약품·응급)와 접수 파트(예약·수납·서류·문의·마감) 분리, 수액 계산·실시간 베드 타이머, 파트별 SBAR 인계문">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TLC 인수인계 · 티엘씨 청담·분당">
+<meta property="og:description" content="간호 파트 / 접수 파트 분리 실무 인수인계 — 수액 계산·베드 타이머, 파트 점검, SBAR 인계문">
+<meta property="og:image" content="https://tlcmediclinic.github.io/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:url" content="https://tlcmediclinic.github.io/clinic-nurse-ai/">
+<link rel="apple-touch-icon" sizes="180x180" href="https://tlcmediclinic.github.io/icon-180.png">
+<link rel="icon" type="image/png" href="https://tlcmediclinic.github.io/icon-180.png">
+<script>
+window.__errs=[];
+window.onerror=function(m,src,l,c){
+  window.__errs.push(m+' @'+l+':'+c);
+  try{ var d=document.getElementById('jsErr')||document.createElement('div');
+    d.id='jsErr'; d.style.cssText='position:fixed;left:0;right:0;top:0;z-index:9999;background:#C62238;color:#fff;font:12px/1.5 monospace;padding:8px 10px';
+    d.textContent='JS ERROR: '+m+' (line '+l+')'; document.body && document.body.appendChild(d);
+  }catch(e){}
+};
+</script>
+<style>:root{
+  --pp:#0E8F7E; --pp-d:#0A6F62; --pp-l:#E3F6F2; --pp-l2:#F1FBF9;
+  --ink:#152A28; --ink2:#4E6663; --ink3:#7F9694;
+  --bg:#F2F8F7; --card:#FFFFFF; --line:#E1EDEB;
+  --red:#E8455F; --red-l:#FDEDF0; --org:#E78323; --org-l:#FFF4E6;
+  --yel:#C08A10; --yel-l:#FFF8E2; --grn:#1F9E68; --grn-l:#E9F8F1;
+  --blue:#2B7BE4; --blue-l:#EAF2FE; --coral:#EF6F5B;
+  --sh:0 4px 18px rgba(16,60,55,.07); --sh2:0 12px 32px rgba(16,60,55,.14);
+  --r:18px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  padding-bottom:88px}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+h1,h2,h3,h4{margin:0;line-height:1.3;letter-spacing:-.02em}
+p{margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 14px}
+.hide{display:none!important}
+
+/* ---------- top ---------- */
+.top{position:sticky;top:0;z-index:40;background:rgba(242,248,247,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:9px;height:58px}
+.logo{width:34px;height:34px;border-radius:11px;background:linear-gradient(140deg,#28B7A0,#0A7A6B);color:#fff;
+  display:grid;place-items:center;font-size:17px;flex:0 0 auto;box-shadow:0 4px 12px rgba(14,143,126,.3)}
+.brand{font-weight:800;font-size:14.5px;letter-spacing:-.03em;line-height:1.2}
+.brand small{display:block;font-weight:600;font-size:10.5px;color:var(--ink3);letter-spacing:0}
+.vwrap{display:flex;align-items:center;gap:6px;margin-left:auto}
+.vbadge{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--pp);
+  background:var(--pp-l);border-radius:999px;padding:5px 10px;white-space:nowrap;text-decoration:none}
+.vbadge .dot{width:6px;height:6px;border-radius:50%;background:var(--grn)}
+.vbadge:active{background:#D2EFE9}
+.rbtn{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(--ink2);
+  background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:4.5px 9px;white-space:nowrap;text-decoration:none}
+.rbtn:active{background:var(--pp-l);border-color:#C9E9E3;color:var(--pp)}
+.updbar{display:none;background:linear-gradient(120deg,#FFB020,#F08A00);color:#fff;position:sticky;top:58px;z-index:39;
+  box-shadow:0 4px 14px rgba(240,138,0,.28)}
+.updbar.on{display:block;animation:updslide .35s ease}
+@keyframes updslide{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+.updbar .in{display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:12.5px;line-height:1.35;max-width:1080px;margin:0 auto}
+.updbar .tx{flex:1;min-width:0}
+.upd-a{flex:0 0 auto;background:#fff;color:#B5620A;font-weight:800;font-size:12px;border-radius:999px;
+  padding:6px 12px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+
+/* ---------- generic ---------- */
+.sec{margin:18px 0}
+.sec-h{display:flex;align-items:baseline;gap:8px;margin:0 2px 10px;flex-wrap:wrap}
+.sec-h h2{font-size:17px}
+.sec-h .sub{font-size:12px;color:var(--ink3)}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:16px}
+.card+.card{margin-top:12px}
+.muted{color:var(--ink3);font-size:12.5px}
+.small{font-size:12.5px}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;border-radius:999px;padding:3px 9px;background:var(--pp-l);color:var(--pp)}
+.tag.g{background:var(--grn-l);color:var(--grn)} .tag.r{background:var(--red-l);color:var(--red)}
+.tag.o{background:var(--org-l);color:var(--org)} .tag.y{background:var(--yel-l);color:var(--yel)}
+.tag.b{background:var(--blue-l);color:var(--blue)} .tag.n{background:#EEF3F2;color:var(--ink2)}
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:14px 16px;border-radius:14px;
+  background:var(--pp);color:#fff;font-weight:800;font-size:15px;box-shadow:0 6px 16px rgba(14,143,126,.24);
+  transition:transform .07s,box-shadow .15s,background .15s;user-select:none}
+.btn:active{transform:scale(.975);box-shadow:0 2px 8px rgba(14,143,126,.18)}
+.btn.ghost{background:#fff;color:var(--pp);border:1.5px solid #C9E9E3;box-shadow:none}
+.btn.ghost:active{background:var(--pp-l)}
+.btn.soft{background:var(--pp-l);color:var(--pp-d);box-shadow:none;font-weight:700}
+.btn.sm{padding:10px 12px;font-size:13px;border-radius:11px}
+.btn.gray{background:#EEF3F2;color:var(--ink2);box-shadow:none}
+.btn.red{background:var(--red);box-shadow:0 6px 16px rgba(232,69,95,.25)}
+.btn.coral{background:var(--coral);box-shadow:0 6px 16px rgba(239,111,91,.25)}
+.btn:disabled{opacity:.55}
+.row{display:flex;gap:8px}
+.row>*{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font-size:13px;font-weight:700;color:var(--ink2);transition:all .12s}
+.chip:active{transform:scale(.96)}
+.chip.on{background:var(--pp);border-color:var(--pp);color:#fff;box-shadow:0 4px 12px rgba(14,143,126,.2)}
+.field{margin-bottom:12px}
+.field>label{display:block;font-size:12px;font-weight:800;color:var(--ink2);margin:0 0 6px 2px;letter-spacing:-.01em}
+.inp,select.inp,textarea.inp{width:100%;border:1.5px solid var(--line);background:#FAFDFC;border-radius:12px;padding:12px 13px;font-size:15px;outline:none;transition:border .15s,background .15s}
+.inp:focus,textarea.inp:focus{border-color:var(--pp);background:#fff;box-shadow:0 0 0 3px rgba(14,143,126,.1)}
+textarea.inp{resize:vertical;min-height:104px;line-height:1.7}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.empty{text-align:center;color:var(--ink3);font-size:13px;padding:22px 10px}
+.divider{height:1px;background:var(--line);margin:14px 0}
+
+/* ---------- home ---------- */
+.hero{background:linear-gradient(150deg,#0E8F7E,#22AE96 55%,#5FCBB6);border-radius:24px;color:#fff;padding:22px 20px 20px;
+  box-shadow:0 14px 34px rgba(14,143,126,.26);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.13);right:-70px;top:-90px}
+.hero:before{content:"";position:absolute;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.09);left:-50px;bottom:-70px}
+.hero .k{font-size:11.5px;font-weight:800;opacity:.92;letter-spacing:.02em}
+.hero h1{font-size:21px;margin:6px 0 8px;letter-spacing:-.04em;position:relative}
+.hero p{font-size:13px;opacity:.94;line-height:1.62;position:relative}
+.hero .pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;position:relative}
+.hero .pills span{background:rgba(255,255,255,.22);border-radius:999px;padding:5px 10px;font-size:11.5px;font-weight:700}
+.quote{margin:0;padding:14px 16px;background:#fff;border-left:4px solid var(--pp);border-radius:0 14px 14px 0;box-shadow:var(--sh)}
+.quote p{font-size:13.5px;color:var(--ink2);line-height:1.75}
+.quote b{color:var(--ink)}
+.feats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.feat{background:#fff;border-radius:18px;box-shadow:var(--sh);padding:15px 14px;text-align:left;transition:transform .08s,box-shadow .15s}
+.feat:active{transform:scale(.975);box-shadow:var(--sh2)}
+.feat .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:19px;margin-bottom:9px}
+.feat h3{font-size:14px;margin-bottom:3px}
+.feat p{font-size:11.5px;color:var(--ink3);line-height:1.45}
+.steps{display:grid;gap:10px}
+.step{display:flex;gap:11px;align-items:flex-start;background:#fff;border-radius:14px;padding:13px 14px;box-shadow:var(--sh)}
+.step .n{flex:0 0 24px;height:24px;border-radius:8px;background:var(--pp-l);color:var(--pp);font-weight:800;font-size:12px;display:grid;place-items:center}
+.step h4{font-size:13.5px} .step p{font-size:12px;color:var(--ink3);line-height:1.5}
+
+/* ---------- tabs ---------- */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+.tabbar .inner{max-width:1080px;margin:0 auto;display:flex;justify-content:space-around;gap:2px}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px 4px;border-radius:12px;color:var(--ink3);
+  font-size:10px;font-weight:700;transition:background .15s,color .15s,transform .08s;white-space:nowrap;overflow:hidden}
+.tb:active{transform:scale(.94)}
+.tb .i{font-size:19px;line-height:1}
+.tb.on{color:var(--pp);background:var(--pp-l)}
+
+/* ---------- handover ---------- */
+.cover{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cov{flex:1;min-width:52px;background:#EEF3F2;border-radius:11px;padding:8px 4px;text-align:center;border:1.5px solid transparent;transition:all .15s}
+.cov .l{font-size:10px;font-weight:800;color:var(--ink3)}
+.cov .v{font-size:14px;font-weight:900;margin-top:1px}
+.cov.ok{background:var(--grn-l);border-color:#BCE9D6} .cov.ok .v{color:var(--grn)} .cov.ok .l{color:var(--grn)}
+.cov.miss{background:var(--red-l);border-color:#F8CFD8} .cov.miss .v{color:var(--red)} .cov.miss .l{color:var(--red)}
+.cov.part{background:var(--org-l);border-color:#FBE0BE} .cov.part .v{color:var(--org)} .cov.part .l{color:var(--org)}
+.score{display:flex;align-items:center;gap:14px}
+.donut{width:86px;height:86px;flex:0 0 86px;border-radius:50%;display:grid;place-items:center;position:relative;
+  background:conic-gradient(var(--pp) calc(var(--p)*1%), #E4EDEB 0)}
+.donut i{position:absolute;inset:8px;background:#fff;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:20px;color:var(--pp)}
+.donut.grad{background:conic-gradient(var(--grn) calc(var(--p)*1%), #E9F8F1 0)}
+.donut.grad i{color:var(--grn)}
+.donut.warn{background:conic-gradient(var(--org) calc(var(--p)*1%), #FFF4E6 0)} .donut.warn i{color:var(--org)}
+.donut.bad{background:conic-gradient(var(--red) calc(var(--p)*1%), #FDEDF0 0)} .donut.bad i{color:var(--red)}
+.checklist{list-style:none;margin:0;padding:0}
+.checklist li{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.checklist li:last-child{border-bottom:none}
+.checklist .mk{flex:0 0 18px;font-weight:900;font-size:13px;line-height:1.5}
+.checklist .mk.y{color:var(--grn)} .checklist .mk.n{color:#C9D6D3}
+.checklist .mk.r{color:var(--red)}
+.checklist small{display:block;color:var(--ink3);font-size:11.5px;line-height:1.45}
+.microw{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.mic{flex:0 0 auto;width:52px;height:52px;border-radius:50%;background:var(--pp);color:#fff;font-size:22px;display:grid;place-items:center;
+  box-shadow:0 6px 18px rgba(14,143,126,.28);transition:transform .08s,background .2s}
+.mic:active{transform:scale(.94)}
+.mic.rec{background:var(--red);animation:pulse 1.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,69,95,.45)}70%{box-shadow:0 0 0 16px rgba(232,69,95,0)}100%{box-shadow:0 0 0 0 rgba(232,69,95,0)}}
+.mic-hint{font-size:12px;color:var(--ink3);line-height:1.45}
+.mic-hint b{color:var(--pp)}
+.bar{height:7px;border-radius:99px;background:#E6EFED;overflow:hidden;margin-top:6px}
+.bar>i{display:block;height:100%;border-radius:99px;background:var(--pp);transition:width .5s}
+.bar.g>i{background:var(--grn)} .bar.o>i{background:var(--org)} .bar.r>i{background:var(--red)}
+.cases{display:grid;gap:9px}
+.case{display:flex;gap:11px;align-items:flex-start;background:#fff;border-radius:14px;padding:12px 13px;box-shadow:var(--sh);
+  border:1.5px solid transparent;text-align:left;transition:all .12s;width:100%}
+.case.on{border-color:var(--pp);background:var(--pp-l2);box-shadow:0 6px 18px rgba(14,143,126,.13)}
+.case:active{transform:scale(.99)}
+.case .ce{flex:0 0 34px;height:34px;border-radius:11px;background:var(--pp-l);display:grid;place-items:center;font-size:17px}
+.case .cb{flex:1;min-width:0}
+.case .ct{font-size:13.5px;font-weight:800;line-height:1.35}
+.case .cs{font-size:11.5px;color:var(--ink3);line-height:1.45;margin-top:2px}
+
+/* ---------- issues ---------- */
+.is-item{display:flex;gap:9px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
+.is-item:last-child{border-bottom:0}
+.is-t{flex:0 0 auto;font:800 11.5px/1 ui-monospace,monospace;color:var(--pp);background:var(--pp-l);border-radius:7px;padding:5px 6px}
+.is-mid{flex:1;min-width:0}
+.is-top{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:3px}
+.is-tx{font-size:13px;line-height:1.5;color:var(--ink);word-break:keep-all}
+.is-item.done .is-tx{text-decoration:line-through;color:var(--ink3)}
+.is-ops{display:flex;gap:4px;flex:0 0 auto}
+.is-ops button{width:29px;height:29px;border-radius:9px;background:#EEF3F2;font-size:14px;display:grid;place-items:center;color:var(--ink2)}
+.is-ops button:active{transform:scale(.92)}
+.is-ops button.ok{background:var(--grn-l);color:var(--grn)}
+.is-ops button.del{background:var(--red-l);color:var(--red)}
+.sb{border-left:3px solid var(--pp);background:#FAFDFC;border-radius:0 11px 11px 0;padding:9px 11px;margin-bottom:8px}
+.sb .k{font-weight:900;font-size:12.5px;color:var(--pp)}
+.sb .v{font-size:12.5px;line-height:1.62;color:var(--ink2);margin-top:4px;white-space:pre-wrap;word-break:keep-all}
+.sb.b{border-color:var(--blue)} .sb.b .k{color:var(--blue)}
+.sb.a{border-color:var(--grn)} .sb.a .k{color:var(--grn)}
+.sb.r{border-color:var(--org)} .sb.r .k{color:var(--org)}
+.pts{margin:6px 0 0;padding-left:0;list-style:none}
+.pts li{font-size:12px;color:var(--ink2);line-height:1.6;padding:2px 0 2px 16px;position:relative}
+.pts li:before{content:'·';position:absolute;left:5px;font-weight:900;color:var(--pp)}
+.day{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.day:last-child{border-bottom:0}
+.day .d-date{flex:0 0 auto;text-align:center;background:var(--pp-l);border-radius:10px;padding:7px 9px;min-width:58px}
+.day .d-date b{display:block;font-size:12.5px;color:var(--pp);font-weight:900}
+.day .d-date span{font-size:10px;color:var(--ink3);font-weight:700}
+.day .d-mid{flex:1;min-width:0}
+.day .d-t{font-size:12.8px;font-weight:800;color:var(--ink);margin-bottom:2px}
+.day .d-s{font-size:11.5px;color:var(--ink3);line-height:1.5}
+.day .d-btns{display:flex;gap:4px;margin-top:7px;flex-wrap:wrap}
+.day .d-btns button{font-size:11px;font-weight:800;border-radius:8px;padding:6px 9px;background:#EEF3F2;color:var(--ink2)}
+.day .d-btns button.p{background:var(--pp-l);color:var(--pp-d)}
+.day .d-btns button:active{transform:scale(.96)}
+
+/* ---------- drug ---------- */
+.alert{border-radius:14px;padding:13px 14px;margin-bottom:10px;border:1px solid transparent}
+.alert .ah{display:flex;align-items:center;gap:7px;font-weight:800;font-size:14px;margin-bottom:4px}
+.alert .why{font-size:12.5px;line-height:1.6;color:var(--ink2)}
+.alert .act{margin-top:8px;font-size:12.5px;line-height:1.6;background:rgba(255,255,255,.72);border-radius:9px;padding:8px 10px}
+.alert .act b{display:block;font-size:11px;color:var(--ink3);margin-bottom:2px}
+.a-red{background:var(--red-l);border-color:#F8CFD8} .a-red .ah{color:#B7223B}
+.a-org{background:var(--org-l);border-color:#FAE2C4} .a-org .ah{color:#B5620A}
+.a-yel{background:var(--yel-l);border-color:#F4E7B4} .a-yel .ah{color:#8A6C05}
+.a-grn{background:var(--grn-l);border-color:#BCE9D6} .a-grn .ah{color:#137A50}
+.a-blu{background:var(--blue-l);border-color:#C9DDFB} .a-blu .ah{color:#1B5DB3}
+.calc-tabs{display:flex;gap:5px;background:#EEF3F2;padding:4px;border-radius:12px;margin-bottom:12px;overflow-x:auto}
+.calc-tabs button{flex:1 0 auto;padding:9px 8px;border-radius:9px;font-size:12px;font-weight:800;color:var(--ink2);white-space:nowrap}
+.calc-tabs button.on{background:#fff;color:var(--pp);box-shadow:0 2px 8px rgba(16,60,55,.08)}
+.res-box{margin-top:12px;background:var(--pp-l2);border:1px solid #CDEAE4;border-radius:14px;padding:14px}
+.res-box .big{font-size:24px;font-weight:900;color:var(--pp-d);letter-spacing:-.02em}
+.res-box .ln{font-size:12px;color:var(--ink2);margin-top:3px;line-height:1.6}
+.res-box.warn{background:var(--org-l);border-color:#F7DFBE}
+.res-box.warn .big{color:#B5620A}
+
+/* ---------- eval ---------- */
+.qitem{background:#fff;border-radius:14px;padding:13px 14px;box-shadow:var(--sh);margin-bottom:9px}
+.qitem .qh{display:flex;gap:8px;font-size:13.5px;line-height:1.5;margin-bottom:10px}
+.qitem .qh .no{flex:0 0 20px;height:20px;border-radius:6px;background:var(--pp-l);color:var(--pp);font-size:11px;font-weight:800;display:grid;place-items:center;margin-top:1px}
+.scale{display:flex;gap:5px}
+.scale button{flex:1;padding:9px 0;border-radius:9px;background:#F2F7F6;font-size:12.5px;font-weight:800;color:var(--ink3);border:1.5px solid transparent;transition:all .1s}
+.scale button:active{transform:scale(.95)}
+.scale button.on{background:var(--pp);color:#fff;border-color:var(--pp);box-shadow:0 3px 10px rgba(14,143,126,.22)}
+.scale button.on.safe{background:var(--red);border-color:var(--red);box-shadow:0 3px 10px rgba(232,69,95,.22)}
+table.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+table.tbl th,table.tbl td{padding:9px 8px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl th{font-size:11px;color:var(--ink3);font-weight:800;background:#FAFDFC}
+table.tbl td b{font-weight:800}
+.pill{display:inline-block;font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 8px}
+.lv{background:var(--pp-l);color:var(--pp)} .lv.g{background:var(--grn-l);color:var(--grn)} .lv.o{background:var(--org-l);color:var(--org)} .lv.r{background:var(--red-l);color:var(--red)}
+
+/* ---------- footer / notice ---------- */
+.footer{margin:26px 0 8px;padding:18px 16px;border-radius:16px;background:#fff;box-shadow:var(--sh);text-align:center}
+.footer .cp{font-size:12px;font-weight:800;color:var(--ink2);line-height:1.7}
+.footer .cp span{color:var(--pp)}
+.footer .cp2{font-size:11px;font-weight:700;color:var(--ink3);margin-top:2px}
+.footer .nt{font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.6}
+
+/* ---------- legal ---------- */
+.legal{padding:6px 14px}
+.legal .lg{padding:12px 0;border-bottom:1px solid var(--line)}
+.legal .lg:last-child{border-bottom:0}
+.legal .lg-h{display:flex;gap:7px;align-items:flex-start;font-size:13px;line-height:1.45;color:var(--ink)}
+.legal .lg-h b{font-weight:800;letter-spacing:-.02em}
+.legal .lg-h .n{flex:0 0 auto;color:var(--pp);font-weight:800}
+.legal p{font-size:11.8px;color:var(--ink2);line-height:1.62;margin:5px 0 0 18px;word-break:keep-all}
+.legal-warn{background:var(--red-l);border:1px solid #F6C9D1;border-radius:14px;padding:11px 13px;
+  font-size:11.8px;line-height:1.62;color:#8E2B3C;word-break:keep-all;margin-bottom:12px}
+.legal-warn b{color:#B01F38}
+.privacy{background:var(--blue-l);border:1px solid #C9DDFB;border-radius:14px;padding:11px 13px;
+  font-size:11.8px;line-height:1.62;color:#1B5DB3;word-break:keep-all;margin-bottom:12px}
+.privacy b{color:#12457F}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(30px);bottom:96px;z-index:90;background:#152A28;color:#fff;
+  border-radius:12px;padding:11px 16px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:all .28s;box-shadow:0 10px 26px rgba(0,0,0,.22);max-width:88vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.sheet{position:fixed;inset:0;z-index:80;background:rgba(12,32,30,.45);display:flex;align-items:flex-end;justify-content:center;padding:0;opacity:0;pointer-events:none;transition:opacity .2s}
+.sheet.on{opacity:1;pointer-events:auto}
+.sheet .body{background:#fff;width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom));transform:translateY(30px);transition:transform .24s;max-height:88vh;overflow:auto}
+.sheet.on .body{transform:translateY(0)}
+.sheet h3{font-size:16px;margin-bottom:4px}
+
+.busy{position:relative;color:transparent!important}
+.busy:after{content:"";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:800;content:"⏳ 처리 중"}
+
+@media(min-width:760px){
+  body{font-size:15.5px;padding-bottom:0}
+  .top .wrap{height:64px}
+  .updbar{top:64px}
+  .tabbar{position:sticky;top:63px;bottom:auto;border-top:none;border-bottom:1px solid var(--line);padding:8px 12px;background:rgba(255,255,255,.97)}
+  .tabbar .inner{justify-content:center;gap:6px}
+  .tb{flex:0 0 auto;flex-direction:row;gap:7px;padding:9px 16px;font-size:12.5px;border-radius:11px}
+  .tb .i{font-size:15px}
+  .hero{padding:30px 32px}
+  .hero h1{font-size:27px}
+  .feats{grid-template-columns:repeat(3,1fr)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+  .two.wide{grid-template-columns:1.12fr .88fr}
+  .cases{grid-template-columns:1fr 1fr}
+  .toast{bottom:28px}
+}
+@media(max-width:400px){
+  .feats{gap:10px}
+  .tb{font-size:11px;letter-spacing:-.03em}
+  .tb .i{font-size:18px}
+}
+
+/* ---------- 파트 바 (간호/접수) ---------- */
+.partbar{position:sticky;top:58px;z-index:38;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.partbar .wrap{display:flex;align-items:center;gap:8px;padding:7px 14px}
+.pbtns{display:flex;gap:5px;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.pb{flex:0 0 auto;font-size:12px;font-weight:800;color:var(--ink2);background:#EEF3F2;border-radius:999px;padding:7px 11px;white-space:nowrap}
+.pb.on{background:var(--pp);color:#fff;box-shadow:0 4px 12px rgba(14,143,126,.22)}
+.pb.on[data-part="recv"]{background:var(--blue);box-shadow:0 4px 12px rgba(43,123,228,.22)}
+.pb.on[data-part="all"]{background:var(--ink);box-shadow:none}
+.pnow{display:none;font-size:11px;font-weight:800;color:var(--ink3);white-space:nowrap}
+@media(min-width:760px){.partbar{position:static}.pnow{display:block}}
+
+/* ---------- 홈 요약 ---------- */
+.sumrow{display:flex;align-items:center;gap:11px;width:100%;text-align:left;padding:11px 2px;border-bottom:1px solid var(--line)}
+.sumrow:last-child{border-bottom:0}
+.sumrow .si{flex:0 0 34px;height:34px;border-radius:11px;background:var(--pp-l);display:grid;place-items:center;font-size:17px}
+.sumrow .sm{flex:1;min-width:0}
+.sumrow b{display:block;font-size:13px;font-weight:800;line-height:1.35}
+.sumrow small{display:block;font-size:11.5px;color:var(--ink3);line-height:1.45;margin-top:1px}
+.sumrow .sa{color:var(--ink3);font-size:18px;flex:0 0 auto}
+.sumrow:active{background:#FAFDFC}
+.guide{padding:10px 0;border-bottom:1px dashed var(--line)}
+.guide:last-of-type{border-bottom:0}
+.gtitle{font-size:13.5px;font-weight:800;margin-bottom:3px}
+.shiftnote{background:linear-gradient(120deg,#FFF6E8,#FFFDF8);border:1px solid #FBE0BE;color:#8A5A14;border-radius:13px;padding:11px 13px;font-size:12.5px;line-height:1.55;margin-bottom:10px}
+
+/* ---------- 점검 ---------- */
+.chkhead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ckb{font-size:15px;font-weight:900;color:var(--ink)}
+.donut.sm{width:62px;height:62px;flex:0 0 62px}
+.donut.sm i{inset:6px;font-size:15px}
+.chklist{margin-top:6px}
+.chkrow{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.chkrow:last-child{border-bottom:0}
+.chkbox{flex:0 0 24px;height:24px;border-radius:8px;border:1.5px solid var(--line);background:#fff;color:transparent;font-weight:900;font-size:13px;display:grid;place-items:center}
+.chkbox.on{background:var(--grn);border-color:var(--grn);color:#fff}
+.chkrow .ct{flex:1;min-width:0;font-size:13px;line-height:1.45;color:var(--ink2)}
+.chkrow.on .ct{color:var(--ink);font-weight:700}
+.chkrow .cm{display:inline-block;margin-left:6px;font-size:10px;font-weight:800;color:var(--blue);background:var(--blue-l);border-radius:999px;padding:1px 6px;vertical-align:middle}
+.cdel{flex:0 0 auto;color:var(--ink3);font-size:13px;padding:2px 4px}
+.mguide{padding:8px 0;border-bottom:1px solid var(--line)}
+.mguide:last-child{border-bottom:0}
+.mg-t{font-weight:800;font-size:13px;margin-bottom:2px}
+
+/* ---------- 수액 타이머 ---------- */
+.tcard{border:1px solid var(--line);border-radius:14px;padding:11px 12px;margin-bottom:9px;background:#FBFEFD}
+.tcard.warn{border-color:#F7DFBE;background:var(--org-l)}
+.tcard.end{border-color:#F8CFD8;background:var(--red-l)}
+.tctop{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.tctop b{font-size:13.5px;font-weight:900}
+.tctop .tname{font-size:11.5px;color:var(--ink3)}
+.tcbody{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin:6px 0 2px}
+.tleft{font:900 26px/1 ui-monospace,SFMono-Regular,monospace;color:var(--pp-d);letter-spacing:-.02em}
+.tcard.warn .tleft{color:#B5620A}.tcard.end .tleft{color:var(--red)}
+.tcmeta{font-size:10.5px;color:var(--ink3);text-align:right;line-height:1.5}
+.tcops{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap}
+.tob{font-size:11px;font-weight:800;border-radius:9px;padding:7px 9px;background:#EEF3F2;color:var(--ink2)}
+.tob:active{transform:scale(.96)}
+.tob.ok{background:var(--grn-l);color:var(--grn)}.tob.del{background:var(--red-l);color:var(--red)}
+.sndbtn{font-size:11px;font-weight:800;color:var(--ink2);background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:5px 9px;margin-left:auto}
+.timerpill{position:fixed;right:14px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:55;display:flex;align-items:center;gap:6px;background:var(--pp);color:#fff;border-radius:999px;padding:9px 13px;box-shadow:0 8px 22px rgba(14,143,126,.32);font-weight:900;font-size:12.5px}
+.timerpill.warn{background:var(--org)}
+.timerpill .tp-n{background:rgba(255,255,255,.24);border-radius:999px;padding:1px 7px;font-size:11px}
+.tbanner{position:fixed;left:12px;right:12px;top:10px;z-index:95;display:none;align-items:center;gap:10px;background:#152A28;color:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 12px 30px rgba(0,0,0,.26);font-size:13px;line-height:1.45}
+.tbanner.on{display:flex}
+.tbanner.pre{background:#B5620A}
+.tbanner.end{background:#B7223B}
+.tbn-ico{font-size:19px}
+.tbn-tx{flex:1;min-width:0}
+.tbn-x{color:#fff;opacity:.8;font-size:14px;padding:2px 4px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.7}
+@media(min-width:760px){.timerpill{bottom:24px}}
+
+/* ---------- 멤버십 등급 ---------- */
+.chip.grade-gold.on{background:#D9A014;border-color:#D9A014;color:#fff}
+.chip.grade-purple.on{background:#7A4FBF;border-color:#7A4FBF;color:#fff}
+.chip.grade-black.on{background:#231F2B;border-color:#231F2B;color:#fff}
+.chip.grade-none.on{background:var(--ink3);border-color:var(--ink3);color:#fff}
+.chip.valet.on{background:var(--org);border-color:var(--org);color:#fff}
+.tag.gd-gold{background:#FFF3D6;color:#9A6A00}
+.tag.gd-purple{background:#F1EBFB;color:#6A3FA8}
+.tag.gd-black{background:#E9E7EE;color:#231F2B}
+
+/* ---------- 접수 인수인계 서식 ---------- */
+.rf{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:#FBFEFD;overflow:hidden}
+.rf summary{display:flex;align-items:center;gap:7px;padding:10px 11px;cursor:pointer;font-size:13px;list-style:none}
+.rf summary::-webkit-details-marker{display:none}
+.rf summary .rf-e{font-size:15px}
+.rf summary b{font-weight:800;flex:1;min-width:0}
+.rf summary .rf-c{flex:0 0 auto;font-size:10.5px;font-weight:800;color:var(--pp);background:var(--pp-l);border-radius:999px;padding:2px 7px;min-width:18px;text-align:center}
+.rf summary .rf-c:empty{display:none}
+.rf[open] summary{border-bottom:1px solid var(--line);background:#F5FBF9}
+.rf-b{padding:10px 11px 12px}
+.rf-ta{min-height:64px}
+.rf-rows{display:flex;flex-direction:column;gap:6px}
+.rf-row{display:flex;gap:5px;align-items:center;flex-wrap:wrap;position:relative;padding-right:18px}
+.rf-row .rf-in{flex:1 1 calc(50% - 6px);min-width:0;padding:8px 9px;font-size:13px;border-radius:9px}
+.rf-row select.rf-in{flex:1 1 calc(50% - 6px)}
+.rf-row .rf-del{position:absolute;right:0;top:50%;transform:translateY(-50%);padding:2px 2px}
+.rf-chk{flex:0 0 auto;font-size:10.5px;font-weight:800;color:var(--ink3);background:#EEF3F2;border-radius:8px;padding:7px 8px;white-space:nowrap}
+.rf-chk.on{background:var(--org);color:#fff}
+.rf-del{flex:0 0 auto;color:var(--ink3);font-size:12px;padding:4px 3px}
+.rf-add{width:100%;margin-top:7px;font-size:11.5px;font-weight:800;color:var(--pp);background:var(--pp-l);border-radius:9px;padding:8px}
+.rf-add:active{background:#D7F0EA}
+</style>
+</head>
+<body data-part="all">
+
+<div class="top">
+  <div class="wrap">
+    <div class="logo">🏥</div>
+    <div class="brand">TLC 인수인계<small>티엘씨 청담·분당 실무 인수인계</small></div>
+    <div class="vwrap">
+      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.1</span></a>
+      <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기">🔄 새로고침</a>
+    </div>
+  </div>
+</div>
+
+<div class="partbar" id="partBar">
+  <div class="wrap">
+    <div class="pbtns">
+      <button class="pb on" data-part="all">📋 전체</button>
+      <button class="pb" data-part="nur">👩‍⚕️ 간호 파트</button>
+      <button class="pb" data-part="recv">🖥️ 접수 파트</button>
+    </div>
+    <div class="pnow" id="partNow">전체 보기</div>
+  </div>
+</div>
+
+<div class="updbar" id="updBar" role="status" aria-live="polite">
+  <div class="in">
+    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.1</span></b>이 준비되었습니다.</div>
+    <a class="upd-a" id="updBtn" href="#" rel="noopener">지금 새로고침</a>
+  </div>
+</div>
+
+<nav class="tabbar" id="tabbar">
+  <div class="inner">
+    <button class="tb on" data-t="home" title="홈"><span class="i">🏠</span>홈</button>
+    <button class="tb" data-t="iss" title="이슈·인계"><span class="i">📌</span>이슈·인계</button>
+    <button class="tb" data-t="fluid" title="수액·안전"><span class="i">⏱️</span>수액·안전</button>
+    <button class="tb" data-t="check" title="파트 점검"><span class="i">📋</span>파트 점검</button>
+  </div>
+</nav>
+
+<!-- ================= HOME ================= -->
+<section class="wrap" id="screen-home">
+  <div class="sec">
+    <div class="hero">
+      <div class="k">TLC HANDOVER · 청담 &amp; 분당</div>
+      <h1>간호는 간호답게,<br>접수는 접수답게</h1>
+      <p>하루의 이슈를 <b>간호 파트</b>와 <b>접수 파트</b>로 나눠 남기면, 교대·마감 인계문이 그대로 정리됩니다.
+        수액은 베드별 타이머로 종료 5분 전에 알려 드립니다.</p>
+      <div class="pills"><span>👩‍⚕️ 간호 파트</span><span>🖥️ 접수 파트</span><span>⏱️ 수액 타이머</span><span>📋 파트 점검</span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>지점 설정</h2><span class="sub">점검 항목이 지점 기준으로 바뀝니다</span></div>
+    <div class="card">
+      <div class="field" style="margin-bottom:10px">
+        <label for="branchSel">지점</label>
+        <select class="inp" id="branchSel"></select>
+      </div>
+      <div class="muted" id="branchDesc">—</div>
+      <div class="chips" id="branchTags" style="margin-top:10px"></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>🔄 교차근무 인계 사항</h2><span class="sub" id="homeDate">—</span></div>
+    <div class="card sumcard" id="shiftCard"></div>
+    <div class="muted" style="margin:8px 2px 0">출근 직후 30초 안에 확인하세요 — 인계 필수·미완료·회원 응대·진행 중 수액.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>파트 안내</h2><span class="sub">지금 선택한 파트</span></div>
+    <div class="card" id="partGuide"></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>바로가기</h2><span class="sub">눌러서 시작</span></div>
+    <div class="feats">
+      <button class="feat" data-go="iss"><div class="ic" style="background:var(--org-l);color:var(--org)">📌</div>
+        <h3>이슈 등록</h3><p>근무 중 한 줄 등록 → 교대 전 인계문 정리</p></button>
+      <button class="feat" data-go="fluid"><div class="ic" style="background:var(--pp-l);color:var(--pp)">💧</div>
+        <h3>수액 계산·타이머</h3><p>gtt 계산부터 베드별 종료 알람까지</p></button>
+      <button class="feat" data-go="check"><div class="ic" style="background:var(--grn-l);color:var(--grn)">📋</div>
+        <h3>파트 점검</h3><p>청담·분당 기준 일일 체크리스트</p></button>
+      <button class="feat" data-go="iss" data-scroll="sbarTools"><div class="ic" style="background:var(--blue-l);color:var(--blue)">🗂️</div>
+        <h3>인계문 · 기록함</h3><p>파트별 SBAR 복사 · .txt 저장</p></button>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>📌 이용 안내 · 법적 고지</h2><span class="sub">쓰시기 전에 꼭 확인</span></div>
+    <div class="legal-warn">
+      <b>원내 업무 보조 도구입니다.</b> 어떤 화면에서도 실제 환자의 <b>실명·등록번호·연락처</b>를 입력하지 마세요.
+      모든 기록은 이 기기(브라우저 저장소)에만 남고 외부로 전송되지 않습니다.
+    </div>
+    <div class="card legal" id="legalCard">
+      <div class="lg">
+        <div class="lg-h"><span class="n">①</span><b>의료기기(SaMD)가 아닌 업무 보조 도구입니다</b></div>
+        <p>본 앱은 <b>원내 인수인계·수액 계산 보조용</b>입니다. 진단·처방·투약의 최종 판단을 대신하지 않으며,
+          실제 투약·수액 속도·처치 시에는 반드시 <b>담당 의사의 처방</b>과 <b>원내 지침·의약품 허가사항</b>을 우선 확인하세요.</p>
+      </div>
+      <div class="lg">
+        <div class="lg-h"><span class="n">②</span><b>환자 개인정보를 입력하지 마세요</b></div>
+        <p>이슈·인계·점검 입력란에 <b>실명·등록번호·주민등록번호·연락처·주소 등 식별 가능한 정보를 절대 입력하지 마세요.</b>
+          가명과 차트순번(예: 차트 24-118), 베드번호만 사용합니다. 입력한 내용은 <b>기기 로컬 저장소에만</b> 저장되고 서버로 보내지 않습니다.</p>
+      </div>
+      <div class="lg">
+        <div class="lg-h"><span class="n">③</span><b>저작권 · 공식기관 미사칭</b></div>
+        <p>아이디어·설계·개발·제작 및 저작권은 <b>김효숙</b>에게 있습니다. 특정 병원·의원의 공식 EMR이나
+          보건복지부·한국보건의료인국가시험원 등 <b>공공기관의 공식 인증 프로그램이 아닙니다.</b>
+          무단 복제·배포·상업적 재판매를 금합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>이렇게 작동합니다</h2></div>
+    <div class="steps" id="homeSteps"></div>
+  </div>
+
+  <div class="sec">
+    <button class="btn ghost sm" id="btnMobile">📱 휴대폰 화면(390×844)으로 보기</button>
+  </div>
+</section>
+
+<!-- ================= ISSUES ================= -->
+<section class="wrap hide" id="screen-iss">
+  <div class="sec">
+    <div class="sec-h"><h2>📌 근무 중 실시간 이슈</h2><span class="sub">한 줄씩 남겨 두면 교대 인계가 가벼워집니다</span></div>
+    <div class="shiftnote hide" id="shiftNote"></div>
+    <div class="card">
+      <div class="field">
+        <label>근무 구분</label>
+        <div class="chips" id="issUnits"></div>
+      </div>
+      <div class="field">
+        <label>파트 <span class="muted">(이슈가 속한 업무)</span></label>
+        <div class="chips" id="issParts"></div>
+      </div>
+      <div class="field">
+        <label>분류 <span class="muted">(터치 선택)</span></label>
+        <div class="chips" id="issTags"></div>
+      </div>
+      <div class="field hide" id="memberBox">
+        <label>멤버십 회원 <span class="muted">· 선택 사항 · 가명/차트순번만</span></label>
+        <div class="chips" id="issGrades"></div>
+        <button class="chip valet" id="issValet" style="margin-top:8px">🚗 발렛 무료 확인</button>
+      </div>
+      <div class="field">
+        <label>교차근무 인계 <span class="muted">(해당되면 눌러 주세요)</span></label>
+        <div class="chips">
+          <button class="chip" id="issHf">🔄 다음 근무자에게 꼭 넘길 건</button>
+          <button class="chip" id="issCarry">📅 내일 이어갈 건</button>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:8px">
+        <label for="issText">이슈 내용 <span class="muted">· 가명/차트순번만</span></label>
+        <textarea class="inp" id="issText" placeholder="예) 차트 24-118 수액실 3번 베드, 우측 전완 부종·통증 4점 — 수액 중단, 의사 보고함"></textarea>
+      </div>
+      <div class="microw">
+        <button class="mic" id="issMic" title="음성으로 입력">🎤</button>
+        <div class="mic-hint" id="issMicHint">말하면 글로 적힙니다. <b>실명은 말하지 마세요.</b></div>
+      </div>
+      <div class="row">
+        <button class="btn sm" id="issAdd">➕ 등록</button>
+        <button class="btn ghost sm" id="issClear">지우기</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>오늘 등록된 이슈</h2><span class="sub" id="issCount">0건</span></div>
+    <div class="chips" id="issFilter" style="margin:0 2px 10px"></div>
+    <div class="card" id="issListCard">
+      <div class="empty" id="issEmpty">아직 등록된 이슈가 없습니다.<br>근무 중 떠오른 것을 바로 남겨 보세요.</div>
+      <div id="issList"></div>
+    </div>
+  </div>
+
+  <div class="sec" id="sbarTools">
+    <div class="card" style="padding:14px">
+      <div style="font-size:12px;font-weight:800;color:var(--ink2);margin:0 0 8px 2px">✨ 교대·마감 인계문 자동 정리</div>
+      <button class="btn coral" id="btnSbarShift">🔄 교차근무 일일 인수인계문 (카톡용)</button>
+      <div class="row" style="margin-top:8px">
+        <button class="btn ghost sm" id="btnSbarAll">🧾 전체 합쳐서 정리</button>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button class="btn ghost sm" id="btnSbarNur">👩‍⚕️ 간호 파트만</button>
+        <button class="btn ghost sm" id="btnSbarRecv">🖥️ 접수 파트만</button>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button class="btn ghost sm" id="btnToPractice" style="display:none">🎤 이 내용으로 인계 연습</button>
+        <button class="btn gray sm" id="btnSaveDay">💾 일별 기록함에 저장</button>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button class="btn gray sm" id="btnCopySbar">📋 복사</button>
+        <button class="btn gray sm" id="btnTxtSbar">⬇️ .txt 저장</button>
+      </div>
+      <div class="muted" style="margin-top:8px">정리된 문장은 아래에서 직접 고쳐도 됩니다. 고친 내용이 저장에 그대로 쓰입니다.</div>
+    </div>
+  </div>
+
+  <div class="sec hide" id="sbarSec">
+    <div class="sec-h"><h2>정리된 인계문 (SBAR)</h2><span class="sub" id="sbarMeta">—</span></div>
+    <div class="card">
+      <div id="sbarOut"></div>
+      <div class="divider"></div>
+      <div class="field" style="margin-bottom:0">
+        <label for="sbarEdit">인계문 수정</label>
+        <textarea class="inp" id="sbarEdit" style="min-height:180px"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec" id="recvFormSec">
+    <div class="sec-h"><h2>🖥️ 접수 인수인계 서식</h2><span class="sub" id="recvFormSub">원내 서식 10항목</span></div>
+    <div class="card" style="padding:12px">
+      <div class="row" style="gap:6px;margin-bottom:8px">
+        <button class="btn ghost sm" id="btnFormCopy">📋 서식 복사</button>
+        <button class="btn gray sm" id="btnFormTxt">⬇️ .txt</button>
+        <button class="btn gray sm" id="btnFormReset">비우기</button>
+      </div>
+      <div class="muted" style="margin-bottom:10px">원내 종이 서식과 같은 10항목입니다. 가명·차트순번만 적고, 적은 내용은 <b>이 기기에만</b> 저장됩니다.</div>
+      <div id="recvForm"></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>🗂️ 일별 인수인계 기록함</h2><span class="sub" id="dayCount">0일</span></div>
+    <div class="card" id="dayCard">
+      <div class="empty" id="dayEmpty">저장된 인계 기록이 없습니다.<br>인계 정리 후 “일별 기록함에 저장”을 눌러 주세요.</div>
+      <div id="dayList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FLUID / SAFETY ================= -->
+<section class="wrap hide" id="screen-fluid">
+  <div class="sec">
+    <div class="sec-h"><h2>🧮 수액 계산 · 타이머</h2><span class="sub">gtt/min · mL/hr · 종료 예정</span></div>
+    <div class="card">
+      <div class="calc-tabs" id="calcTabs"></div>
+      <div id="calcBody"></div>
+    </div>
+  </div>
+
+  <div class="sec" id="timerSec">
+    <div class="sec-h">
+      <h2>⏱️ 진행 중인 수액 타이머</h2><span class="sub" id="timerCnt">0개</span>
+      <button class="sndbtn" id="btnSnd" title="알람 소리 켜기/끄기">🔔 소리 켜짐</button>
+    </div>
+    <div class="card">
+      <div id="timerList"></div>
+      <div class="divider"></div>
+      <div style="font-size:12px;font-weight:800;color:var(--ink2);margin-bottom:8px">타이머 직접 추가</div>
+      <div class="grid2">
+        <div class="field"><label for="tmBed">베드 / 가명</label><input class="inp" id="tmBed" placeholder="예) 수액실 3번"></div>
+        <div class="field"><label for="tmName">수액명</label><input class="inp" id="tmName" placeholder="예) 비타민 500mL"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label for="tmMin">남은 시간(분)</label><input class="inp" id="tmMin" type="number" inputmode="numeric" placeholder="예) 120"></div>
+        <div class="field" style="display:flex;align-items:flex-end"><button class="btn sm" id="tmAdd">⏱️ 타이머 시작</button></div>
+      </div>
+      <div class="muted">여러 베드를 동시에 돌릴 수 있습니다. 새로고침·화면을 꺼도 종료 시각이 그대로 이어지고, 종료 5분 전과 종료 시 알람이 울립니다.</div>
+    </div>
+  </div>
+
+  <div class="sec" id="drugSec">
+    <div class="sec-h"><h2>💊 약물·소아용량 안전 1차 확인</h2><span class="sub">의원 다빈도 약제 기준</span></div>
+    <div class="legal-warn" style="margin-bottom:12px">
+      <b>1차 스크리닝 보조 도구입니다.</b> 경고가 없다고 안전한 것이 아니며, 실제 판단은 담당 의사 처방과 허가사항을 따릅니다.
+    </div>
+    <div class="privacy hide" id="drugPartNotice">🖥️ <b>접수 파트</b>에서도 열람할 수 있지만, 이 화면은 <b>간호 파트 핵심 도구</b>입니다. 확인 결과는 처방·원내 지침을 우선합니다.</div>
+    <div class="card">
+      <div class="grid2">
+        <div class="field"><label for="dAge">나이</label><input class="inp" id="dAge" type="number" inputmode="numeric" placeholder="예) 52"></div>
+        <div class="field"><label for="dWeight">체중(kg)</label><input class="inp" id="dWeight" type="number" inputmode="decimal" placeholder="예) 60"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label for="dEgfr">eGFR (mL/min)</label><input class="inp" id="dEgfr" type="number" inputmode="numeric" placeholder="모르면 비움"></div>
+        <div class="field"><label for="dHr">맥박 / 혈압</label><input class="inp" id="dHr" placeholder="예) 112 / 92/58"></div>
+      </div>
+      <div class="field">
+        <label>환자 상태 <span class="muted">(해당되는 것 모두 선택)</span></label>
+        <div class="chips" id="dFlags"></div>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label>알레르기</label>
+        <div class="chips" id="dAllergy"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="card">
+      <div class="field" style="margin-bottom:8px">
+        <label for="dText">처방·투여 내용 <span class="muted">(약명·용량·수액·속도)</span></label>
+        <textarea class="inp" id="dText" style="min-height:96px" placeholder="예) iron sucrose 100mg + N/S 100mL IV over 60min&#10;예) 세픽심 100mg PO tid, 아세트아미노펜 시럽 8mL"></textarea>
+      </div>
+      <div class="chips" id="dQuick" style="margin-bottom:10px"></div>
+      <button class="btn" id="btnScreen">🔍 1차 스크리닝</button>
+    </div>
+  </div>
+
+  <div class="sec hide" id="screenOutSec">
+    <div class="sec-h"><h2>스크리닝 결과</h2><span class="sub" id="screenMeta">—</span></div>
+    <div id="screenOut"></div>
+  </div>
+</section>
+
+<!-- ================= PART CHECK ================= -->
+<section class="wrap hide" id="screen-check">
+  <div class="sec">
+    <div class="sec-h"><h2>📋 파트 점검</h2><span class="sub" id="checkBranch">—</span></div>
+    <div class="card">
+      <div class="chips" id="chkMode" style="margin-bottom:12px"></div>
+      <div class="chkhead">
+        <div>
+          <div class="ckb" id="checkSummary">0 / 0 완료</div>
+          <div class="muted" id="checkReset">오늘 날짜 기준 · 자정이 지나면 새로 시작합니다</div>
+        </div>
+        <div class="donut sm" id="checkDonut" style="--p:0"><i id="checkPct">0</i></div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn gray sm" id="btnCheckReset">오늘 점검 초기화</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="checkGroups"></div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>➕ 우리 지점 맞춤 점검 항목</h2><span class="sub" id="customCount">0개</span></div>
+    <div class="card">
+      <div class="muted" style="margin-bottom:10px">예: 청담 — 시술 후 사진 촬영 여부 / 분당 — 접종 후 15분 관찰 기록.<br>
+        추가한 항목은 선택한 지점·파트 점검 목록에 함께 표시됩니다.</div>
+      <div class="chips" id="customList" style="margin-bottom:10px"></div>
+      <div class="field">
+        <label for="cPart">파트</label>
+        <select class="inp" id="cPart">
+          <option value="nur">👩‍⚕️ 간호 파트</option>
+          <option value="recv">🖥️ 접수 파트</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="cName">항목 이름</label>
+        <input class="inp" id="cName" placeholder="예) 시술 후 사진 촬영 여부 확인">
+      </div>
+      <div class="row">
+        <button class="btn sm" id="btnAddCustom">➕ 추가</button>
+        <button class="btn ghost sm" id="btnResetCustom">맞춤 항목 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec" id="memberSec">
+    <div class="sec-h"><h2>🥇 멤버십 회원 · 발렛 무료 안내</h2><span class="sub">접수 파트</span></div>
+    <div class="privacy">🚗 <b>골드·퍼플·블랙 회원</b>이 방문하면 <b>발렛 무료 적용</b>을 확인하고, 접수 인계문에 남겨 주세요. 실명 대신 차트순번·가명으로 기록합니다.</div>
+    <div class="card" id="memberGuide"></div>
+  </div>
+</section>
+
+<div class="timerpill hide" id="timerPill"><span class="tp-ico">⏱️</span><span class="tp-n" id="timerPillN">0</span><span class="tp-t" id="timerPillT"></span></div>
+
+<div class="tbanner" id="timerBanner"></div>
+
+<div class="footer wrap" id="globalFooter" style="margin-top:20px">
+  <div class="cp">아이디어·개발·제작·저작권: <span>티엘씨메디켈그룹 총괄운영실장 김효숙</span></div>
+  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.1</span></div>
+  <div class="nt">의료기기(SaMD) 아님 · 실제 환자 개인정보 입력 금지 · 기기 내 로컬 저장만 사용 · 공식기관 인증 프로그램 아님</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="sheet" id="sheet">
+  <div class="body">
+    <h3 id="sheetTitle">—</h3>
+    <div class="muted" id="sheetSub" style="margin-bottom:10px">—</div>
+    <div id="sheetBody" style="font-size:13px;line-height:1.75;white-space:pre-wrap;word-break:keep-all"></div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn ghost sm" id="sheetCopy">📋 복사</button>
+      <button class="btn sm" id="sheetClose">닫기</button>
+    </div>
+  </div>
+</div>
+
+<script>/* =========================================================================
+   TLC 인수인계 — 티엘씨 청담·분당 실무 인수인계 (간호/접수 파트 분리)
+   아이디어·개발·제작·저작권: 김효숙 (티엘씨메디켈그룹 총괄운영실장)
+   ※ 실제 환자 개인정보 입력 금지. 모든 내용은 원내 업무 보조용이며,
+     실제 투약·처치는 담당 의사 처방과 원내 지침·허가사항을 우선합니다.
+   ========================================================================= */
+var DATA = {};
+
+/* ---------- 지점 ---------- */
+DATA.branches = [
+  { id:'chungdam', name:'티엘씨 청담의원', short:'청담',
+    sub:'내과 · 비만·영양클리닉 · 피부 시술 · 수액실',
+    note:'시술 동의서·사진, 미수·적립금, GLP-1 주사 관리가 많은 지점' },
+  { id:'bundang', name:'티엘씨 분당클리닉', short:'분당',
+    sub:'내과 · 소아청소년과 · 예방접종 · 수액실',
+    note:'예방접종·소아 수액, 백신 냉장 온도, 보호자 안내가 많은 지점' }
+];
+
+/* ---------- 파트 ---------- */
+DATA.parts = [
+  { id:'all',  n:'전체',      e:'📋', d:'간호·접수 파트를 함께 봅니다' },
+  { id:'nur',  n:'간호 파트', e:'👩‍⚕️', d:'의료 영역 — 수액·주사·시술·검사·백신·약품·응급' },
+  { id:'recv', n:'접수 파트', e:'🖥️', d:'비의료 영역 — 예약·수납·서류·문의·마감 행정' }
+];
+DATA.partMap = {};
+DATA.parts.forEach(function(p){ DATA.partMap[p.id] = p; });
+function partLabel(id){ var p = DATA.partMap[id]; return p ? p.e + ' ' + p.n : ''; }
+
+/* ---------- 근무 구분 · 이슈 분류 ---------- */
+DATA.units = ['오전 근무','오후 근무','마감'];
+
+/* ---------- 멤버십 회원 등급 (접수 파트) ---------- */
+DATA.grades = [
+  { id:'none',   n:'일반',   e:'⚪', d:'멤버십 아님' },
+  { id:'gold',   n:'골드',   e:'🥇', d:'골드 회원 — 발렛 무료 적용' },
+  { id:'purple', n:'퍼플',   e:'💜', d:'퍼플 회원 — 발렛 무료 적용' },
+  { id:'black',  n:'블랙',   e:'🖤', d:'블랙 회원 — 발렛 무료 적용' }
+];
+DATA.gradeMap = {};
+DATA.grades.forEach(function(g){ DATA.gradeMap[g.id] = g; });
+DATA.valetTag = '🚗 발렛 무료 확인';
+
+DATA.tags = [
+  /* 간호 파트 (의료) */
+  { id:'iv',    part:'nur',  n:'수액 잔량·주입',    e:'💧' },
+  { id:'proc',  part:'nur',  n:'시술·처치 대기',    e:'✂️' },
+  { id:'lab',   part:'nur',  n:'검사 결과·콜백',    e:'🧪' },
+  { id:'vax',   part:'nur',  n:'냉장 백신·바이알',  e:'🌡️' },
+  { id:'narc',  part:'nur',  n:'향정·마약류',       e:'💊' },
+  { id:'stock', part:'nur',  n:'약품·소모품 재고',  e:'📦' },
+  { id:'emerg', part:'nur',  n:'응급·부작용',       e:'🚨' },
+  /* 접수 파트 (원무·행정) */
+  { id:'appt',  part:'recv', n:'예약·변경·노쇼',    e:'📅' },
+  { id:'money', part:'recv', n:'미수·적립금·선불권', e:'💳' },
+  { id:'docs',  part:'recv', n:'동의서·제증명',     e:'📄' },
+  { id:'comp',  part:'recv', n:'고객 문의·컴플레인', e:'⚠️' },
+  { id:'admin', part:'recv', n:'행정·마감 정산',    e:'🧾' },
+  { id:'etc',   part:'both', n:'기타',              e:'📝' }
+];
+DATA.tagMap = {};
+DATA.tags.forEach(function(t){ DATA.tagMap[t.id] = t; });
+function tagsOf(part, includeEtc){
+  return DATA.tags.filter(function(t){
+    if(part === 'all') return t.part !== 'both' || !!includeEtc;
+    return t.part === part || (!!includeEtc && t.part === 'both');
+  });
+}
+
+/* ---------- 일일 점검 (지점·파트별 프리셋) ---------- */
+DATA.checks = {
+  chungdam: {
+    nur: [
+      { k:'cd_n1',  n:'수액실 베드별 수액·잔량 확인 (타이머 등록)' },
+      { k:'cd_n2',  n:'수액·주사 시작 전 5R(대상·약·용량·경로·시간) 확인' },
+      { k:'cd_n3',  n:'시술 전 동의서·알레르기·복용약 확인' },
+      { k:'cd_n4',  n:'시술 후 주의 안내 (자외선 차단·보습·샤워 시점)' },
+      { k:'cd_n5',  n:'냉장 백신·바이알 온도 2~8℃ 기록' },
+      { k:'cd_n6',  n:'향정·마약류 잔량 대조 및 관리대장 기록' },
+      { k:'cd_n7',  n:'약품·소모품 재고 부족 품목 발주 요청' },
+      { k:'cd_n8',  n:'검사 결과 이상 소견 콜백 대상 확인' },
+      { k:'cd_n9',  n:'응급키트(에피네프린·산소) 위치·유효기간 확인' },
+      { k:'cd_n10', n:'비만클리닉 GLP-1 주사 부위·용량·부작용 확인' },
+      { k:'cd_n11', n:'마감 전 미완료 처치·재확인 시각 정리' }
+    ],
+    recv: [
+      { k:'cd_r1',  n:'내일 예약 확정·변경·노쇼 연락 정리' },
+      { k:'cd_r2',  n:'미수금 잔액 확인 및 안내 문자 발송' },
+      { k:'cd_r3',  n:'적립금·선불권 사용·잔액 대조' },
+      { k:'cd_r4',  n:'시술 동의서 서명·사진 촬영 여부 확인' },
+      { k:'cd_r5',  n:'제증명·진단서 발급 요청 접수·수령 안내' },
+      { k:'cd_r6',  n:'고객 문의·컴플레인 처리 상태 인계' },
+      { k:'cd_r7',  n:'카카오톡·문자 예약 문의 회신' },
+      { k:'cd_r8',  n:'일일 마감 정산(현금·카드·간편결제) 대조' },
+      { k:'cd_r9',  n:'진료비 영수증·세금계산서 요청 처리' },
+      { k:'cd_r11', n:'골드·퍼플·블랙 회원 응대·특이사항 인계' },
+      { k:'cd_r12', n:'멤버십 회원 방문 시 🚗 발렛 무료 적용 확인' },
+      { k:'cd_r10', n:'다음 근무 인계 메모 정리' }
+    ]
+  },
+  bundang: {
+    nur: [
+      { k:'bd_n1',  n:'예방접종 전 체온·접종 이력 확인' },
+      { k:'bd_n2',  n:'접종 백신 종류·로트·유효기간 대조' },
+      { k:'bd_n3',  n:'냉장 백신 온도 2~8℃ 기록' },
+      { k:'bd_n4',  n:'소아 체중·월령 기준 해열제 용량 확인' },
+      { k:'bd_n5',  n:'접종 후 15~30분 관찰·이상반응 안내' },
+      { k:'bd_n6',  n:'수액실 소아 수액 속도·잔량 확인' },
+      { k:'bd_n7',  n:'검사 결과 회신·보호자 콜백' },
+      { k:'bd_n8',  n:'응급키트·에피네프린 1:1000 확인' },
+      { k:'bd_n9',  n:'향정·약품·소모품 재고 확인' },
+      { k:'bd_n10', n:'보호자 귀가 안내 (해열제 교차 투여 시각·연락처)' }
+    ],
+    recv: [
+      { k:'bd_r1',  n:'오늘·내일 접종 예약 확인 및 안내 문자' },
+      { k:'bd_r2',  n:'미수금·적립금 확인' },
+      { k:'bd_r3',  n:'보호자 연락처 최신 여부 확인' },
+      { k:'bd_r4',  n:'예방접종 예진표·동의서 수령 확인' },
+      { k:'bd_r5',  n:'예방접종 증명서·제증명 발급' },
+      { k:'bd_r6',  n:'노쇼·지연 환아 보호자 연락' },
+      { k:'bd_r7',  n:'고객 문의·컴플레인 인계' },
+      { k:'bd_r8',  n:'일일 마감 정산 대조' },
+      { k:'bd_r9',  n:'다음 날 접종 물량·백신 재고 확인' },
+      { k:'bd_r11', n:'골드·퍼플·블랙 회원 응대·특이사항 인계' },
+      { k:'bd_r12', n:'멤버십 회원 방문 시 🚗 발렛 무료 적용 확인' },
+      { k:'bd_r10', n:'다음 근무 인계 메모 정리' }
+    ]
+  }
+};
+
+/* ---------- 홈 안내 ---------- */
+DATA.homeSteps = [
+  { h:'근무 중 한 줄 등록', p:'파트·분류를 골라 이슈를 음성이나 텍스트로 남깁니다. 실명 대신 가명·차트순번만.' },
+  { h:'교대 전 파트별 인계문', p:'간호 파트·접수 파트를 따로 또는 합쳐서 SBAR 인계문으로 자동 정리합니다.' },
+  { h:'수액은 타이머로', p:'베드별 수액 타이머를 동시에 돌리고, 종료 5분 전과 종료 시 알람을 받습니다.' }
+];
+
+DATA.partGuides = {
+  nur: {
+    title:'👩‍⚕️ 간호 파트',
+    desc:'수액·주사·시술·검사 결과·냉장 백신·향정/약품·응급 대응까지, 의료 영역만 모아 봅니다.',
+    items:['💧 수액 계산 & 베드별 실시간 타이머','✂️ 시술·처치 대기와 후 주의 안내','🧪 검사 결과·콜백 추적','🌡️ 냉장 백신 2~8℃·바이알 관리','💊 향정·마약류 잔량, 약품·소모품 재고','🚨 응급·부작용 1차 확인']
+  },
+  recv: {
+    title:'🖥️ 접수 파트',
+    desc:'예약·수납·서류·문의·마감까지, 비의료 원무/행정 업무만 모아 봅니다.',
+    items:['📅 예약·변경·노쇼 연락','💳 미수·적립금·선불권 잔액','📄 시술 동의서·제증명·서류','⚠️ 고객 문의·컴플레인','🥇 골드·💜 퍼플·🖤 블랙 회원 응대 + 🚗 발렛 무료','🧾 일일 마감·정산·영수증','📝 다음 근무 인계 메모']
+  }
+};
+/* ---------- 약물·수액 안전 스크리닝 ---------- */
+DATA.drugGroups = [
+  { g:'nsaid', n:'NSAIDs·진통소염제', names:['케토롤락','케토락','디클로페낙','볼타렌','이부프로펜','부루펜','나프록센','아세클로페낙','에어탈','셀레콕시브','록소프로펜','덱시부프로펜','맥시부펜','피록시캄'] },
+  { g:'apap', n:'아세트아미노펜', names:['아세트아미노펜','타이레놀','세토펜','페라트랄'] },
+  { g:'iron', n:'철분 주사', names:['철분','아이언','iron','ferric','베노퍼','페린젝트','모노페르','코스모페론'] },
+  { g:'vitc', n:'비타민C 고용량', names:['비타민c','비타민 c','아스코르빈','ascorbic','메가비타'] },
+  { g:'mg', n:'마그네슘', names:['마그네슘','mgso4','황산마그네슘','마그밀'] },
+  { g:'abx', n:'항생제', names:['아목시실린','오구멘틴','세픽심','세프트리악손','로세핀','아지트로마이신','클래리트로마이신','클래리','레보플록사신','시프로플록사신','목시플록사신','세파클러','세프디니르','세파드록실','독시사이클린','메트로니다졸'] },
+  { g:'steroid', n:'스테로이드', names:['덱사메타손','메틸프레드니솔론','트리암시놀론','프레드니솔론','소론도','레피졸'] },
+  { g:'antihist', n:'항히스타민', names:['클로르페니라민','디펜히드라민','세티리진','지르텍','로라타딘','레보세티리진','알레그라','페니라민','히드록시진'] },
+  { g:'la', n:'국소마취제', names:['리도카인','리도케인','부피바카인','프릴로카인','마취크림','엠라'] },
+  { g:'glp1', n:'GLP-1 비만약', names:['삭센다','리라글루티드','위고비','세마글루티드','마운자로','티르제파타이드','오젬픽'] },
+  { g:'phentermine', n:'펜터민 계열', names:['펜터민','푸링','디에타민','펜디'] },
+  { g:'orlistat', n:'오르리스타트', names:['오르리스타트','제니칼'] },
+  { g:'contrast', n:'조영제', names:['조영제','이오헥솔','이오파미돌','이오프로미드','옴니파크','비저파크'] },
+  { g:'ppi', n:'PPI', names:['오메프라졸','판토프라졸','에소메프라졸','라베프라졸','란스톱','넥시움'] },
+  { g:'antiemetic', n:'항구토제', names:['메토클로프라미드','맥페란','온단세트론','자프란','라모세트론'] },
+  { g:'epi', n:'에피네프린', names:['에피네프린','아드레날린','epinephrine'] },
+  { g:'kcl', n:'칼륨', names:['칼륨','kcl','염화칼륨'] },
+  { g:'anticoag', n:'항응고제', names:['와파린','아피스사반','엘리퀴스','리바록사반','자렐토','다비가트란','프라닥사','에독사반','리바록'] },
+  { g:'metformin', n:'메트포르민', names:['메트포르민','다이아벡스','메트폴민','글루코파지'] },
+  { g:'insulin', n:'인슐린', names:['인슐린','란투스','노보래피드','휴마로그','트레시바','노보믹스','란투스'] },
+  { g:'benzo', n:'수면·진정제', names:['디아제팜','알프라졸람','졸피뎀','로라제팜','자낙스','스틸녹스','에티졸람'] },
+  { g:'aspirin', n:'아스피린', names:['아스피린','aspirin','아스피린프로텍트'] },
+  { g:'fq', n:'퀴놀론', names:['레보플록사신','시프로플록사신','목시플록사신','오플록사신'] }
+];
+
+DATA.rules = [
+  /* ===== RED: 금기·즉시 보고 ===== */
+  { id:'r-pen-ceph', lv:'red', g:'페니실린 알레르기 × 세팔로스포린',
+    cond:[{d:'abx'},{al:'penicillin'}],
+    msg:'페니실린 즉시형 알레르기 병력에서 세팔로스포린(특히 1세대)은 교차반응 위험이 있습니다.',
+    act:'투여 전 의사에게 알레르기 병력과 함께 확인하고, 대체 항생제 여부를 결정받으세요.' },
+  { id:'r-anaphyl-contrast', lv:'red', g:'조영제 과민반응 병력 × 조영제',
+    cond:[{d:'contrast'},{al:'contrast'}],
+    msg:'조영제 과민반응 병력이 있어 재노출 시 중증 반응 위험이 있습니다.',
+    act:'전처치(스테로이드·항히스타민) 지시 여부와 응급키트 위치를 확인하고, 검사 전 의사 승인을 받으세요.' },
+  { id:'r-renal-metformin', lv:'red', g:'eGFR 30 미만 × 메트포르민',
+    cond:[{d:'metformin'},{egfrMax:30}],
+    msg:'eGFR 30 미만에서 메트포르민은 젖산산증 위험으로 금기입니다.',
+    act:'투여를 중단하고 최근 신기능 수치와 함께 의사에게 보고하세요.' },
+  { id:'r-renal-nsaid', lv:'red', g:'eGFR 30 미만 × NSAIDs',
+    cond:[{d:'nsaid'},{egfrMax:30}],
+    msg:'신기능 저하 환자에서 NSAIDs는 급성신손상·고칼륨혈증 위험이 큽니다.',
+    act:'투여하지 말고 아세트아미노펜 등 대체 진통제를 의사에게 문의하세요.' },
+  { id:'r-warf-nsaid', lv:'red', g:'항응고제 × NSAIDs',
+    cond:[{d:'anticoag'},{d:'nsaid'}],
+    msg:'항응고제와 NSAIDs 병용은 위장관·뇌출혈 위험을 크게 높입니다.',
+    act:'동시 투여 전 반드시 의사 확인. 위장관 보호 필요 여부를 함께 문의하세요.' },
+  { id:'r-preg-glp1', lv:'red', g:'임신 × GLP-1·오르리스타트',
+    cond:[{anyOf:['glp1','orlistat']},{flag:'preg'}],
+    msg:'임신 중 GLP-1 수용체 작용제·오르리스타트는 사용하지 않습니다.',
+    act:'투여를 보류하고 임신 사실을 의사에게 즉시 보고하세요.' },
+  { id:'r-child-aspirin', lv:'red', g:'소아 × 아스피린',
+    cond:[{d:'aspirin'},{child:14}],
+    msg:'소아·청소년의 바이러스 감염에서 아스피린은 라이증후군 위험이 있습니다.',
+    act:'해열 목적 아스피린 투여를 피하고 아세트아미노펜·이부프로펜으로 대체 여부를 확인하세요.' },
+  { id:'r-child-fq', lv:'red', g:'소아 × 퀴놀론',
+    cond:[{d:'fq'},{child:18}],
+    msg:'성장기 소아에서 퀴놀론은 연골·건 손상 위험이 있어 원칙적으로 피합니다.',
+    act:'투여 전 의사 확인이 필요하며, 다른 계열 항생제 가능성을 문의하세요.' },
+  { id:'r-kcl-bolus', lv:'red', g:'칼륨 정주 속도 초과 의심',
+    cond:[{d:'kcl'}],
+    msg:'칼륨 정주는 속도·농도 초과 시 치명적 부정맥을 일으킬 수 있습니다(말초 10mEq/hr 이하 권고, 중심정맥·모니터링 시 별도).',
+    act:'점적속도(gtt/min)와 희석 농도를 계산해 확인하고, 반드시 의사 처방 속도와 대조하세요.' },
+  { id:'r-epi-dose', lv:'red', g:'에피네프린 아나필락시스 용량 확인',
+    cond:[{d:'epi'}],
+    msg:'에피네프린 1:1000 IM 성인 0.3~0.5mg(0.01mg/kg, 최대 0.5mg) — 소아는 체중 기준으로 계산해야 합니다.',
+    act:'체중 기준 용량을 계산해 확인하고, 투여 후 5분마다 활력을 재측정하세요. 필요 시 반복·119 이송을 판단합니다.' },
+
+  /* ===== ORANGE: 주의·의사 확인 ===== */
+  { id:'o-elder-nsaid', lv:'org', g:'고령 × NSAIDs',
+    cond:[{d:'nsaid'},{ageMin:65}],
+    msg:'65세 이상에서 NSAIDs는 위장관 출혈·신기능 저하 위험이 커집니다.',
+    act:'최소 용량·최단 기간, PPI 병용 여부를 확인하고 탈수 여부를 함께 관찰하세요.' },
+  { id:'o-elder-benzo', lv:'org', g:'고령 × 수면·진정제',
+    cond:[{d:'benzo'},{ageMin:65}],
+    msg:'고령에서 벤조디아제핀·졸피뎀은 낙상·섬망 위험이 높습니다.',
+    act:'투여 후 보행 시 부축 안내, 귀가 시 운전 금지를 안내하세요.' },
+  { id:'o-elder-antihist', lv:'org', g:'고령 × 1세대 항히스타민',
+    cond:[{d:'antihist'},{ageMin:65}],
+    msg:'1세대 항히스타민은 항콜린 작용으로 요폐·섬망·낙상을 유발할 수 있습니다.',
+    act:'배뇨장애·전립선 질환 여부를 확인하고 2세대 약제 가능성을 문의하세요.' },
+  { id:'o-la-max', lv:'org', g:'국소마취제 최대용량 초과',
+    cond:[{d:'la'}],
+    dose:{ drug:'la', maxPlain:4.5, maxEpi:7 },
+    msg:'리도카인 최대 용량은 에피네프린 없이 4.5mg/kg, 포함 시 7mg/kg입니다(60kg 기준 270mg/420mg).',
+    act:'체중 기준 mg을 계산해 처방 총량과 비교하고, 초과 시 의사에게 보고하세요.' },
+  { id:'o-apap-limit', lv:'org', g:'아세트아미노펜 일일 상한',
+    cond:[{d:'apap'}],
+    daily:{ drug:'apap', max:4000 },
+    msg:'아세트아미노펜 성인 1일 최대 4,000mg(간질환·고령·음주 시 2,000~3,000mg)입니다.',
+    act:'하루 총량을 합산하고, 다른 종합감기약의 아세트아미노펜 성분을 함께 확인하세요.' },
+  { id:'o-ibu-renal', lv:'org', g:'신기능 저하 × NSAIDs',
+    cond:[{d:'nsaid'},{egfrMax:60}],
+    msg:'eGFR 60 미만에서 NSAIDs는 신기능을 더 떨어뜨릴 수 있습니다.',
+    act:'탈수·구토 여부를 확인하고 투여 전 신기능 확인을 의사에게 문의하세요.' },
+  { id:'o-iron-infection', lv:'org', g:'급성 감염 × 철분 주사',
+    cond:[{d:'iron'},{flag:'infection'}],
+    msg:'활동성 감염 중 정맥 철분은 세균 증식을 도울 수 있어 연기하는 것이 원칙입니다.',
+    act:'발열·감염 증상 여부를 확인하고 투여 일정 연기 가능성을 의사에게 문의하세요.' },
+  { id:'o-ceftri-ca', lv:'org', g:'세프트리악손 × 칼슘 함유 수액',
+    cond:[{d:'abx'},{text:['칼슘','ca++','글루콘산','하트만','하트만액','링거']}],
+    msg:'세프트리악손과 칼슘 함유 수액은 같은 라인에서 침전을 만들 수 있습니다.',
+    act:'Y-site 혼합을 피하고 라인을 분리하거나 생리식염수로 세척 후 투여하세요.' },
+  { id:'o-mg-fast', lv:'org', g:'마그네슘 빠른 정주',
+    cond:[{d:'mg'}],
+    msg:'황산마그네슘을 빠르게 정주하면 안면홍조·저혈압·호흡억제가 올 수 있습니다.',
+    act:'처방된 점적시간(보통 1~2시간)을 확인하고, 심부반사·호흡수·소변량을 관찰하세요.' },
+  { id:'o-meto-child', lv:'org', g:'소아 × 메토클로프라미드',
+    cond:[{d:'antiemetic'},{child:12}],
+    msg:'소아에서 메토클로프라미드는 추체외로 반응 위험이 있어 연령·용량 확인이 필요합니다.',
+    act:'체중당 용량과 연령 제한을 처방과 대조하고, 투여 후 이상 운동 여부를 관찰하세요.' },
+  { id:'o-ondan-qt', lv:'org', g:'온단세트론 × QT 연장',
+    cond:[{text:['온단세트론','자프란']},{flag:'qt'}],
+    msg:'QT 연장 병력·전해질 이상에서 온단세트론은 부정맥 위험이 있습니다.',
+    act:'칼륨·마그네슘 수치와 함께 의사에게 확인하고, 투여 중 심계항진을 관찰하세요.' },
+  { id:'o-contrast-met', lv:'org', g:'조영제 × 메트포르민',
+    cond:[{d:'contrast'},{d:'metformin'}],
+    msg:'조영제 검사 후 신기능 저하 시 메트포르민 축적으로 젖산산증 위험이 있습니다.',
+    act:'검사 전 eGFR 확인, 검사 후 48시간 메트포르민 보류 여부를 의사에게 확인하세요.' },
+  { id:'o-steroid-dm', lv:'org', g:'당뇨 × 스테로이드',
+    cond:[{d:'steroid'},{flag:'dm'}],
+    msg:'스테로이드는 혈당을 올립니다(특히 오후·저녁 투여 시 야간 고혈당).',
+    act:'투여 후 혈당 상승 여부를 확인하고 인슐린 용량 조정이 필요한지 의사에게 문의하세요.' },
+  { id:'o-phen-htn', lv:'org', g:'펜터민 × 고혈압·심혈관',
+    cond:[{d:'phentermine'},{flag:'htn'}],
+    msg:'펜터민은 교감신경 자극제로 혈압·심박수를 올립니다.',
+    act:'투여 전 혈압·맥박을 측정하고, 두근거림·두통 호소 시 즉시 보고하세요.' },
+
+  /* ===== YELLOW: 확인 권장 ===== */
+  { id:'y-vitc-stone', lv:'yel', g:'비타민C 고용량 × 신결석',
+    cond:[{d:'vitc'},{flag:'stone'}],
+    msg:'비타민C 2g 이상 정맥 투여는 신결석 병력에서 주의가 필요합니다.',
+    act:'수분 섭취를 안내하고 통증·혈뇨 여부를 확인하세요.' },
+  { id:'y-orli-vit', lv:'yel', g:'오르리스타트 × 지용성 비타민',
+    cond:[{d:'orlistat'}],
+    msg:'오르리스타트는 지용성 비타민(A·D·E·K) 흡수를 줄입니다.',
+    act:'복용 2시간 전후 비타민 복용을 피하도록 안내하고, 지방변·복부팽만을 설명하세요.' },
+  { id:'y-phen-maoi', lv:'yel', g:'펜터민 × SSRI·MAOI',
+    cond:[{d:'phentermine'},{flag:'antidep'}],
+    msg:'항우울제와 병용 시 세로토닌 증후군·혈압 상승 위험이 있습니다.',
+    act:'복용 중인 정신과 약을 확인하고 병용 여부를 의사에게 전달하세요.' },
+  { id:'y-glp1-gi', lv:'yel', g:'GLP-1 × 위마비·췌장염 병력',
+    cond:[{d:'glp1'},{flag:'gi'}],
+    msg:'위마비·췌장염 병력에서 GLP-1은 위장관 부작용이 커질 수 있습니다.',
+    act:'식사량·구토 횟수를 확인하고, 심한 복통 시 즉시 보고하도록 안내하세요.' },
+  { id:'y-abx-ocp', lv:'yel', g:'항생제 × 경구피임약',
+    cond:[{d:'abx'},{flag:'ocp'}],
+    msg:'광범위 항생제 사용 시 경구피임제 효과 저하 가능성이 알려져 있습니다.',
+    act:'추가 피임을 안내하세요(고객 안내 문구로 전달).' },
+  { id:'y-fever-child-dose', lv:'yel', g:'소아 해열제 용량 확인',
+    cond:[{anyOf:['apap','nsaid']},{child:12}],
+    msg:'소아 해열제는 체중 기준입니다(아세트아미노펜 10~15mg/kg, 이부프로펜 5~10mg/kg/회).',
+    act:'체중을 확인해 용량을 계산하고, 최소 4시간(이부프로펜 6~8시간) 간격을 지키세요.' },
+  { id:'y-renal-all', lv:'yel', g:'신기능 저하 × 일반 약물 용량',
+    cond:[{egfrMax:45}],
+    msg:'eGFR 45 미만에서는 신배설 약물의 용량·간격 조정이 필요할 수 있습니다.',
+    act:'처방된 용량이 신기능 조정본인지 의사에게 확인하세요.' },
+
+  /* ===== BLUE: 교육 포인트 ===== */
+  { id:'b-inject-site', lv:'blu', g:'주사 부위·투여 기술',
+    cond:[{anyOf:['la','iron','vitc','mg']}],
+    msg:'정맥 투여 전 혈액 역류 확인, 15분 관찰(철분·고용량 비타민) 원칙을 지킵니다.',
+    act:'투여 시작 후 15분은 환자 상태를 관찰하고, 통증·부종 즉시 확인하도록 안내하세요.' },
+  { id:'b-vax-observe', lv:'blu', g:'예방접종 후 관찰',
+    cond:[{text:['예방접종','백신','접종']}],
+    msg:'예방접종 후 15~30분 관찰과 귀가 후 이상반응 안내가 필요합니다.',
+    act:'접종 부위·발열·보챔 여부를 확인하고 보호자에게 연락처를 안내하세요.' },
+  { id:'b-chemo-waste', lv:'blu', g:'주사·수액 폐기물 관리',
+    cond:[{text:['주사','수액','카테터','니들','바늘']}],
+    msg:'날카로운 폐기물은 전용 용기에 즉시 버리고, 주사부위 감염 징후를 관찰합니다.',
+    act:'투여 후 발적·열감·삼출 여부를 확인하고 차트에 기록하세요.' }
+];
+
+
+/* ---------- 계산기 ---------- */
+DATA.calcs = [
+  { id:'inf',  n:'수액 계산', ico:'💧' },
+  { id:'gtt',  n:'점적속도',        ico:'🩺' },
+  { id:'time', n:'종료 시각', ico:'⏱️' },
+  { id:'dose', n:'체중당', ico:'⚖️' },
+  { id:'iron', n:'철분', ico:'🩸' },
+  { id:'peds', n:'소아 해열제',      ico:'🧸' }
+];
+
+/* ---------- 멤버십 등급별 응대·발렛 안내 (접수 파트) ---------- */
+DATA.memberGuide = [
+  { g:'gold', t:'🥇 골드', b:[
+    '접수 시 등급 확인 후 이름 대신 “차트순번 + 회원”으로 호칭',
+    '🚗 발렛 무료 적용 여부 확인 후 주차 안내',
+    '대기 시간이 길어지면 예상 시간 먼저 안내',
+    '다음 예약 리마인드 문자 발송 여부 확인'
+  ] },
+  { g:'purple', t:'💜 퍼플', b:[
+    '🚗 발렛 무료 적용 + 주차 위치 메모',
+    '시술 후 관리 안내 문자 발송',
+    '예약 변경 요청은 우선 처리 후 차트에 기록',
+    '대기 중 음료·상담실 안내'
+  ] },
+  { g:'black', t:'🖤 블랙', b:[
+    '🚗 발렛 무료 적용 + 차량 인수 담당자 지정',
+    '원장·실장 인사 연결, 별도 상담 공간 안내',
+    '정기 관리·생일 케어 일정 확인',
+    '특이 요청은 접수 인계문에 반드시 남기기'
+  ] }
+];
+DATA.valetNote = '골드·퍼플·블랙 회원 방문 시 🚗 발렛 무료 적용을 확인하고, 접수 인계문에 남겨 주세요.';
+
+/* ---------- 신규직원 입사 인수인계 (지점 공통 · 파트별) ---------- */
+DATA.onboard = {
+  nur: [
+    { k:'on_n1',  n:'수액실 베드 세팅과 수액 준비 순서 익히기' },
+    { k:'on_n2',  n:'gtt/min · mL/hr 계산과 타이머 사용법' },
+    { k:'on_n3',  n:'수액·주사 시작 전 5R(대상·약·용량·경로·시간) 확인' },
+    { k:'on_n4',  n:'냉장 백신·바이알 2~8℃ 관리와 온도 기록' },
+    { k:'on_n5',  n:'향정·마약류 잔량 대조와 관리대장 작성' },
+    { k:'on_n6',  n:'시술 전 동의서·알레르기·복용약 확인' },
+    { k:'on_n7',  n:'시술 후 주의 안내(자외선 차단·보습·샤워 시점)' },
+    { k:'on_n8',  n:'검사 결과 확인과 콜백 처리 순서' },
+    { k:'on_n9',  n:'원내 응급 대응 순서(수액 중단·의사 호출·에피네프린·119)' },
+    { k:'on_n10', n:'약품·소모품 재고 확인과 발주 요청 방법' },
+    { k:'on_n11', n:'교차근무 인계문 작성·복사 방법' }
+  ],
+  recv: [
+    { k:'on_r1',  n:'예약 등록·변경·취소 처리 순서' },
+    { k:'on_r2',  n:'노쇼·지연 고객 연락과 기록 방법' },
+    { k:'on_r3',  n:'멤버십 골드·퍼플·블랙 등급 확인과 응대' },
+    { k:'on_r4',  n:'회원 방문 시 🚗 발렛 무료 적용 확인' },
+    { k:'on_r5',  n:'미수금 확인과 안내 문자 발송' },
+    { k:'on_r6',  n:'적립금·선불권 사용·잔액 확인' },
+    { k:'on_r7',  n:'시술 동의서·사진 촬영 여부 확인' },
+    { k:'on_r8',  n:'제증명·진료비 영수증·세금계산서 발급' },
+    { k:'on_r9',  n:'고객 문의·컴플레인 응대와 인계' },
+    { k:'on_r10', n:'일일 마감 정산 흐름(현금·카드·간편결제)' },
+    { k:'on_r11', n:'교차근무 인계문 작성·카톡 전달 방법' }
+  ]
+};
+
+/* ---------- 접수 인수인계 서식 (원내 종이 서식 10항목 · 2026-11-19 A4 simple v2) ---------- */
+DATA.recvForm = [
+  { k:'schedule', n:'원장님 스케줄', e:'🗓️', kind:'text', ph:'예) 오후 휴진 / 14:00 이후 시술만 / 15:00 외출' },
+  { k:'valet', n:'멤버십 발렛주차 명단', e:'🚗', kind:'rows',
+    note:'골드·퍼플·블랙 회원 · 차량/방문 메모 · 🚗 발렛 무료 체크',
+    fields:[
+      { k:'who', l:'가명/차트', ph:'차트 24-118' },
+      { k:'grade', l:'등급', type:'select', opts:'grades' },
+      { k:'memo', l:'차량/방문 메모', ph:'12가3456 · 14:00' },
+      { k:'valet', l:'발렛', type:'check', l2:'🚗 무료' }
+    ] },
+  { k:'memo', n:'전달 메모', e:'📋', kind:'text', ph:'교대·인계 때 꼭 전할 말' },
+  { k:'cash', n:'오늘 입·출금내역', e:'💰', kind:'rows',
+    fields:[
+      { k:'dir', l:'구분', type:'select', opts:[['in','입금'],['out','출금']] },
+      { k:'amt', l:'금액', type:'num', ph:'0', unit:'원' },
+      { k:'note', l:'내용', ph:'예) 미수금 입금' }
+    ] },
+  { k:'watch', n:'주의·요청 고객', e:'💗', kind:'rows',
+    fields:[
+      { k:'who', l:'가명/차트', ph:'차트 24-118' },
+      { k:'note', l:'요청·주의·컴플레인', ph:'예) 대기 길어짐 양해 요청' }
+    ] },
+  { k:'point', n:'적립금내역', e:'🪙', kind:'rows',
+    note:'일일마감 연동 전 원내 인계 메모용',
+    fields:[
+      { k:'who', l:'고객명(가명)' },
+      { k:'plus', l:'적립', type:'num', unit:'원', p:'적립' },
+      { k:'minus', l:'사용', type:'num', unit:'원', p:'사용' },
+      { k:'bal', l:'잔액', type:'num', unit:'원', p:'잔액' }
+    ] },
+  { k:'happy', n:'해피콜목록', e:'🎧', kind:'rows',
+    fields:[
+      { k:'who', l:'대상', ph:'차트 24-118' },
+      { k:'why', l:'사유', ph:'시술 후 경과 확인' },
+      { k:'res', l:'결과', ph:'부재중 · 문자 발송' }
+    ] },
+  { k:'supply', n:'부족한비품', e:'🩹', kind:'rows',
+    fields:[
+      { k:'item', l:'품목', ph:'예) 거즈 10x10' },
+      { k:'qty', l:'수량', type:'num' },
+      { k:'order', l:'발주', type:'check', l2:'발주 필요' }
+    ] },
+  { k:'newpt', n:'신규환자정보', e:'🩺', kind:'rows',
+    note:'가명·차트순번만 (최소 정보 원칙)',
+    fields:[
+      { k:'who', l:'가명/차트' },
+      { k:'via', l:'이유·내원 경로', ph:'네이버 · 지인 · 간판' },
+      { k:'note', l:'특이사항' }
+    ] },
+  { k:'snack', n:'간식기록란', e:'🍪', kind:'text', ph:'간식·음료·원내 비치 메모' }
+];
+</script>
+<script>/* =========================================================================
+   TLC 인수인계 — 화면 로직 (티엘씨 청담·분당 실무 인수인계)
+   아이디어·개발·제작·저작권: 김효숙 (티엘씨메디켈그룹 총괄운영실장)
+   ========================================================================= */
+var VERSION = 'v1.1';
+/* 기존 Apps Script 배포본(참고용 폴백) — GitHub Pages에서는 ./version.json 사용 */
+var EXEC_URL = 'https://script.google.com/macros/s/AKfycbyTf8lTMRCtbmnc3SCOcYH25O_ncRE0IUtm4K8h91-C5MG6ETQo9G4DiF57sgBsicE6/exec';
+var VER_POLL_MS = 180000;
+var latestVer = null, lastVerCheck = 0;
+
+function $(s, r){ return (r||document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+function esc(s){
+  return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function num(v){ var n = parseFloat(v); return isNaN(n) ? null : n; }
+function pad(n){ return (n<10?'0':'')+n; }
+function nowHM(){ var d=new Date(); return pad(d.getHours())+':'+pad(d.getMinutes()); }
+function hmOf(ms){ var d=new Date(ms); return pad(d.getHours())+':'+pad(d.getMinutes()); }
+function todayStr(){ var d=new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function todayKo(){ var d=new Date(); return (d.getMonth()+1)+'월 '+d.getDate()+'일 ('+['일','월','화','수','목','금','토'][d.getDay()]+')'; }
+function weekdayKo(ds){
+  try{ var p=ds.split('-'); var d=new Date(+p[0], +p[1]-1, +p[2]);
+    return ['일','월','화','수','목','금','토'][d.getDay()]; }catch(e){ return ''; }
+}
+function toast(msg){
+  var t = $('#toast'); if(!t) return;
+  t.textContent = msg; t.classList.add('on');
+  clearTimeout(t._tm); t._tm = setTimeout(function(){ t.classList.remove('on'); }, 2200);
+}
+function flash(btn){
+  if(!btn) return;
+  btn.classList.add('busy');
+  setTimeout(function(){ btn.classList.remove('busy'); }, 260);
+}
+function up(el, sel){
+  while(el && el !== document){
+    if(el.matches && el.matches(sel)) return el;
+    el = el.parentNode;
+  }
+  return null;
+}
+/* ---------- 로컬 저장 (기기 내에만) ---------- */
+var store = {
+  get:function(k, d){ try{ var v=localStorage.getItem(k); return v? JSON.parse(v): d; }catch(e){ return d; } },
+  set:function(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+};
+
+/* =========================================================================
+   자동 업데이트 · 새로고침 (GitHub Pages: ./version.json)
+   ========================================================================= */
+function normVer(v){ return String(v||'').replace(/^v/i,'').trim(); }
+function cmpVer(a,b){
+  var x = normVer(a).split('.'), y = normVer(b).split('.');
+  for(var i=0;i<Math.max(x.length,y.length);i++){
+    var p = parseFloat(x[i]||'0'), q = parseFloat(y[i]||'0');
+    if(isNaN(p)) p = 0; if(isNaN(q)) q = 0;
+    if(p !== q) return p > q ? 1 : -1;
+  }
+  return 0;
+}
+function baseUrl(){
+  /* /clinic-nurse-ai/ 처럼 폴더 경로를 유지한 채 파라미터만 붙입니다 */
+  return location.pathname || location.href.split('?')[0];
+}
+function appUrl(ver){
+  return baseUrl() + '?v=' + encodeURIComponent(normVer(ver) || normVer(VERSION)) + '&t=' + Date.now();
+}
+function openLatest(ver){
+  toast('최신 화면으로 다시 엽니다…');
+  try{ location.href = appUrl(ver || VERSION); }
+  catch(e){ location.reload(); }
+}
+function showUpdate(ver){
+  latestVer = ver;
+  var bar = $('#updBar'); if(!bar) return;
+  var vt = $('#updVer'); if(vt) vt.textContent = 'v' + normVer(ver);
+  var bb = $('#updBtn'); if(bb) bb.href = appUrl(ver);
+  bar.classList.add('on');
+  var bt = $('#vbadgeText'); if(bt) bt.textContent = 'v' + normVer(ver) + ' 준비';
+  var bp = $('#vbadgeBtn'); if(bp){ bp.style.background = '#FFF4E6'; bp.style.color = '#B5620A'; }
+}
+function versionCheck(force){
+  var now = Date.now();
+  if(!force && now - lastVerCheck < 12000) return;
+  lastVerCheck = now;
+  function apply(d){ if(d && d.version && cmpVer(d.version, VERSION) > 0) showUpdate(d.version); }
+  function fallback(){
+    try{
+      fetch(EXEC_URL + '?api=version&t=' + now, {credentials:'omit', cache:'no-store'})
+        .then(function(r){ return r.json(); }).then(apply).catch(function(){});
+    }catch(e){}
+  }
+  try{
+    fetch('./version.json?t=' + now, {cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error('no version.json'); return r.json(); })
+      .then(apply)
+      .catch(fallback);
+  }catch(e){ fallback(); }
+}
+function startVersionWatch(){
+  try{ document.addEventListener('visibilitychange', function(){ if(!document.hidden) versionCheck(); }); }catch(e){}
+  try{ window.addEventListener('focus', function(){ versionCheck(); }); }catch(e){}
+  try{ window.addEventListener('pageshow', function(){ versionCheck(); }); }catch(e){}
+  try{ setInterval(function(){ if(!document.hidden) versionCheck(); }, VER_POLL_MS); }catch(e){}
+}
+function bindRefresh(){
+  [['#btnRefresh', function(){ return VERSION; }],
+   ['#vbadgeBtn', function(){ return latestVer || VERSION; }],
+   ['#updBtn', function(){ return latestVer || VERSION; }]].forEach(function(p){
+    var el = $(p[0]); if(!el) return;
+    el.addEventListener('click', function(ev){ ev.preventDefault(); openLatest(p[1]()); });
+  });
+  var rf = $('#btnRefresh'), vb = $('#vbadgeBtn');
+  if(rf) rf.href = appUrl(VERSION);
+  if(vb) vb.href = appUrl(VERSION);
+  startVersionWatch();
+}
+
+/* =========================================================================
+   음성 입력 (Web Speech API) — GitHub Pages 최상위 문서에서 직접 동작
+   ========================================================================= */
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+function micErrMsg(code){
+  if(code === 'not-allowed' || code === 'service-not-allowed')
+    return '마이크 권한이 꺼져 있습니다. 주소창 옆 자물쇠(또는 아이폰 설정 → Safari → 마이크)에서 <b>허용</b> 후 다시 눌러 주세요.';
+  if(code === 'audio-capture')
+    return '마이크를 찾을 수 없습니다. 이어폰·마이크 연결을 확인해 주세요.';
+  if(code === 'network')
+    return '음성 인식 서버에 연결하지 못했습니다. 잠시 후 다시 시도하거나 키보드 <b>받아쓰기</b>를 사용해 주세요.';
+  if(code === 'no-speech')
+    return '소리가 들리지 않았습니다. 마이크 가까이에서 다시 말해 주세요.';
+  if(code === 'aborted') return '음성 인식을 취소했습니다.';
+  return '음성 인식이 중단되었습니다. 다시 눌러 주세요.';
+}
+function initMic(btnId, taId, hintId){
+  var btn = $('#'+btnId), ta = $('#'+taId), hint = hintId? $('#'+hintId):null;
+  if(!btn || !ta) return;
+  var rec = null, on = false, errored = false;
+  function stop(){ on=false; btn.classList.remove('rec'); btn.innerHTML='🎤'; }
+  btn.addEventListener('click', function(){
+    if(!SR){
+      if(hint) hint.innerHTML = '이 브라우저는 음성 인식을 지원하지 않습니다. <b>키보드 마이크(받아쓰기)</b>를 사용해 주세요.';
+      toast('음성 인식 미지원 — 키보드 받아쓰기를 사용해 주세요');
+      return;
+    }
+    if(window.isSecureContext === false){
+      if(hint) hint.innerHTML = '음성 입력은 <b>https 주소</b>에서만 동작합니다. 주소를 확인해 주세요.';
+      return;
+    }
+    if(on){ try{ rec.stop(); }catch(e){} stop(); return; }
+    try{
+      rec = new SR();
+      rec.lang = 'ko-KR'; rec.continuous = false; rec.interimResults = true; rec.maxAlternatives = 1;
+      var base = ta.value ? ta.value.replace(/\s*$/,' ') : '';
+      errored = false;
+      rec.onstart = function(){ on=true; btn.classList.add('rec'); btn.innerHTML='⏹'; if(hint) hint.innerHTML='<b>듣고 있습니다…</b> 말씀하세요.'; };
+      rec.onresult = function(ev){
+        var txt = '';
+        for(var i=ev.resultIndex;i<ev.results.length;i++){ txt += ev.results[i][0].transcript; }
+        ta.value = base + txt;
+      };
+      rec.onerror = function(e){
+        errored = true;
+        stop();
+        if(hint) hint.innerHTML = micErrMsg(e && e.error);
+      };
+      rec.onend = function(){
+        stop();
+        if(hint && !errored) hint.innerHTML='입력 완료. 내용을 확인하고 필요하면 고쳐 주세요.';
+      };
+      rec.start();
+    }catch(e){
+      stop();
+      if(hint) hint.innerHTML = '음성 인식을 시작할 수 없습니다. 키보드로 입력해 주세요.';
+    }
+  });
+}
+
+/* =========================================================================
+   파트 · 지점 상태
+   ========================================================================= */
+var appState = {
+  part: store.get('tlc_part', 'all'),
+  branch: store.get('tlc_branch', 'chungdam')
+};
+if(!DATA.partMap[appState.part]) appState.part = 'all';
+function branchInfo(id){
+  var x = DATA.branches.filter(function(b){ return b.id === (id||appState.branch); })[0];
+  return x || DATA.branches[0];
+}
+function partName(id){ var p=DATA.partMap[id]; return p ? p.n : '전체'; }
+function partsToShow(){ return appState.part === 'all' ? ['nur','recv'] : [appState.part]; }
+
+function setPart(id, silent){
+  if(!DATA.partMap[id]) id = 'all';
+  appState.part = id; store.set('tlc_part', id);
+  document.body.setAttribute('data-part', id);
+  $$('#partBar .pb').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-part') === id); });
+  var pn = $('#partNow'); if(pn) pn.textContent = id === 'all' ? '전체 보기 · 간호 + 접수' : partLabel(id);
+  /* 이슈 입력 파트 기본값 */
+  issState.part = (id === 'all') ? issState.part : id;
+  if(!tagsOf(issState.part).some(function(t){ return t.id === issState.tag; })){
+    issState.tag = (tagsOf(issState.part)[0] || {id:'etc'}).id;
+  }
+  renderIssParts(); renderIssTags(); renderIssues();
+  var memSec = $('#memberSec'); if(memSec) memSec.classList.toggle('hide', id === 'nur');
+  var rfSec = $('#recvFormSec'); if(rfSec) rfSec.classList.toggle('hide', id === 'nur');
+  renderHome(); renderChecklist(); renderCustom(); renderDrugNotice();
+  if(!silent) toast(partLabel(id) + ' 기준으로 보여 드립니다');
+}
+function setBranch(id){
+  appState.branch = id; store.set('tlc_branch', id);
+  renderHome(); renderChecklist(); renderCustom();
+}
+
+/* =========================================================================
+   탭 전환
+   ========================================================================= */
+var TAB_SCREENS = ['home','iss','fluid','check'];
+function goTab(t){
+  if(TAB_SCREENS.indexOf(t) < 0) t = 'home';
+  $$('.tb').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-t') === t); });
+  TAB_SCREENS.forEach(function(s){
+    var el = $('#screen-'+s); if(el) el.classList.toggle('hide', s !== t);
+  });
+  if(t === 'check') renderChecklist();
+  if(t === 'fluid') renderTimers();
+  try{ window.scrollTo({top:0, behavior:'smooth'}); }catch(e){ window.scrollTo(0,0); }
+}
+function bindTabs(){
+  $$('.tb').forEach(function(b){ b.addEventListener('click', function(){ goTab(b.getAttribute('data-t')); }); });
+  document.addEventListener('click', function(ev){
+    var g = up(ev.target, '[data-go]');
+    if(!g) return;
+    ev.preventDefault();
+    goTab(g.getAttribute('data-go'));
+    var fl = g.getAttribute('data-filter');
+    if(fl){
+      issState.filter = fl;
+      $$('#issFilter .chip').forEach(function(x){ x.classList.toggle('on', x.getAttribute('data-f') === fl); });
+      renderIssues();
+    }
+    var sc = g.getAttribute('data-scroll');
+    if(sc){
+      setTimeout(function(){
+        var el = document.getElementById(sc);
+        if(el){ try{ el.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){ el.scrollIntoView(); } }
+      }, 60);
+    }
+  });
+}
+
+/* =========================================================================
+   홈
+   ========================================================================= */
+function renderHome(){
+  var sel = $('#branchSel');
+  if(sel && !sel._bound){
+    sel.innerHTML = DATA.branches.map(function(b){
+      return '<option value="'+b.id+'">'+esc(b.name)+' — '+esc(b.sub)+'</option>';
+    }).join('');
+    sel.value = appState.branch;
+    sel.addEventListener('change', function(){ setBranch(sel.value); toast(branchInfo().name + ' 기준으로 바뀌었습니다'); });
+    sel._bound = true;
+  }
+  if(sel) sel.value = appState.branch;
+  var b = branchInfo();
+  var bd = $('#branchDesc'); if(bd) bd.textContent = b.name + ' · ' + b.sub + ' — ' + b.note;
+  var bt = $('#branchTags');
+  if(bt){
+    var n = (DATA.checks[b.id] && DATA.checks[b.id].nur || []).length;
+    var r = (DATA.checks[b.id] && DATA.checks[b.id].recv || []).length;
+    bt.innerHTML = '<span class="tag">👩‍⚕️ 간호 점검 '+n+'항목</span><span class="tag b">🖥️ 접수 점검 '+r+'항목</span>' +
+      '<span class="tag n">🆕 신규직원 인수인계</span>';
+  }
+  var hd = $('#homeDate'); if(hd) hd.textContent = todayKo() + ' · ' + b.name;
+  var card = $('#shiftCard');
+  if(card && !card._built){
+    card.innerHTML =
+      '<button class="sumrow" data-go="fluid" data-scroll="timerSec"><span class="si">⏱️</span>'+
+        '<span class="sm"><b>진행 중 수액</b><small id="shiftTimers">—</small></span><span class="sa">›</span></button>'+
+      '<button class="sumrow" data-go="iss" data-filter="handoff"><span class="si">🔄</span>'+
+        '<span class="sm"><b>교차근무 인계 필수</b><small id="shiftHandoff">—</small></span><span class="sa">›</span></button>'+
+      '<button class="sumrow" data-go="iss"><span class="si">📅</span>'+
+        '<span class="sm"><b>내일 이어갈 건</b><small id="shiftCarry">—</small></span><span class="sa">›</span></button>'+
+      '<button class="sumrow" data-go="iss"><span class="si">🥇</span>'+
+        '<span class="sm"><b>멤버십 · 발렛</b><small id="shiftMember">—</small></span><span class="sa">›</span></button>'+
+      '<button class="sumrow" data-go="iss" data-scroll="recvFormSec"><span class="si">🖥️</span>'+
+        '<span class="sm"><b>접수 인수인계 서식</b><small id="shiftForm">—</small></span><span class="sa">›</span></button>'+
+      '<button class="sumrow" data-go="iss"><span class="si">📌</span>'+
+        '<span class="sm"><b>오늘 이슈</b><small id="homeIssues">—</small></span><span class="sa">›</span></button>'+
+      '<button class="sumrow" data-go="check"><span class="si">📋</span>'+
+        '<span class="sm"><b>오늘 점검</b><small id="homeChecks">—</small></span><span class="sa">›</span></button>';
+    card._built = true;
+  }
+  renderPartGuide();
+  var st = $('#homeSteps');
+  if(st && !st._built){
+    st.innerHTML = DATA.homeSteps.map(function(s,i){
+      return '<div class="step"><div class="n">'+(i+1)+'</div><div><h4>'+esc(s.h)+'</h4><p>'+esc(s.p)+'</p></div></div>';
+    }).join('');
+    st._built = true;
+  }
+  updateSummary();
+}
+function renderPartGuide(){
+  var box = $('#partGuide'); if(!box) return;
+  var parts = appState.part === 'all' ? ['nur','recv'] : [appState.part];
+  box.innerHTML = parts.map(function(id){
+    var g = DATA.partGuides[id]; if(!g) return '';
+    return '<div class="guide '+(id==='recv'?'recv':'nur')+'">'+
+      '<div class="gtitle">'+esc(g.title)+'</div>'+
+      '<div class="muted" style="margin-bottom:8px">'+esc(g.desc)+'</div>'+
+      '<div class="chips">'+g.items.map(function(x){ return '<span class="tag n">'+esc(x)+'</span>'; }).join('')+'</div>'+
+      '</div>';
+  }).join('') + (appState.part==='all'
+    ? '<div class="row" style="margin-top:10px"><button class="btn ghost sm" data-part-go="nur">👩‍⚕️ 간호 파트만 보기</button><button class="btn ghost sm" data-part-go="recv">🖥️ 접수 파트만 보기</button></div>'
+    : '<div class="row" style="margin-top:10px"><button class="btn ghost sm" data-part-go="all">📋 전체 보기로 돌아가기</button></div>');
+}
+function updateSummary(){
+  var list = getIssues();
+  var open = list.filter(function(x){ return !x.done; });
+  var hf = list.filter(function(x){ return x.handoff && !x.done; });
+  var carry = list.filter(function(x){ return x.carry && !x.done; });
+  var mem = list.filter(function(x){ return x.grade && x.grade !== 'none'; });
+  var timers = activeTimers();
+  var now = Date.now();
+
+  var tEl = $('#shiftTimers'), hEl = $('#shiftHandoff'), cEl = $('#shiftCarry'), mEl = $('#shiftMember');
+  if(tEl){
+    if(timers.length){
+      var min = null, who = '';
+      timers.forEach(function(t){
+        var r = t.paused ? t.remainMs : Math.max(0, t.endAt - now);
+        if(min === null || r < min){ min = r; who = t.bed || t.name || '수액'; }
+      });
+      tEl.textContent = timers.length + '개 진행 · 가장 가까운 ' + who + ' ' + fmtLeft(min) + ' 남음';
+    } else tEl.textContent = '진행 중인 수액이 없습니다';
+  }
+  if(hEl) hEl.textContent = hf.length ? hf.length + '건 — 다음 근무자에게 꼭 넘길 건' : '인계 필수로 표시한 건이 없습니다';
+  if(cEl) cEl.textContent = carry.length ? carry.length + '건 — 내일 이어서 처리' : '내일로 넘길 건이 없습니다';
+  if(mEl){
+    var g = { gold:0, purple:0, black:0, valet:0 };
+    mem.forEach(function(x){ if(g[x.grade]!==undefined) g[x.grade]++; if(x.valet) g.valet++; });
+    var bits = [];
+    if(g.black) bits.push('🖤 블랙 '+g.black);
+    if(g.purple) bits.push('💜 퍼플 '+g.purple);
+    if(g.gold) bits.push('🥇 골드 '+g.gold);
+    if(g.valet) bits.push('🚗 발렛 '+g.valet);
+    mEl.textContent = bits.length ? bits.join(' · ') : '오늘 등록된 회원 응대 건이 없습니다';
+  }
+  var sf = $('#shiftForm');
+  if(sf) sf.textContent = recvFilledCount() ? recvFilledCount() + ' / 10 항목 작성' : '아직 작성 전 — 접수 서식 10항목';
+  var hi = $('#homeIssues');
+  if(hi) hi.textContent = list.length ? list.length + '건 · 미완료 ' + open.length + '건' : '등록된 이슈가 없습니다';
+  var hc = $('#homeChecks');
+  if(hc){
+    var st = checkStats();
+    hc.textContent = (chkMode === 'onb' ? '신규 인수인계 ' : '일일 점검 ') + st.done + ' / ' + st.total + ' (' + st.pct + '%)';
+  }
+  var note = $('#shiftNote');
+  if(note){
+    if(list.length || timers.length){
+      note.classList.remove('hide');
+      note.innerHTML = '🔄 <b>교차근무 인계 사항</b> — 인계 필수 <b>'+hf.length+'</b>건 · 미완료 <b>'+open.length+
+        '</b>건 · 진행 중 수액 <b>'+timers.length+'</b>개'+(mem.length? ' · 회원 응대 <b>'+mem.length+'</b>건':'');
+    } else note.classList.add('hide');
+  }
+  updatePill();
+}
+
+/* =========================================================================
+   이슈 등록 · 인계문 · 일별 기록함
+   ========================================================================= */
+var issState = { unit:'오전 근무', part:'nur', tag:'iv', grade:'none', valet:false, handoff:false, carry:false, filter:'all' };
+
+function pruneIssues(){
+  var list = store.get('tlc_issues', []);
+  var t = todayStr();
+  var kept = list.filter(function(x){ return x.date === t; });
+  if(kept.length !== list.length) store.set('tlc_issues', kept);
+  return kept;
+}
+function getIssues(){ return pruneIssues(); }
+function saveIssues(list){ store.set('tlc_issues', list); }
+function issuesByPart(part, list){ return (list||getIssues()).filter(function(x){ return x.part === part; }); }
+
+function renderIssParts(){
+  var box = $('#issParts'); if(!box) return;
+  box.innerHTML = ['nur','recv'].map(function(p){
+    var on = issState.part === p;
+    return '<button class="chip'+(on?' on':'')+'" data-p="'+p+'">'+DATA.partMap[p].e+' '+DATA.partMap[p].n+'</button>';
+  }).join('');
+  $$('#issParts .chip').forEach(function(b){
+    b.addEventListener('click', function(){
+      issState.part = b.getAttribute('data-p');
+      var ts = tagsOf(issState.part);
+      if(!ts.some(function(t){ return t.id === issState.tag; })) issState.tag = ts[0].id;
+      renderIssParts(); renderIssTags();
+      var mb = $('#memberBox'); if(mb) mb.classList.toggle('hide', issState.part !== 'recv');
+      var ta = $('#issText');
+      if(ta) ta.placeholder = issState.part === 'recv'
+        ? '예) 차트 24-118 내일 14:00 시술 예약 — 미수 5만5천원, 동의서 미수령, 발렛 무료 확인 필요'
+        : '예) 차트 24-118 수액실 3번 베드, 우측 전완 부종·통증 4점 — 수액 중단, 의사 보고함';
+    });
+  });
+  var mb = $('#memberBox'); if(mb) mb.classList.toggle('hide', issState.part !== 'recv');
+  var ta = $('#issText');
+  if(ta) ta.placeholder = issState.part === 'recv'
+    ? '예) 차트 24-118 내일 14:00 시술 예약 — 미수 5만5천원, 동의서 미수령, 발렛 무료 확인 필요'
+    : '예) 차트 24-118 수액실 3번 베드, 우측 전완 부종·통증 4점 — 수액 중단, 의사 보고함';
+}
+function renderIssTags(){
+  var box = $('#issTags'); if(!box) return;
+  var ts = tagsOf(issState.part);
+  box.innerHTML = ts.map(function(t){
+    return '<button class="chip'+(issState.tag===t.id?' on':'')+'" data-t="'+t.id+'">'+t.e+' '+esc(t.n)+'</button>';
+  }).join('');
+  $$('#issTags .chip').forEach(function(b){
+    b.addEventListener('click', function(){
+      issState.tag = b.getAttribute('data-t');
+      $$('#issTags .chip').forEach(function(x){ x.classList.toggle('on', x === b); });
+    });
+  });
+}
+function renderGrades(){
+  var box = $('#issGrades'); if(!box) return;
+  box.innerHTML = DATA.grades.map(function(g){
+    return '<button class="chip grade-' + g.id + (issState.grade===g.id?' on':'') + '" data-g="'+g.id+'">'+g.e+' '+esc(g.n)+'</button>';
+  }).join('');
+  $$('#issGrades .chip').forEach(function(b){
+    b.addEventListener('click', function(){
+      issState.grade = b.getAttribute('data-g');
+      $$('#issGrades .chip').forEach(function(x){ x.classList.toggle('on', x === b); });
+      if(issState.grade !== 'none'){
+        issState.valet = true;
+        var v = $('#issValet'); if(v) v.classList.add('on');
+        toast('멤버십 회원 — 🚗 발렛 무료 적용을 함께 확인하세요');
+      }
+    });
+  });
+  var v = $('#issValet'); if(v && !v._bound){
+    v.addEventListener('click', function(){
+      issState.valet = !issState.valet;
+      v.classList.toggle('on', issState.valet);
+    });
+    v._bound = true;
+  }
+}
+function initIss(){
+  var ub = $('#issUnits');
+  if(ub){
+    ub.innerHTML = DATA.units.map(function(u,i){
+      return '<button class="chip'+(i===0?' on':'')+'" data-u="'+esc(u)+'">'+esc(u)+'</button>';
+    }).join('');
+    $$('#issUnits .chip').forEach(function(b){
+      b.addEventListener('click', function(){
+        issState.unit = b.getAttribute('data-u');
+        $$('#issUnits .chip').forEach(function(x){ x.classList.toggle('on', x === b); });
+        updateSummary();
+      });
+    });
+  }
+  renderIssParts();
+  renderIssTags();
+  renderGrades();
+  initMic('issMic','issText','issMicHint');
+
+  var hb = $('#issHf');
+  if(hb) hb.addEventListener('click', function(){
+    issState.handoff = !issState.handoff; hb.classList.toggle('on', issState.handoff);
+  });
+  var cb = $('#issCarry');
+  if(cb) cb.addEventListener('click', function(){
+    issState.carry = !issState.carry; cb.classList.toggle('on', issState.carry);
+  });
+
+  var add = $('#issAdd');
+  if(add) add.addEventListener('click', function(){
+    flash(add);
+    var ta = $('#issText');
+    var txt = (ta.value||'').trim();
+    if(!txt){ toast('이슈 내용을 입력해 주세요'); if(ta) ta.focus(); return; }
+    var list = getIssues();
+    list.push({
+      id:'i'+Date.now(), t:nowHM(), tag:issState.tag, part:issState.part, unit:issState.unit,
+      text:txt, date:todayStr(), done:false,
+      handoff:!!issState.handoff, carry:!!issState.carry,
+      grade:(issState.part==='recv'? issState.grade : ''), valet:(issState.part==='recv' && !!issState.valet)
+    });
+    saveIssues(list);
+    ta.value='';
+    issState.handoff = false; issState.carry = false; issState.valet = false; issState.grade = 'none';
+    if(hb) hb.classList.remove('on');
+    if(cb) cb.classList.remove('on');
+    var v = $('#issValet'); if(v) v.classList.remove('on');
+    renderGrades();
+    renderIssues();
+    updateSummary();
+    toast('등록되었습니다 ('+list.length+'건)');
+  });
+  var cl = $('#issClear');
+  if(cl) cl.addEventListener('click', function(){ var ta=$('#issText'); if(ta){ ta.value=''; ta.focus(); } });
+
+  var fs = $('#issFilter');
+  if(fs){
+    fs.innerHTML = '<button class="chip on" data-f="all">전체</button>'+
+      '<button class="chip" data-f="handoff">🔄 인계 필수</button>'+
+      '<button class="chip" data-f="open">⬜ 미완료</button>';
+    $$('#issFilter .chip').forEach(function(b){
+      b.addEventListener('click', function(){
+        issState.filter = b.getAttribute('data-f');
+        $$('#issFilter .chip').forEach(function(x){ x.classList.toggle('on', x === b); });
+        renderIssues();
+      });
+    });
+  }
+
+  var b1 = $('#btnSbarShift'); if(b1) b1.addEventListener('click', function(){ flash(b1); makeSbar('shift'); });
+  var b2 = $('#btnSbarAll'); if(b2) b2.addEventListener('click', function(){ flash(b2); makeSbar('all'); });
+  var b3 = $('#btnSbarNur'); if(b3) b3.addEventListener('click', function(){ flash(b3); makeSbar('nur'); });
+  var b4 = $('#btnSbarRecv'); if(b4) b4.addEventListener('click', function(){ flash(b4); makeSbar('recv'); });
+  var bsave = $('#btnSaveDay'); if(bsave) bsave.addEventListener('click', function(){ flash(bsave); saveDay(); });
+  var bcopy = $('#btnCopySbar'); if(bcopy) bcopy.addEventListener('click', function(){ flash(bcopy); copyText(currentSbarText(), '인계문을 복사했습니다 — 카톡에 붙여 넣으세요'); });
+  var btxt = $('#btnTxtSbar'); if(btxt) btxt.addEventListener('click', function(){ flash(btxt); downloadTxt(); });
+
+  renderIssues();
+  renderDays();
+}
+function renderIssues(){
+  var all = getIssues();
+  var list = appState.part === 'all' ? all : all.filter(function(x){ return x.part === appState.part; });
+  if(issState.filter === 'handoff') list = list.filter(function(x){ return x.handoff && !x.done; });
+  if(issState.filter === 'open') list = list.filter(function(x){ return !x.done; });
+  var box = $('#issList'), empty = $('#issEmpty'), cnt = $('#issCount');
+  if(cnt) cnt.textContent = list.length + '건 · ' + (appState.part==='all'?'전체 파트':partName(appState.part)) + ' · ' + todayKo();
+  if(!box) return;
+  if(!list.length){
+    if(empty){ empty.classList.remove('hide'); empty.innerHTML = '조건에 맞는 이슈가 없습니다.'; }
+    box.innerHTML=''; return;
+  }
+  if(empty) empty.classList.add('hide');
+  box.innerHTML = list.map(function(it){
+    var tg = DATA.tagMap[it.tag] || DATA.tagMap.etc;
+    var gd = DATA.gradeMap[it.grade];
+    var badges = '';
+    if(gd && gd.id !== 'none') badges += '<span class="tag gd-'+gd.id+'">'+gd.e+' '+esc(gd.n)+'</span>';
+    if(it.valet) badges += '<span class="tag y">🚗 발렛 무료</span>';
+    if(it.handoff && !it.done) badges += '<span class="tag r">🔄 인계 필수</span>';
+    if(it.carry && !it.done) badges += '<span class="tag b">📅 내일</span>';
+    return '<div class="is-item'+(it.done?' done':'')+'" data-id="'+it.id+'">'+
+      '<div class="is-t">'+esc(it.t)+'</div>'+
+      '<div class="is-mid"><div class="is-top"><span class="tag n">'+tg.e+' '+esc(tg.n)+'</span>'+
+        '<span class="pill '+(it.part==='recv'?'lv o':'lv')+'">'+(it.part==='recv'?'🖥️ 접수':'👩‍⚕️ 간호')+'</span>'+
+        badges +
+        '<span class="muted" style="font-size:11px">'+esc(it.unit)+'</span></div>'+
+        '<div class="is-tx">'+esc(it.text)+'</div></div>'+
+      '<div class="is-ops"><button class="ok" data-act="done" title="완료 표시">'+(it.done?'✓':'○')+'</button>'+
+        '<button class="'+(it.handoff?'ok':'')+'" data-act="handoff" title="교차근무 인계 필수">🔄</button>'+
+        '<button class="del" data-act="del" title="삭제">✕</button></div></div>';
+  }).join('');
+  $$('#issList .is-ops button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var id = up(b, '.is-item').getAttribute('data-id');
+      var list = getIssues();
+      var act = b.getAttribute('data-act');
+      if(act === 'del'){ list = list.filter(function(x){ return x.id !== id; }); toast('삭제했습니다'); }
+      else if(act === 'done'){ list.forEach(function(x){ if(x.id===id) x.done = !x.done; }); }
+      else { list.forEach(function(x){ if(x.id===id) x.handoff = !x.handoff; }); toast('교차근무 인계 표시를 바꿨습니다'); }
+      saveIssues(list); renderIssues(); updateSummary();
+    });
+  });
+}
+
+var lastSbar = { text:'', at:'', kind:'' };
+function currentSbarText(){
+  var e = $('#sbarEdit');
+  return ((e && e.value) || lastSbar.text || '').trim();
+}
+function tagName(id){ var t = DATA.tagMap[id]; return t ? t.e+' '+t.n : '📝 기타'; }
+function shorten(s, n){ s = String(s||''); return s.length > n ? s.slice(0,n)+'…' : s; }
+function bulletOf(x){
+  var gd = DATA.gradeMap[x.grade];
+  var pre = '';
+  if(gd && gd.id !== 'none') pre += gd.e+' '+gd.n+' · ';
+  if(x.valet) pre += '🚗 발렛 무료 · ';
+  return '· ' + x.t + ' [' + tagName(x.tag) + '] ' + pre + x.text + (x.done ? ' (처리 완료)' : '');
+}
+function makeShiftText(list){
+  var br = branchInfo();
+  var nur = issuesByPart('nur', list), recv = issuesByPart('recv', list);
+  var nurOpen = nur.filter(function(x){ return !x.done; }).length;
+  var recvOpen = recv.filter(function(x){ return !x.done; }).length;
+  var hf = list.filter(function(x){ return x.handoff && !x.done; });
+  var carry = list.filter(function(x){ return x.carry && !x.done; });
+  var open = list.filter(function(x){ return !x.done; });
+  var timers = activeTimers();
+  var now = Date.now();
+  var L = [];
+  L.push('🔄 TLC 인수인계 · ' + br.name);
+  L.push('📅 ' + todayKo() + ' · ' + issState.unit + (issState.unit.indexOf('마감') >= 0 ? ' → 익일 교차근무' : ' 교대 인계'));
+  L.push('⏰ 작성 ' + nowHM() + ' · 이슈 ' + list.length + '건 (미완료 ' + open.length + '건)');
+  L.push('');
+  L.push('[🔄 교차근무 인계 필수 ' + hf.length + '건]');
+  if(hf.length) hf.forEach(function(x){ L.push(bulletOf(x)); });
+  else L.push('· 없음');
+  L.push('');
+  L.push('[👩‍⚕️ 간호 파트 ' + nur.length + '건 · 미완료 ' + nurOpen + ']');
+  if(nur.length) nur.forEach(function(x){ L.push(bulletOf(x)); });
+  else L.push('· 간호 파트 특이사항 없음');
+  L.push('');
+  L.push('[🖥️ 접수 파트 ' + recv.length + '건 · 미완료 ' + recvOpen + ']');
+  if(recv.length) recv.forEach(function(x){ L.push(bulletOf(x)); });
+  else L.push('· 접수 파트 특이사항 없음');
+  if(timers.length){
+    L.push('');
+    L.push('[⏱️ 진행 중 수액 ' + timers.length + '건]');
+    timers.forEach(function(t){
+      var r = t.paused ? t.remainMs : Math.max(0, t.endAt - now);
+      L.push('· ' + (t.bed||'베드 미지정') + ' ' + (t.name||'수액') + ' — ' + fmtLeft(r) + ' 남음 (' + hmOf(t.endAt) + ' 종료' + (t.paused?', 일시정지':'') + ')');
+    });
+  }
+  if(carry.length){
+    L.push('');
+    L.push('[📅 내일 이어갈 건 ' + carry.length + '건]');
+    carry.forEach(function(x){ L.push(bulletOf(x)); });
+  }
+  if(open.length){
+    L.push('');
+    L.push('[📝 다음 근무 확인] 미완료 ' + open.length + '건 — ' +
+      open.slice(0,6).map(function(x){ return tagName(x.tag); }).join(', ') + (open.length>6?' 외':'')); 
+  }
+  if(appState.part !== 'nur' || recvFilledCount() > 0){
+    L.push('');
+    L.push('[🖥️ 접수 인수인계 서식]');
+    L.push(recvFormText());
+  }
+  L.push('');
+  L.push('— TLC 인수인계');
+  return L.join('\n');
+}
+function sbarOf(part, list){
+  var br = branchInfo();
+  var open = list.filter(function(x){ return !x.done; });
+  var tagCount = function(id){ return list.filter(function(x){ return x.tag === id; }).length; };
+  var S, B, A, R;
+  var head = '[' + issState.unit + '] ' + br.name + ' · ' + todayKo() + ' ' + nowHM() + ' 기준. ';
+  if(part === 'nur'){
+    S = head + '간호 파트 이슈 ' + list.length + '건 중 미완료 ' + open.length + '건입니다.';
+    B = list.length ? list.map(function(x){ return '· ' + x.t + ' [' + tagName(x.tag) + '] ' + x.text + (x.done?' (완료)':''); }).join('\n')
+                    : '· 간호 파트 특이 이슈 없음';
+    A = tagCount('emerg')
+      ? '응급·부작용 관련 ' + tagCount('emerg') + '건이 있어 우선 확인이 필요합니다. 나머지 ' + Math.max(0, list.length - tagCount('emerg')) + '건은 경과 관찰·다음 근무 확인 항목입니다.'
+      : '즉시 위험 신호는 보고된 건이 없습니다. 미완료 ' + open.length + '건은 다음 근무에서 확인이 필요합니다.';
+    R = [];
+    if(open.length) R.push('· 확인 필요: ' + open.slice(0,5).map(function(x){ return '[' + tagName(x.tag) + '] ' + shorten(x.text, 30); }).join(' / '));
+    if(tagCount('lab')) R.push('· 검사 결과·콜백 ' + tagCount('lab') + '건 — 결과 확인 후 보호자 연락 여부를 확인해 주세요.');
+    if(tagCount('vax')) R.push('· 냉장 백신 온도(2~8℃)·바이알 잔량을 다시 확인해 주세요.');
+    if(tagCount('narc')) R.push('· 향정·마약류 잔량 대조 결과를 관리대장과 함께 확인해 주세요.');
+    if(tagCount('emerg')) R.push('· 응급·부작용 건은 의사 보고 시각과 활력 재측정 결과를 확인해 주세요.');
+    R.push('· 이상 발생 시 즉시 의사에게 보고하고, 처리 내용은 차트에 기록합니다.');
+  } else {
+    S = head + '접수 파트 이슈 ' + list.length + '건 중 미완료 ' + open.length + '건입니다.';
+    B = list.length ? list.map(bulletOf).join('\n') : '· 접수 파트 특이 이슈 없음';
+    A = (tagCount('money') || tagCount('appt'))
+      ? '미수·적립금 ' + tagCount('money') + '건, 예약·노쇼 ' + tagCount('appt') + '건이 있어 다음 근무에서 먼저 확인해야 합니다.'
+      : '수납·예약 쪽 즉시 문제는 보고된 건이 없습니다. 미완료 ' + open.length + '건은 다음 근무 확인 항목입니다.';
+    R = [];
+    if(tagCount('money')) R.push('· 미수·적립금·선불권: 잔액 확인 후 안내 문자 발송 여부를 확인해 주세요.');
+    if(tagCount('appt')) R.push('· 예약·변경·노쇼: 내일 예약 확정 연락을 오전에 처리해 주세요.');
+    if(tagCount('docs')) R.push('· 동의서·제증명: 서명·발급 여부를 확인해 수령 안내를 부탁드립니다.');
+    if(tagCount('comp')) R.push('· 문의·컴플레인: 처리 결과와 재방문 안내를 확인해 주세요.');
+    var mem = list.filter(function(x){ return x.grade && x.grade !== 'none'; });
+    if(mem.length){
+      var mg = { gold:0, purple:0, black:0 }, vt = 0;
+      mem.forEach(function(x){ if(mg[x.grade]!==undefined) mg[x.grade]++; if(x.valet) vt++; });
+      R.push('· 멤버십 응대: ' + ['black','purple','gold'].filter(function(k){ return mg[k]; })
+        .map(function(k){ return DATA.gradeMap[k].e + ' ' + DATA.gradeMap[k].n + ' ' + mg[k]; }).join(' · ') +
+        (vt ? ' — 🚗 발렛 무료 적용 ' + vt + '건 확인' : ''));
+    }
+    R.push('· 마감 정산(현금·카드·간편결제) 대조 결과를 함께 확인해 주세요.');
+  }
+  return { S:S, B:B, A:A, R:R.join('\n') };
+}
+function makeSbar(kind){
+  var list = getIssues();
+  if(!list.length && !(kind === 'shift' && recvFilledCount() > 0)){
+    toast(kind === 'shift' ? '이슈를 등록하거나 접수 서식을 먼저 적어 주세요' : '등록된 이슈가 없습니다. 먼저 한 줄 등록해 주세요');
+    return;
+  }
+  var text = '', out = '', meta = '';
+  var sec = $('#sbarSec'); if(sec) sec.classList.remove('hide');
+
+  if(kind === 'shift'){
+    text = makeShiftText(list);
+    out = '<div class="sb"><div class="k">🔄 교차근무 일일 인수인계문 — 카톡·단톡방에 그대로 붙여넣기</div>'+
+      '<div class="v mono">' + esc(text) + '</div></div>';
+    meta = '교차근무 인수인계 · ' + issState.unit + ' · ' + list.length + '건';
+  } else {
+    var parts = kind === 'all' ? ['nur','recv'] : [kind];
+    var texts = [], blocks = [];
+    parts.forEach(function(p){
+      var l = issuesByPart(p, list);
+      if(!l.length && kind !== 'all'){ return; }
+      if(!l.length) return;
+      var s = sbarOf(p, l);
+      texts.push('[' + (p==='nur'?'👩‍⚕️ 간호 파트':'🖥️ 접수 파트') + ']\n[S] ' + s.S + '\n[B] ' + s.B + '\n[A] ' + s.A + '\n[R] ' + s.R);
+      blocks.push('<div class="sb"><div class="k">' + (p==='nur'?'👩‍⚕️ 간호 파트':'🖥️ 접수 파트') + '</div>' +
+        '<div class="v"><b>S</b> ' + esc(s.S) + '\n<b>B</b> ' + esc(s.B) + '\n<b>A</b> ' + esc(s.A) + '\n<b>R</b> ' + esc(s.R) + '</div></div>');
+    });
+    if(!texts.length){ toast(partName(kind) + ' 이슈가 없습니다'); return; }
+    text = texts.join('\n\n');
+    out = blocks.join('');
+    meta = (kind==='all'?'전체':partName(kind)) + ' · ' + list.length + '건 → SBAR';
+  }
+  lastSbar = { text:text, at:nowHM(), kind:kind };
+  var mt = $('#sbarMeta'); if(mt) mt.textContent = meta;
+  var o = $('#sbarOut'); if(o) o.innerHTML = out;
+  var ed = $('#sbarEdit'); if(ed) ed.value = text;
+  toast(kind==='shift' ? '교차근무 인수인계문을 만들었습니다 — 복사해서 카톡에 붙여 넣으세요' : 'SBAR로 정리했습니다 — 아래에서 고칠 수 있어요');
+  try{ sec.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+}
+function copyText(txt, okMsg){
+  if(!txt){ toast('복사할 내용이 없습니다'); return; }
+  function done(){ toast(okMsg || '복사했습니다'); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done).catch(function(){ fallbackCopy(txt, done); });
+  } else fallbackCopy(txt, done);
+}
+function fallbackCopy(txt, done){
+  try{
+    var ta = document.createElement('textarea'); ta.value = txt;
+    ta.style.cssText = 'position:fixed;left:-9999px;top:0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta); done && done();
+  }catch(e){ toast('복사가 막혀 있습니다. 길게 눌러 복사해 주세요'); }
+}
+function saveName(){
+  var b = branchInfo();
+  var unit = issState.unit.indexOf('마감') >= 0 ? '마감' : (issState.unit.indexOf('오후') >= 0 ? '오후' : '오전');
+  return '인수인계_' + todayStr().replace(/-/g,'') + '_' + b.short + '_' + unit;
+}
+function downloadTxt(){
+  var txt = currentSbarText();
+  if(!txt){ toast('먼저 인계문을 정리해 주세요'); return; }
+  var name = saveName() + '.txt';
+  try{
+    var blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.parentNode && a.parentNode.removeChild(a); }, 1500);
+    toast('.txt 파일로 저장했습니다');
+  }catch(e){ toast('저장이 막혀 있습니다. 복사해서 붙여 넣어 주세요'); }
+}
+function saveDay(){
+  var txt = currentSbarText();
+  if(!txt){ toast('먼저 인계문을 정리해 주세요'); return; }
+  var list = getIssues();
+  var days = store.get('tlc_days', []);
+  days.unshift({
+    id:'d'+Date.now(), date:todayStr(), at:nowHM(), unit:issState.unit,
+    branch:branchInfo().name, kind:(lastSbar.kind || 'shift'), count:list.length, sbar:txt
+  });
+  store.set('tlc_days', days.slice(0,60));
+  renderDays();
+  toast('일별 기록함에 저장했습니다');
+}
+function renderDays(){
+  var days = store.get('tlc_days', []);
+  var box = $('#dayList'), empty = $('#dayEmpty'), cnt = $('#dayCount');
+  if(cnt) cnt.textContent = days.length + '일';
+  if(!box) return;
+  if(!days.length){ if(empty) empty.classList.remove('hide'); box.innerHTML=''; return; }
+  if(empty) empty.classList.add('hide');
+  box.innerHTML = days.map(function(d){
+    var p = d.date.split('-');
+    return '<div class="day" data-id="'+d.id+'">'+
+      '<div class="d-date"><b>'+(+p[1])+'/'+(+p[2])+'</b><span>'+weekdayKo(d.date)+'요일</span></div>'+
+      '<div class="d-mid"><div class="d-t">'+esc(d.unit)+' · '+esc(d.branch)+'</div>'+
+        '<div class="d-s">'+esc(d.at)+' 저장 · 이슈 '+d.count+'건 · '+esc(shorten((d.sbar||'').replace(/\n/g,' '), 44))+'</div>'+
+        '<div class="d-btns"><button class="p" data-act="view">보기</button>'+
+          '<button data-act="copy">복사</button><button data-act="txt">.txt</button>'+
+          '<button data-act="del">삭제</button></div></div></div>';
+  }).join('');
+  $$('#dayList .d-btns button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var id = up(b, '.day').getAttribute('data-id');
+      var days = store.get('tlc_days', []);
+      var rec = days.filter(function(x){ return x.id===id; })[0];
+      if(!rec) return;
+      var act = b.getAttribute('data-act');
+      if(act === 'view'){ openSheet(rec.date+' '+rec.at+' 인계', rec.unit+' · '+rec.branch+' · 이슈 '+rec.count+'건', rec.sbar); }
+      else if(act === 'copy'){ copyText(rec.sbar, '인계문을 복사했습니다'); }
+      else if(act === 'txt'){
+        try{
+          var blob = new Blob([rec.sbar], {type:'text/plain;charset=utf-8'});
+          var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+          a.download = '인수인계_'+rec.date.replace(/-/g,'')+'_'+rec.unit+'.txt';
+          document.body.appendChild(a); a.click(); toast('.txt 파일로 저장했습니다');
+        }catch(e){ toast('저장이 막혀 있습니다'); }
+      } else if(act === 'del'){
+        days = days.filter(function(x){ return x.id!==id; });
+        store.set('tlc_days', days); renderDays(); toast('삭제했습니다');
+      }
+    });
+  });
+}
+
+/* =========================================================================
+   처치·약물
+   ========================================================================= */
+var drugState = { flags:{}, allergies:{} };
+var FLAGS = [
+  { k:'preg', n:'임신·수유' }, { k:'liver', n:'간질환' }, { k:'dm', n:'당뇨' },
+  { k:'htn', n:'고혈압' }, { k:'infection', n:'발열·감염' }, { k:'stone', n:'신결석' },
+  { k:'antidep', n:'항우울제 복용' }, { k:'gi', n:'위마비·췌장염' }, { k:'ocp', n:'경구피임약' },
+  { k:'qt', n:'QT 연장' }, { k:'anticoag', n:'항응고제 복용' }
+];
+var ALLERGY = [
+  { k:'penicillin', n:'페니실린' }, { k:'nsaid', n:'NSAIDs' }, { k:'contrast', n:'조영제' },
+  { k:'sulfa', n:'설파계' }, { k:'la', n:'국소마취제' }
+];
+var QUICK = [
+  'iron sucrose 100mg + N/S 100mL IV over 60min',
+  '세픽심 100mg PO tid',
+  '케토롤락 30mg IV',
+  '세마글루티드 0.5mg SC 주1회',
+  '아세트아미노펜 시럽 8mL (18kg 소아)',
+  '리도카인 200mg 국소주사'
+];
+
+function initDrug(){
+  var fb = $('#dFlags');
+  if(fb){
+    fb.innerHTML = FLAGS.map(function(f){ return '<button class="chip" data-f="'+f.k+'">'+esc(f.n)+'</button>'; }).join('');
+    $$('#dFlags .chip').forEach(function(b){
+      b.addEventListener('click', function(){
+        drugState.flags[b.dataset.f] = !drugState.flags[b.dataset.f];
+        b.classList.toggle('on', !!drugState.flags[b.dataset.f]);
+      });
+    });
+  }
+  var ab = $('#dAllergy');
+  if(ab){
+    ab.innerHTML = ALLERGY.map(function(a){ return '<button class="chip" data-a="'+a.k+'">'+esc(a.n)+'</button>'; }).join('');
+    $$('#dAllergy .chip').forEach(function(b){
+      b.addEventListener('click', function(){
+        drugState.allergies[b.dataset.a] = !drugState.allergies[b.dataset.a];
+        b.classList.toggle('on', !!drugState.allergies[b.dataset.a]);
+      });
+    });
+  }
+  var qb = $('#dQuick');
+  if(qb){
+    qb.innerHTML = QUICK.map(function(q){ return '<button class="chip" data-q="'+esc(q)+'">'+esc(q.split(' ')[0])+'</button>'; }).join('');
+    $$('#dQuick .chip').forEach(function(b){
+      b.addEventListener('click', function(){ var ta=$('#dText'); if(ta){ ta.value = b.dataset.q; ta.focus(); } });
+    });
+  }
+  var bs = $('#btnScreen'); if(bs) bs.addEventListener('click', function(){ flash(bs); doScreen(); });
+  renderCalc();
+}
+function detectGroups(text){
+  var t = String(text||'').toLowerCase();
+  var found = {};
+  DATA.drugGroups.forEach(function(g){
+    if(g.names.some(function(n){ return t.indexOf(String(n).toLowerCase()) >= 0; })) found[g.g] = true;
+  });
+  return found;
+}
+function buildCtx(){
+  var text = ($('#dText').value||'');
+  return {
+    text:text, lower:text.toLowerCase(),
+    age:num($('#dAge').value), weight:num($('#dWeight').value), egfr:num($('#dEgfr').value),
+    flags:drugState.flags, allergies:drugState.allergies,
+    groups:detectGroups(text)
+  };
+}
+function condOk(c, ctx){
+  if(c.d !== undefined) return !!ctx.groups[c.d];
+  if(c.anyOf) return c.anyOf.some(function(g){ return !!ctx.groups[g]; });
+  if(c.egfrMax !== undefined) return ctx.egfr !== null && ctx.egfr < c.egfrMax;
+  if(c.ageMin !== undefined) return ctx.age !== null && ctx.age >= c.ageMin;
+  if(c.child !== undefined) return ctx.age !== null && ctx.age < c.child;
+  if(c.flag !== undefined){
+    if(c.flag === 'anticoag') return !!ctx.flags.anticoag || !!ctx.groups.anticoag;
+    return !!ctx.flags[c.flag];
+  }
+  if(c.al !== undefined) return !!ctx.allergies[c.al];
+  if(c.text) return c.text.some(function(k){ return ctx.lower.indexOf(String(k).toLowerCase()) >= 0; });
+  return false;
+}
+function extractMgs(text){
+  var out = [], re = /(\d+(?:\.\d+)?)\s*(mg|밀리그람)/gi, m;
+  while((m = re.exec(text))) out.push(parseFloat(m[1]));
+  return out;
+}
+function doScreen(){
+  var ctx = buildCtx();
+  if(!ctx.text.trim()){ toast('처방·투여 내용을 먼저 입력해 주세요'); var ta=$('#dText'); if(ta) ta.focus(); return; }
+  var hits = [], unknown = [];
+  DATA.rules.forEach(function(r){
+    if(r.dose){
+      if(!ctx.groups.la){ return; }
+      var mgs = extractMgs(ctx.text);
+      if(!ctx.weight || !mgs.length){ unknown.push(r); return; }
+      var maxMg = Math.max.apply(null, mgs);
+      var epi = ctx.lower.indexOf('에피') >= 0 || ctx.lower.indexOf('epi') >= 0;
+      var lim = (epi ? r.dose.maxEpi : r.dose.maxPlain) * ctx.weight;
+      if(maxMg > lim){ r._calc = '처방 최대 '+maxMg+'mg / 상한 '+Math.round(lim)+'mg ('+ctx.weight+'kg)'; hits.push(r); }
+      else { r._calc = null; }
+      return;
+    }
+    if(r.daily){
+      if(!ctx.groups.apap){ return; }
+      var arr = extractMgs(ctx.text), sum = arr.reduce(function(a,b){ return a+b; }, 0);
+      if(sum > r.daily.max){ r._calc = '합산 '+sum+'mg / 상한 '+r.daily.max+'mg'; hits.push(r); }
+      return;
+    }
+    if(r.cond && r.cond.every(function(c){ return condOk(c, ctx); })){ hits.push(r); }
+  });
+  /* 반대 방향 확인: 알레르기 있는 약 자체가 처방된 경우 */
+  if(ctx.allergies.nsaid && ctx.groups.nsaid){
+    hits.push({ lv:'red', g:'NSAIDs 알레르기 × NSAIDs 처방', msg:'환자가 NSAIDs 알레르기를 가진 것으로 입력되어 있습니다.', act:'투여 전 알레르기 반응 양상을 확인하고 대체 진통제를 의사에게 문의하세요.' });
+  }
+  if(ctx.allergies.la && ctx.groups.la){
+    hits.push({ lv:'red', g:'국소마취제 알레르기 × 국소마취제', msg:'국소마취제 알레르기 병력이 입력되어 있습니다.', act:'투여 전 의사 확인이 필요합니다. 아나필락시스 병력이면 응급키트를 준비하세요.' });
+  }
+  var order = { red:0, org:1, yel:2, blu:3 };
+  hits.sort(function(a,b){ return order[a.lv] - order[b.lv]; });
+  var cnt = { red:0, org:0, yel:0, blu:0 };
+  hits.forEach(function(h){ cnt[h.lv] = (cnt[h.lv]||0)+1; });
+
+  var sec = $('#screenOutSec'); if(sec) sec.classList.remove('hide');
+  var meta = $('#screenMeta');
+  var gNames = Object.keys(ctx.groups).map(function(g){
+    var d = DATA.drugGroups.filter(function(x){ return x.g===g; })[0];
+    return d ? d.n : g;
+  });
+  if(meta) meta.textContent = (gNames.length? gNames.join(' · ') : '약물 미검출') + ' · 경고 '+hits.length+'건';
+
+  var out = $('#screenOut'); if(!out) return;
+  var html = '';
+  if(!gNames.length){
+    html += '<div class="alert a-yel"><div class="ah">🔎 등록된 약물을 찾지 못했습니다</div><div class="why">약명을 한글 또는 영문으로 적어 주세요(예: 케토롤락, iron sucrose, 세픽심).'+
+      ' 등록되지 않은 약물은 경고가 나오지 않으니 반드시 허가사항을 확인하세요.</div></div>';
+  }
+  if(hits.length){
+    html += '<div class="alert a-blu"><div class="ah">🧾 요약</div><div class="why">🔴 금기·즉시확인 '+cnt.red+' · 🟠 주의 '+cnt.org+' · 🟡 확인 '+cnt.yel+' · 🔵 교육 '+cnt.blu+'</div></div>';
+    hits.forEach(function(h){
+      var cls = h.lv==='red'?'a-red':(h.lv==='org'?'a-org':(h.lv==='yel'?'a-yel':'a-blu'));
+      var ico = h.lv==='red'?'🔴':(h.lv==='org'?'🟠':(h.lv==='yel'?'🟡':'🔵'));
+      html += '<div class="alert '+cls+'"><div class="ah">'+ico+' '+esc(h.g)+'</div>'+
+        '<div class="why">'+esc(h.msg)+(h._calc? '<br><b>'+esc(h._calc)+'</b>':'')+'</div>'+
+        '<div class="act"><b>지금 할 일</b>'+esc(h.act)+'</div></div>';
+    });
+    /* 보고 문장 */
+    var top = hits.filter(function(h){ return h.lv==='red'||h.lv==='org'; }).slice(0,3);
+    if(top.length){
+      var msg = '의사 선생님, 차트 순번 확인 부탁드립니다. '+ (gNames.join(', ')) +' 투여 전 확인이 필요해 연락드렸습니다. '+
+        top.map(function(h,i){ return (i+1)+') '+h.g; }).join(' ') + ' — 어떻게 진행할까요?';
+      html += '<div class="card" style="box-shadow:none;background:#FAFDFC;border:1px dashed #CDEAE4;margin-top:4px">'+
+        '<div style="font-size:12px;font-weight:800;color:var(--ink2);margin-bottom:6px">📞 보고 문장 (그대로 사용)</div>'+
+        '<div style="font-size:13px;line-height:1.7">'+esc(msg)+'</div>'+
+        '<button class="btn ghost sm" id="btnCopyReport" style="margin-top:10px">📋 복사</button></div>';
+    }
+  } else if(gNames.length){
+    html += '<div class="alert a-grn"><div class="ah">✅ 입력한 조건에서 걸리는 규칙이 없습니다</div>'+
+      '<div class="why">경고가 없다고 안전이 보장되는 것은 아닙니다. 용량·희석·점적속도는 아래 계산기로 한 번 더 확인하고, 허가사항의 금기·신기능 조정을 확인하세요.</div></div>';
+  }
+  if(unknown.length){
+    html += '<div class="alert a-yel"><div class="ah">📝 확인 필요</div><div class="why">'+
+      unknown.map(function(r){ return esc(r.g); }).join(' · ')+' — 체중 또는 mg 용량이 입력되지 않아 계산하지 못했습니다.</div></div>';
+  }
+  out.innerHTML = html;
+  var cb = $('#btnCopyReport');
+  if(cb) cb.addEventListener('click', function(){ copyText(cb.parentNode.querySelector('div:nth-child(2)').textContent, '보고 문장을 복사했습니다'); });
+  try{ sec.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+  toast('1차 스크리닝 완료 — 경고 '+hits.length+'건');
+}
+
+
+/* =========================================================================
+   계산기 — 수액 계산(신규) + 기존 계산기 5종
+   ========================================================================= */
+var infState = { mode:'time' };
+function renderCalc(){
+  var tabs = $('#calcTabs'), body = $('#calcBody');
+  if(!tabs || !body) return;
+  tabs.innerHTML = DATA.calcs.map(function(c,i){
+    return '<button class="'+(i===0?'on':'')+'" data-c="'+c.id+'">'+c.ico+' '+esc(c.n)+'</button>';
+  }).join('');
+  $$('#calcTabs button').forEach(function(b){
+    b.addEventListener('click', function(){
+      $$('#calcTabs button').forEach(function(x){ x.classList.toggle('on', x === b); });
+      renderCalcBody(b.getAttribute('data-c'));
+    });
+  });
+  renderCalcBody(DATA.calcs[0].id);
+}
+function renderCalcBody(id){
+  if(id === 'inf'){ renderInfCalc(); return; }
+  legacyCalcBody(id);
+}
+function infCompute(){
+  var ml = num(($('#f1')||{}).value);
+  var f = num(($('#f4')||{}).value) || 20;
+  var minutes = null, rate = null;
+  if(infState.mode === 'time'){
+    var h = num(($('#f2h')||{}).value) || 0, m = num(($('#f2m')||{}).value) || 0;
+    minutes = h*60 + m;
+    rate = (ml && minutes) ? ml/(minutes/60) : null;
+  } else {
+    rate = num(($('#f3r')||{}).value);
+    minutes = (ml && rate) ? ml/rate*60 : null;
+  }
+  return { ml:ml, f:f, minutes:minutes, rate:rate };
+}
+function renderInfCalc(){
+  var body = $('#calcBody'); if(!body) return;
+  var nowT = nowHM();
+  body.innerHTML =
+    '<div class="chips" id="infMode" style="margin-bottom:12px">'+
+      '<button class="chip'+(infState.mode==='time'?' on':'')+'" data-m="time">⏳ 주입 시간으로 계산</button>'+
+      '<button class="chip'+(infState.mode==='rate'?' on':'')+'" data-m="rate">💉 처방 속도로 계산</button>'+
+    '</div>'+
+    '<div class="grid2">'+
+      '<div class="field"><label for="f1">수액 총량(mL)</label><input class="inp" id="f1" type="number" inputmode="decimal" value="500"></div>'+
+      '<div class="field'+(infState.mode==='rate'?' hide':'')+'" id="fTimeBox"><label>주입 시간 (시간 / 분)</label>'+
+        '<div class="row"><input class="inp" id="f2h" type="number" inputmode="numeric" value="4" aria-label="시간" style="flex:1"><input class="inp" id="f2m" type="number" inputmode="numeric" value="0" aria-label="분" style="flex:1"></div></div>'+
+      '<div class="field'+(infState.mode==='time'?' hide':'')+'" id="fRateBox"><label for="f3r">처방 속도(mL/hr)</label><input class="inp" id="f3r" type="number" inputmode="decimal" value="120"></div>'+
+    '</div>'+
+    '<div class="grid2">'+
+      '<div class="field"><label for="f4">수액세트</label><select class="inp" id="f4">'+
+        '<option value="20">20 gtt/mL — 일반 세트</option><option value="60">60 gtt/mL — 미세조정</option><option value="15">15 gtt/mL — 특수 세트</option></select></div>'+
+      '<div class="field"><label for="f5">시작 시각</label><input class="inp" id="f5" type="time" value="'+nowT+'"></div>'+
+    '</div>'+
+    '<div class="res-box" id="fout"><div class="big">—</div><div class="ln">값을 입력하면 바로 계산됩니다.</div></div>'+
+    '<div class="divider"></div>'+
+    '<div class="grid2">'+
+      '<div class="field"><label for="fBed">베드 / 가명</label><input class="inp" id="fBed" placeholder="예) 수액실 3번"></div>'+
+      '<div class="field"><label for="fName">수액명</label><input class="inp" id="fName" placeholder="예) 비타민 수액 500mL"></div>'+
+    '</div>'+
+    '<button class="btn" id="fStart">⏱️ 이 수액으로 타이머 시작</button>'+
+    '<div class="muted" style="margin-top:8px">실제 투여 속도는 담당 의사 처방과 원내 지침을 우선합니다. 타이머는 종료 5분 전·종료 시 알람을 울립니다.</div>';
+
+  $$('#infMode .chip').forEach(function(b){
+    b.addEventListener('click', function(){
+      infState.mode = b.getAttribute('data-m');
+      $$('#infMode .chip').forEach(function(x){ x.classList.toggle('on', x === b); });
+      var tb = $('#fTimeBox'), rb = $('#fRateBox');
+      if(tb) tb.classList.toggle('hide', infState.mode !== 'time');
+      if(rb) rb.classList.toggle('hide', infState.mode !== 'rate');
+      infOut();
+    });
+  });
+  ['#f1','#f2h','#f2m','#f3r','#f4','#f5'].forEach(function(s){
+    var el = $(s); if(!el) return;
+    el.addEventListener('input', infOut); el.addEventListener('change', infOut);
+  });
+  var fs = $('#fStart');
+  if(fs) fs.addEventListener('click', function(){ flash(fs); startFromInf(); });
+  infOut();
+}
+function infOut(){
+  var o = $('#fout'); if(!o) return;
+  var c = infCompute();
+  if(!c.ml || !c.minutes || c.minutes <= 0){
+    o.innerHTML = '<div class="big">—</div><div class="ln">수액량과 주입 시간(또는 처방 속도)을 입력해 주세요.</div>';
+    return;
+  }
+  var gtt = c.ml * c.f / c.minutes;
+  var st = ($('#f5') && $('#f5').value) || nowHM();
+  var p = st.split(':');
+  var d = new Date(); d.setHours(+p[0], +p[1], 0, 0);
+  var start = d.getTime();
+  var end = start + Math.round(c.minutes)*60000;
+  var ed = new Date(end);
+  var cross = ed.getDate() !== d.getDate();
+  var h = Math.floor(c.minutes/60), m = Math.round(c.minutes%60);
+  o.innerHTML =
+    '<div class="big">' + gtt.toFixed(1) + ' gtt/min</div>' +
+    '<div class="ln">= <b>' + Math.round(c.rate) + ' mL/hr</b> · 10초에 약 ' + Math.round(gtt/6) + '방울<br>' +
+    '총 ' + (h?(h+'시간 '):'') + m + '분 · ' + st + ' 시작 → <b>' + pad(ed.getHours()) + ':' + pad(ed.getMinutes()) +
+    '</b> 종료 예정' + (cross?' (다음 날)':'') + '</div>';
+}
+function startFromInf(){
+  var c = infCompute();
+  if(!c.ml || !c.minutes || c.minutes <= 0){ toast('수액량과 시간(또는 속도)을 먼저 입력해 주세요'); return; }
+  var bed = (($('#fBed')||{}).value || '').trim();
+  var nm = (($('#fName')||{}).value || '').trim();
+  if(!bed && !nm){ toast('베드/가명이나 수액명을 하나 이상 적어 주세요'); var f=$('#fBed'); if(f) f.focus(); return; }
+  var st = (($('#f5')||{}).value || nowHM()).split(':');
+  var d = new Date(); d.setHours(+st[0], +st[1], 0, 0);
+  startTimer({ bed:bed, name:nm, ml:c.ml, rate:c.rate, gtt:c.f, minutes:c.minutes, startAt:d.getTime() });
+}
+
+/* =========================================================================
+   실시간 수액 타이머 (다중 · localStorage 유지)
+   ========================================================================= */
+var timerState = {
+  list: store.get('tlc_timers', []),
+  snd: store.get('tlc_snd', true),
+  ctx: null
+};
+if(!(timerState.list instanceof Array)) timerState.list = [];
+function activeTimers(){ return timerState.list.filter(function(t){ return !t.done; }); }
+function saveTimers(){ store.set('tlc_timers', timerState.list); }
+function fmtLeft(ms){
+  ms = Math.max(0, ms||0);
+  var s = Math.floor(ms/1000);
+  var h = Math.floor(s/3600), m = Math.floor((s%3600)/60), ss = s%60;
+  return h > 0 ? (h + ':' + pad(m) + ':' + pad(ss)) : (pad(m) + ':' + pad(ss));
+}
+function beep(kind){
+  if(!timerState.snd) return;
+  try{
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return;
+    if(!timerState.ctx) timerState.ctx = new AC();
+    var ctx = timerState.ctx;
+    if(ctx.state === 'suspended'){ try{ ctx.resume(); }catch(e){} }
+    var n = kind === 'end' ? 5 : 2;
+    for(var i=0;i<n;i++){
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'sine';
+      o.frequency.value = kind === 'end' ? 880 : 660;
+      var t0 = ctx.currentTime + i*0.3;
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.linearRampToValueAtTime(0.22, t0 + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.24);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(t0); o.stop(t0 + 0.26);
+    }
+  }catch(e){}
+}
+function notify(title, body){
+  try{
+    if('Notification' in window && Notification.permission === 'granted'){
+      new Notification(title, { body: body, tag: 'tlc-iv-timer' });
+    }
+  }catch(e){}
+}
+function showTimerBanner(html, kind){
+  var b = $('#timerBanner'); if(!b) return;
+  b.className = 'tbanner on ' + (kind || '');
+  b.innerHTML = '<div class="tbn-ico">' + (kind === 'end' ? '🔔' : '⏳') + '</div>' +
+    '<div class="tbn-tx">' + html + '</div><button class="tbn-x" aria-label="닫기">✕</button>';
+  var x = b.querySelector('.tbn-x');
+  if(x) x.onclick = function(){ b.classList.remove('on'); };
+  clearTimeout(b._t);
+  b._t = setTimeout(function(){ b.classList.remove('on'); }, 20000);
+  try{ if(navigator.vibrate) navigator.vibrate(kind === 'end' ? [200,80,200] : 120); }catch(e){}
+}
+function onAlarm(t, kind){
+  var label = (t.bed || '베드 미지정') + ' · ' + (t.name || '수액');
+  if(kind === 'pre'){
+    showTimerBanner('<b>' + esc(label) + '</b> 종료 5분 전입니다. 교체·재확인을 준비하세요.', 'pre');
+    beep('pre'); notify('수액 종료 5분 전', label + ' — 교체 준비');
+  } else {
+    showTimerBanner('<b>' + esc(label) + '</b> 수액이 종료되었습니다. 잔량·라인을 확인하세요.', 'end');
+    beep('end'); notify('수액 종료', label + ' — 잔량·라인 확인');
+  }
+}
+function startTimer(o){
+  var mins = o.minutes;
+  if(!mins || mins <= 0) return false;
+  var now = Date.now();
+  var startAt = o.startAt || now;
+  if(startAt > now) startAt = now;
+  if(startAt < now - 12*3600000) startAt = now;
+  var endAt = startAt + Math.round(mins)*60000;
+  if(endAt <= now + 3000) endAt = now + Math.round(mins)*60000;
+  timerState.list.push({
+    id:'t' + now, bed:o.bed || '', name:o.name || '', ml:o.ml || 0, rate:o.rate || 0, gtt:o.gtt || 20,
+    totalMs:Math.round(mins)*60000, startedAt:endAt - Math.round(mins)*60000, endAt:endAt,
+    paused:false, remainMs:0, a5:false, a0:false, done:false
+  });
+  saveTimers();
+  try{
+    if('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
+  }catch(e){}
+  renderTimers(); updateSummary();
+  toast('타이머를 시작했습니다 — ' + fmtLeft(endAt - Date.now()) + ' 남음');
+  return true;
+}
+function timerTick(){
+  var now = Date.now(), changed = false;
+  timerState.list.forEach(function(t){
+    if(t.done) return;
+    if(t.paused) return;
+    var remain = t.endAt - now;
+    if(remain <= 0){
+      if(!t.a0){ t.a0 = true; changed = true; onAlarm(t, 'end'); }
+    } else if(remain <= 300000 && !t.a5){
+      t.a5 = true; changed = true; onAlarm(t, 'pre');
+    }
+  });
+  if(changed) saveTimers();
+  paintTimers(now);
+  updatePill();
+  if(now - (timerTick._lastSum || 0) > 5000){ timerTick._lastSum = now; updateSummary(); }
+}
+function renderTimers(){
+  var box = $('#timerList'); if(!box) return;
+  var list = activeTimers();
+  var cnt = $('#timerCnt'); if(cnt) cnt.textContent = list.length + '개';
+  if(!list.length){
+    box.innerHTML = '<div class="empty">진행 중인 수액 타이머가 없습니다.<br>위 계산기에서 “이 수액으로 타이머 시작”을 누르거나 아래에서 직접 추가하세요.</div>';
+  } else {
+    box.innerHTML = list.map(function(t){
+      return '<div class="tcard" id="tc-'+t.id+'" data-id="'+t.id+'">'+
+        '<div class="tctop"><b>'+esc(t.bed || '베드 미지정')+'</b><span class="tname">'+esc(t.name || '수액')+'</span></div>'+
+        '<div class="tcbody"><div class="tleft" id="tl-'+t.id+'">--:--</div>'+
+          '<div class="tcmeta"><span id="te-'+t.id+'">—</span><br>'+ (t.ml? (t.ml+'mL · ') : '') + (t.rate? (Math.round(t.rate)+'mL/hr · ') : '') + t.gtt + 'gtt</div></div>'+
+        '<div class="bar"><i id="tb-'+t.id+'" style="width:0%"></i></div>'+
+        '<div class="tcops">'+
+          '<button class="tob" data-act="pause">⏸ 일시정지</button>'+
+          '<button class="tob" data-act="minus">−10분</button>'+
+          '<button class="tob" data-act="plus">+10분</button>'+
+          '<button class="tob ok" data-act="done">✓ 완료</button>'+
+          '<button class="tob del" data-act="del">✕</button>'+
+        '</div></div>';
+    }).join('');
+  }
+  paintTimers(Date.now());
+  updatePill();
+}
+function paintTimers(now){
+  activeTimers().forEach(function(t){
+    var remain = t.paused ? t.remainMs : Math.max(0, t.endAt - now);
+    var el = document.getElementById('tl-' + t.id);
+    if(el) el.textContent = fmtLeft(remain);
+    var te = document.getElementById('te-' + t.id);
+    if(te) te.textContent = '종료 ' + hmOf(t.endAt) + (t.paused ? ' · 일시정지' : '');
+    var bar = document.getElementById('tb-' + t.id);
+    if(bar){
+      var pct = t.totalMs ? Math.max(0, Math.min(100, (1 - remain/t.totalMs)*100)) : 0;
+      bar.style.width = pct.toFixed(1) + '%';
+    }
+    var card = document.getElementById('tc-' + t.id);
+    if(card){
+      card.className = 'tcard' + (remain <= 0 ? ' end' : (remain <= 300000 ? ' warn' : '')) + (t.paused ? ' paused' : '');
+    }
+    var pb = card ? card.querySelector('[data-act="pause"]') : null;
+    if(pb){ pb.textContent = t.paused ? '▶ 재개' : '⏸ 일시정지'; pb.setAttribute('data-act', t.paused ? 'resume' : 'pause'); }
+  });
+}
+function timerAct(id, act){
+  var t = null;
+  timerState.list.forEach(function(x){ if(x.id === id) t = x; });
+  if(!t) return;
+  var now = Date.now();
+  if(act === 'pause'){
+    if(!t.paused){ t.paused = true; t.remainMs = Math.max(0, t.endAt - now); toast('일시정지했습니다'); }
+  } else if(act === 'resume'){
+    if(t.paused){
+      t.paused = false; t.endAt = now + t.remainMs;
+      if(t.remainMs > 300000) t.a5 = false;
+      t.a0 = false;
+      toast('다시 시작했습니다');
+    }
+  } else if(act === 'plus'){
+    if(t.paused) t.remainMs += 600000; else t.endAt += 600000;
+    var r = t.paused ? t.remainMs : (t.endAt - now);
+    if(r > 300000) t.a5 = false;
+    t.a0 = false;
+    toast('10분 늘렸습니다');
+  } else if(act === 'minus'){
+    if(t.paused) t.remainMs = Math.max(0, t.remainMs - 600000);
+    else t.endAt = Math.max(now, t.endAt - 600000);
+    toast('10분 줄였습니다');
+  } else if(act === 'done'){
+    timerState.list = timerState.list.filter(function(x){ return x.id !== id; });
+    saveTimers(); renderTimers(); updateSummary();
+    toast('완료 처리했습니다'); return;
+  } else if(act === 'del'){
+    timerState.list = timerState.list.filter(function(x){ return x.id !== id; });
+    saveTimers(); renderTimers(); updateSummary();
+    toast('타이머를 삭제했습니다'); return;
+  }
+  saveTimers(); renderTimers(); updateSummary();
+}
+function updatePill(){
+  var pill = $('#timerPill'); if(!pill) return;
+  var list = activeTimers();
+  if(!list.length){ pill.classList.add('hide'); return; }
+  pill.classList.remove('hide');
+  var now = Date.now(), min = null;
+  list.forEach(function(t){
+    var r = t.paused ? t.remainMs : Math.max(0, t.endAt - now);
+    if(min === null || r < min) min = r;
+  });
+  var n = $('#timerPillN'); if(n) n.textContent = list.length;
+  var tt = $('#timerPillT'); if(tt) tt.textContent = fmtLeft(min);
+  pill.className = 'timerpill' + (min <= 300000 ? ' warn' : '');
+}
+function bindTimers(){
+  var box = $('#timerList');
+  if(box){
+    box.addEventListener('click', function(ev){
+      var b = up(ev.target, '[data-act]');
+      if(!b) return;
+      var card = up(b, '.tcard'); if(!card) return;
+      timerAct(card.getAttribute('data-id'), b.getAttribute('data-act'));
+    });
+  }
+  var add = $('#tmAdd');
+  if(add) add.addEventListener('click', function(){
+    flash(add);
+    var mins = num(($('#tmMin')||{}).value);
+    var bed = (($('#tmBed')||{}).value || '').trim();
+    var nm = (($('#tmName')||{}).value || '').trim();
+    if(!mins || mins <= 0){ toast('남은 시간(분)을 입력해 주세요'); return; }
+    if(!bed && !nm){ toast('베드/가명이나 수액명을 적어 주세요'); return; }
+    if(startTimer({ bed:bed, name:nm, minutes:mins })){
+      if($('#tmMin')) $('#tmMin').value = '';
+      if($('#tmBed')) $('#tmBed').value = '';
+      if($('#tmName')) $('#tmName').value = '';
+    }
+  });
+  var sb = $('#btnSnd');
+  function paintSnd(){ if(sb) sb.textContent = timerState.snd ? '🔔 소리 켜짐' : '🔕 소리 꺼짐'; }
+  if(sb) sb.addEventListener('click', function(){
+    timerState.snd = !timerState.snd; store.set('tlc_snd', timerState.snd);
+    paintSnd(); toast(timerState.snd ? '알람 소리를 켰습니다' : '알람 소리를 껐습니다');
+    if(timerState.snd) beep('pre');
+  });
+  paintSnd();
+  var pill = $('#timerPill');
+  if(pill) pill.addEventListener('click', function(){
+    goTab('fluid');
+    setTimeout(function(){
+      var el = document.getElementById('timerSec');
+      if(el){ try{ el.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){} }
+    }, 60);
+  });
+}
+
+/* =========================================================================
+   파트 점검 · 신규직원 인수인계
+   ========================================================================= */
+var chkMode = 'daily'; /* daily | onb */
+function chkKey(){ return todayStr() + '|' + appState.branch; }
+function onbKey(){ return 'onb|' + appState.branch; }
+function curKey(){ return chkMode === 'onb' ? onbKey() : chkKey(); }
+function checkedMap(){
+  var all = store.get('tlc_chk', {});
+  if(!all || typeof all !== 'object') all = {};
+  return all[curKey()] || {};
+}
+function toggleCheck(id){
+  var all = store.get('tlc_chk', {});
+  if(!all || typeof all !== 'object') all = {};
+  var k = curKey();
+  all[k] = all[k] || {};
+  if(all[k][id]) delete all[k][id]; else all[k][id] = 1;
+  if(chkMode === 'daily'){
+    var t = todayStr();
+    Object.keys(all).forEach(function(x){
+      if(x.indexOf('onb|') === 0) return;
+      if(x.indexOf(t + '|') !== 0) delete all[x];
+    });
+  }
+  store.set('tlc_chk', all);
+  renderChecklist(); updateSummary();
+}
+function presetItems(part){
+  var b = DATA.checks[appState.branch] || DATA.checks.chungdam;
+  return (b[part] || []).map(function(x){ return { id:x.k, name:x.n, part:part, custom:false }; });
+}
+function onboardItems(part){
+  var o = DATA.onboard || {};
+  return (o[part] || []).map(function(x){ return { id:x.k, name:x.n, part:part, custom:false }; });
+}
+function customAll(){ var l = store.get('tlc_custom', []); return l instanceof Array ? l : []; }
+function customFor(part, kind){
+  return customAll().filter(function(x){
+    return x.part === part && (x.kind || 'daily') === kind &&
+      (x.branch === appState.branch || x.branch === 'all');
+  }).map(function(x){ return { id:x.id, name:x.name, part:x.part, custom:true }; });
+}
+function itemsFor(part){
+  return (chkMode === 'onb' ? onboardItems(part) : presetItems(part)).concat(customFor(part, chkMode));
+}
+function allShownItems(){
+  var out = [];
+  partsToShow().forEach(function(p){ out = out.concat(itemsFor(p)); });
+  return out;
+}
+function checkStats(){
+  var items = allShownItems(), map = checkedMap();
+  var done = items.filter(function(i){ return !!map[i.id]; }).length;
+  var total = items.length;
+  return { done:done, total:total, pct: total ? Math.round(done/total*100) : 0 };
+}
+function renderChecklist(){
+  var br = branchInfo();
+  var cb = $('#checkBranch'); if(cb) cb.textContent = br.name + ' · ' + (chkMode === 'onb' ? '신규직원 입사 인수인계' : '일일 점검');
+  var modeBox = $('#chkMode');
+  if(modeBox){
+    var html = '<button class="chip' + (chkMode==='daily'?' on':'') + '" data-km="daily">📋 일일 점검</button>' +
+               '<button class="chip' + (chkMode==='onb'?' on':'') + '" data-km="onb">🆕 신규직원 입사 인수인계</button>';
+    if(modeBox.innerHTML !== html){
+      modeBox.innerHTML = html;
+      $$('#chkMode .chip').forEach(function(b){
+        b.addEventListener('click', function(){
+          chkMode = b.getAttribute('data-km');
+          renderChecklist();
+          toast(chkMode === 'onb' ? '신규직원 입사 인수인계로 전환했습니다' : '일일 점검으로 돌아왔습니다');
+        });
+      });
+    }
+  }
+  var st = checkStats();
+  var sum = $('#checkSummary'); if(sum) sum.textContent = st.done + ' / ' + st.total + ' 완료';
+  var pctEl = $('#checkPct'); if(pctEl) pctEl.textContent = st.pct;
+  var dn = $('#checkDonut');
+  if(dn){
+    dn.style.setProperty('--p', st.pct);
+    dn.className = 'donut sm ' + (st.pct >= 100 ? 'grad' : (st.pct >= 60 ? '' : 'warn'));
+  }
+  var rs = $('#checkReset');
+  if(rs) rs.textContent = chkMode === 'onb'
+    ? '신규직원 인수인계 진행률 · 지점별로 저장됩니다 (날짜 무관)'
+    : '오늘 날짜 기준 · 자정이 지나면 새로 시작합니다';
+
+  var box = $('#checkGroups'); if(!box) return;
+  var map = checkedMap();
+  box.innerHTML = partsToShow().map(function(part){
+    var items = itemsFor(part);
+    var done = items.filter(function(i){ return !!map[i.id]; }).length;
+    var pct = items.length ? Math.round(done/items.length*100) : 0;
+    var g = DATA.partGuides[part];
+    var title = part === 'nur' ? '👩‍⚕️ 간호 파트' : '🖥️ 접수 파트';
+    var sub = chkMode === 'onb' ? '신규직원이 이 순서대로 익히면 됩니다' : '오늘 근무 중 확인';
+    return '<div class="sec">' +
+      '<div class="sec-h"><h2>' + title + (chkMode==='onb' ? ' 신규 입사 인수인계' : ' 점검') + '</h2>' +
+        '<span class="sub">' + done + ' / ' + items.length + ' · ' + pct + '%</span></div>' +
+      '<div class="card">' +
+        '<div class="bar ' + (pct>=100?'g':(pct>=50?'':'o')) + '"><i style="width:' + pct + '%"></i></div>' +
+        '<div class="muted" style="margin:8px 0 4px">' + esc(sub) + ' · ' + esc(g ? g.desc : '') + '</div>' +
+        '<div class="chklist">' + items.map(function(it){
+          var on = !!map[it.id];
+          return '<div class="chkrow' + (on?' on':'') + '" data-id="' + it.id + '">' +
+            '<button class="chkbox' + (on?' on':'') + '" aria-pressed="' + (on?'true':'false') + '">' + (on?'✓':'') + '</button>' +
+            '<div class="ct">' + esc(it.name) + (it.custom?'<span class="cm">직접 추가</span>':'') + '</div>' +
+            (it.custom ? '<button class="cdel" data-del="' + it.id + '" aria-label="삭제">✕</button>' : '') +
+          '</div>';
+        }).join('') + '</div>' +
+      '</div></div>';
+  }).join('');
+  $$('#checkGroups .chkrow').forEach(function(row){
+    row.addEventListener('click', function(ev){
+      var del = up(ev.target, '[data-del]');
+      if(del){ delCustom(del.getAttribute('data-del')); return; }
+      toggleCheck(row.getAttribute('data-id'));
+    });
+  });
+  renderCustom();
+}
+function renderCustom(){
+  var box = $('#customList'), cnt = $('#customCount');
+  var list = customAll().filter(function(x){
+    return (x.kind || 'daily') === chkMode && (x.branch === appState.branch || x.branch === 'all');
+  });
+  if(cnt) cnt.textContent = list.length + '개';
+  if(!box) return;
+  box.innerHTML = list.length ? list.map(function(x){
+    return '<span class="chip" style="padding:6px 9px;font-size:12px;display:inline-flex;align-items:center;gap:6px">' +
+      (x.part === 'recv' ? '🖥️' : '👩‍⚕️') + esc(x.name) +
+      '<b data-delc="' + x.id + '" title="삭제" style="cursor:pointer;color:var(--ink3)">✕</b></span>';
+  }).join('') : '<span class="muted">추가된 항목이 없습니다.</span>';
+  $$('#customList [data-delc]').forEach(function(b){
+    b.addEventListener('click', function(){ delCustom(b.getAttribute('data-delc')); });
+  });
+  var cp = $('#cPart');
+  if(cp && appState.part !== 'all') cp.value = appState.part;
+}
+function delCustom(id){
+  var list = customAll().filter(function(x){ return x.id !== id; });
+  store.set('tlc_custom', list);
+  renderChecklist(); renderCustom();
+  toast('항목을 지웠습니다');
+}
+function addCustom(){
+  var name = (($('#cName')||{}).value || '').trim();
+  if(!name){ toast('항목 이름을 입력해 주세요'); return; }
+  var part = (($('#cPart')||{}).value) || (appState.part === 'all' ? 'nur' : appState.part);
+  var list = customAll();
+  list.push({ id:'c' + Date.now(), name:name, part:part, kind:chkMode, branch:appState.branch });
+  store.set('tlc_custom', list);
+  $('#cName').value = '';
+  renderChecklist(); renderCustom();
+  toast('맞춤 항목을 추가했습니다');
+}
+function resetChecks(){
+  var all = store.get('tlc_chk', {});
+  var map = all[curKey()] || {};
+  var items = allShownItems();
+  items.forEach(function(it){ delete map[it.id]; });
+  all[curKey()] = map;
+  store.set('tlc_chk', all);
+  renderChecklist(); updateSummary();
+  toast('오늘 점검을 초기화했습니다');
+}
+function renderMemberGuide(){
+  var box = $('#memberGuide'); if(!box) return;
+  box.innerHTML = DATA.memberGuide.map(function(m){
+    return '<div class="mguide">' +
+      '<div class="mg-t">' + esc(m.t) + '</div>' +
+      '<ul class="pts">' + m.b.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
+  }).join('') + '<div class="muted" style="margin-top:10px">' + esc(DATA.valetNote) + '</div>';
+}
+function initCheck(){
+  var b = $('#btnAddCustom'); if(b) b.addEventListener('click', function(){ flash(b); addCustom(); });
+  var r = $('#btnResetCustom');
+  if(r) r.addEventListener('click', function(){
+    store.set('tlc_custom', []);
+    renderChecklist(); renderCustom();
+    toast('맞춤 항목을 모두 지웠습니다');
+  });
+  var cr = $('#btnCheckReset'); if(cr) cr.addEventListener('click', function(){ flash(cr); resetChecks(); });
+  renderMemberGuide();
+}
+function renderDrugNotice(){
+  var n = $('#drugPartNotice'); if(!n) return;
+  n.classList.toggle('hide', appState.part !== 'recv');
+}
+
+/* =========================================================================
+   접수 인수인계 서식 (원내 종이 서식 10항목)
+   ========================================================================= */
+function recvAll(){ var a = store.get('tlc_recv_form', {}); return (a && typeof a === 'object') ? a : {}; }
+function recvKey(){ return todayStr() + '|' + appState.branch; }
+function recvData(){ var a = recvAll(); return a[recvKey()] || {}; }
+function recvSet(k, val){
+  var all = recvAll();
+  all[recvKey()] = all[recvKey()] || {};
+  all[recvKey()][k] = val;
+  var t = todayStr();
+  Object.keys(all).forEach(function(x){ if(x.indexOf(t + '|') !== 0) delete all[x]; });
+  store.set('tlc_recv_form', all);
+}
+function rowFilled(r){
+  if(!r) return false;
+  return Object.keys(r).some(function(k){
+    var v = r[k];
+    return (typeof v === 'boolean') ? v : String(v == null ? '' : v).trim() !== '';
+  });
+}
+function sectionFilled(sec, d){
+  var v = d[sec.k];
+  if(sec.kind === 'text') return String(v || '').trim() ? 1 : 0;
+  return (v instanceof Array) ? v.filter(rowFilled).length : 0;
+}
+function recvFilledCount(){
+  var d = recvData();
+  return DATA.recvForm.filter(function(sec){ return sectionFilled(sec, d) > 0; }).length;
+}
+function renderRecvForm(){
+  var box = $('#recvForm'); if(!box) return;
+  var opened = {};
+  $$('#recvForm details.rf').forEach(function(dt){ if(dt.open) opened[dt.getAttribute('data-k')] = 1; });
+  var d = recvData();
+  var sub = $('#recvFormSub');
+  if(sub) sub.textContent = '원내 서식 10항목 · ' + recvFilledCount() + '/10 작성';
+  box.innerHTML = DATA.recvForm.map(function(sec, idx){
+    var n = sectionFilled(sec, d);
+    var body = '';
+    if(sec.kind === 'text'){
+      body = '<textarea class="inp rf-ta" data-f="__text" placeholder="' + esc(sec.ph || '') + '">' + esc(d[sec.k] || '') + '</textarea>';
+    } else {
+      var rows = (d[sec.k] instanceof Array && d[sec.k].length) ? d[sec.k] : [{}];
+      body = '<div class="rf-rows">' + rows.map(function(r, i){
+        return '<div class="rf-row" data-i="' + i + '">' + sec.fields.map(function(f){
+          var val = r[f.k];
+          if(f.type === 'select'){
+            var opts = (f.opts === 'grades')
+              ? DATA.grades.map(function(g){ return [g.id, g.e + ' ' + g.n]; })
+              : f.opts;
+            return '<select class="inp rf-in" data-f="' + f.k + '" aria-label="' + esc(f.l) + '">' + opts.map(function(o){
+              var sel = (val === undefined ? (f.opts === 'grades' ? 'none' : opts[0][0]) : val) === o[0];
+              return '<option value="' + o[0] + '"' + (sel ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
+            }).join('') + '</select>';
+          }
+          if(f.type === 'check'){
+            return '<button class="rf-chk' + (val ? ' on' : '') + '" data-check="1" data-f="' + f.k + '" aria-pressed="' + (val ? 'true' : 'false') + '">' + esc(f.l2 || '✓') + '</button>';
+          }
+          return '<input class="inp rf-in" data-f="' + f.k + '" type="' + (f.type === 'num' ? 'number' : 'text') + '"' +
+            (f.type === 'num' ? ' inputmode="decimal"' : '') +
+            ' placeholder="' + esc(f.l) + '" value="' + esc(val == null ? '' : val) + '">';
+        }).join('') + '<button class="rf-del" data-del="' + i + '" aria-label="줄 삭제">✕</button></div>';
+      }).join('') + '</div>' +
+      '<button class="rf-add" data-add="' + sec.k + '">＋ 줄 추가</button>';
+    }
+    var isOpen = (idx < 2) || !box.innerHTML || opened[sec.k];
+    return '<details class="rf" data-k="' + sec.k + '"' + (isOpen ? ' open' : '') + '>' +
+      '<summary><span class="rf-e">' + sec.e + '</span><b>' + esc(sec.n) + '</b>' +
+      '<span class="rf-c" id="rfc-' + sec.k + '">' + (n ? n : '') + '</span></summary>' +
+      '<div class="rf-b">' + (sec.note ? '<div class="muted" style="margin-bottom:6px">' + esc(sec.note) + '</div>' : '') + body + '</div></details>';
+  }).join('');
+}
+function updateRecvBadge(k){
+  var sec = DATA.recvForm.filter(function(s){ return s.k === k; })[0];
+  if(!sec) return;
+  var el = document.getElementById('rfc-' + k);
+  if(el) el.textContent = sectionFilled(sec, recvData()) || '';
+  var sub = $('#recvFormSub');
+  if(sub) sub.textContent = '원내 서식 10항목 · ' + recvFilledCount() + '/10 작성';
+  updateSummary();
+}
+function onRecvInput(ev){
+  var el = ev.target;
+  if(!el || !el.getAttribute) return;
+  var f = el.getAttribute('data-f');
+  if(!f) return;
+  var sec = up(el, '.rf');
+  if(!sec) return;
+  var k = sec.getAttribute('data-k');
+  var d = recvData();
+  if(f === '__text'){
+    recvSet(k, el.value);
+  } else {
+    var rowEl = up(el, '.rf-row');
+    if(!rowEl) return;
+    var i = +rowEl.getAttribute('data-i');
+    var rows = (d[k] instanceof Array) ? d[k].slice() : [];
+    rows[i] = rows[i] || {};
+    rows[i][f] = (el.type === 'checkbox') ? el.checked : el.value;
+    recvSet(k, rows);
+  }
+  updateRecvBadge(k);
+}
+function recvFormText(){
+  var d = recvData();
+  var L = [];
+  DATA.recvForm.forEach(function(sec){
+    L.push('■ ' + sec.n);
+    if(sec.kind === 'text'){
+      var t = String(d[sec.k] || '').trim();
+      L.push(t ? t : '—');
+      return;
+    }
+    var rows = (d[sec.k] instanceof Array ? d[sec.k] : []).filter(rowFilled);
+    if(!rows.length){ L.push('—'); return; }
+    rows.forEach(function(r){
+      var cells = sec.fields.map(function(f){
+        if(f.type === 'check') return r[f.k] ? (f.l2 || '✓') : '';
+        if(f.type === 'select'){
+          var v = (r[f.k] === undefined || r[f.k] === '') ? (f.opts === 'grades' ? 'none' : (f.opts && f.opts[0] ? f.opts[0][0] : '')) : r[f.k];
+          if(f.opts === 'grades'){ var g = DATA.gradeMap[v]; return (g && g.id !== 'none') ? (g.e + ' ' + g.n) : ''; }
+          var o = (f.opts || []).filter(function(x){ return x[0] === v; })[0];
+          return o ? o[1] : '';
+        }
+        if(f.type === 'num'){
+          var raw = r[f.k];
+          if(raw === undefined || String(raw).trim() === '') return '';
+          var n = Number(raw);
+          return (f.p ? f.p + ' ' : '') + (isFinite(n) ? n.toLocaleString('ko-KR') : raw) + (f.unit || '');
+        }
+        return r[f.k] == null ? '' : String(r[f.k]);
+      }).filter(function(x){ return String(x).trim() !== ''; });
+      L.push('· ' + (cells.join(' / ') || '—'));
+    });
+  });
+  return L.join('\n');
+}
+function recvFormHeader(){
+  return '🖥️ ' + todayKo() + ' · ' + branchInfo().name + ' 접수 인수인계 서식 (' + issState.unit + ')';
+}
+function downloadRecvForm(){
+  var txt = recvFormHeader() + '\n\n' + recvFormText();
+  var name = '접수인수인계_' + todayStr().replace(/-/g,'') + '_' + branchInfo().short + '.txt';
+  try{
+    var blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.parentNode && a.parentNode.removeChild(a); }, 1500);
+    toast('.txt 파일로 저장했습니다');
+  }catch(e){ toast('저장이 막혀 있습니다. 복사해서 붙여 넣어 주세요'); }
+}
+function initRecvForm(){
+  var box = $('#recvForm');
+  if(box && !box._bound){
+    box._bound = true;
+    box.addEventListener('input', onRecvInput);
+    box.addEventListener('change', onRecvInput);
+    box.addEventListener('click', function(ev){
+      var add = up(ev.target, '[data-add]');
+      if(add){
+        var k = add.getAttribute('data-add');
+        var d = recvData();
+        var rows = (d[k] instanceof Array) ? d[k].slice() : [];
+        rows.push({});
+        recvSet(k, rows); renderRecvForm(); return;
+      }
+      var del = up(ev.target, '[data-del]');
+      if(del){
+        var secEl = up(del, '.rf');
+        if(!secEl) return;
+        var k2 = secEl.getAttribute('data-k');
+        var i = +del.getAttribute('data-del');
+        var d2 = recvData();
+        var rows2 = (d2[k2] instanceof Array) ? d2[k2].slice() : [];
+        rows2.splice(i, 1);
+        if(!rows2.length) rows2.push({});
+        recvSet(k2, rows2); renderRecvForm(); return;
+      }
+      var chk = up(ev.target, '[data-check]');
+      if(chk){
+        var sec3 = up(chk, '.rf');
+        var rowEl = up(chk, '.rf-row');
+        if(!sec3 || !rowEl) return;
+        var k3 = sec3.getAttribute('data-k');
+        var i3 = +rowEl.getAttribute('data-i');
+        var fk = chk.getAttribute('data-f');
+        var d3 = recvData();
+        var rows3 = (d3[k3] instanceof Array) ? d3[k3].slice() : [];
+        rows3[i3] = rows3[i3] || {};
+        rows3[i3][fk] = !rows3[i3][fk];
+        recvSet(k3, rows3);
+        chk.classList.toggle('on', !!rows3[i3][fk]);
+        chk.setAttribute('aria-pressed', rows3[i3][fk] ? 'true' : 'false');
+        updateRecvBadge(k3);
+        return;
+      }
+    });
+  }
+  var c = $('#btnFormCopy');
+  if(c) c.addEventListener('click', function(){
+    flash(c);
+    copyText(recvFormHeader() + '\n\n' + recvFormText(), '접수 인수인계 서식을 복사했습니다 — 카톡에 붙여 넣으세요');
+  });
+  var t = $('#btnFormTxt');
+  if(t) t.addEventListener('click', function(){ flash(t); downloadRecvForm(); });
+  var r = $('#btnFormReset');
+  if(r) r.addEventListener('click', function(){
+    var now = Date.now();
+    if(now - (r._t || 0) > 3000){ r._t = now; toast('한 번 더 누르면 오늘 서식을 비웁니다'); return; }
+    var all = recvAll(); all[recvKey()] = {}; store.set('tlc_recv_form', all);
+    renderRecvForm(); updateSummary(); r._t = 0;
+    toast('접수 서식을 비웠습니다');
+  });
+  renderRecvForm();
+}
+
+/* =========================================================================
+   시트(모달) · 휴대폰 미리보기
+   ========================================================================= */
+function openSheet(title, sub, body){
+  var s = $('#sheet'); if(!s) return;
+  $('#sheetTitle').textContent = title || '';
+  $('#sheetSub').textContent = sub || '';
+  $('#sheetBody').textContent = body || '';
+  s.classList.add('on');
+  s._body = body || '';
+}
+function initSheet(){
+  var s = $('#sheet');
+  if(!s) return;
+  s.addEventListener('click', function(ev){ if(ev.target === s) s.classList.remove('on'); });
+  var c = $('#sheetClose'); if(c) c.addEventListener('click', function(){ s.classList.remove('on'); });
+  var cp = $('#sheetCopy'); if(cp) cp.addEventListener('click', function(){ copyText(s._body, '복사했습니다'); });
+}
+function mobilePreview(){
+  var src = baseUrl() + '?mv=' + Date.now();
+  document.body.innerHTML = '<div style="min-height:100vh;background:#E4F1EE;display:flex;align-items:flex-start;justify-content:center;padding:12px">' +
+    '<div style="background:#fff;border-radius:22px;padding:8px;box-shadow:0 16px 40px rgba(12,60,55,.22)">' +
+    '<div style="font:700 11px -apple-system,sans-serif;color:#7F9694;padding:2px 4px 8px">휴대폰 390 × 844 미리보기 · <a href="'+baseUrl()+'">돌아가기</a></div>' +
+    '<iframe src="' + src + '" style="width:390px;height:844px;border:0;border-radius:14px;background:#F2F8F7;display:block"></iframe>' +
+    '</div></div>';
+}
+
+/* =========================================================================
+   시작
+   ========================================================================= */
+var inited = false;
+function init(){
+  if(inited) return; inited = true;
+  var vt = $('#vbadgeText'); if(vt) vt.textContent = VERSION;
+  var fv2 = $('#footVer2'); if(fv2) fv2.textContent = VERSION;
+  document.body.setAttribute('data-part', appState.part);
+  bindTabs(); bindRefresh();
+  $$('#partBar .pb').forEach(function(b){
+    b.addEventListener('click', function(){ setPart(b.getAttribute('data-part')); });
+  });
+  document.addEventListener('click', function(ev){
+    var g = up(ev.target, '[data-part-go]');
+    if(g){ setPart(g.getAttribute('data-part-go')); }
+  });
+  initIss();
+  initDrug();
+  bindTimers();
+  renderTimers();
+  initCheck();
+  initRecvForm();
+  renderHome();
+  renderChecklist();
+  setPart(appState.part, true);
+  initSheet();
+  var mb = $('#btnMobile'); if(mb) mb.addEventListener('click', mobilePreview);
+  try{ setInterval(timerTick, 1000); }catch(e){}
+  versionCheck(true);
+}
+try{
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+}catch(e){ window.__errs.push('init: ' + e.message); }
+</script>
+</body>
+</html>
