@@ -9,12 +9,13 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="TLC 인수인계 · 티엘씨 청담·분당">
 <meta property="og:description" content="간호 파트 / 접수 파트 분리 실무 인수인계 — 수액 계산·베드 타이머, 파트 점검, SBAR 인계문">
-<meta property="og:image" content="https://tlcmediclinic.github.io/icon-512.png">
+<meta property="og:image" content="https://tlcmediclinic.github.io/clinic-nurse-ai/icon-512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
 <meta property="og:url" content="https://tlcmediclinic.github.io/clinic-nurse-ai/">
-<link rel="apple-touch-icon" sizes="180x180" href="https://tlcmediclinic.github.io/icon-180.png">
-<link rel="icon" type="image/png" href="https://tlcmediclinic.github.io/icon-180.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png">
+<link rel="icon" type="image/svg+xml" href="./icon.svg">
+<link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
 <script>
 window.__errs=[];
 window.onerror=function(m,src,l,c){
@@ -52,6 +53,10 @@ p{margin:0}
 .top .wrap{display:flex;align-items:center;gap:9px;height:58px}
 .logo{width:34px;height:34px;border-radius:11px;background:linear-gradient(140deg,#28B7A0,#0A7A6B);color:#fff;
   display:grid;place-items:center;font-size:17px;flex:0 0 auto;box-shadow:0 4px 12px rgba(14,143,126,.3)}
+.logo svg{width:34px;height:34px;display:block;filter:drop-shadow(0 2px 5px rgba(10,110,98,.28))}
+.hero-logo{display:inline-flex;align-items:center;justify-content:center;background:#fff;border-radius:20px;
+  padding:9px 11px;margin-bottom:12px;box-shadow:0 10px 24px rgba(4,60,52,.26);width:auto}
+.hero-logo svg{width:54px;height:68px;display:block}
 .brand{font-weight:800;font-size:14.5px;letter-spacing:-.03em;line-height:1.2}
 .brand small{display:block;font-weight:600;font-size:10.5px;color:var(--ink3);letter-spacing:0}
 .vwrap{display:flex;align-items:center;gap:6px;margin-left:auto}
@@ -177,6 +182,10 @@ textarea.inp{resize:vertical;min-height:104px;line-height:1.7}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,69,95,.45)}70%{box-shadow:0 0 0 16px rgba(232,69,95,0)}100%{box-shadow:0 0 0 0 rgba(232,69,95,0)}}
 .mic-hint{font-size:12px;color:var(--ink3);line-height:1.45}
 .mic-hint b{color:var(--pp)}
+.miclang{flex:0 0 auto;min-width:46px;height:34px;padding:0 10px;border-radius:999px;background:#fff;border:1.6px solid var(--pp);
+  color:var(--pp);font-size:12px;font-weight:900;letter-spacing:.5px;display:inline-grid;place-items:center;transition:transform .08s,background .18s}
+.miclang:active{transform:scale(.93)}
+.miclang.en{background:var(--pp);color:#fff;border-color:var(--pp)}
 .bar{height:7px;border-radius:99px;background:#E6EFED;overflow:hidden;margin-top:6px}
 .bar>i{display:block;height:100%;border-radius:99px;background:var(--pp);transition:width .5s}
 .bar.g>i{background:var(--grn)} .bar.o>i{background:var(--org)} .bar.r>i{background:var(--red)}
@@ -399,6 +408,34 @@ table.tbl td b{font-weight:800}
 .tag.gd-purple{background:#F1EBFB;color:#6A3FA8}
 .tag.gd-black{background:#E9E7EE;color:#231F2B}
 
+/* ---------- 📊 일일마감 연동 ---------- */
+.issclose{display:flex;align-items:center;gap:9px;background:#fff;border-radius:14px;padding:9px 11px;box-shadow:var(--sh);
+  border:1.6px solid transparent;margin:0 2px 10px}
+.issclose.on{border-color:var(--coral);background:#FFF6F3}
+.issclose .ic{flex:0 0 32px;height:32px;border-radius:10px;background:var(--org-l);color:var(--org);display:grid;place-items:center;font-size:16px}
+.issclose .tx{flex:1;min-width:0;line-height:1.3}
+.issclose .tx b{font-size:13px;display:block}
+.issclose .tx small{display:block;font-size:11px;color:var(--ink3);line-height:1.35;margin-top:1px}
+.issclose .cc-mini{flex:0 0 auto;width:auto;padding:9px 11px;font-size:11.5px;border-radius:11px;white-space:nowrap}
+.closecard{display:grid;gap:8px}
+.closecard .cc-main{font-size:13.5px;padding:13px 12px}
+.closecard .cc-note{font-size:11.5px;color:var(--ink3);line-height:1.45}
+.closecard .cc-note b{color:var(--pp)}
+.closecard .cc-alt{display:flex;gap:6px;align-items:center;font-size:11.5px;color:var(--ink3)}
+.closecard .cc-alt a{font-weight:800;color:var(--pp);text-decoration:none;border:1.2px solid var(--line);background:#fff;border-radius:999px;padding:4px 9px}
+.rf.rf-link{background:#FFFCF7;border-color:#F6E2C8}
+.rf.rf-link .rf-c{color:var(--org);font-weight:900}
+.rf.rf-auto{background:#F7FCFB;border-color:#D8ECE7}
+.rf.rf-auto .rf-c{color:var(--pp);font-weight:900}
+.auto-list{display:grid;gap:6px}
+.auto-row{display:flex;flex-wrap:wrap;align-items:center;gap:5px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 9px}
+.auto-t{font:800 11px/1 ui-monospace,monospace;color:var(--pp);background:var(--pp-l);border-radius:6px;padding:4px 5px}
+.auto-b{font-size:11px;color:var(--ink3)}
+.auto-x{flex:1 1 100%;color:var(--ink);font-size:12.5px;line-height:1.45}
+.auto-empty{font-size:12px;color:var(--ink3);line-height:1.5;background:#FBFEFD;border:1px dashed var(--line);border-radius:10px;padding:9px 10px}
+.auto-add{margin-top:8px;width:auto;display:inline-flex}
+a.feat{display:block;text-decoration:none;color:inherit}
+
 /* ---------- 접수 인수인계 서식 ---------- */
 .rf{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:#FBFEFD;overflow:hidden}
 .rf summary{display:flex;align-items:center;gap:7px;padding:10px 11px;cursor:pointer;font-size:13px;list-style:none}
@@ -426,10 +463,26 @@ table.tbl td b{font-weight:800}
 
 <div class="top">
   <div class="wrap">
-    <div class="logo">🏥</div>
+    <div class="logo"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="티엘씨 화합형 로고">
+  <defs>
+    <linearGradient id="tlcG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2EC5AB"/>
+      <stop offset="0.55" stop-color="#12A08B"/>
+      <stop offset="1" stop-color="#0A7265"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="url(#tlcG)"/>
+  <circle cx="32" cy="32" r="29.2" fill="none" stroke="#ffffff" stroke-opacity="0.34" stroke-width="1.1"/>
+  <path d="M12.4 39.6C17.4 51.4 24.2 56.6 32 56.6s14.6-5.2 19.6-17" fill="none" stroke="#ffffff" stroke-opacity="0.95" stroke-width="2.9" stroke-linecap="round"/>
+  <g transform="translate(32 32) scale(0.86) translate(-32 -32)">
+    <path d="M32 47.6C21.6 40.6 12.8 33 12.8 24.5c0-6.1 4.7-10.7 10.3-10.7 3.4 0 6.2 1.6 8.9 4.5 2.7-2.9 5.5-4.5 8.9-4.5 5.6 0 10.3 4.6 10.3 10.7 0 8.5-8.8 16.1-19.2 23.1z" fill="#ffffff"/>
+    <path d="M29.9 20.4h4.2v5.4h5.4v4.2h-5.4v5.4h-4.2v-5.4h-5.4v-4.2h5.4z" fill="#0C8071"/>
+  </g>
+  <path d="M12.4 39.6c3.4 1.4 6.6 1.7 9.5 1M51.6 39.6c-3.4 1.4-6.6 1.7-9.5 1" fill="none" stroke="#F2705C" stroke-width="2.9" stroke-linecap="round"/>
+</svg></div>
     <div class="brand">TLC 인수인계<small>티엘씨 청담·분당 실무 인수인계</small></div>
     <div class="vwrap">
-      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.1</span></a>
+      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.2</span></a>
       <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기">🔄 새로고침</a>
     </div>
   </div>
@@ -448,7 +501,7 @@ table.tbl td b{font-weight:800}
 
 <div class="updbar" id="updBar" role="status" aria-live="polite">
   <div class="in">
-    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.1</span></b>이 준비되었습니다.</div>
+    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.2</span></b>이 준비되었습니다.</div>
     <a class="upd-a" id="updBtn" href="#" rel="noopener">지금 새로고침</a>
   </div>
 </div>
@@ -466,6 +519,25 @@ table.tbl td b{font-weight:800}
 <section class="wrap" id="screen-home">
   <div class="sec">
     <div class="hero">
+      <div class="hero-logo"><svg viewBox="0 0 64 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="티엘씨 화합형 로고 TLC">
+  <defs>
+    <linearGradient id="tlcG2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2EC5AB"/>
+      <stop offset="0.55" stop-color="#12A08B"/>
+      <stop offset="1" stop-color="#0A7265"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="url(#tlcG2)"/>
+  <circle cx="32" cy="32" r="29.2" fill="none" stroke="#ffffff" stroke-opacity="0.34" stroke-width="1.1"/>
+  <path d="M12.4 39.6C17.4 51.4 24.2 56.6 32 56.6s14.6-5.2 19.6-17" fill="none" stroke="#ffffff" stroke-opacity="0.95" stroke-width="2.9" stroke-linecap="round"/>
+  <g transform="translate(32 32) scale(0.86) translate(-32 -32)">
+    <path d="M32 47.6C21.6 40.6 12.8 33 12.8 24.5c0-6.1 4.7-10.7 10.3-10.7 3.4 0 6.2 1.6 8.9 4.5 2.7-2.9 5.5-4.5 8.9-4.5 5.6 0 10.3 4.6 10.3 10.7 0 8.5-8.8 16.1-19.2 23.1z" fill="#ffffff"/>
+    <path d="M29.9 20.4h4.2v5.4h5.4v4.2h-5.4v5.4h-4.2v-5.4h-5.4v-4.2h5.4z" fill="#0C8071"/>
+  </g>
+  <path d="M12.4 39.6c3.4 1.4 6.6 1.7 9.5 1M51.6 39.6c-3.4 1.4-6.6 1.7-9.5 1" fill="none" stroke="#F2705C" stroke-width="2.9" stroke-linecap="round"/>
+  <rect x="7.5" y="62" width="49" height="16" rx="8" fill="#0A6F62" stroke="#ffffff" stroke-width="1.8"/>
+  <text x="32" y="73.6" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif" font-size="10.4" font-weight="800" letter-spacing="1.5" fill="#ffffff">TLC</text>
+</svg></div>
       <div class="k">TLC HANDOVER · 청담 &amp; 분당</div>
       <h1>간호는 간호답게,<br>접수는 접수답게</h1>
       <p>하루의 이슈를 <b>간호 파트</b>와 <b>접수 파트</b>로 나눠 남기면, 교대·마감 인계문이 그대로 정리됩니다.
@@ -508,6 +580,8 @@ table.tbl td b{font-weight:800}
         <h3>파트 점검</h3><p>청담·분당 기준 일일 체크리스트</p></button>
       <button class="feat" data-go="iss" data-scroll="sbarTools"><div class="ic" style="background:var(--blue-l);color:var(--blue)">🗂️</div>
         <h3>인계문 · 기록함</h3><p>파트별 SBAR 복사 · .txt 저장</p></button>
+      <a class="feat" id="homeCloseFeat" href="#" target="_blank" rel="noopener"><div class="ic" style="background:var(--org-l);color:var(--org)">📊</div>
+        <h3>📊 일일마감 열기</h3><p>입·출금·적립금 마감은 티엘씨 일일마감 앱에서</p></a>
     </div>
   </div>
 
@@ -551,6 +625,11 @@ table.tbl td b{font-weight:800}
 <section class="wrap hide" id="screen-iss">
   <div class="sec">
     <div class="sec-h"><h2>📌 근무 중 실시간 이슈</h2><span class="sub">한 줄씩 남겨 두면 교대 인계가 가벼워집니다</span></div>
+    <div class="issclose" id="issCloseBar">
+      <div class="ic">📊</div>
+      <div class="tx"><b>일일마감 · 정산</b><small id="issCloseNote">입·출금·적립금 마감은 일일마감 화면에서 (중복 입력 없음)</small></div>
+      <a class="btn sm coral cc-mini" id="issCloseBtn" href="#" target="_blank" rel="noopener">일일마감 열기</a>
+    </div>
     <div class="shiftnote hide" id="shiftNote"></div>
     <div class="card">
       <div class="field">
@@ -564,6 +643,7 @@ table.tbl td b{font-weight:800}
       <div class="field">
         <label>분류 <span class="muted">(터치 선택)</span></label>
         <div class="chips" id="issTags"></div>
+        <div class="muted" style="margin-top:6px;font-size:11.5px">회원 등급·문의·비품·콜백은 여기서 <b>한 번만</b> 남기면 접수 서식 ②⑤⑦⑧에 자동으로 모입니다.</div>
       </div>
       <div class="field hide" id="memberBox">
         <label>멤버십 회원 <span class="muted">· 선택 사항 · 가명/차트순번만</span></label>
@@ -583,7 +663,8 @@ table.tbl td b{font-weight:800}
       </div>
       <div class="microw">
         <button class="mic" id="issMic" title="음성으로 입력">🎤</button>
-        <div class="mic-hint" id="issMicHint">말하면 글로 적힙니다. <b>실명은 말하지 마세요.</b></div>
+        <button class="miclang" id="issMicLang" type="button" title="한국어/English 인식 전환" aria-label="인식 언어 전환">KO</button>
+        <div class="mic-hint" id="issMicHint">말하면 글로 적힙니다 — <b>한·영·숫자·기호를 자동으로 보정</b>합니다. 실명은 말하지 마세요.</div>
       </div>
       <div class="row">
         <button class="btn sm" id="issAdd">➕ 등록</button>
@@ -637,14 +718,14 @@ table.tbl td b{font-weight:800}
   </div>
 
   <div class="sec" id="recvFormSec">
-    <div class="sec-h"><h2>🖥️ 접수 인수인계 서식</h2><span class="sub" id="recvFormSub">원내 서식 10항목</span></div>
+    <div class="sec-h"><h2>🖥️ 접수 인수인계 서식</h2><span class="sub" id="recvFormSub">직접 작성 0/4 · 이슈 자동 0건 · 마감 앱 2</span></div>
     <div class="card" style="padding:12px">
       <div class="row" style="gap:6px;margin-bottom:8px">
         <button class="btn ghost sm" id="btnFormCopy">📋 서식 복사</button>
         <button class="btn gray sm" id="btnFormTxt">⬇️ .txt</button>
         <button class="btn gray sm" id="btnFormReset">비우기</button>
       </div>
-      <div class="muted" style="margin-bottom:10px">원내 종이 서식과 같은 10항목입니다. 가명·차트순번만 적고, 적은 내용은 <b>이 기기에만</b> 저장됩니다.</div>
+      <div class="muted" style="margin-bottom:10px">원내 종이 서식 10항목 그대로입니다. 직접 적는 항목은 <b>①③⑨⑩ 4개</b>뿐 — <b>②⑤⑦⑧은 이슈 등록에서 자동</b>으로 모이고, <b>④⑥ 입·출금·적립금은 📊 일일마감 앱</b>에서 처리합니다. 가명·차트순번만 적고, 적은 내용은 <b>이 기기에만</b> 저장됩니다.</div>
       <div id="recvForm"></div>
     </div>
   </div>
@@ -790,7 +871,7 @@ table.tbl td b{font-weight:800}
 
 <div class="footer wrap" id="globalFooter" style="margin-top:20px">
   <div class="cp">아이디어·개발·제작·저작권: <span>티엘씨메디켈그룹 총괄운영실장 김효숙</span></div>
-  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.1</span></div>
+  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.2</span></div>
   <div class="nt">의료기기(SaMD) 아님 · 실제 환자 개인정보 입력 금지 · 기기 내 로컬 저장만 사용 · 공식기관 인증 프로그램 아님</div>
 </div>
 
@@ -857,23 +938,24 @@ DATA.tags = [
   { id:'lab',   part:'nur',  n:'검사 결과·콜백',    e:'🧪' },
   { id:'vax',   part:'nur',  n:'냉장 백신·바이알',  e:'🌡️' },
   { id:'narc',  part:'nur',  n:'향정·마약류',       e:'💊' },
-  { id:'stock', part:'nur',  n:'약품·소모품 재고',  e:'📦' },
+  { id:'stock', part:'both', n:'약품·비품 재고',    e:'📦' },
   { id:'emerg', part:'nur',  n:'응급·부작용',       e:'🚨' },
   /* 접수 파트 (원무·행정) */
   { id:'appt',  part:'recv', n:'예약·변경·노쇼',    e:'📅' },
-  { id:'money', part:'recv', n:'미수·적립금·선불권', e:'💳' },
+  { id:'money', part:'recv', n:'미수·선불금',       e:'💳' },
   { id:'docs',  part:'recv', n:'동의서·제증명',     e:'📄' },
   { id:'comp',  part:'recv', n:'고객 문의·컴플레인', e:'⚠️' },
-  { id:'admin', part:'recv', n:'행정·마감 정산',    e:'🧾' },
+  { id:'admin', part:'recv', n:'행정·영수증',       e:'🧾' },
   { id:'etc',   part:'both', n:'기타',              e:'📝' }
 ];
 DATA.tagMap = {};
 DATA.tags.forEach(function(t){ DATA.tagMap[t.id] = t; });
+/* 파트별 분류 — 그 파트 전용 분류를 먼저, 공통(📦 재고 · 📝 기타)은 뒤에 */
 function tagsOf(part, includeEtc){
-  return DATA.tags.filter(function(t){
-    if(part === 'all') return t.part !== 'both' || !!includeEtc;
-    return t.part === part || (!!includeEtc && t.part === 'both');
-  });
+  if(part === 'all') return DATA.tags.slice();
+  var own = DATA.tags.filter(function(t){ return t.part === part; });
+  var shared = DATA.tags.filter(function(t){ return t.part === 'both'; });
+  return own.concat(shared);
 }
 
 /* ---------- 일일 점검 (지점·파트별 프리셋) ---------- */
@@ -886,8 +968,6 @@ DATA.checks = {
       { k:'cd_n4',  n:'시술 후 주의 안내 (자외선 차단·보습·샤워 시점)' },
       { k:'cd_n5',  n:'냉장 백신·바이알 온도 2~8℃ 기록' },
       { k:'cd_n6',  n:'향정·마약류 잔량 대조 및 관리대장 기록' },
-      { k:'cd_n7',  n:'약품·소모품 재고 부족 품목 발주 요청' },
-      { k:'cd_n8',  n:'검사 결과 이상 소견 콜백 대상 확인' },
       { k:'cd_n9',  n:'응급키트(에피네프린·산소) 위치·유효기간 확인' },
       { k:'cd_n10', n:'비만클리닉 GLP-1 주사 부위·용량·부작용 확인' },
       { k:'cd_n11', n:'마감 전 미완료 처치·재확인 시각 정리' }
@@ -895,15 +975,12 @@ DATA.checks = {
     recv: [
       { k:'cd_r1',  n:'내일 예약 확정·변경·노쇼 연락 정리' },
       { k:'cd_r2',  n:'미수금 잔액 확인 및 안내 문자 발송' },
-      { k:'cd_r3',  n:'적립금·선불권 사용·잔액 대조' },
+      { k:'cd_r3',  n:'📊 적립금·선불권 잔액은 일일마감 앱에서 확인' },
       { k:'cd_r4',  n:'시술 동의서 서명·사진 촬영 여부 확인' },
       { k:'cd_r5',  n:'제증명·진단서 발급 요청 접수·수령 안내' },
-      { k:'cd_r6',  n:'고객 문의·컴플레인 처리 상태 인계' },
       { k:'cd_r7',  n:'카카오톡·문자 예약 문의 회신' },
-      { k:'cd_r8',  n:'일일 마감 정산(현금·카드·간편결제) 대조' },
+      { k:'cd_r8',  n:'📊 일일마감 앱에서 정산 확인 (입·출금·적립금)' },
       { k:'cd_r9',  n:'진료비 영수증·세금계산서 요청 처리' },
-      { k:'cd_r11', n:'골드·퍼플·블랙 회원 응대·특이사항 인계' },
-      { k:'cd_r12', n:'멤버십 회원 방문 시 🚗 발렛 무료 적용 확인' },
       { k:'cd_r10', n:'다음 근무 인계 메모 정리' }
     ]
   },
@@ -915,23 +992,18 @@ DATA.checks = {
       { k:'bd_n4',  n:'소아 체중·월령 기준 해열제 용량 확인' },
       { k:'bd_n5',  n:'접종 후 15~30분 관찰·이상반응 안내' },
       { k:'bd_n6',  n:'수액실 소아 수액 속도·잔량 확인' },
-      { k:'bd_n7',  n:'검사 결과 회신·보호자 콜백' },
       { k:'bd_n8',  n:'응급키트·에피네프린 1:1000 확인' },
-      { k:'bd_n9',  n:'향정·약품·소모품 재고 확인' },
       { k:'bd_n10', n:'보호자 귀가 안내 (해열제 교차 투여 시각·연락처)' }
     ],
     recv: [
       { k:'bd_r1',  n:'오늘·내일 접종 예약 확인 및 안내 문자' },
-      { k:'bd_r2',  n:'미수금·적립금 확인' },
+      { k:'bd_r2',  n:'📊 미수금·적립금은 일일마감 앱에서 확인' },
       { k:'bd_r3',  n:'보호자 연락처 최신 여부 확인' },
       { k:'bd_r4',  n:'예방접종 예진표·동의서 수령 확인' },
       { k:'bd_r5',  n:'예방접종 증명서·제증명 발급' },
       { k:'bd_r6',  n:'노쇼·지연 환아 보호자 연락' },
-      { k:'bd_r7',  n:'고객 문의·컴플레인 인계' },
-      { k:'bd_r8',  n:'일일 마감 정산 대조' },
+      { k:'bd_r8',  n:'📊 일일마감 앱에서 정산 확인 (입·출금·적립금)' },
       { k:'bd_r9',  n:'다음 날 접종 물량·백신 재고 확인' },
-      { k:'bd_r11', n:'골드·퍼플·블랙 회원 응대·특이사항 인계' },
-      { k:'bd_r12', n:'멤버십 회원 방문 시 🚗 발렛 무료 적용 확인' },
       { k:'bd_r10', n:'다음 근무 인계 메모 정리' }
     ]
   }
@@ -1190,54 +1262,36 @@ DATA.onboard = {
     { k:'on_r7',  n:'시술 동의서·사진 촬영 여부 확인' },
     { k:'on_r8',  n:'제증명·진료비 영수증·세금계산서 발급' },
     { k:'on_r9',  n:'고객 문의·컴플레인 응대와 인계' },
-    { k:'on_r10', n:'일일 마감 정산 흐름(현금·카드·간편결제)' },
+    { k:'on_r10', n:'📊 일일마감 앱 정산 흐름(입·출금·적립금)' },
     { k:'on_r11', n:'교차근무 인계문 작성·카톡 전달 방법' }
   ]
 };
 
+/* ---------- 📊 티엘씨 일일마감 앱 (입·출금·적립금 마감은 이 화면에서) ---------- */
+DATA.dailyClose = {
+  mobile: 'https://script.google.com/macros/s/AKfycbzqfKZ68BfC-ez2D7xv0NkVa72F6as4pTZlkn9lVxNW5FXRk1Oz7oqtCHPSi_vMz-TK/exec?v=2.0',
+  pc:     'https://script.google.com/macros/s/AKfycbxUWC69H7K-_3z3HSMuzj-1FrYsdZR1votm_2Gs859M4QA6tclDWQoIQz_e2H92SZA1/exec?v=1.0',
+  mobileNote: 'v2.0 휴대폰 화면',
+  pcNote: 'v1.0 PC 화면'
+};
+
 /* ---------- 접수 인수인계 서식 (원내 종이 서식 10항목 · 2026-11-19 A4 simple v2) ---------- */
 DATA.recvForm = [
+  /* 원내 종이 서식 순서 그대로 — 직접 작성 / 이슈 자동 / 일일마감 연동 */
   { k:'schedule', n:'원장님 스케줄', e:'🗓️', kind:'text', ph:'예) 오후 휴진 / 14:00 이후 시술만 / 15:00 외출' },
-  { k:'valet', n:'멤버십 발렛주차 명단', e:'🚗', kind:'rows',
-    note:'골드·퍼플·블랙 회원 · 차량/방문 메모 · 🚗 발렛 무료 체크',
-    fields:[
-      { k:'who', l:'가명/차트', ph:'차트 24-118' },
-      { k:'grade', l:'등급', type:'select', opts:'grades' },
-      { k:'memo', l:'차량/방문 메모', ph:'12가3456 · 14:00' },
-      { k:'valet', l:'발렛', type:'check', l2:'🚗 무료' }
-    ] },
+  { k:'valet', n:'멤버십 발렛주차 명단', e:'🚗', kind:'auto', auto:{ grade:true }, goTag:'appt',
+    note:'이슈 등록에서 회원 등급(🥇💜🖤)을 고르면 여기에 자동으로 모입니다' },
   { k:'memo', n:'전달 메모', e:'📋', kind:'text', ph:'교대·인계 때 꼭 전할 말' },
-  { k:'cash', n:'오늘 입·출금내역', e:'💰', kind:'rows',
-    fields:[
-      { k:'dir', l:'구분', type:'select', opts:[['in','입금'],['out','출금']] },
-      { k:'amt', l:'금액', type:'num', ph:'0', unit:'원' },
-      { k:'note', l:'내용', ph:'예) 미수금 입금' }
-    ] },
-  { k:'watch', n:'주의·요청 고객', e:'💗', kind:'rows',
-    fields:[
-      { k:'who', l:'가명/차트', ph:'차트 24-118' },
-      { k:'note', l:'요청·주의·컴플레인', ph:'예) 대기 길어짐 양해 요청' }
-    ] },
-  { k:'point', n:'적립금내역', e:'🪙', kind:'rows',
-    note:'일일마감 연동 전 원내 인계 메모용',
-    fields:[
-      { k:'who', l:'고객명(가명)' },
-      { k:'plus', l:'적립', type:'num', unit:'원', p:'적립' },
-      { k:'minus', l:'사용', type:'num', unit:'원', p:'사용' },
-      { k:'bal', l:'잔액', type:'num', unit:'원', p:'잔액' }
-    ] },
-  { k:'happy', n:'해피콜목록', e:'🎧', kind:'rows',
-    fields:[
-      { k:'who', l:'대상', ph:'차트 24-118' },
-      { k:'why', l:'사유', ph:'시술 후 경과 확인' },
-      { k:'res', l:'결과', ph:'부재중 · 문자 발송' }
-    ] },
-  { k:'supply', n:'부족한비품', e:'🩹', kind:'rows',
-    fields:[
-      { k:'item', l:'품목', ph:'예) 거즈 10x10' },
-      { k:'qty', l:'수량', type:'num' },
-      { k:'order', l:'발주', type:'check', l2:'발주 필요' }
-    ] },
+  { k:'cash', n:'오늘 입·출금내역', e:'💰', kind:'link', closeLine:'일일마감 앱 확인 (입·출금 마감)',
+    note:'일일마감 앱에서 입력·확인합니다 — 여기서 또 적지 않습니다' },
+  { k:'watch', n:'주의·요청 고객', e:'💗', kind:'auto', auto:{ tags:['comp'] }, goTag:'comp',
+    note:'분류 «고객 문의·컴플레인»으로 남기면 자동으로 모입니다' },
+  { k:'point', n:'적립금내역', e:'🪙', kind:'link', closeLine:'일일마감 앱 확인 (적립금 마감)',
+    note:'적립·사용·잔액은 일일마감 앱 장부에서 확인합니다' },
+  { k:'happy', n:'해피콜·콜백', e:'🎧', kind:'auto', auto:{ tags:['lab','appt'] }, goTag:'appt',
+    note:'«검사 결과·콜백» · «예약·변경·노쇼»로 남기면 자동으로 모입니다' },
+  { k:'supply', n:'부족한 비품·재고', e:'🩹', kind:'auto', auto:{ tags:['stock'] }, goTag:'stock',
+    note:'분류 «약품·비품 재고»(간호·접수 공통)로 남기면 자동으로 모입니다' },
   { k:'newpt', n:'신규환자정보', e:'🩺', kind:'rows',
     note:'가명·차트순번만 (최소 정보 원칙)',
     fields:[
@@ -1252,7 +1306,7 @@ DATA.recvForm = [
    TLC 인수인계 — 화면 로직 (티엘씨 청담·분당 실무 인수인계)
    아이디어·개발·제작·저작권: 김효숙 (티엘씨메디켈그룹 총괄운영실장)
    ========================================================================= */
-var VERSION = 'v1.1';
+var VERSION = 'v1.2';
 /* 기존 Apps Script 배포본(참고용 폴백) — GitHub Pages에서는 ./version.json 사용 */
 var EXEC_URL = 'https://script.google.com/macros/s/AKfycbyTf8lTMRCtbmnc3SCOcYH25O_ncRE0IUtm4K8h91-C5MG6ETQo9G4DiF57sgBsicE6/exec';
 var VER_POLL_MS = 180000;
@@ -1368,9 +1422,15 @@ function bindRefresh(){
 }
 
 /* =========================================================================
-   음성 입력 (Web Speech API) — GitHub Pages 최상위 문서에서 직접 동작
+   음성 입력 (Web Speech API) — v1.2 한·영·숫자·기호 고속 인식
+   · interimResults 실시간 반영 + maxAlternatives 3개 중 최적 표기 자동 선택
+   · onend → 120ms 뒤 자동 재시작 (짧은 침묵에도 끊기지 않는 연속 인식 · iOS Safari 대응)
+   · KO / EN 원터치 전환 (기본 ko-KR = 한·영 혼합 인식)
+   · 후처리 파이프라인: 의료·원무 용어 / 단위 / 기호 / 한글 숫자 자동 보정
    ========================================================================= */
-var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+function getSR(){ return window.SpeechRecognition || window.webkitSpeechRecognition || null; }
+var SR = getSR();
+
 function micErrMsg(code){
   if(code === 'not-allowed' || code === 'service-not-allowed')
     return '마이크 권한이 꺼져 있습니다. 주소창 옆 자물쇠(또는 아이폰 설정 → Safari → 마이크)에서 <b>허용</b> 후 다시 눌러 주세요.';
@@ -1383,13 +1443,377 @@ function micErrMsg(code){
   if(code === 'aborted') return '음성 인식을 취소했습니다.';
   return '음성 인식이 중단되었습니다. 다시 눌러 주세요.';
 }
+
+/* -------------------------------------------------------------------------
+   한글 숫자 → 숫자 (예: 삼십팔 → 38, 백이십 → 120)
+   ------------------------------------------------------------------------- */
+var V_DIG1 = { '영':0,'공':0,'일':1,'이':2,'삼':3,'사':4,'오':5,'육':6,'칠':7,'팔':8,'구':9 };
+var V_DIG2 = { '하나':1,'한':1,'두':2,'둘':2,'세':3,'셋':3,'네':4,'넷':4,'다섯':5,'여섯':6,'일곱':7,'여덟':8,'아홉':9 };
+var V_UNIT1 = { '십':10,'백':100,'천':1000,'만':10000 };
+var V_NUMCH = '영공일이삼사오육칠팔구십백천만하나두세네다섯여섯일곱여덟아홉';
+var V_NUM = '(?:[0-9]+(?:\\.[0-9]+)?|[' + V_NUMCH + ']{1,12})';
+
+function vNum(s){
+  var t = String(s == null ? '' : s).replace(/\s+/g, '');
+  if(!t) return null;
+  if(/^[0-9]+(\.[0-9]+)?$/.test(t)) return parseFloat(t);
+  var total = 0, sect = 0, pending = '', i = 0, ok = false;
+  while(i < t.length){
+    var two = t.substr(i, 2), ch = t.charAt(i), d = null, step = 1;
+    if(V_DIG2[two] !== undefined){ d = V_DIG2[two]; step = 2; }
+    else if(V_DIG1[ch] !== undefined){ d = V_DIG1[ch]; step = 1; }
+    if(d !== null){ pending += String(d); ok = true; i += step; continue; }
+    var u = V_UNIT1[ch];
+    if(u !== undefined){
+      var cur = pending === '' ? 1 : parseInt(pending, 10);
+      if(u === 10000){ sect = (sect + cur) * 10000; total += sect; sect = 0; }
+      else sect += cur * u;
+      pending = ''; ok = true; i += 1; continue;
+    }
+    return null;
+  }
+  if(!ok) return null;
+  return total + sect + (pending === '' ? 0 : parseInt(pending, 10));
+}
+
+/* -------------------------------------------------------------------------
+   1) 의료·원무 영어/약어 자동 변환
+   ------------------------------------------------------------------------- */
+var V_TERMS = [
+  [/아이\s*브이|아이브이/gi, 'IV'],
+  [/비\s*피|비피/gi, 'BP'],
+  [/피\s*알\s*엔|피알엔|피알앤/gi, 'PRN'],
+  [/시\s*비\s*씨|씨\s*비\s*씨|시비씨|씨비씨/gi, 'CBC'],
+  [/이\s*케이\s*지|이케이지/gi, 'EKG'],
+  [/이\s*씨\s*지|이씨지/gi, 'ECG'],
+  [/이\s*쥐\s*에프\s*알|이쥐에프알|이지에프알/gi, 'eGFR'],
+  [/비\s*아이\s*디|비아이디/gi, 'BID'],
+  [/티\s*아이\s*디|티아이디/gi, 'TID'],
+  [/큐\s*아이\s*디|큐아이디/gi, 'QID'],
+  [/엔\s*피\s*오|엔피오/gi, 'NPO'],
+  [/브이\s*에스|바이탈\s*사인|바이탈사인/gi, 'VS']
+];
+function vFixTerms(s){
+  for(var i = 0; i < V_TERMS.length; i++) s = s.replace(V_TERMS[i][0], V_TERMS[i][1]);
+  return s;
+}
+
+/* -------------------------------------------------------------------------
+   2) 기호 음성 → 기호 (슬래시 → /, 도씨 → °C …)
+   ------------------------------------------------------------------------- */
+var V_SYMS = [
+  [/슬래시|슬래쉬|빗금/g, '/'],
+  [/퍼\s*센\s*트|퍼센트|프로\s*센\s*트/g, '%'],
+  [/도\s*씨|섭씨/g, '°C'],
+  [/화씨/g, '°F'],
+  [/하이픈/g, '-'],
+  [/콜론/g, ':'],
+  [/마침표|쩜표/g, '.'],
+  [/쉼표|반점/g, ','],
+  [/플러스/g, '+'],
+  [/마이너스/g, '-']
+];
+function vFixSymbols(s){
+  for(var i = 0; i < V_SYMS.length; i++) s = s.replace(V_SYMS[i][0], V_SYMS[i][1]);
+  return s;
+}
+
+/* -------------------------------------------------------------------------
+   3) 단위 자동 변환 — 숫자 뒤에 올 때만 (미리 확인 → 그대로, 오백 미리 → 500mL)
+   ------------------------------------------------------------------------- */
+var V_UNITMAP = [
+  ['mL', '미리리터|밀리리터|밀리리트|미리리트|미리리|밀리리|엠엘|ml|mL|ML|미리'],
+  ['mg', '밀리그램|미리그램|밀리그람|미리그람|엠지|mg|MG|Mg'],
+  ['gtt', '지티티|방울|gtt|GTT'],
+  ['kg', '킬로그램|키로그램|킬로|키로|킬로그람|kg|KG|Kg'],
+  ['cm', '센티미터|센치미터|센티|센치|cm|CM|Cm'],
+  ['hr', '아워|hour|hr|HR|Hr'],
+  ['g', '그램|gram']
+];
+function vFixUnits(s){
+  for(var i = 0; i < V_UNITMAP.length; i++){
+    var canon = V_UNITMAP[i][0], alts = V_UNITMAP[i][1];
+    /* 한글 숫자는 앞에 다른 글자가 붙어 있으면 숫자가 아님 (대기실이 미리 → 그대로) */
+    var reKo = new RegExp('(^|[^가-힣0-9])([' + V_NUMCH + ']{1,12})\\s*(?:' + alts + ')(?![가-힣A-Za-z])', 'g');
+    s = s.replace(reKo, function(m, pre, n){
+      var v = vNum(n);
+      return pre + (v === null ? n : v) + canon;
+    });
+    var reNum = new RegExp('([0-9]+(?:\\.[0-9]+)?)\\s*(?:' + alts + ')(?![가-힣A-Za-z])', 'g');
+    s = s.replace(reNum, function(m, n){ return n + canon; });
+  }
+  return s;
+}
+
+/* 숫자 + % / °C (십 퍼센트 → 10%, 삼십팔 도씨 → 38°C) */
+function vFixNumSym(s){
+  var reKo = new RegExp('(^|[^가-힣0-9])([' + V_NUMCH + ']{1,12})\\s*(%|°C)', 'g');
+  s = s.replace(reKo, function(m, pre, n, u){
+    var v = vNum(n);
+    return pre + (v === null ? n : v) + u;
+  });
+  s = s.replace(/([0-9]+(?:\.[0-9]+)?)\s*(%|°C)/g, function(m, n, u){ return n + u; });
+  return s;
+}
+
+/* -------------------------------------------------------------------------
+   4) 소수 (삼십팔 점 오 → 38.5, 체온 38 점 2 도씨 → 38.2°C)
+   ------------------------------------------------------------------------- */
+function vFixDecimal(s){
+  var reKo = new RegExp('([' + V_NUMCH + ']{2,})\\s*(?:점|쩜)\\s*([' + V_NUMCH + ']{1,4})', 'g');
+  s = s.replace(reKo, function(m, a, b){
+    var x = vNum(a), y = vNum(b);
+    if(x === null || String(a).length < 2) return m;
+    if(y === null || y > 9) return m;
+    return String(x) + '.' + y;
+  });
+  s = s.replace(/([0-9]+)\s*(?:점|쩜)\s*([0-9]+)\s*(?=(?:°C|℃|도|씨))/g, '$1.$2');
+  if(/체온|온도/.test(s)) s = s.replace(/([0-9]+)\s*(?:점|쩜)\s*([0-9]+)/g, '$1.$2');
+  return s;
+}
+
+/* -------------------------------------------------------------------------
+   5) 혈압 (비피 120 슬래시 80 → BP 120/80, 백이십에 팔십 → 120/80)
+   ------------------------------------------------------------------------- */
+function vFixBP(s){
+  var re = new RegExp('(BP|혈압)\\s*:?\\s*(' + V_NUM + ')\\s*(?:에|하고|와|과|/)\\s*(' + V_NUM + ')', 'g');
+  s = s.replace(re, function(m, pre, a, b){
+    var x = vNum(a), y = vNum(b);
+    if(x === null || y === null) return m;
+    return 'BP ' + x + '/' + y;
+  });
+  var re2 = new RegExp('(' + V_NUM + ')\\s*에\\s*(' + V_NUM + ')', 'g');
+  s = s.replace(re2, function(m, a, b){
+    if(/[0-9]/.test(a) || /[0-9]/.test(b)) return m;
+    var x = vNum(a), y = vNum(b);
+    if(x === null || y === null) return m;
+    if(x < 40 || x > 250 || y < 20 || y > 150) return m;
+    return x + '/' + y;
+  });
+  return s;
+}
+
+/* -------------------------------------------------------------------------
+   6) 차트·베드 번호 (차트 이십사 대시 일일팔 → 차트 24-118)
+   ------------------------------------------------------------------------- */
+function vFixChart(s){
+  var tok = '([^\\s,.]{1,20}(?:\\s*(?:대시|하이픈)\\s*[^\\s,.]{1,20})*)';
+  var re = new RegExp('(차트번호|차트|베드|병실)\\s*' + tok, 'g');
+  return s.replace(re, function(m, pre, t){
+    var parts = String(t).split(/\s*(?:대시|하이픈)\s*/);
+    var out = parts.map(function(p){
+      if(/^[0-9]+$/.test(p)) return p;
+      var mm = p.match(/^(.*?)(번|호)?$/);
+      var core = mm ? mm[1] : p;
+      var tail = (mm && mm[2]) ? mm[2] : '';
+      var v = vNum(core);
+      return (v === null) ? p : (String(v) + tail);
+    });
+    return pre + ' ' + out.join('-');
+  });
+}
+
+/* -------------------------------------------------------------------------
+   7) 영어(EN) 발화 기호·단위 — 한글 없는 구간에만 적용
+   ------------------------------------------------------------------------- */
+function vFixEnglish(s){
+  if(/[가-힣]/.test(s)) return s;
+  s = s.replace(/\bdegrees?\s+celsius\b/gi, '°C');
+  s = s.replace(/\bdegrees?\s+fahrenheit\b/gi, '°F');
+  s = s.replace(/\bslash\b/gi, '/');
+  s = s.replace(/\bpercent\b/gi, '%');
+  s = s.replace(/\b(?:hyphen|dash)\b/gi, '-');
+  s = s.replace(/\bcolon\b/gi, ':');
+  s = s.replace(/\bcomma\b/gi, ',');
+  s = s.replace(/\bplus\b/gi, '+');
+  s = s.replace(/\bminus\b/gi, '-');
+  s = s.replace(/\bmillilit(?:er|re)s?\b|\bmls?\b/gi, 'mL');
+  s = s.replace(/\bmilligrams?\b|\bmgs?\b/gi, 'mg');
+  s = s.replace(/\bgtt\s+per\s+minute\b/gi, 'gtt/min');
+  s = s.replace(/\bgtts?\b|\bdrops?\b/gi, 'gtt');
+  s = s.replace(/\bkilograms?\b|\bkilos?\b|\bkgs?\b/gi, 'kg');
+  s = s.replace(/\bcentimet(?:er|re)s?\b/gi, 'cm');
+  s = s.replace(/\bhours?\b|\bhrs?\b/gi, 'hr');
+  s = s.replace(/([0-9])\s+point\s+([0-9])/gi, '$1.$2');
+  return s;
+}
+
+/* -------------------------------------------------------------------------
+   8) 마무리 — 띄어쓰기·기호 간격 정리
+   ------------------------------------------------------------------------- */
+function vClean(s){
+  s = String(s == null ? '' : s);
+  s = s.replace(/\s+/g, ' ').trim();
+  s = s.replace(/\s*\/\s*/g, '/');
+  s = s.replace(/\s*%/g, '%');
+  s = s.replace(/\s*(?:°C|℃)/g, '°C');
+  s = s.replace(/\s*(?:°F|℉)/g, '°F');
+  s = s.replace(/([0-9])\s*\.\s*([0-9])/g, '$1.$2');
+  s = s.replace(/([0-9])\s*-\s*([0-9])/g, '$1-$2');
+  s = s.replace(/([+\-])\s+(?=[0-9])/g, '$1');
+  s = s.replace(/\s+([,.:;!?])/g, '$1');
+  s = s.replace(/,(\S)/g, ', $1');
+  s = s.replace(/\s{2,}/g, ' ').trim();
+  return s;
+}
+
+/* -------------------------------------------------------------------------
+   후처리 진입점 + 후보 선택 점수
+   ------------------------------------------------------------------------- */
+function voiceFix(input){
+  var s = String(input == null ? '' : input);
+  if(!s) return '';
+  s = s.replace(/\s+/g, ' ').trim();
+  s = vFixEnglish(s);
+  s = vFixTerms(s);
+  s = vFixSymbols(s);
+  s = vFixDecimal(s);
+  s = vFixBP(s);
+  s = vFixNumSym(s);
+  s = vFixUnits(s);
+  s = vFixChart(s);
+  s = vClean(s);
+  return s;
+}
+
+var V_GOOD_TERMS = ['BP','IV','PRN','CBC','EKG','ECG','eGFR','BID','TID','QID','NPO','VS','mL','mg','gtt','kg','cm','hr','gtt/min'];
+var V_WORK_TERMS = ['수액','정맥','부종','통증','체온','혈압','맥박','호흡','처방','투약','주입','잔량','시술','처치','검사','결과','콜백','백신','바이알','응급','부작용','예약','변경','노쇼','미수','적립금','선불권','동의서','제증명','서류','문의','컴플레인','마감','정산','멤버십','발렛','내원','해피콜','비품','발주','인계','차트','베드'];
+function voiceScore(t){
+  var s = String(t == null ? '' : t);
+  if(!s) return -9999;
+  var fixed = voiceFix(s);
+  var sc = 0, i;
+  sc += ((s.match(/[A-Za-z]/g) || []).length) * 1.5;
+  sc += ((s.match(/[0-9]/g) || []).length) * 1.2;
+  sc += ((s.match(/[\/%°+\-:]/g) || []).length) * 2;
+  for(i = 0; i < V_GOOD_TERMS.length; i++){
+    if(new RegExp('(^|[^A-Za-z])' + V_GOOD_TERMS[i].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '([^A-Za-z]|$)').test(fixed)) sc += 5;
+  }
+  for(i = 0; i < V_WORK_TERMS.length; i++){ if(s.indexOf(V_WORK_TERMS[i]) >= 0) sc += 2; }
+  sc += s.length * 0.02;
+  return sc;
+}
+function voicePick(cands){
+  var list = (cands || []).filter(function(x){ return String(x == null ? '' : x).replace(/\s/g, '') !== ''; });
+  if(!list.length) return '';
+  var best = list[0], bs = -1e9, maxLen = 0;
+  for(var k = 0; k < list.length; k++){ if(list[k].length > maxLen) maxLen = list[k].length; }
+  for(var i = 0; i < list.length; i++){
+    var sc = voiceScore(list[i]) + (maxLen ? (list[i].length / maxLen) * 1.5 : 0) - i * 0.15;
+    if(sc > bs){ bs = sc; best = list[i]; }
+  }
+  return best;
+}
+try{
+  window.TLCVoice = { fix: voiceFix, score: voiceScore, pick: voicePick, num: vNum, lang: micLang };
+}catch(e){}
+
+/* -------------------------------------------------------------------------
+   마이크 버튼 (실시간 · 자동 재시작 · KO/EN · 자동 보정)
+   ------------------------------------------------------------------------- */
+function micLang(){
+  var v = store.get('tlc_mic_lang', 'ko-KR');
+  return (v === 'en-US') ? 'en-US' : 'ko-KR';
+}
 function initMic(btnId, taId, hintId){
-  var btn = $('#'+btnId), ta = $('#'+taId), hint = hintId? $('#'+hintId):null;
+  var btn = $('#' + btnId), ta = $('#' + taId), hint = hintId ? $('#' + hintId) : null;
   if(!btn || !ta) return;
-  var rec = null, on = false, errored = false;
-  function stop(){ on=false; btn.classList.remove('rec'); btn.innerHTML='🎤'; }
+  var langBtn = $('#' + btnId + 'Lang');
+  var rec = null, on = false, wantOn = false, fixCnt = 0, finished = false;
+
+  function paintLang(){
+    if(!langBtn) return;
+    var l = micLang();
+    langBtn.textContent = (l === 'en-US') ? 'EN' : 'KO';
+    langBtn.classList.toggle('en', l === 'en-US');
+    langBtn.title = (l === 'en-US') ? 'English 인식 — 눌러서 한국어(KO)' : '한국어 인식 — 눌러서 English(EN)';
+    langBtn.setAttribute('aria-label', langBtn.title);
+  }
+  function stopUI(){
+    on = false;
+    btn.classList.remove('rec'); btn.innerHTML = '🎤';
+  }
+  function finish(msg){
+    wantOn = false; stopUI();
+    if(finished && !msg) return;   /* 정지 클릭과 onend가 겹쳐도 안내가 지워지지 않게 */
+    finished = true;
+    if(hint){
+      if(msg) hint.innerHTML = msg;
+      else hint.innerHTML = fixCnt
+        ? '입력 완료 — 숫자·단위·기호 <b>' + fixCnt + '곳</b>을 자동 보정했습니다. 확인 후 고쳐 주세요.'
+        : '입력 완료. 내용을 확인하고 필요하면 고쳐 주세요.';
+    }
+    fixCnt = 0;
+  }
+
+  function startRec(retry){
+    var SRC = getSR();
+    if(!SRC || !wantOn) return;
+    var r;
+    try{ r = new SRC(); }
+    catch(e0){ finish('음성 인식을 시작할 수 없습니다. 키보드로 입력해 주세요.'); return; }
+    r.lang = micLang();
+    r.continuous = true;          /* 가능한 브라우저에서는 한 번에 이어 듣기 */
+    r.interimResults = true;      /* 말하는 즉시 입력창에 반영 */
+    r.maxAlternatives = 3;        /* 후보 3개 → 더 정확한 표기 선택 */
+    var base = String(ta.value || '').replace(/\s+$/, '');
+    var sep = base ? ' ' : '';
+    var sessFinal = '';
+
+    r.onstart = function(){
+      on = true; btn.classList.add('rec'); btn.innerHTML = '⏹';
+      if(hint) hint.innerHTML = '<b>듣고 있습니다…</b> ' +
+        (micLang() === 'en-US' ? 'English' : '한·영·숫자·기호') + ' 자동 인식 중 — 끝내려면 ⏹';
+    };
+    r.onresult = function(ev){
+      var fin = '', tmp = '';
+      for(var i = 0; i < ev.results.length; i++){
+        var res = ev.results[i], cands = [];
+        for(var j = 0; j < res.length; j++) cands.push(res[j] && res[j].transcript ? res[j].transcript : '');
+        var chosen = voicePick(cands);
+        if(res.isFinal){
+          var fixed = voiceFix(chosen);
+          if(fixed !== chosen) fixCnt++;
+          fin += (fin ? ' ' : '') + fixed;
+        } else {
+          tmp += (tmp ? ' ' : '') + chosen;
+        }
+      }
+      sessFinal = fin;
+      var shown = sessFinal;
+      if(tmp) shown = shown ? shown + ' ' + tmp : tmp;
+      ta.value = base ? base + sep + shown : shown;
+    };
+    r.onerror = function(e){
+      var code = (e && e.error) || '';
+      if(code === 'no-speech' || code === 'aborted') return;   /* onend → 120ms 뒤 자동 재시작 */
+      wantOn = false; finished = true; stopUI();   /* 오류 안내가 완료 문구로 덮이지 않게 */
+      if(hint) hint.innerHTML = micErrMsg(code);
+    };
+    r.onend = function(){
+      on = false;
+      if(wantOn){
+        btn.classList.add('rec');
+        if(hint) hint.innerHTML = '계속 듣고 있습니다… (잠깐 멈춰도 자동으로 이어 듣습니다 · 끝내려면 ⏹)';
+        setTimeout(function(){ if(wantOn) startRec(false); }, 120);   /* 자동 재시작 */
+      } else {
+        finish();
+      }
+    };
+    rec = r;
+    try{ r.start(); }
+    catch(e){
+      if(!retry){
+        setTimeout(function(){ if(wantOn) startRec(true); }, 260);
+      } else {
+        finish('음성 인식을 다시 시작하지 못했습니다. 마이크를 한 번 더 눌러 주세요.');
+      }
+    }
+  }
+
   btn.addEventListener('click', function(){
-    if(!SR){
+    var SRC = getSR();
+    if(!SRC){
       if(hint) hint.innerHTML = '이 브라우저는 음성 인식을 지원하지 않습니다. <b>키보드 마이크(받아쓰기)</b>를 사용해 주세요.';
       toast('음성 인식 미지원 — 키보드 받아쓰기를 사용해 주세요');
       return;
@@ -1398,33 +1822,27 @@ function initMic(btnId, taId, hintId){
       if(hint) hint.innerHTML = '음성 입력은 <b>https 주소</b>에서만 동작합니다. 주소를 확인해 주세요.';
       return;
     }
-    if(on){ try{ rec.stop(); }catch(e){} stop(); return; }
-    try{
-      rec = new SR();
-      rec.lang = 'ko-KR'; rec.continuous = false; rec.interimResults = true; rec.maxAlternatives = 1;
-      var base = ta.value ? ta.value.replace(/\s*$/,' ') : '';
-      errored = false;
-      rec.onstart = function(){ on=true; btn.classList.add('rec'); btn.innerHTML='⏹'; if(hint) hint.innerHTML='<b>듣고 있습니다…</b> 말씀하세요.'; };
-      rec.onresult = function(ev){
-        var txt = '';
-        for(var i=ev.resultIndex;i<ev.results.length;i++){ txt += ev.results[i][0].transcript; }
-        ta.value = base + txt;
-      };
-      rec.onerror = function(e){
-        errored = true;
-        stop();
-        if(hint) hint.innerHTML = micErrMsg(e && e.error);
-      };
-      rec.onend = function(){
-        stop();
-        if(hint && !errored) hint.innerHTML='입력 완료. 내용을 확인하고 필요하면 고쳐 주세요.';
-      };
-      rec.start();
-    }catch(e){
-      stop();
-      if(hint) hint.innerHTML = '음성 인식을 시작할 수 없습니다. 키보드로 입력해 주세요.';
+    if(wantOn){
+      wantOn = false;
+      try{ if(rec && rec.stop) rec.stop(); }catch(e3){}
+      finish();
+      return;
     }
+    wantOn = true; fixCnt = 0; finished = false;
+    startRec(false);
   });
+
+  if(langBtn){
+    paintLang();
+    langBtn.addEventListener('click', function(ev){
+      ev.preventDefault();
+      var next = (micLang() === 'en-US') ? 'ko-KR' : 'en-US';
+      store.set('tlc_mic_lang', next);
+      paintLang();
+      toast(next === 'en-US' ? 'English(EN) 인식 — 영어로 말해 주세요' : '한국어(KO) 인식 — 한·영·숫자·기호를 자동 보정합니다');
+      if(wantOn){ try{ if(rec && rec.stop) rec.stop(); }catch(e4){} }   /* onend → 새 언어로 자동 재시작 */
+    });
+  }
 }
 
 /* =========================================================================
@@ -1601,7 +2019,9 @@ function updateSummary(){
     mEl.textContent = bits.length ? bits.join(' · ') : '오늘 등록된 회원 응대 건이 없습니다';
   }
   var sf = $('#shiftForm');
-  if(sf) sf.textContent = recvFilledCount() ? recvFilledCount() + ' / 10 항목 작성' : '아직 작성 전 — 접수 서식 10항목';
+  if(sf) sf.textContent = recvFilledCount()
+    ? '직접 작성 ' + recvFilledCount() + '/' + recvTotalCount() + ' · 이슈 자동 ' + recvAutoTotal() + '건 · 마감 앱'
+    : '아직 작성 전 — 직접 ' + recvTotalCount() + '항목 · 회원·문의·콜백·비품은 이슈 자동';
   var hi = $('#homeIssues');
   if(hi) hi.textContent = list.length ? list.length + '건 · 미완료 ' + open.length + '건' : '등록된 이슈가 없습니다';
   var hc = $('#homeChecks');
@@ -1618,6 +2038,7 @@ function updateSummary(){
     } else note.classList.add('hide');
   }
   updatePill();
+  updateCloseBar();
 }
 
 /* =========================================================================
@@ -1779,6 +2200,7 @@ function initIss(){
   renderDays();
 }
 function renderIssues(){
+  refreshRecvAuto();
   var all = getIssues();
   var list = appState.part === 'all' ? all : all.filter(function(x){ return x.part === appState.part; });
   if(issState.filter === 'handoff') list = list.filter(function(x){ return x.handoff && !x.done; });
@@ -2782,6 +3204,66 @@ function renderDrugNotice(){
 }
 
 /* =========================================================================
+   📊 티엘씨 일일마감 앱 연동 — 입·출금·적립금 마감은 일일마감 화면에서
+   ========================================================================= */
+function closeConf(){
+  var c = DATA.dailyClose || {};
+  return { mobile: c.mobile || '#', pc: c.pc || c.mobile || '#',
+           mobileNote: c.mobileNote || 'v2.0', pcNote: c.pcNote || 'v1.0' };
+}
+function isNarrow(){ try{ return (window.innerWidth || document.documentElement.clientWidth || 390) <= 640; }catch(e){ return true; } }
+function closePick(){
+  var c = closeConf();
+  return isNarrow()
+    ? { url: c.mobile, name: '휴대폰', note: c.mobileNote, alt: c.pc, altName: 'PC' }
+    : { url: c.pc, name: 'PC', note: c.pcNote, alt: c.mobile, altName: '휴대폰' };
+}
+function closeCardHtml(){
+  var p = closePick();
+  return '<div class="closecard">' +
+    '<a class="btn coral cc-main" href="' + esc(p.url) + '" target="_blank" rel="noopener">📊 티엘씨 일일마감 화면 열기</a>' +
+    '<div class="cc-note">이 화면은 <b>' + esc(p.name) + ' 추천</b> (' + esc(p.note) + ') · 새 창에서 열립니다</div>' +
+    '<div class="cc-alt">다른 화면 — <a href="' + esc(p.alt) + '" target="_blank" rel="noopener">' + esc(p.altName) + '용 열기</a></div>' +
+    '</div>';
+}
+function updateCloseBar(){
+  var p = closePick();
+  var btn = $('#issCloseBtn'), note = $('#issCloseNote'), bar = $('#issCloseBar'), feat = $('#homeCloseFeat');
+  if(btn) btn.href = p.url;
+  if(feat) feat.href = p.url;
+  if(note) note.innerHTML = (issState.unit === '마감')
+    ? '<b>마감 근무</b> — 입·출금·적립금 정산은 일일마감 화면에서 바로'
+    : '입·출금·적립금 마감은 일일마감 화면에서 (중복 입력 없음)';
+  if(bar) bar.classList.toggle('on', issState.unit === '마감');
+  var cf = $('#ccForm');
+  if(cf) cf.href = p.url;
+}
+function initDailyClose(){
+  updateCloseBar();
+  var b = $('#issCloseBtn');
+  if(b && !b._bound){
+    b.addEventListener('click', function(){ toast('일일마감 화면을 새 창으로 엽니다'); });
+    b._bound = true;
+  }
+  var f = $('#homeCloseFeat');
+  if(f && !f._bound){
+    f.addEventListener('click', function(){ toast('일일마감 화면을 새 창으로 엽니다'); });
+    f._bound = true;
+  }
+  try{
+    window.addEventListener('resize', function(){
+      clearTimeout(window.__ccT);
+      window.__ccT = setTimeout(function(){
+        var p = closePick();
+        if($('#issCloseBtn')) $('#issCloseBtn').href = p.url;
+        if($('#homeCloseFeat')) $('#homeCloseFeat').href = p.url;
+        if($('#ccForm')) $('#ccForm').href = p.url;
+      }, 150);
+    });
+  }catch(e){}
+}
+
+/* =========================================================================
    접수 인수인계 서식 (원내 종이 서식 10항목)
    ========================================================================= */
 function recvAll(){ var a = store.get('tlc_recv_form', {}); return (a && typeof a === 'object') ? a : {}; }
@@ -2803,13 +3285,72 @@ function rowFilled(r){
   });
 }
 function sectionFilled(sec, d){
+  if(sec.kind === 'link') return 0;
+  if(sec.kind === 'auto') return recvAutoIssues(sec).length;
   var v = d[sec.k];
   if(sec.kind === 'text') return String(v || '').trim() ? 1 : 0;
   return (v instanceof Array) ? v.filter(rowFilled).length : 0;
 }
+/* 직접 작성하는 항목(4) — 자동·일일마감 항목은 작성 항목에서 뺍니다 */
+function recvInputSections(){ return DATA.recvForm.filter(function(sec){ return sec.kind !== 'link' && sec.kind !== 'auto'; }); }
+function recvTotalCount(){ return recvInputSections().length; }
 function recvFilledCount(){
   var d = recvData();
-  return DATA.recvForm.filter(function(sec){ return sectionFilled(sec, d) > 0; }).length;
+  return recvInputSections().filter(function(sec){ return sectionFilled(sec, d) > 0; }).length;
+}
+/* 이슈 등록에서 자동으로 모이는 항목 — 접수 서식 ②⑤⑦⑧ */
+function recvAutoSections(){ return DATA.recvForm.filter(function(sec){ return sec.kind === 'auto'; }); }
+function recvAutoIssues(sec){
+  var list = getIssues(), a = sec.auto || {};
+  return list.filter(function(x){
+    if(a.grade) return (x.grade && x.grade !== 'none') || !!x.valet;
+    if(a.tags) return a.tags.indexOf(x.tag) >= 0;
+    return false;
+  });
+}
+function recvAutoTotal(){
+  var n = 0;
+  recvAutoSections().forEach(function(sec){ n += recvAutoIssues(sec).length; });
+  return n;
+}
+function recvSubText(){
+  return '직접 작성 ' + recvFilledCount() + '/' + recvTotalCount() + ' · 이슈 자동 ' + recvAutoTotal() + '건 · 마감 앱 2';
+}
+function recvAutoBody(sec){
+  var rows = recvAutoIssues(sec);
+  var html = '';
+  if(!rows.length){
+    html = '<div class="auto-empty">아직 없습니다 — 이슈 등록에서 남기면 여기에 자동으로 모입니다.</div>';
+  } else {
+    html = '<div class="auto-list">' + rows.map(function(x){
+      var gd = DATA.gradeMap[x.grade];
+      var tg = DATA.tagMap[x.tag] || DATA.tagMap.etc;
+      return '<div class="auto-row">' +
+        '<span class="auto-t">' + esc(x.t) + '</span>' +
+        '<span class="auto-b">' + tg.e + ' ' + esc(tg.n) + '</span>' +
+        ((gd && gd.id !== 'none') ? '<span class="tag gd-' + gd.id + '">' + gd.e + ' ' + esc(gd.n) + '</span>' : '') +
+        (x.valet ? '<span class="tag y">🚗 발렛</span>' : '') +
+        '<span class="auto-x">' + esc(x.text) + '</span>' +
+        '</div>';
+    }).join('') + '</div>';
+  }
+  var go = sec.goTag ? '<button class="btn ghost sm auto-add" data-auto-add="' + sec.goTag + '">＋ 이슈로 남기기</button>' : '';
+  return html + go;
+}
+function refreshRecvAuto(){
+  var box = $('#recvForm'); if(!box) return;
+  var any = false;
+  $$('#recvForm details.rf-auto').forEach(function(dt){
+    var k = dt.getAttribute('data-k');
+    var sec = DATA.recvForm.filter(function(s){ return s.k === k; })[0];
+    if(!sec) return;
+    any = true;
+    var b = dt.querySelector('.rf-b'); if(b) b.innerHTML = recvAutoBody(sec);
+    var c = document.getElementById('rfc-' + k); if(c) c.textContent = recvAutoIssues(sec).length ? ('자동 ' + recvAutoIssues(sec).length) : '자동';
+  });
+  if(any){
+    var sub = $('#recvFormSub'); if(sub) sub.textContent = recvSubText();
+  }
 }
 function renderRecvForm(){
   var box = $('#recvForm'); if(!box) return;
@@ -2817,11 +3358,15 @@ function renderRecvForm(){
   $$('#recvForm details.rf').forEach(function(dt){ if(dt.open) opened[dt.getAttribute('data-k')] = 1; });
   var d = recvData();
   var sub = $('#recvFormSub');
-  if(sub) sub.textContent = '원내 서식 10항목 · ' + recvFilledCount() + '/10 작성';
+  if(sub) sub.textContent = recvSubText();
   box.innerHTML = DATA.recvForm.map(function(sec, idx){
     var n = sectionFilled(sec, d);
     var body = '';
-    if(sec.kind === 'text'){
+    if(sec.kind === 'link'){
+      body = closeCardHtml();
+    } else if(sec.kind === 'auto'){
+      body = recvAutoBody(sec);
+    } else if(sec.kind === 'text'){
       body = '<textarea class="inp rf-ta" data-f="__text" placeholder="' + esc(sec.ph || '') + '">' + esc(d[sec.k] || '') + '</textarea>';
     } else {
       var rows = (d[sec.k] instanceof Array && d[sec.k].length) ? d[sec.k] : [{}];
@@ -2847,10 +3392,10 @@ function renderRecvForm(){
       }).join('') + '</div>' +
       '<button class="rf-add" data-add="' + sec.k + '">＋ 줄 추가</button>';
     }
-    var isOpen = (idx < 2) || !box.innerHTML || opened[sec.k];
-    return '<details class="rf" data-k="' + sec.k + '"' + (isOpen ? ' open' : '') + '>' +
+    var isOpen = (sec.kind === 'link') || (sec.kind === 'auto' && n > 0) || (idx < 2) || !box.innerHTML || opened[sec.k];
+    return '<details class="rf' + (sec.kind === 'link' ? ' rf-link' : (sec.kind === 'auto' ? ' rf-auto' : '')) + '" data-k="' + sec.k + '"' + (isOpen ? ' open' : '') + '>' +
       '<summary><span class="rf-e">' + sec.e + '</span><b>' + esc(sec.n) + '</b>' +
-      '<span class="rf-c" id="rfc-' + sec.k + '">' + (n ? n : '') + '</span></summary>' +
+      '<span class="rf-c" id="rfc-' + sec.k + '">' + (sec.kind === 'link' ? '📊 연동' : (sec.kind === 'auto' ? (n ? '자동 ' + n : '자동') : (n ? n : ''))) + '</span></summary>' +
       '<div class="rf-b">' + (sec.note ? '<div class="muted" style="margin-bottom:6px">' + esc(sec.note) + '</div>' : '') + body + '</div></details>';
   }).join('');
 }
@@ -2858,9 +3403,10 @@ function updateRecvBadge(k){
   var sec = DATA.recvForm.filter(function(s){ return s.k === k; })[0];
   if(!sec) return;
   var el = document.getElementById('rfc-' + k);
-  if(el) el.textContent = sectionFilled(sec, recvData()) || '';
+  if(el) el.textContent = (sec.kind === 'link') ? '📊 연동'
+    : (sec.kind === 'auto' ? (sectionFilled(sec, recvData()) ? '자동 ' + sectionFilled(sec, recvData()) : '자동') : (sectionFilled(sec, recvData()) || ''));
   var sub = $('#recvFormSub');
-  if(sub) sub.textContent = '원내 서식 10항목 · ' + recvFilledCount() + '/10 작성';
+  if(sub) sub.textContent = recvSubText();
   updateSummary();
 }
 function onRecvInput(ev){
@@ -2890,6 +3436,21 @@ function recvFormText(){
   var L = [];
   DATA.recvForm.forEach(function(sec){
     L.push('■ ' + sec.n);
+    if(sec.kind === 'link'){
+      L.push('— ' + (sec.closeLine || '일일마감 앱 확인'));
+      return;
+    }
+    if(sec.kind === 'auto'){
+      var ar = recvAutoIssues(sec);
+      if(!ar.length){ L.push('— 없음'); return; }
+      ar.forEach(function(x){
+        var gd = DATA.gradeMap[x.grade], tg = DATA.tagMap[x.tag] || DATA.tagMap.etc;
+        L.push('· ' + x.t + ' ' + tg.e + ' ' + tg.n +
+          ((gd && gd.id !== 'none') ? ' · ' + gd.e + ' ' + gd.n : '') +
+          (x.valet ? ' · 🚗 발렛' : '') + ' — ' + x.text);
+      });
+      return;
+    }
     if(sec.kind === 'text'){
       var t = String(d[sec.k] || '').trim();
       L.push(t ? t : '—');
@@ -2941,6 +3502,16 @@ function initRecvForm(){
     box.addEventListener('input', onRecvInput);
     box.addEventListener('change', onRecvInput);
     box.addEventListener('click', function(ev){
+      var aa = up(ev.target, '[data-auto-add]');
+      if(aa){
+        var agoTag = aa.getAttribute('data-auto-add');
+        if(appState.part !== 'recv') setPart('recv', true);
+        issState.tag = agoTag; renderIssTags();
+        goTab('iss');
+        setTimeout(function(){ var ta = $('#issText'); if(ta){ try{ ta.focus(); }catch(e){} } }, 140);
+        toast('이슈로 남기면 접수 서식에 그대로 모입니다');
+        return;
+      }
       var add = up(ev.target, '[data-add]');
       if(add){
         var k = add.getAttribute('data-add');
@@ -3049,6 +3620,7 @@ function init(){
   renderTimers();
   initCheck();
   initRecvForm();
+  initDailyClose();
   renderHome();
   renderChecklist();
   setPart(appState.part, true);
