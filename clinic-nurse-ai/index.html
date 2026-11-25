@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0E8F7E">
-<title>TLC 인수인계 · 티엘씨 청담·분당 실무 인수인계</title>
-<meta name="description" content="티엘씨 청담의원·분당클리닉 실무 인수인계 — 간호 파트(수액·시술·검사·백신·약품·응급)와 접수 파트(예약·수납·서류·문의·마감) 분리, 수액 계산·실시간 베드 타이머, 파트별 SBAR 인계문, 🏥 실시간 시술 현황(방 8곳) 바로가기">
+<title>TLC 메디컬 그룹 스마트 데일리 케어 · 티엘씨 청담·분당 실무 인수인계</title>
+<meta name="apple-mobile-web-app-title" content="TLC 스마트케어">
+<meta name="description" content="TLC 메디컬 그룹 스마트 데일리 케어 — 티엘씨 청담의원·분당클리닉 실무 인수인계. 간호 파트(수액·시술·검사·백신·약품·응급)와 접수 파트(예약·수납·서류·문의·마감) 분리, 수액 계산·실시간 베드 타이머, 인계문, 🏥 실시간 시술 현황(방 8곳) 바로가기">
 <meta property="og:type" content="website">
-<meta property="og:title" content="TLC 인수인계 · 티엘씨 청담·분당">
-<meta property="og:description" content="간호 파트 / 접수 파트 분리 실무 인수인계 — 수액 계산·베드 타이머, 파트 점검, SBAR 인계문">
+<meta property="og:title" content="TLC 메디컬 그룹 스마트 데일리 케어 · 티엘씨 청담·분당">
+<meta property="og:description" content="TLC 메디컬 그룹 스마트 데일리 케어 — 간호 파트 / 접수 파트 실무 인수인계 · 수액 계산·베드 타이머 · 인계문">
 <meta property="og:image" content="https://tlcmediclinic.github.io/clinic-nurse-ai/icon-512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
@@ -1003,6 +1004,26 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
   border:1px solid #F6C9D1;color:#8E2B3C;font-weight:800;font-size:13.5px;line-height:1.62;word-break:keep-all}
 .footer .cp-lic{font-size:13.5px;font-weight:800;color:#8E2B3C;background:var(--red-l);border:1px solid #F6C9D1;
   border-radius:11px;padding:9px 11px;margin-top:9px;line-height:1.62;word-break:keep-all}
+
+/* ==========================================================================
+   v1.9 — 앱 이름 변경: 「TLC 메디컬 그룹 스마트 데일리 케어」
+   · 상단 헤더는 두 줄(TLC 메디컬 그룹 / 스마트 데일리 케어)로 나누어 표시
+   · 이름이 길어도 잘리지 않도록 줄바꿈(단어 단위) 허용, 보조문구는 기존대로 말줄임
+   ========================================================================== */
+.brand{line-height:1.16;word-break:keep-all;white-space:normal}
+.brand small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero .k{word-break:keep-all}
+.footer .cp{word-break:keep-all}
+.footer .cp2{word-break:keep-all}
+.footer .cp2 span{color:var(--pp)}
+
+/* v1.9 — 아주 좁은 폭(≤345px, 구형 SE 등)에서도 앱 이름이 4줄로 늘어나지 않도록 */
+@media(max-width:345px){
+  .top .wrap{height:auto;min-height:58px;padding-top:6px;padding-bottom:6px}
+  .brand{font-size:13.5px;letter-spacing:-.04em;line-height:1.15}
+  .rbtn .rt{display:none}
+  .rbtn{padding:6px 8px}
+}
 </style>
 </head>
 <body data-part="all">
@@ -1061,9 +1082,9 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
 <div class="top">
   <div class="wrap">
     <div class="logo"><i class="tlcm" role="img" aria-label="티엘씨 공식 로고"></i></div>
-    <div class="brand">TLC 인수인계<small>티엘씨 청담·분당 실무 인수인계</small></div>
+    <div class="brand">TLC 메디컬 그룹<br>스마트 데일리 케어<small>티엘씨 청담·분당 실무 인수인계</small></div>
     <div class="vwrap">
-      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.8</span></a>
+      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.9</span></a>
       <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기"><span aria-hidden="true">🔄</span><span class="rt"> 새로고침</span></a>
     </div>
   </div>
@@ -1082,7 +1103,7 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
 
 <div class="updbar" id="updBar" role="status" aria-live="polite">
   <div class="in">
-    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.8</span></b>이 준비되었습니다.</div>
+    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.9</span></b>이 준비되었습니다.</div>
     <a class="upd-a" id="updBtn" href="#" rel="noopener">지금 새로고침</a>
   </div>
 </div>
@@ -1100,9 +1121,9 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
   <div class="sec">
     <div class="hero">
       <div class="hero-logo"><i class="tlcm" role="img" aria-label="티엘씨 공식 로고"></i></div>
-      <div class="k">TLC HANDOVER · 청담 &amp; 분당</div>
+      <div class="k">TLC 메디컬 그룹 스마트 데일리 케어</div>
       <h1>하나되는 티엘씨,<br>빈틈없는 인수인계</h1>
-      <p>오늘 필요한 것만 모았습니다 — 실시간 시술 현황 · 인수인계 · 수액 타이머.</p>
+      <p>티엘씨 청담·분당 — 오늘 필요한 것만 모았습니다. 실시간 시술 현황 · 인수인계 · 수액 타이머.</p>
     </div>
   </div>
 
@@ -1415,8 +1436,9 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
 <div class="tbanner" id="timerBanner"></div>
 
 <div class="footer wrap" id="globalFooter" style="margin-top:20px">
-  <div class="cp">아이디어·개발·제작·저작권: <span>티엘씨메디켈그룹 총괄운영실장 김효숙</span></div>
-  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.8</span></div>
+  <div class="cp">TLC 메디컬 그룹 스마트 데일리 케어</div>
+  <div class="cp2">아이디어·개발·제작·저작권: <span>티엘씨메디켈그룹 총괄운영실장 김효숙</span></div>
+  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.9</span></div>
   <div class="cp-lic">본 프로그램은 내부·개인적 업무 보조 전용으로 제작되었으며, 무단 복제·외부 유출·상업적 재배포를 금지합니다. (아이디어·개발·제작: 김효숙)</div>
   <div class="nt">의료기기(SaMD) 아님 · 업무 보조·참고용 · 실제 환자 개인정보 입력 금지(방 번호·가명만) · 기기 내 로컬 저장만 사용 · 알람은 기기·브라우저 설정에 따라 지연될 수 있음 · 공식기관 인증 프로그램 아님</div>
 </div>
@@ -1465,7 +1487,7 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
 </div>
 
 <script>/* =========================================================================
-   TLC 인수인계 — 티엘씨 청담·분당 실무 인수인계 (간호/접수 파트 분리)
+   TLC 메디컬 그룹 스마트 데일리 케어 — 티엘씨 청담·분당 실무 인수인계 (간호/접수 파트 분리)
    아이디어·개발·제작·저작권: 김효숙 (티엘씨메디켈그룹 총괄운영실장)
    ※ 실제 환자 개인정보 입력 금지. 모든 내용은 원내 업무 보조용이며,
      실제 투약·처치는 담당 의사 처방과 원내 지침·허가사항을 우선합니다.
@@ -1935,10 +1957,10 @@ DATA.recvForm = [
 ];
 </script>
 <script>/* =========================================================================
-   TLC 인수인계 — 화면 로직 (티엘씨 청담·분당 실무 인수인계)
+   TLC 메디컬 그룹 스마트 데일리 케어 — 화면 로직 (티엘씨 청담·분당 실무 인수인계)
    아이디어·개발·제작·저작권: 김효숙 (티엘씨메디켈그룹 총괄운영실장)
    ========================================================================= */
-var VERSION = 'v1.8';
+var VERSION = 'v1.9';
 /* 기존 Apps Script 배포본(참고용 폴백) — GitHub Pages에서는 ./version.json 사용 */
 var EXEC_URL = 'https://script.google.com/macros/s/AKfycbyTf8lTMRCtbmnc3SCOcYH25O_ncRE0IUtm4K8h91-C5MG6ETQo9G4DiF57sgBsicE6/exec';
 var VER_POLL_MS = 180000;
@@ -2983,7 +3005,7 @@ function makeShiftText(list){
   var timers = activeTimers();
   var now = Date.now();
   var L = [];
-  L.push('🔄 TLC 인수인계 · ' + br.name);
+  L.push('🔄 TLC 메디컬 그룹 스마트 데일리 케어 · ' + br.name);
   L.push('📅 ' + todayKo() + ' · ' + issState.unit + (issState.unit.indexOf('마감') >= 0 ? ' → 익일 교차근무' : ' 교대 인계'));
   L.push('⏰ 작성 ' + nowHM() + ' · 이슈 ' + list.length + '건 (미완료 ' + open.length + '건)');
   L.push('');
@@ -3022,7 +3044,7 @@ function makeShiftText(list){
     L.push(recvFormText());
   }
   L.push('');
-  L.push('— TLC 인수인계');
+  L.push('— TLC 메디컬 그룹 스마트 데일리 케어');
   return L.join('\n');
 }
 function sbarOf(part, list){
@@ -4580,7 +4602,7 @@ function bindNotify(){
         paintNotify();
         if(p === 'granted'){
           toast('알림을 켰습니다 — 워치로도 알람이 옵니다');
-          try{ new Notification('TLC 인수인계', { body:'알림이 연결되었습니다 — 수액 종료 알람이 워치로도 옵니다', tag:'tlc-notify-hello' }); }catch(e){}
+          try{ new Notification('TLC 메디컬 그룹 스마트 데일리 케어', { body:'알림이 연결되었습니다 — 수액 종료 알람이 워치로도 옵니다', tag:'tlc-notify-hello' }); }catch(e){}
         } else {
           toast('알림이 허용되지 않았습니다 — 화면 알람·소리는 그대로 울립니다');
         }
