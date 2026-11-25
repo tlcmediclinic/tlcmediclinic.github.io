@@ -965,16 +965,105 @@ a.btn{text-decoration:none}
 .legalfold .lf-sub{font-size:12.5px;font-weight:600;color:var(--ink3)}
 .legalfold .legal-warn{margin-top:6px}
 .legalfold .legal{padding:0;box-shadow:none}
+
+/* ============================================================
+   v1.8 — 🔒 내부·개인적 사용 전용 잠금 게이트(PIN) · 무단 배포 금지 고지
+   ============================================================ */
+html.pinlock-on,html.pinlock-on body{overflow:hidden}
+.pinlock{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;
+  padding:22px;background:linear-gradient(158deg,#11917F 0%,#0A6F62 54%,#074E47 100%)}
+.pinlock.hide{display:none!important}
+.pinlock-card{width:100%;max-width:392px;background:#fff;border-radius:22px;padding:24px 20px 18px;
+  box-shadow:0 24px 60px rgba(3,40,36,.4);text-align:center}
+.pinlock-ic{font-size:34px;line-height:1;margin-bottom:9px}
+.pinlock-t{font-size:19px;font-weight:800;color:var(--ink);letter-spacing:-.03em;word-break:keep-all}
+.pinlock-t span{display:block;font-size:14px;font-weight:800;color:#C62238;margin-top:4px}
+.pinlock-d{font-size:13.5px;color:var(--ink2);line-height:1.62;margin:10px 0 16px;word-break:keep-all}
+.pinlock-form{display:block;margin:0}
+.pinlock-lbl{display:block;text-align:left;font-size:13.5px;font-weight:800;color:var(--ink2);margin:0 2px 6px}
+.pinlock-inp{display:block;width:100%;height:54px;border:1.5px solid var(--line);border-radius:14px;background:#F7FBFA;
+  font-size:22px;font-weight:800;letter-spacing:.3em;text-align:center;color:var(--ink);outline:none}
+.pinlock-inp:focus{border-color:var(--pp);background:#fff;box-shadow:0 0 0 4px rgba(14,143,126,.14)}
+.pinlock-inp::placeholder{font-size:15px;font-weight:600;letter-spacing:0;color:var(--ink3)}
+.pinlock-btn{display:block;width:100%;height:54px;margin-top:11px;border-radius:14px;color:#fff;
+  background:linear-gradient(140deg,#13A794,#0A6F62);font-size:17px;font-weight:800;letter-spacing:-.01em;
+  box-shadow:0 8px 20px rgba(10,111,98,.3)}
+.pinlock-btn:active{transform:translateY(1px);box-shadow:0 4px 12px rgba(10,111,98,.24)}
+.pinlock-msg{min-height:20px;margin-top:9px;font-size:13.5px;font-weight:800;color:var(--ink3);line-height:1.45}
+.pinlock-msg.on{color:#C62238}
+.pinlock-msg.on:before{content:"⚠ "}
+.pinlock-foot{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;
+  color:var(--ink3);line-height:1.55;word-break:keep-all}
+.pinlock.shake .pinlock-card{animation:pinshake .42s ease}
+@keyframes pinshake{0%,100%{transform:translateX(0)}18%{transform:translateX(-7px)}38%{transform:translateX(6px)}
+  58%{transform:translateX(-4px)}78%{transform:translateX(3px)}}
+@media(max-width:360px){.pinlock{padding:16px}.pinlock-card{padding:20px 16px 14px}}
+/* 법적 고지·푸터 — 내부·개인적 사용 전용(무단 배포 금지) 강조 문구 */
+.legal p.lg-lic{margin-top:9px;padding:9px 11px;border-radius:11px;background:var(--red-l);
+  border:1px solid #F6C9D1;color:#8E2B3C;font-weight:800;font-size:13.5px;line-height:1.62;word-break:keep-all}
+.footer .cp-lic{font-size:13.5px;font-weight:800;color:#8E2B3C;background:var(--red-l);border:1px solid #F6C9D1;
+  border-radius:11px;padding:9px 11px;margin-top:9px;line-height:1.62;word-break:keep-all}
 </style>
 </head>
 <body data-part="all">
+
+<!-- ============================================================
+     v1.8 — 🔒 내부·개인적 사용 전용 잠금 게이트 (비밀번호 입력 후 본 화면)
+     한 번 인증하면 이 기기(localStorage)에 기억되어 다음부터는 바로 열립니다.
+     ============================================================ -->
+<div class="pinlock" id="pinLock" role="dialog" aria-modal="true" aria-labelledby="pinLockT">
+  <div class="pinlock-card">
+    <div class="pinlock-ic" aria-hidden="true">🔒</div>
+    <h2 class="pinlock-t" id="pinLockT">내부·개인적 사용 전용<span>(무단 배포 금지)</span></h2>
+    <p class="pinlock-d">본 프로그램은 내부·개인적 업무 보조 전용으로 제작되었으며, 무단 복제·외부 유출·상업적 재배포를 금지합니다.<br><b>(아이디어·개발·제작: 김효숙)</b></p>
+    <form class="pinlock-form" id="pinForm" autocomplete="off" novalidate>
+      <label class="pinlock-lbl" for="pinInput">비밀번호</label>
+      <input class="pinlock-inp" id="pinInput" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="8"
+             autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="비밀번호 입력" aria-describedby="pinMsg">
+      <button class="pinlock-btn" id="pinGo" type="submit">열기</button>
+    </form>
+    <div class="pinlock-msg" id="pinMsg" role="alert" aria-live="assertive"></div>
+    <div class="pinlock-foot">아이디어·개발·제작: 김효숙 · © 2026 김효숙 · 무단 복제·배포 금지</div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='tlc_clinic_nurse_gate_v18', SIG='71ebccc8';
+  var S1='TLC-LOCK-', S2='-HANDOVER-2026', S3='SIG-', S4='-TLC';
+  function mix(s){ var h=0x811c9dc5; for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,0x01000193)>>>0; } return h; }
+  function sig(p){ p=String(p); var x=mix(S1+p+S2).toString(16);
+    return ('00000000'+mix(S3+x+'-'+p.length+S4).toString(16)).slice(-8); }
+  var box=document.getElementById('pinLock'), inp=document.getElementById('pinInput'),
+      msg=document.getElementById('pinMsg'), form=document.getElementById('pinForm');
+  function unlock(){ box.classList.add('hide'); box.classList.remove('shake');
+    document.documentElement.classList.remove('pinlock-on');
+    try{ box.setAttribute('aria-hidden','true'); }catch(e){} }
+  function lock(){ box.classList.remove('hide'); document.documentElement.classList.add('pinlock-on');
+    try{ box.setAttribute('aria-hidden','false'); }catch(e){}
+    setTimeout(function(){ try{ inp.focus(); }catch(e){} }, 80); }
+  function remembered(){ try{ return localStorage.getItem(KEY)===SIG; }catch(e){ return false; } }
+  function remember(){ try{ localStorage.setItem(KEY,SIG); }catch(e){} }
+  function clearMsg(){ msg.className='pinlock-msg'; msg.textContent=''; }
+  function warn(t){ msg.className='pinlock-msg on'; msg.textContent=t; }
+  function deny(){ warn('비밀번호가 맞지 않습니다. 다시 입력해 주세요.'); inp.value='';
+    box.classList.add('shake'); setTimeout(function(){ box.classList.remove('shake'); }, 460);
+    try{ inp.focus(); }catch(e){} }
+  form.addEventListener('submit', function(ev){ ev.preventDefault();
+    var v=(inp.value||'').replace(/[^0-9]/g,'');
+    if(!v){ warn('비밀번호를 입력해 주세요.'); try{ inp.focus(); }catch(e){} return; }
+    if(sig(v)===SIG){ clearMsg(); remember(); unlock(); } else { deny(); }
+  });
+  inp.addEventListener('input', function(){ if((' '+msg.className+' ').indexOf(' on ')>=0) clearMsg(); });
+  if(remembered()){ unlock(); } else { lock(); }
+})();
+</script>
 
 <div class="top">
   <div class="wrap">
     <div class="logo"><i class="tlcm" role="img" aria-label="티엘씨 공식 로고"></i></div>
     <div class="brand">TLC 인수인계<small>티엘씨 청담·분당 실무 인수인계</small></div>
     <div class="vwrap">
-      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.7</span></a>
+      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.8</span></a>
       <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기"><span aria-hidden="true">🔄</span><span class="rt"> 새로고침</span></a>
     </div>
   </div>
@@ -993,7 +1082,7 @@ a.btn{text-decoration:none}
 
 <div class="updbar" id="updBar" role="status" aria-live="polite">
   <div class="in">
-    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.7</span></b>이 준비되었습니다.</div>
+    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.8</span></b>이 준비되었습니다.</div>
     <a class="upd-a" id="updBtn" href="#" rel="noopener">지금 새로고침</a>
   </div>
 </div>
@@ -1081,6 +1170,7 @@ a.btn{text-decoration:none}
         <p>아이디어·설계·개발·제작 및 저작권은 <b>김효숙</b>에게 있습니다. 특정 병원·의원의 공식 EMR이나
           보건복지부·한국보건의료인국가시험원 등 <b>공공기관의 공식 인증 프로그램이 아닙니다.</b>
           무단 복제·배포·상업적 재판매를 금합니다.</p>
+        <p class="lg-lic">본 프로그램은 내부·개인적 업무 보조 전용으로 제작되었으며, 무단 복제·외부 유출·상업적 재배포를 금지합니다. (아이디어·개발·제작: 김효숙)</p>
       </div>
       <div class="lg">
         <div class="lg-h"><span class="n">④</span><b>알람·화면 유지는 기기 환경에 따라 지연될 수 있습니다</b></div>
@@ -1313,6 +1403,7 @@ a.btn{text-decoration:none}
       <div class="lg">
         <div class="lg-h"><span class="n">④</span><b>저작권</b></div>
         <p>아이디어·개발·제작: <b>김효숙</b> · © 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구.</p>
+        <p class="lg-lic">본 프로그램은 내부·개인적 업무 보조 전용으로 제작되었으며, 무단 복제·외부 유출·상업적 재배포를 금지합니다. (아이디어·개발·제작: 김효숙)</p>
       </div>
     </div>
   </div>
@@ -1325,7 +1416,8 @@ a.btn{text-decoration:none}
 
 <div class="footer wrap" id="globalFooter" style="margin-top:20px">
   <div class="cp">아이디어·개발·제작·저작권: <span>티엘씨메디켈그룹 총괄운영실장 김효숙</span></div>
-  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.7</span></div>
+  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.8</span></div>
+  <div class="cp-lic">본 프로그램은 내부·개인적 업무 보조 전용으로 제작되었으며, 무단 복제·외부 유출·상업적 재배포를 금지합니다. (아이디어·개발·제작: 김효숙)</div>
   <div class="nt">의료기기(SaMD) 아님 · 업무 보조·참고용 · 실제 환자 개인정보 입력 금지(방 번호·가명만) · 기기 내 로컬 저장만 사용 · 알람은 기기·브라우저 설정에 따라 지연될 수 있음 · 공식기관 인증 프로그램 아님</div>
 </div>
 
@@ -1846,7 +1938,7 @@ DATA.recvForm = [
    TLC 인수인계 — 화면 로직 (티엘씨 청담·분당 실무 인수인계)
    아이디어·개발·제작·저작권: 김효숙 (티엘씨메디켈그룹 총괄운영실장)
    ========================================================================= */
-var VERSION = 'v1.7';
+var VERSION = 'v1.8';
 /* 기존 Apps Script 배포본(참고용 폴백) — GitHub Pages에서는 ./version.json 사용 */
 var EXEC_URL = 'https://script.google.com/macros/s/AKfycbyTf8lTMRCtbmnc3SCOcYH25O_ncRE0IUtm4K8h91-C5MG6ETQo9G4DiF57sgBsicE6/exec';
 var VER_POLL_MS = 180000;
