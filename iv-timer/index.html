@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:type" content="website">
-<meta property="og:title" content="TLC 실시간 시술 현황 v1.1">
+<meta property="og:title" content="TLC 실시간 시술 현황 v1.2">
 <meta property="og:description" content="8개 방 실시간 공유 현황 · 상담 순서 · 바디 12회 프로그램 · 수액 타이머">
 <meta property="og:image" content="https://tlcmediclinic.github.io/iv-timer/icon-512.png">
 <meta property="og:image:width" content="512">
@@ -514,7 +514,7 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
 <body>
 
 <div class="updbar" id="updBar" role="status">
-  <span>새 버전 <b id="updVer">v1.1</b> 이 있습니다</span>
+  <span>새 버전 <b id="updVer">v1.2</b> 이 있습니다</span>
   <a href="#" id="updBtn" rel="noopener">지금 새로고침</a>
 </div>
 
@@ -543,7 +543,7 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
     </div>
   </div>
   <div class="tools">
-    <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><i class="dot"></i><span id="vbadgeText">v1.1</span></a>
+    <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><i class="dot"></i><span id="vbadgeText">v1.2</span></a>
     <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기"><span aria-hidden="true">🔄</span></a>
   </div>
 </header>
@@ -660,7 +660,7 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
 
   <footer>
     <p class="cr">아이디어·개발·제작: 김효숙</p>
-    <p class="cr2">티엘씨 청담의원 · 분당클리닉 · <span id="footVer">v1.1</span></p>
+    <p class="cr2">티엘씨 청담의원 · 분당클리닉 · <span id="footVer">v1.2</span></p>
   </footer>
 </main>
 
@@ -686,7 +686,7 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
       <div class="pgrid" id="inProg"></div>
     </div>
 
-    <div class="insum" id="inSum">지금 시작 · 45분 · 13:45 종료</div>
+    <div class="insum" id="inSum">지금 시작 · 30분 · 13:30 종료</div>
 
     <details class="adv" id="inAdv">
       <summary>시간·소요 조정</summary>
@@ -770,14 +770,14 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
 <div class="toast" id="toast" role="status"></div>
 
 <script>/* =========================================================================
-   TLC 실시간 시술 현황 v1.1
+   TLC 실시간 시술 현황 v1.2
    ① 실시간 시술 현황판(8개 방 공유) ② 수액 타이머 · 방당 1~4번 수액 · 점적 방울 모니터 · 사전/종료 알람
    아이디어·개발·제작·저작권: 김효숙 (티엘씨 청담의원·분당클리닉 총괄실장)
    ========================================================================= */
 (function(){
 'use strict';
 
-var VERSION = 'v1.1';
+var VERSION = 'v1.2';
 var KEY = 'tlc_iv_v1';
 var ROOMS = ['1번방','2번방','3번방','4번방','5번방','6번방','두피시술방','검사실'];
 var ROOM_TAG = {
@@ -1904,7 +1904,7 @@ function openLatest(ver){
 }
 
 /* =========================================================================
-   v1.1 실시간 시술 현황판
+   v1.2 실시간 시술 현황판 (v1.2: 바디 시술 실제 소요 시간 반영)
    Google Sheets(「TLC 실시간 시술 현황 DB」) + Apps Script 웹앱으로 여러 기기가
    같은 현황을 5초 주기로 나눠 봅니다. 끊기면 이 기기 저장값으로 계속 동작합니다.
    간호사 동선: 빈 방 → 이름·시술·상담 → [▶ 입실 시작] / 사용 중 방 → [✓ 완료]
@@ -1913,13 +1913,15 @@ var SYNC_URL = 'https://script.google.com/macros/s/AKfycbxLMWkmpd56AXmlV9s_tTcyQ
 var BOARD_KEY = 'tlc_board_v11';
 var POLL_MS = 5000;
 
+/* v1.2 — 효숙 님이 알려준 실제 소요 시간: 1회 20~30 · 2회 40~50 · 3회 30~40 · 4회 15~20
+   · 1+2 병합 1시간 · 3+4 병합 1시간. 기본값은 범위의 위쪽(최대)으로 잡습니다. */
 var PROGRAMS = [
-  { k:'b1',   label:'1회',     sub:'R1+울핏 · 45분',        proc:'바디 1회차',        detail:'R1 + 울핏',                        min:45 },
-  { k:'b2',   label:'2회',     sub:'S1+트리플 · 45분',      proc:'바디 2회차',        detail:'S1 + 트리플 바디',                 min:45 },
-  { k:'b3',   label:'3회',     sub:'R2+LLL · 45분',         proc:'바디 3회차',        detail:'R2 + LLL',                         min:45 },
-  { k:'b4',   label:'4회',     sub:'카복시+매선 · 50분',    proc:'바디 4회차',        detail:'카복시 + 매선 + S2 + LLL',         min:50 },
-  { k:'m12',  label:'1+2 병합', sub:'R1+울핏+S1 · 80분',     proc:'바디 1+2회 병합',   detail:'R1 + 울핏 + S1 + 트리플 바디',     min:80 },
-  { k:'m34',  label:'3+4 병합', sub:'카복시+매선 · 85분',    proc:'바디 3+4회 병합',   detail:'카복시 + R2 + S2 + 매선 + LLL',    min:85 },
+  { k:'b1',   label:'1회',     sub:'R1+울핏 · 20~30분',     proc:'바디 1회차',        detail:'R1 + 울핏',                        min:30 },
+  { k:'b2',   label:'2회',     sub:'S1+트리플 · 40~50분',   proc:'바디 2회차',        detail:'S1 + 트리플 바디',                 min:45 },
+  { k:'b3',   label:'3회',     sub:'R2+LLL · 30~40분',      proc:'바디 3회차',        detail:'R2 + LLL',                         min:35 },
+  { k:'b4',   label:'4회',     sub:'카복시+매선 · 15~20분', proc:'바디 4회차',        detail:'카복시 + 매선 + S2 + LLL',         min:20 },
+  { k:'m12',  label:'1+2 병합', sub:'R1+울핏+S1 · 1시간',    proc:'바디 1+2회 병합',   detail:'R1 + 울핏 + S1 + 트리플 바디',     min:60 },
+  { k:'m34',  label:'3+4 병합', sub:'카복시+매선 · 1시간',   proc:'바디 3+4회 병합',   detail:'카복시 + R2 + S2 + 매선 + LLL',    min:60 },
   { k:'skin', label:'피부',     sub:'피부 시술 · 30분',      proc:'피부 시술',         detail:'',                                min:30 },
   { k:'scalp',label:'두피',     sub:'두피 시술 · 30분',      proc:'두피 시술',         detail:'',                                min:30 },
   { k:'exam', label:'검사',     sub:'신규 고객 · 30분',      proc:'신규 고객 검사',    detail:'',                                min:30 },
