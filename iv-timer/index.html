@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:type" content="website">
-<meta property="og:title" content="TLC 실시간 시술 현황 v1.2">
+<meta property="og:title" content="TLC 실시간 시술 현황 v1.3">
 <meta property="og:description" content="8개 방 실시간 공유 현황 · 상담 순서 · 바디 12회 프로그램 · 수액 타이머">
 <meta property="og:image" content="https://tlcmediclinic.github.io/iv-timer/icon-512.png">
 <meta property="og:image:width" content="512">
@@ -509,12 +509,362 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
   .pgrid{grid-template-columns:repeat(2,1fr)}
   .bname{font-size:20px}
 }
+
+/* =========================================================================
+   v1.3 — 시간 수정(−5/+5/+10 · ⏱) · 수액 체크 목록 · 매선 원장님 호출
+   ========================================================================= */
+
+/* ---- 현황판 카드: 진행 바 + 시간 조정 ---- */
+.bprog{height:5px;background:#DDEEF8;border-radius:999px;overflow:hidden;margin:1px 0 3px}
+.bprog i{display:block;height:100%;background:linear-gradient(90deg,#7CC8EC,#2E9BD6);border-radius:999px;transition:width .5s linear}
+.bcard.late .bprog i{background:linear-gradient(90deg,#EF7C87,#E1505E)}
+.badj{display:grid;grid-template-columns:1fr 1fr 1fr 1.35fr;gap:4px;margin-top:2px}
+.tq{min-height:38px;border-radius:10px;background:#F0F8FD;border:1.5px solid #D6EAF6;color:#1573A8;
+  font-size:12px;font-weight:900;letter-spacing:-.03em;padding:0 2px;white-space:nowrap;
+  transition:transform .1s,background .12s}
+.tq:active{transform:scale(.95);background:#DEF0FA}
+.tq.ed{background:#FFF6E8;border-color:#F0D8A4;color:#8A5310}
+
+/* ---- 수액 타이머 진행 중 슬롯: 시간 조정 줄 ---- */
+.tbad{display:flex;gap:6px;margin-bottom:10px}
+.tbad .tq{flex:1;min-height:46px;font-size:13.5px;border-radius:11px}
+.tbad .tq.ed{flex:1.6;background:#FFF6E8;border-color:#EBD09A;color:#8A5310}
+
+/* ---- 시간 수정 시트 ---- */
+#tSheet .tsum{background:var(--sky-l2);border:1px solid #E1EFF8;border-radius:12px;padding:11px 12px;
+  font-size:14px;font-weight:900;color:var(--sky-d);text-align:center;margin-bottom:10px;
+  font-variant-numeric:tabular-nums;line-height:1.45}
+.tseg{margin-bottom:10px}
+.tseg button{min-height:48px;font-size:15px}
+.tchips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tchips button{flex:1 1 58px;min-height:46px;border-radius:11px;border:1.5px solid var(--line);
+  background:#F8FBFE;font-size:14.5px;font-weight:900;color:var(--ink2)}
+.tchips button.on{background:var(--sky);border-color:var(--sky);color:#fff}
+.trow{display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.trow button[data-tn]{flex:none;width:48px;min-height:48px;border-radius:11px;border:1.5px solid var(--line);
+  background:#F4F9FD;font-size:15px;font-weight:900;color:var(--ink2)}
+.trow input{flex:1;min-width:0;min-height:48px;border:1.5px solid var(--line);border-radius:11px;
+  text-align:center;font-size:20px;font-weight:900;font-variant-numeric:tabular-nums}
+.trow input:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(46,155,214,.15)}
+.trow b{flex:none;font-size:13px;font-weight:800;color:var(--ink3)}
+.trow .btn{flex:1.3;min-height:48px;background:var(--sky);border-color:var(--sky);color:#fff;font-size:16px}
+
+/* ---- 수액 체크 목록 ---- */
+.ivpick{margin:0 0 12px;padding:11px;border:1px dashed #CFE6F4;border-radius:13px;background:#FBFDFF}
+.ivpick-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px}
+.ivpick-h b{font-size:14px;font-weight:900;color:var(--ink);letter-spacing:-.02em}
+.ivpick-h .hint{font-size:11.5px;text-align:right}
+.ivlist{display:flex;flex-direction:column;gap:6px;max-height:302px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.ivit{display:flex;align-items:center;gap:6px}
+.ivck{flex:1;display:flex;align-items:center;gap:9px;text-align:left;min-height:48px;padding:7px 10px;
+  border:1.5px solid var(--line);border-radius:11px;background:#fff;transition:background .12s,border-color .12s}
+.ivck:active{transform:scale(.99)}
+.ivit.on .ivck{border-color:#8FDCCD;background:var(--mint-l)}
+.ckbox{flex:none;width:23px;height:23px;border-radius:7px;border:2px solid #B9D5E6;background:#fff;color:#fff;
+  font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;line-height:1}
+.ivit.on .ckbox{background:var(--mint);border-color:var(--mint)}
+.ivn{flex:1;min-width:0;font-size:13.5px;font-weight:800;color:var(--ink);letter-spacing:-.02em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ivn em{font-style:normal;font-size:10.5px;font-weight:900;color:#127A63;background:#fff;border:1px solid #B7E3D6;
+  border-radius:999px;padding:1px 6px;margin-left:5px;vertical-align:1px}
+.ivm{display:block;font-size:11px;font-weight:700;color:var(--ink3);margin-top:1px}
+.ivdel{flex:none;width:40px;min-height:48px;border-radius:11px;background:#F5F9FC;border:1.5px solid var(--line);color:var(--ink3);font-size:14px}
+.ivsep{font-size:11px;font-weight:900;color:var(--ink3);letter-spacing:.02em;padding:6px 2px 1px;
+  border-top:1px dashed var(--line);margin-top:3px}
+.ivpick-f{display:flex;gap:6px;margin-top:8px}
+.ivpick-f .mini{flex:1;min-height:44px;font-size:13px}
+.mini.ghost{background:#F5F9FC;color:var(--ink2)}
+.ivdin summary:before{content:''}
+.ivdin summary{display:flex;align-items:center;gap:6px}
+.ivdin summary b{font-size:11.5px;font-weight:900;color:var(--sky-d);background:var(--sky-l);border-radius:999px;padding:2px 8px}
+.ivdin .ivlist{max-height:240px;margin-bottom:2px}
+#inSheet .ivlist{max-height:240px}
+
+/* 새 수액 추가 시트 */
+.ivadd-name{margin-bottom:8px;display:block}
+.ivadd-row{margin-bottom:8px}
+#ivSheet .chiprow .chips{margin-bottom:0}
+#ivSheet .chiprow{margin-bottom:7px}
+
+/* ---- 매선 원장님 호출 ---- */
+.bcard.busy.calling{border-color:#F0A06B;background:linear-gradient(180deg,#FFF9F3,#FFEFE2);
+  box-shadow:0 0 0 3px rgba(224,122,44,.16)}
+.bcard.busy.calling .bname{color:#8A4B0A}
+.dcst{display:block;font-size:12.5px;font-weight:900;border-radius:9px;padding:5px 9px;line-height:1.35}
+.dcst.on{background:#FDE7D5;color:#8A4B0A;border:1px solid #F3C69E;animation:dcPulse 1.6s ease-in-out infinite}
+.dcst.ack{background:#E7F8F1;color:#127A63;border:1px solid #BFE7D6}
+@keyframes dcPulse{0%,100%{background:#FDE7D5}50%{background:#FBD6B8}}
+.dcbtn{width:100%;min-height:46px;border-radius:12px;font-size:13.5px;font-weight:900;letter-spacing:-.02em;
+  border:1.5px solid var(--line);background:#F4F9FD;color:var(--ink2);padding:0 6px}
+.dcbtn:active{transform:scale(.975)}
+.dcbtn.pri{min-height:52px;font-size:15px;background:linear-gradient(180deg,#FF9A5B,#F0742C);border-color:#E06C24;
+  color:#fff;box-shadow:0 5px 14px rgba(224,108,36,.3)}
+.dcbtn.sm{min-height:40px;font-size:12.5px;background:#FFF8F1;border-color:#F0D8A4;color:#8A5310}
+.dcrow{display:flex;gap:6px}
+.dcrow .dcbtn.ack{flex:1;background:var(--grn);border-color:var(--grn);color:#fff;min-height:50px}
+.dcrow .dcbtn{flex:1}
+
+/* 상단 호출 알림 배너 */
+.dcbar{position:fixed;left:0;right:0;top:calc(130px + env(safe-area-inset-top));z-index:84;display:none;
+  flex-direction:column;gap:6px;padding:0 12px;pointer-events:none}
+.dcbar.on{display:flex}
+body.has-upd .dcbar{top:calc(188px + env(safe-area-inset-top))}
+.dcb{pointer-events:auto;display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#FFF3E8,#FFE6D2);
+  border:2px solid #F0904A;border-radius:16px;padding:10px 12px;box-shadow:0 12px 34px rgba(160,70,10,.28);
+  animation:alarmIn .24s ease-out,dcGlow 1.6s ease-in-out infinite}
+@keyframes dcGlow{0%,100%{box-shadow:0 12px 34px rgba(160,70,10,.24)}50%{box-shadow:0 12px 40px rgba(230,110,30,.46)}}
+.dcb-l{flex:1;min-width:0}
+.dcb-t{font-size:16px;font-weight:900;color:#7C3F05;letter-spacing:-.03em;line-height:1.3}
+.dcb-s{font-size:12px;font-weight:800;color:#A2621F;margin-top:1px}
+.dcb-a{flex:none;min-height:48px;padding:0 14px;border-radius:12px;background:var(--grn);color:#fff;
+  font-size:14.5px;font-weight:900;box-shadow:0 4px 12px rgba(24,154,114,.26)}
+.dcb-a:active{transform:scale(.97)}
+
+@media (min-width:700px){
+  .dcbar{padding:0 max(14px, calc((100vw - 932px) / 2))}
+  .badj{grid-template-columns:1fr 1fr 1fr 1.2fr}
+}
+
+/* v1.3 — 내부 사용 전용 고지 (푸터) */
+footer .cr3{font-size:11.5px;font-weight:700;color:#8A5310;line-height:1.5;margin-top:5px;
+  background:#FFF8EE;border:1px solid #F0DFC4;border-radius:10px;padding:8px 11px;text-align:center}
+
+/* =========================================================================
+   v1.3 — PIN 잠금 · 차팅/서명 · 입실 준비/퇴실 알림
+   ========================================================================= */
+
+/* ---- PIN 잠금 ---- */
+.pingate{position:fixed;inset:0;z-index:130;display:none;align-items:center;justify-content:center;padding:22px;
+  background:radial-gradient(120% 90% at 50% 0%,#DCF2FD 0%,#EAF7FE 40%,#F7FBFE 100%)}
+.pingate.on{display:flex}
+.pinbox{width:100%;max-width:360px;background:#fff;border:1px solid var(--line);border-radius:22px;
+  box-shadow:0 18px 50px rgba(21,88,124,.18);padding:22px 18px 16px;text-align:center}
+.pinbox.shake{animation:pinShake .45s}
+@keyframes pinShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.pinico{font-size:30px;line-height:1}
+.pinbox h2{font-size:20px;font-weight:900;letter-spacing:-.03em;margin-top:6px}
+.pinbox .pinline{font-size:12.5px;font-weight:800;color:#8A5310;background:#FFF8EE;border:1px solid #F0DFC4;
+  border-radius:999px;padding:6px 10px;margin:8px auto 0;display:inline-block;line-height:1.4}
+.pinbox .pinsub{font-size:13px;font-weight:700;color:var(--ink3);margin:12px 0 8px}
+.pindots{display:flex;justify-content:center;gap:10px;margin-bottom:8px}
+.pindots i{width:14px;height:14px;border-radius:50%;background:#E1EEF7;border:1.5px solid #C7E0EF;display:block}
+.pindots i.on{background:var(--sky);border-color:var(--sky)}
+.pinerr{font-size:12.5px;font-weight:800;color:#C62238;background:#FDEDEF;border:1px solid #F5C7CC;
+  border-radius:10px;padding:7px 9px;margin:4px 0 8px}
+.pinpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.pinpad button{min-height:56px;border-radius:14px;border:1.5px solid var(--line);background:#F8FBFE;
+  font-size:22px;font-weight:900;color:var(--ink);font-variant-numeric:tabular-nums}
+.pinpad button:active{transform:scale(.96);background:#E8F4FC}
+.pinpad button.fn{font-size:16px;color:var(--ink3);background:#F1F7FB}
+.pinnote{font-size:11.5px;font-weight:600;color:var(--ink3);margin-top:10px}
+
+/* ---- 차팅 · 서명 ---- */
+.csum{background:var(--sky-l2);border:1px solid #E1EFF8;border-radius:12px;padding:9px 12px;
+  font-size:13.5px;font-weight:800;color:var(--sky-d);margin-bottom:10px;line-height:1.4}
+.clabel{font-size:12.5px;font-weight:900;color:var(--ink3);margin:10px 0 6px;display:flex;
+  align-items:baseline;justify-content:space-between;gap:8px;letter-spacing:.01em}
+.clabel .hint{font-size:11.5px;font-weight:700}
+.nseg{margin-bottom:8px;grid-template-columns:1fr 1fr}
+.nseg button{min-height:44px;font-size:14px}
+.nchips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.nchips button{position:relative;font-size:14px;font-weight:900;color:var(--ink2);background:#FBFDFF;
+  border:1.5px solid var(--line);border-radius:999px;padding:9px 13px;min-height:42px}
+.nchips button.on{background:var(--sky);border-color:var(--sky);color:#fff}
+.nchips button.cus{border-style:dashed;border-color:#C7C0F0;color:#5B4FA8}
+.nchips button.cus.on{background:#6C5CE7;border-color:#6C5CE7;color:#fff}
+.nchips button i{font-style:normal;font-size:11px;font-weight:900;margin-left:3px;opacity:.7}
+.nadd{display:flex;gap:6px;margin-bottom:8px}
+.nadd .inp{flex:1;min-height:44px;font-size:15px;padding:9px 11px}
+.nadd .mini{flex:none;min-height:44px;padding:0 12px;font-size:13px}
+.inp.cnurse{min-height:48px;font-size:16px;margin-bottom:4px}
+.inp.cnote{min-height:86px;font-size:15px;line-height:1.5;padding:11px 12px;resize:vertical;margin-bottom:4px}
+.signwrap{position:relative;border:1.5px dashed #BFDCEF;border-radius:14px;background:#FDFEFF;
+  height:170px;overflow:hidden;margin-bottom:12px}
+.signwrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.signwrap .signimg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;opacity:.95}
+.signhint{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;
+  font-size:13px;font-weight:800;color:#A9BFCC;pointer-events:none}
+.signhint.hide{display:none}
+.signwrap .clr{position:absolute;right:8px;bottom:8px;min-height:34px;padding:0 11px;border-radius:9px;
+  background:#F1F7FB;border:1.5px solid var(--line);font-size:12.5px;font-weight:800;color:var(--ink3)}
+.cact{display:flex;gap:8px;margin-bottom:8px}
+.cact .btn{flex:1;min-height:54px;font-size:16px}
+.btn.off{opacity:.45;filter:grayscale(.15)}
+.chartst{display:block;font-size:12px;font-weight:800;color:#127A63;background:#EFFAF5;
+  border:1px solid #CBEDDD;border-radius:9px;padding:4px 8px;line-height:1.35}
+.crow{display:flex;gap:6px;margin-top:2px}
+.cbtn{flex:1;min-height:44px;border-radius:12px;background:#F6F4FF;border:1.5px solid #D9D3F7;color:#4B3FA8;
+  font-size:13.5px;font-weight:900;letter-spacing:-.02em}
+.cbtn:active{transform:scale(.975)}
+.pbtn{flex:none;width:46px;min-height:44px;border-radius:12px;background:#EFFAF5;border:1.5px solid #BEE7D6;
+  font-size:16px;font-weight:900;color:#127A63}
+.pbtn:active{transform:scale(.95)}
+
+/* ---- 알림 배너 색 (입실 준비 · 퇴실) ---- */
+.dcb.prep{background:linear-gradient(180deg,#F2FCF7,#E4F8EE);border-color:#5EC79D;
+  animation:alarmIn .24s ease-out,prepGlow 1.8s ease-in-out infinite}
+@keyframes prepGlow{0%,100%{box-shadow:0 12px 34px rgba(20,120,80,.2)}50%{box-shadow:0 12px 40px rgba(40,180,120,.42)}}
+.dcb.prep .dcb-t{color:#0F6B50}
+.dcb.prep .dcb-s{color:#2C8E75}
+.dcb.out{background:linear-gradient(180deg,#F4F9FF,#E8F2FE);border-color:#7FB2E8;
+  animation:alarmIn .24s ease-out}
+.dcb.out .dcb-t{color:#1B4F86}
+.dcb.out .dcb-s{color:#3C6E9E}
+.dcb.out .dcb-a{background:#2B7BE4}
+
+/* ---- 퇴실 기록 서명 ---- */
+.hit .hsign{flex:none;font-size:11.5px;font-weight:900;color:#127A63;background:#EFFAF5;
+  border:1px solid #CBEDDD;border-radius:999px;padding:2px 7px;white-space:nowrap}
+@media (max-width:359px){
+  .pinpad button{min-height:50px;font-size:20px}
+  .signwrap{height:150px}
+}
+
+/* =========================================================================
+   v1.3 — 브랜딩(TLC 메디컬 그룹) · 📅 내일 계획
+   ========================================================================= */
+.top .lg{width:54px;height:54px}
+.bt h1{font-size:15.5px;font-weight:900;letter-spacing:-.03em;line-height:1.25;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:normal}
+.bt .sub{display:flex;align-items:center;gap:5px;margin-top:2px;font-size:12px;color:var(--ink3);
+  font-weight:700;white-space:nowrap;overflow:hidden}
+.bt .sub #topSub{overflow:hidden;text-overflow:ellipsis;font-weight:600;font-size:11.5px}
+.sitename{display:inline-flex;align-items:center;gap:3px;max-width:64%;flex:none;
+  font-size:12px;font-weight:900;color:var(--sky-d);background:var(--sky-l);border-radius:999px;
+  padding:3px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sitename i{font-style:normal;font-size:10px;opacity:.65}
+.sitename:active{transform:scale(.97)}
+
+.tabs{grid-template-columns:repeat(3,1fr)}
+.tab{font-size:12.5px;padding:0 4px;letter-spacing:-.03em}
+@media (max-width:359px){ .tab{font-size:11.5px} }
+
+.plan-site{font-size:13px;font-weight:900;color:var(--sky-d);background:var(--sky-l);
+  border-radius:10px;padding:8px 11px;margin-bottom:4px}
+.plabel{font-size:12.5px;font-weight:900;color:var(--ink3);margin:12px 0 7px;display:flex;
+  align-items:baseline;justify-content:space-between;gap:8px}
+.plabel .hint{font-size:11px}
+.pcounts{display:flex;flex-direction:column;gap:7px}
+.pcount{display:flex;align-items:center;gap:8px;background:#FBFDFF;border:1.5px solid var(--line);
+  border-radius:12px;padding:8px 10px}
+.pcount .pl{flex:1;font-size:14px;font-weight:900;color:var(--ink)}
+.pcount button{flex:none;width:42px;min-height:44px;border-radius:11px;background:#F1F7FB;
+  border:1.5px solid var(--line);font-size:19px;font-weight:900;color:var(--ink2)}
+.pcount button:active{transform:scale(.95);background:#E3F2FB}
+.pcount input{flex:none;width:56px;min-height:44px;text-align:center;font-size:18px;font-weight:900;
+  border:1.5px solid var(--line);border-radius:11px;font-variant-numeric:tabular-nums}
+.pbands{display:flex;flex-direction:column;gap:7px}
+.pband{display:flex;align-items:center;gap:7px;background:#FBFDFF;border:1.5px solid var(--line);
+  border-radius:12px;padding:8px 9px}
+.pband.empty{border-style:dashed;background:#FFFDF6}
+.pband .pt{flex:none;width:92px;font-size:12.5px;font-weight:900;color:var(--ink2);letter-spacing:-.02em}
+.psel{flex:1;min-width:0;min-height:44px;border:1.5px solid var(--line);border-radius:11px;background:#fff;
+  font-size:14px;font-weight:800;color:var(--ink);padding:0 8px;appearance:none;-webkit-appearance:none}
+.phbtn{flex:none;min-height:44px;padding:0 9px;border-radius:11px;border:1.5px solid var(--line);
+  background:#F4F9FD;font-size:12px;font-weight:900;color:var(--ink3);white-space:nowrap}
+.phbtn.on{background:var(--mint-l);border-color:#8FDCCD;color:#127A63}
+.psum{white-space:pre-wrap;font-family:inherit;font-size:13px;font-weight:700;color:var(--ink2);
+  background:#FBFDFF;border:1px dashed var(--line);border-radius:12px;padding:11px;margin:0;line-height:1.65}
+.bchips{display:flex;flex-wrap:wrap;gap:6px;margin:-2px 0 10px}
+.bchips button{font-size:12.5px;font-weight:900;color:var(--sky-d);background:var(--sky-l2);
+  border:1.5px solid #D6EAF6;border-radius:999px;padding:8px 11px}
+
+/* =========================================================================
+   v1.3 — 상담(불필요·대기·중간·완료) · 피부 2단계 · 검사실 현황 · 80%/초과 알람
+   ========================================================================= */
+.seg3{grid-template-columns:repeat(3,1fr)}
+.seg3 button{font-size:12.5px;min-height:52px;padding:0 4px;letter-spacing:-.03em}
+.seg2 button[data-c="none"].on{background:#F1F3F5;border-color:#C9D3DB;color:#52646F}
+.bcon{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.badge.wait{background:#FFF1D9;color:#A9630A;border:1px solid #F2D8A8}
+.badge.active{background:#DCF0FF;color:#0B5C8A;border:1px solid #A9D8EF;animation:blink 1.8s infinite}
+.badge.done{background:#E7F8F1;color:#127A63;border:1px solid #BFE7D6}
+.badge.none{background:#F1F3F5;color:#5A6B77;border:1px solid #DDE5EA}
+.cbtn2{flex:none;min-height:34px;padding:0 10px;border-radius:999px;background:var(--sky-l);
+  border:1.5px solid #A9D8EF;color:var(--sky-d);font-size:12px;font-weight:900;white-space:nowrap}
+.cbtn2:active{transform:scale(.96)}
+.cbtn2.end{background:var(--grn);border-color:var(--grn);color:#fff}
+.dcbtn.skin{background:linear-gradient(180deg,#9FD9F5,#2E9BD6);border-color:#2E9BD6;color:#fff;
+  min-height:48px;font-size:14px;box-shadow:0 4px 12px rgba(46,155,214,.24)}
+.alarm.p80{background:linear-gradient(180deg,#F4FBFF,#E2F3FE);border-color:#7FC5E7;animation:alarmIn .28s ease-out}
+.alarm.p80 .ak{background:var(--sky)}
+.alarm.end.late{background:linear-gradient(180deg,#FFEDEF,#FBD0D6);border-color:#DB6C75}
+
+.exlist{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.exrow{display:flex;align-items:center;gap:7px}
+.exck{flex:1;display:flex;align-items:center;gap:8px;min-height:46px;padding:7px 10px;
+  border:1.5px solid var(--line);border-radius:11px;background:#fff;text-align:left}
+.exrow.on .exck{border-color:#8FDCCD;background:var(--mint-l)}
+.exrow.on .ckbox{background:var(--mint);border-color:var(--mint)}
+.exn{flex:1;min-width:0;font-size:13.5px;font-weight:800;color:var(--ink);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.exn em{font-style:normal;font-size:11px;font-weight:800;color:#127A63;margin-left:6px}
+.exsel{flex:none;width:112px;min-height:44px;font-size:13px;padding:0 4px}
+.examcard .nadd{margin-top:6px}
+
+/* ---- 🍼 소아과 헬퍼 요청 ---- */
+.hbtn{width:100%;margin-top:8px;min-height:50px;border-radius:13px;font-size:15.5px;font-weight:900;
+  color:#7A3E00;background:linear-gradient(180deg,#FFE9C9,#FFD79B);border:1.5px solid #F0BE6A;
+  box-shadow:0 4px 12px rgba(240,190,106,.28);letter-spacing:-.02em}
+.hbtn:active{transform:scale(.985);filter:brightness(.97)}
+.hbtn span{font-size:12px;font-weight:800;color:#946015}
+.dcb.helper{flex-direction:column;align-items:stretch;gap:8px;padding:14px;
+  background:linear-gradient(180deg,#FFF3D9,#FFE3AE);border-color:#F0A93A;
+  animation:alarmIn .24s ease-out,helperGlow 1.4s ease-in-out infinite}
+@keyframes helperGlow{0%,100%{box-shadow:0 12px 34px rgba(180,110,10,.26)}50%{box-shadow:0 14px 44px rgba(240,150,30,.5)}}
+.dh-top{display:flex;align-items:center;gap:10px}
+.dh-ico{font-size:36px;line-height:1}
+.dh-tt{flex:1;min-width:0}
+.dh-tt b{display:block;font-size:21px;font-weight:900;color:#7A3E00;letter-spacing:-.035em;line-height:1.15}
+.dh-tt span{font-size:12.5px;font-weight:800;color:#A2621F}
+.dh-sub{font-size:11.5px;font-weight:800;color:#A2621F;margin-top:-2px}
+.dh-act{display:flex;gap:7px;align-items:center}
+.hsel{flex:1;min-width:0;min-height:48px;border-radius:12px;border:1.5px solid #E9C58A;background:#fff;
+  font-size:14px;font-weight:800;color:var(--ink);padding:0 8px}
+.dh-act .dcb-a{flex:none}
+.hcall{display:block;text-align:center;font-size:13.5px;font-weight:900;color:#1B4F86;background:#fff;
+  border:1.5px solid #BFD8F2;border-radius:11px;padding:10px;text-decoration:none}
+.dcb.helper.ack{background:linear-gradient(180deg,#F1FBF6,#DFF5E9);border-color:#5EC79D;animation:alarmIn .24s ease-out}
+.dcb.helper.ack .dh-tt b{color:#0F6B50}
+.dcb.helper.ack .dh-tt span{color:#2C8E75}
+.dcb-a.ghost{background:#fff;color:#127A63;border:1.5px solid #BFE7D6;min-height:46px;box-shadow:none}
+
+/* 알림 배너가 떠 있는 동안 본문이 가리지 않도록 */
+.dcbar{max-height:58vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
 </style>
 </head>
 <body>
 
+<!-- ===================== v1.3 내부 전용 잠금(PIN) ===================== -->
+<div class="pingate on" id="pinGate" aria-hidden="false">
+  <div class="pinbox" id="pinBox" role="dialog" aria-modal="true" aria-labelledby="pinTitle">
+    <div class="pinico" aria-hidden="true">🔒</div>
+    <h2 id="pinTitle">티엘씨 클리닉</h2>
+    <p class="pinline">내부·개인적 사용 전용 (무단 배포 금지)</p>
+    <p class="pinsub">4자리 비밀번호를 입력하세요</p>
+    <div class="pindots" id="pinDots" aria-live="polite"><i></i><i></i><i></i><i></i></div>
+    <p class="pinerr hide" id="pinErr"></p>
+    <div class="pinpad" id="pinPad">
+      <button type="button" data-n="1">1</button>
+      <button type="button" data-n="2">2</button>
+      <button type="button" data-n="3">3</button>
+      <button type="button" data-n="4">4</button>
+      <button type="button" data-n="5">5</button>
+      <button type="button" data-n="6">6</button>
+      <button type="button" data-n="7">7</button>
+      <button type="button" data-n="8">8</button>
+      <button type="button" data-n="9">9</button>
+      <button type="button" class="fn" data-pin="clr">C</button>
+      <button type="button" data-n="0">0</button>
+      <button type="button" class="fn" data-pin="del" aria-label="한 자 지우기">⌫</button>
+    </div>
+    <p class="pinnote">한 번 입력한 기기는 다음부터 바로 열립니다.</p>
+  </div>
+</div>
+
 <div class="updbar" id="updBar" role="status">
-  <span>새 버전 <b id="updVer">v1.2</b> 이 있습니다</span>
+  <span>새 버전 <b id="updVer">v1.3</b> 이 있습니다</span>
   <a href="#" id="updBtn" rel="noopener">지금 새로고침</a>
 </div>
 
@@ -538,20 +888,23 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
   <path d="M12.4 39.6c3.4 1.4 6.6 1.7 9.5 1M51.6 39.6c-3.4 1.4-6.6 1.7-9.5 1" fill="none" stroke="#F2705C" stroke-width="2.9" stroke-linecap="round"/>
 </svg></span>
     <div class="bt">
-      <h1>TLC 실시간 시술 현황</h1>
-      <p class="sub" id="topSub">8개 방 · 접수팀 ↔ 간호팀 공유</p>
+      <h1 id="appTitle">TLC 메디컬 그룹 네트워크 병원용</h1>
+      <p class="sub"><button type="button" class="sitename" id="btnSite" title="병원명 변경"><span id="siteName">티엘씨 클리닉 청담</span><i aria-hidden="true">✏️</i></button><span id="topSub"> · 8개 방 · 접수팀 ↔ 간호팀 공유</span></p>
     </div>
   </div>
   <div class="tools">
-    <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><i class="dot"></i><span id="vbadgeText">v1.2</span></a>
+    <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><i class="dot"></i><span id="vbadgeText">v1.3</span></a>
     <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기"><span aria-hidden="true">🔄</span></a>
   </div>
 </header>
 
 <nav class="tabs" id="tabs" aria-label="화면 전환">
-  <button class="tab on" id="tabBoard" data-tab="board">🏥 실시간 시술 현황</button>
+  <button class="tab on" id="tabBoard" data-tab="board">🏥 시술 현황</button>
   <button class="tab" id="tabTimer" data-tab="timer">💧 수액 타이머</button>
+  <button class="tab" id="tabPlan" data-tab="plan">📅 내일 계획</button>
 </nav>
+
+<div class="dcbar" id="dcBar" aria-live="assertive" aria-atomic="false"></div>
 
 <main class="wrap">
 
@@ -569,9 +922,23 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
         <button class="rbtn big" id="btnBoardRefresh" title="지금 새로고침" aria-label="지금 새로고침">🔄</button>
       </div>
       <div class="sync"><i id="syncDot" class="sd"></i><span id="syncTxt">연결 중…</span></div>
+      <button class="hbtn" id="btnHelper" type="button">🍼 소아과 헬퍼 요청 <span>· 내과 핫라인</span></button>
     </section>
 
     <div class="bgrid" id="bGrid"></div>
+
+    <!-- v1.3 검사실 현황판 -->
+    <section class="card examcard">
+      <div class="sec-h">
+        <h2>🔬 검사실 현황</h2>
+        <span class="hint" id="examHint">0/0 완료</span>
+      </div>
+      <div class="exlist" id="examList"></div>
+      <div class="nadd">
+        <input id="examNew" class="inp" type="text" autocomplete="off" placeholder="검사 항목 추가 (예: 체지방 분석)">
+        <button type="button" class="mini" id="examAdd">＋ 항목</button>
+      </div>
+    </section>
 
     <section class="card hist">
       <div class="sec-h"><h2>오늘 퇴실 기록</h2><span class="hint" id="histN">0건</span></div>
@@ -619,6 +986,17 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
         <button class="achip" data-pre="10">10분 전</button>
         <button class="achip" data-pre="0">사전 알람 끔</button>
         <button class="achip mid on" id="midChip">50% 중간 체크</button>
+        <button class="achip mid on" id="p80Chip">80% 체크</button>
+      </div>
+
+      <!-- v1.3 기본 수액 체크 목록 -->
+      <div class="ivpick">
+        <div class="ivpick-h"><b>💧 수액 체크</b><span class="hint" id="ivPickHint">체크하면 1~4번에 차례로</span></div>
+        <div class="ivlist" id="ivList"></div>
+        <div class="ivpick-f">
+          <button type="button" class="mini" id="btnIvAdd">＋ 새 수액 추가</button>
+          <button type="button" class="mini ghost" id="btnIvClear">체크 해제</button>
+        </div>
       </div>
 
       <div id="slotList" class="slots"></div>
@@ -648,19 +1026,55 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
     </section>
   </div>
 
+  <!-- ===================== v1.3 내일 계획 ===================== -->
+  <div id="viewPlan" class="view hide">
+
+    <section class="card">
+      <div class="sec-h">
+        <h2>📅 내일 준비</h2>
+        <span class="hint" id="planDate">—</span>
+      </div>
+      <div class="plan-site" id="planSite">티엘씨 클리닉 청담</div>
+
+      <div class="plabel">핵심 시술 예상 건수</div>
+      <div class="pcounts" id="planCounts"></div>
+
+      <div class="plabel">시간대별 투입 간호사 <span class="hint">빈 시간대는 소아과 헬퍼로</span></div>
+      <div class="pbands" id="planBands"></div>
+
+      <div class="plabel">시술별 담당</div>
+      <div class="pbands" id="planProcs"></div>
+    </section>
+
+    <section class="card">
+      <div class="sec-h"><h2>요약</h2><button class="mini" id="planCopy">📋 요약 복사</button></div>
+      <pre class="psum" id="planSum"></pre>
+    </section>
+
+    <section class="card tips">
+      <div class="sec-h"><h2>이렇게 쓰세요</h2></div>
+      <ul>
+        <li>전날 <b>내일 예상 시술 건수</b>를 넣어 두면 다음 날 아침 현황판이 바로 감을 잡습니다.</li>
+        <li><b>시간대별로 간호사를 미리 배정</b>하고, 비는 시간대는 <b>🍼 소아과 헬퍼</b>를 켜 두면 인력 계획이 됩니다.</li>
+        <li><b>📋 요약 복사</b>로 단톡방에 그대로 붙여 넣어 공유하세요.</li>
+      </ul>
+    </section>
+  </div>
+
   <details class="card legalD">
     <summary>법적 고지 · 이용 안내 <span>눌러서 펼치기</span></summary>
     <ol>
       <li><b>의료 보조·참고용</b><br>본 앱의 수액 계산·방울 속도·타이머·시술 현황은 의료진의 업무 보조용 참고 도구이며, 의료기기나 의학적 진단·처방을 대체하지 않습니다. 실제 투여 속도와 잔량·라인 확인은 반드시 담당 의사의 처방과 현장 육안 확인이 우선합니다.</li>
       <li><b>알림·기기 환경 면책</b><br>스마트폰 절전·OS 정책에 따라 화면이 꺼지면 알람이 지연될 수 있습니다. 알람과 별도로 반드시 현장 육안 점검을 병행해 주세요. 네트워크가 끊기면 현황판은 이 기기에 저장된 마지막 상태로 표시되며, 연결되면 자동으로 맞춰집니다.</li>
       <li><b>개인정보 보호</b><br>환자 실명·연락처 등 개인정보는 입력하지 마세요. 가명이나 차트번호만 사용하세요. 현황판 정보는 병원 공용 구글 시트(「TLC 실시간 시술 현황 DB」)에 저장되어 접수팀·간호팀에게 공유되고, 수액 타이머 설정은 이 기기에만 저장됩니다.</li>
-      <li><b>저작권</b><br>아이디어·개발·제작: 김효숙. 본 앱의 화면·구성·문구에 대한 저작권은 김효숙에게 있습니다. 무단 복제·배포를 금합니다.</li>
+      <li><b>저작권·이용 범위</b><br>아이디어·개발·제작: 김효숙 (무단 배포 금지). 본 프로그램은 내부·개인적 업무 보조 전용으로 제작되었으며, 무단 복제·외부 유출·상업적 재배포를 금지합니다. 본 앱의 화면·구성·문구에 대한 저작권은 김효숙에게 있습니다.</li>
     </ol>
   </details>
 
   <footer>
-    <p class="cr">아이디어·개발·제작: 김효숙</p>
-    <p class="cr2">티엘씨 청담의원 · 분당클리닉 · <span id="footVer">v1.2</span></p>
+    <p class="cr">아이디어·개발·제작: 김효숙 (무단 배포 금지)</p>
+    <p class="cr3">본 프로그램은 내부·개인적 업무 보조 전용이며, 무단 복제·외부 유출·상업적 재배포를 금지합니다.</p>
+    <p class="cr2">티엘씨 청담의원 · 분당클리닉 · <span id="footVer">v1.3</span></p>
   </footer>
 </main>
 
@@ -676,9 +1090,10 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
     <input id="inName" class="big-inp" type="text" autocomplete="off" enterkeyhint="done" placeholder="고객명 (가명·차트번호)">
     <div class="in-hint" id="inHint">이름만 넣고 시술·상담을 고르세요</div>
 
-    <div class="seg2" id="inConsult" role="group" aria-label="상담 순서">
+    <div class="seg2 seg3" id="inConsult" role="group" aria-label="상담">
       <button data-c="before" type="button">💬 상담 먼저</button>
       <button data-c="after" type="button">🩺 시술 후 상담</button>
+      <button data-c="none" type="button">🚫 상담 불필요</button>
     </div>
 
     <div class="prog-wrap">
@@ -687,6 +1102,17 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
     </div>
 
     <div class="insum" id="inSum">지금 시작 · 30분 · 13:30 종료</div>
+    <div class="in-hint hide" id="inDcHint"></div>
+
+    <details class="adv ivdin" id="inIvBox">
+      <summary>💧 수액 미리 체크 <b id="ivInSum">선택 안 함</b></summary>
+      <div class="adv-body">
+        <div class="ivlist" id="ivListIn"></div>
+        <div class="ivpick-f">
+          <button type="button" class="mini" id="btnIvAddIn">＋ 새 수액 추가</button>
+        </div>
+      </div>
+    </details>
 
     <details class="adv" id="inAdv">
       <summary>시간·소요 조정</summary>
@@ -709,7 +1135,120 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
   </div>
 </div>
 
+<!-- ===================== v1.3 간호사 차팅 · 서명 시트 ===================== -->
+<div class="sheet" id="cSheet" aria-hidden="true">
+  <div class="sheet-bg" id="cBg"></div>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="cTitle">
+    <div class="sh-top">
+      <b id="cTitle">차팅 · 서명</b>
+      <button class="x" id="cClose" aria-label="닫기">✕</button>
+    </div>
+    <div class="csum" id="cSum">3번방 · 고객 · 시술</div>
+
+    <div class="clabel">담당 간호사 <span class="hint" id="cNursePick">청담</span></div>
+    <div class="seg2 nseg" id="cBranch" role="group" aria-label="근무 지점">
+      <button type="button" data-br="cheongdam" class="on">청담</button>
+      <button type="button" data-br="bundang">분당</button>
+    </div>
+    <div class="chips nchips" id="cNurseChips"></div>
+    <div class="nadd">
+      <input id="cNurseNew" class="inp" type="text" autocomplete="off" placeholder="직원 이름 직접 추가 (예: 김하늘)">
+      <button type="button" class="mini" id="cNurseAdd">＋ 추가</button>
+    </div>
+    <input id="cNurse" class="inp cnurse" type="text" autocomplete="off" placeholder="담당 간호사 (칩을 누르거나 직접 입력)">
+
+    <div class="clabel">처치 차팅</div>
+    <textarea id="cNote" class="inp cnote" rows="3" placeholder="예) N/S 250mL + 앰플믹스 40분 점적 · 통증·이상 없음"></textarea>
+
+    <div class="clabel">간호사 서명 <span class="hint" id="cSignState">손가락으로 서명해 주세요</span></div>
+    <div class="signwrap">
+      <img id="cSignImg" class="signimg hide" alt="저장된 서명">
+      <canvas id="cSign" width="480" height="200" aria-label="서명 패드"></canvas>
+      <span class="signhint" id="cSignHint">여기에 서명</span>
+      <button type="button" class="clr" id="cSignClear">지우기</button>
+    </div>
+
+    <div class="cact">
+      <button class="btn" id="cSave">✓ 차팅 저장</button>
+      <button class="btn ok" id="cSaveOut">✓ 서명하고 퇴실</button>
+    </div>
+    <div class="in-hint" id="cHint">담당 간호사와 서명이 있어야 퇴실할 수 있습니다.</div>
+  </div>
+</div>
+
+<!-- ===================== v1.3 병원명 설정 시트 ===================== -->
+<div class="sheet" id="siteSheet" aria-hidden="true">
+  <div class="sheet-bg" id="siteBg"></div>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="siteTitle">
+    <div class="sh-top">
+      <b id="siteTitle">네트워크 병원명 설정</b>
+      <button class="x" id="siteClose" aria-label="닫기">✕</button>
+    </div>
+    <div class="in-hint">상단 배너·요약 공유 문구·차팅 기록에 함께 표시됩니다.</div>
+    <label class="fld ivadd-name"><span>병원명 (지점)</span>
+      <input id="siteInput" class="inp" type="text" autocomplete="off" placeholder="예) 티엘씨 클리닉 청담">
+    </label>
+    <div class="chips bchips" id="siteChips"></div>
+    <label class="fld ivadd-name"><span>내과 핫라인 전화번호</span>
+      <input id="siteTel" class="inp" type="tel" autocomplete="off" placeholder="010-9678-0010">
+    </label>
+    <button class="btn go huge" id="siteSave">✓ 저장</button>
+  </div>
+</div>
+
 <div class="alarm-layer" id="alarmLayer" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- ===================== v1.3 시간 수정 시트 ===================== -->
+<div class="sheet" id="tSheet" aria-hidden="true">
+  <div class="sheet-bg" id="tBg"></div>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="tTitle">
+    <div class="sh-top">
+      <b id="tTitle">시간 수정</b>
+      <button class="x" id="tClose" aria-label="닫기">✕</button>
+    </div>
+    <div class="tsum" id="tSum">14:00 시작 · 14:30 종료 · 12분 남음</div>
+    <div class="seg2 tseg" id="tMode" role="group" aria-label="시간 기준">
+      <button type="button" data-tm="left" class="on">남은 시간</button>
+      <button type="button" data-tm="total">전체 소요</button>
+    </div>
+    <div id="tChips" class="tchips"></div>
+    <div class="trow">
+      <button type="button" data-tn="-5">−5</button>
+      <input id="tMin" type="number" inputmode="numeric" min="1" step="1" value="30"><b>분</b>
+      <button type="button" data-tn="5">+5</button>
+      <button class="btn" id="tApply">✓ 적용</button>
+    </div>
+    <div class="in-hint" id="tHint">남은 시간 기준 — 지금부터 몇 분 뒤에 끝나는지로 맞춥니다</div>
+  </div>
+</div>
+
+<!-- ===================== v1.3 새 수액 추가 시트 ===================== -->
+<div class="sheet" id="ivSheet" aria-hidden="true">
+  <div class="sheet-bg" id="ivBg"></div>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="ivTitle">
+    <div class="sh-top">
+      <b id="ivTitle">새 수액 추가</b>
+      <button class="x" id="ivClose" aria-label="닫기">✕</button>
+    </div>
+    <div class="in-hint">체크 목록에 저장되어 다음부터 함께 나옵니다 (이 기기에만 저장)</div>
+    <label class="fld ivadd-name"><span>수액명</span>
+      <input id="ivName" class="inp" type="text" autocomplete="off" placeholder="예) 비타민C 500mL + 앰플">
+    </label>
+    <div class="frow ivadd-row">
+      <label class="fld"><span>기본 용량</span>
+        <input id="ivMl" class="inp" type="number" inputmode="numeric" min="1" step="10" value="250"><em class="unit">mL</em></label>
+      <label class="fld"><span>기본 시간</span>
+        <input id="ivMin" class="inp" type="number" inputmode="numeric" min="1" step="5" value="45"><em class="unit">분</em></label>
+    </div>
+    <div class="chiprow"><span class="ck">용량</span><div class="chips" id="ivMlChips">
+      <button type="button" data-v="50">50</button><button type="button" data-v="100">100</button><button type="button" data-v="200">200</button><button type="button" data-v="250">250</button><button type="button" data-v="500">500</button>
+    </div></div>
+    <div class="chiprow"><span class="ck">시간</span><div class="chips" id="ivMinChips">
+      <button type="button" data-v="15">15분</button><button type="button" data-v="20">20분</button><button type="button" data-v="30">30분</button><button type="button" data-v="40">40분</button><button type="button" data-v="60">60분</button>
+    </div></div>
+    <button class="btn go huge" id="ivSave">＋ 체크 목록에 추가</button>
+  </div>
+</div>
 
 <div class="drip-ov" id="dripOv" aria-hidden="true">
   <div class="drip-in" role="dialog" aria-modal="true" aria-label="점적 방울 모니터">
@@ -770,23 +1309,47 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
 <div class="toast" id="toast" role="status"></div>
 
 <script>/* =========================================================================
-   TLC 실시간 시술 현황 v1.2
+   TLC 실시간 시술 현황 v1.3
    ① 실시간 시술 현황판(8개 방 공유) ② 수액 타이머 · 방당 1~4번 수액 · 점적 방울 모니터 · 사전/종료 알람
+   ③ v1.3 시간 수정(현황판 카드·수액 타이머) ④ 기본 수액 체크 목록 · 없는 수액 직접 추가
    아이디어·개발·제작·저작권: 김효숙 (티엘씨 청담의원·분당클리닉 총괄실장)
    ========================================================================= */
 (function(){
 'use strict';
 
-var VERSION = 'v1.2';
+var VERSION = 'v1.3';
 var KEY = 'tlc_iv_v1';
 var ROOMS = ['1번방','2번방','3번방','4번방','5번방','6번방','두피시술방','검사실'];
 var ROOM_TAG = {
-  '1번방':'시술·수액', '2번방':'시술·수액', '3번방':'시술·수액', '4번방':'피부+시술',
-  '5번방':'피부 시술', '6번방':'시술·수액', '두피시술방':'두피 시술', '검사실':'신규 고객 검사'
+  '1번방':'시술·수액', '2번방':'시술·수액', '3번방':'시술·수액', '4번방':'피부+시술 겸용',
+  '5번방':'피부방 · 시술 겸용', '6번방':'시술·수액', '두피시술방':'두피 시술', '검사실':'신규 고객 검사'
 };
 var VOL_CHIPS = [50,100,200,250,500];
 var MIN_CHIPS = [15,30,45,60];
 var GTT_SET = [20,60,15];
+
+/* v1.3 — 기본 수액 세팅 (체크하면 1~4번 슬롯에 순서대로 들어갑니다)
+   효숙 님이 알려준 4종 + 원내 「IVNT 처방(청담)」 실제 수액 목록 · 기본 투여 시간. */
+var IV_DEFAULT = [
+  /* --- 자주 쓰는 4종 (상단 고정) --- */
+  { id:'iv_ns250',  g:1, name:'N/S 250mL + 앰플믹스 (IVNT)',        short:'N/S 250 + 앰플믹스 (IVNT)',   ml:250, min:40 },
+  { id:'iv_5dw250', g:1, name:'5DW 250mL + 앰플믹스',               short:'5DW 250 + 앰플믹스',          ml:250, min:40 },
+  { id:'iv_argi',   g:1, name:'아르기닌 + N/S 50cc + 바이온',        short:'아르기닌 + N/S 50 + 바이온',   ml:50,  min:20 },
+  { id:'iv_propi',  g:1, name:'프리피펜주 100ml (+ Dexa)',           short:'프리피펜주 100ml',           ml:100, min:30 },
+  /* --- 원내 IVNT 처방 전체 --- */
+  { id:'iv_glut',   g:2, name:'Glutathion (N/S 50cc + 바이온)',      short:'Glutathion (N/S 50 + 바이온)', ml:50,  min:15 },
+  { id:'iv_argi2',  g:2, name:'Arginine (아르기닌 1pack)',           short:'Arginine (아르기닌 1pack)',   ml:50,  min:20 },
+  { id:'iv_kabi',   g:2, name:'카비 파라세타몰 100ml (+ Dexa)',       short:'카비 파라세타몰 100ml',       ml:100, min:30 },
+  { id:'iv_vital',  g:2, name:'바이탈솔주 1pack',                    short:'바이탈솔주 1pack',            ml:100, min:30 },
+  { id:'iv_dr',     g:2, name:'닥터라민주 1pack',                    short:'닥터라민주 1pack',            ml:100, min:30 },
+  { id:'iv_dipep',  g:2, name:'디펩티벤 1btl',                       short:'디펩티벤 1btl',               ml:100, min:30 },
+  { id:'iv_flu',    g:2, name:'독감 치료제 (페라미플루/플루엔페라)', short:'독감 치료제 (페라미플루/플루엔페라)', ml:100, min:30 },
+  { id:'iv_ds',     g:2, name:'5% DS 250ml + Ondan',                  short:'5% DS 250 + Ondan',           ml:250, min:20 },
+  { id:'iv_gast',   g:2, name:'N/S 50cc + 가스터',                    short:'N/S 50cc + 가스터',           ml:50,  min:15 },
+  { id:'iv_dexa',   g:2, name:'N/S 50cc + Dexa',                      short:'N/S 50cc + Dexa',             ml:50,  min:15 },
+  { id:'iv_fer100', g:2, name:'페린젝트 100mg (N/S 50cc)',            short:'페린젝트 100mg (N/S 50)',     ml:50,  min:20 },
+  { id:'iv_fer500', g:2, name:'페린젝트 500mg (N/S 100cc)',           short:'페린젝트 500mg (N/S 100)',    ml:100, min:30 }
+];
 var IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 var VER_POLL_MS = 180000;
@@ -805,8 +1368,10 @@ function toast(msg){
   t.textContent = msg; t.classList.add('on');
   clearTimeout(t._tm); t._tm = setTimeout(function(){ t.classList.remove('on'); }, 2400);
 }
+var hadGesture = false;
+function markGesture(){ hadGesture = true; }
 function vibrate(ms){
-  if(!st.cfg.vib) return;
+  if(!st.cfg.vib || !hadGesture) return;   /* 사용자 터치 전 호출은 브라우저가 막으므로 건너뜁니다 */
   try{ if(navigator.vibrate) navigator.vibrate(ms); }catch(e){}
 }
 function fmtLeft(ms){
@@ -846,8 +1411,9 @@ function calcText(c, gtt){
 /* ---------- 상태 ---------- */
 var st = {
   v:1, room:ROOMS[0], open:'',
-  cfg:{ preMin:5, mid:true, snd:true, vib:true, wake:true },
-  slots:{}, timers:[], presets:[], names:[]
+  cfg:{ preMin:5, mid:true, p80:true, snd:true, vib:true, wake:true },
+  slots:{}, timers:[], presets:[], names:[], ivs:[], nurses:[], branch:'cheongdam',
+  site:{ name:'티엘씨 클리닉 청담', tel:'010-9678-0010' }, plan:null
 };
 var seq = 0;
 
@@ -865,6 +1431,14 @@ function loadState(){
         if(o.presets instanceof Array) st.presets = o.presets;
         if(o.names instanceof Array) st.names = o.names.slice(0, 14);
         if(o.slots) st.slots = o.slots;
+        if(o.ivs instanceof Array) st.ivs = o.ivs.filter(function(x){ return x && x.name; });
+        if(o.nurses instanceof Array) st.nurses = o.nurses.filter(function(x){ return x && x.name; });
+        if(o.branch === 'cheongdam' || o.branch === 'bundang') st.branch = o.branch;
+        if(o.site && o.site.name) st.site.name = String(o.site.name).slice(0, 30);
+        if(o.site && o.site.tel) st.site.tel = String(o.site.tel).slice(0, 20);
+        if(o.plan && o.plan.counts) st.plan = o.plan;
+        if(o.exam && typeof o.exam === 'object') st.exam = o.exam;
+        if(o.examItems instanceof Array) st.examItems = o.examItems.filter(function(x){ return x; });
       }
     }
   }catch(e){}
@@ -884,6 +1458,10 @@ function loadState(){
     if(t.paused === undefined) t.paused = false;
     if(t.preFired === undefined) t.preFired = false;
     if(t.midFired === undefined) t.midFired = false;
+    if(t.p80Fired === undefined) t.p80Fired = false;
+    if(t.lateAt === undefined) t.lateAt = 0;
+    if(t.lateN === undefined) t.lateN = 0;
+    if(t.p80 === undefined) t.p80 = true;
     if(t.endFired === undefined) t.endFired = false;
     if(t.done === undefined) t.done = false;
     if(!t.totalMs) t.totalMs = Math.max(1,(t.endAt||Date.now()) - (t.startAt||Date.now()));
@@ -910,6 +1488,13 @@ function remainMs(t){
   if(t.paused) return Math.max(0, t.endAt - (t.pausedAt || Date.now()));
   return Math.max(0, t.endAt - Date.now());
 }
+function remText(t){
+  if(t && t.endFired && !t.done){
+    var late = Math.max(0, Date.now() - (t.endAt || Date.now()));
+    return '+' + Math.max(1, Math.floor(late/60000)) + '분';
+  }
+  return fmtLeft(remainMs(t));
+}
 function gttMinOf(t){ var c = compute(t.ml, t.min, t.gtt); return c ? c.gttMin : 0; }
 
 function startTimer(room, slot, cfgOverride){
@@ -929,13 +1514,23 @@ function startTimer(room, slot, cfgOverride){
     paused:false, pausedAt:0,
     preMin: (cfgOverride && cfgOverride.preMin !== undefined) ? cfgOverride.preMin : st.cfg.preMin,
     mid: (cfgOverride && cfgOverride.mid !== undefined) ? cfgOverride.mid : st.cfg.mid,
-    preFired:false, midFired:false, endFired:false, done:false, ackAt:0
+    p80: (cfgOverride && cfgOverride.p80 !== undefined) ? cfgOverride.p80 : st.cfg.p80,
+    preFired:false, midFired:false, p80Fired:false, lateAt:0, lateN:0,
+    endFired:false, done:false, ackAt:0
   };
   st.timers.push(t);
   st.open = room+'|'+slot;
   if(s.name && s.name.trim() && st.names.indexOf(s.name.trim()) < 0){
     st.names.unshift(s.name.trim());
     st.names = st.names.slice(0,14);
+  }
+  /* v1.3 — 수액을 시작하면 그 방의 입실 준비 알림은 정리합니다 */
+  var pr = bd.rooms[room];
+  if(pr && pr.prepAlert){
+    pr.prepAlert = '';
+    pr.updatedAt = Date.now();
+    saveBoard();
+    push({ op:'setRoom', data:packRoom(pr) });
   }
   save(); renderAll(); wakeSync(); unlockAudio();
   toast(room+' '+slot+'번 수액을 시작했습니다');
@@ -986,9 +1581,9 @@ var alarms = [];           /* {key, tid, kind, ts} */
 var titleTimer = 0;
 function alarmKey(tid, kind){ return tid+'|'+kind; }
 function pushAlarm(t, kind){
-  if(kind === 'end'){
-    /* 종료 알람이 뜨면 같은 수액의 사전·중간 알람은 의미가 없어 정리합니다 */
-    alarms = alarms.filter(function(a){ return !(a.tid === t.id && (a.kind === 'pre' || a.kind === 'mid')); });
+  if(kind === 'end' || kind === 'late'){
+    /* 종료·초과 알람이 뜨면 같은 수액의 사전·중간·80% 알람은 의미가 없어 정리합니다 */
+    alarms = alarms.filter(function(a){ return !(a.tid === t.id && (a.kind === 'pre' || a.kind === 'mid' || a.kind === 'p80')); });
   }
   var key = alarmKey(t.id, kind);
   for(var i=0;i<alarms.length;i++) if(alarms[i].key === key) return;
@@ -1017,8 +1612,23 @@ function checkAlarms(){
       if(t.mid && !t.midFired && t.totalMs >= 120000 && (now - t.startAt) >= t.totalMs/2 && rem > 0){
         t.midFired = true; pushAlarm(t, 'mid'); changed = true;
       }
+      /* v1.3 — 80% 사전 체크 */
+      if(t.p80 && !t.p80Fired && t.totalMs >= 120000 && (now - t.startAt) >= t.totalMs*0.8 && rem > 0){
+        t.p80Fired = true; pushAlarm(t, 'p80'); changed = true;
+      }
       if(rem <= 0 && !t.endFired){
-        t.endFired = true; pushAlarm(t, 'end'); changed = true;
+        t.endFired = true;
+        t.lateAt = now;
+        pushAlarm(t, 'end'); changed = true;
+      }
+      /* v1.3 — 시간 초과 알람: 종료 후 1분마다 다시 알림 */
+      if(t.endFired && rem <= 0){
+        if(!t.lateAt) t.lateAt = now;
+        if(now - t.lateAt >= 60000){
+          t.lateAt = now; t.lateN = (Number(t.lateN)||0) + 1;
+          alarms = alarms.filter(function(a){ return !(a.tid === t.id && a.kind === 'late'); });
+          pushAlarm(t, 'late'); changed = true;
+        }
       }
     } else if(rem <= 0 && !t.endFired){
       /* 일시정지 중 종료 시각을 지난 경우 — 재개 전 알리지 않고 대기 */
@@ -1030,7 +1640,7 @@ function checkAlarms(){
 function renderAlarms(){
   var layer = $('#alarmLayer'); if(!layer) return;
   if(!alarms.length){
-    layer.innerHTML = ''; stopBeep(); document.title = 'TLC 실시간 시술 현황';
+    layer.innerHTML = ''; stopBeep(); document.title = ((st.site && st.site.name) || 'TLC') + ' · 실시간 시술 현황';
     if(titleTimer){ clearInterval(titleTimer); titleTimer = 0; }
     return;
   }
@@ -1039,11 +1649,15 @@ function renderAlarms(){
   if(!t){ clearAlarmsFor(a.tid); return; }
   var info = '<b>'+esc(t.name)+'</b> · '+t.ml+'mL · '+t.min+'분 · '+t.gtt+'gtt/mL';
   var html = '';
-  if(a.kind === 'end'){
+  if(a.kind === 'end' || a.kind === 'late'){
     var nxt = nextSlotOf(t);
-    html = '<div class="alarm end">' +
-      '<div class="atop"><span class="ak">종료</span><span class="at">'+esc(t.room)+' · '+t.slot+'번 수액 끝</span></div>' +
-      '<div class="ad">수액을 확인하고 잠그거나 다음 수액을 준비하세요.<br>'+info+' · <b>'+hhmm(t.endAt)+' 종료</b></div>' +
+    var lateMs = Math.max(0, Date.now() - (t.endAt || Date.now()));
+    var lateTxt = a.kind === 'late'
+      ? '<b>시간 초과 +'+Math.max(1, Math.floor(lateMs/60000))+'분</b> — 확인하지 않은 알람입니다.<br>'
+      : '';
+    html = '<div class="alarm end'+(a.kind === 'late' ? ' late' : '')+'">' +
+      '<div class="atop"><span class="ak">'+(a.kind === 'late' ? '시간 초과' : '종료')+'</span><span class="at">'+esc(t.room)+' · '+t.slot+'번 수액 '+(a.kind === 'late' ? '초과' : '끝')+'</span></div>' +
+      '<div class="ad">'+lateTxt+'수액을 확인하고 잠그거나 다음 수액을 준비하세요.<br>'+info+' · <b>'+hhmm(t.endAt)+' 종료</b></div>' +
       '<div class="aact">' +
         '<button class="btn ok" data-aact="ack" data-kind="end" data-tid="'+t.id+'">🔔 알람 확인 / 종료</button>' +
         (nxt ? '<button class="btn go" data-aact="next" data-tid="'+t.id+'" data-next="'+nxt+'">▶ '+nxt+'번 시작</button>' : '') +
@@ -1055,6 +1669,13 @@ function renderAlarms(){
       '<div class="atop"><span class="ak">사전 알람</span><span class="at">'+esc(t.room)+' · '+t.slot+'번 수액</span></div>' +
       '<div class="ad"><b>'+fmtLeftKo(remainMs(t))+' 뒤</b> 끝납니다 — 체크하러 들어가세요.<br>'+info+'</div>' +
       '<div class="aact"><button class="btn star" data-aact="ack" data-kind="pre" data-tid="'+t.id+'">확인</button></div>' +
+      (alarms.length>1 ? '<div class="amore">외 '+(alarms.length-1)+'건 알람</div>' : '') +
+      '</div>';
+  } else if(a.kind === 'p80'){
+    html = '<div class="alarm p80">' +
+      '<div class="atop"><span class="ak">80% 체크</span><span class="at">'+esc(t.room)+' · '+t.slot+'번 수액</span></div>' +
+      '<div class="ad">80% 들어갔습니다 — 잔량을 확인하고 마무리를 준비하세요.<br>'+info+' · <b>'+fmtLeftKo(remainMs(t))+'</b> 남음</div>' +
+      '<div class="aact"><button class="btn" data-aact="ack" data-kind="p80" data-tid="'+t.id+'">확인</button></div>' +
       (alarms.length>1 ? '<div class="amore">외 '+(alarms.length-1)+'건 알람</div>' : '') +
       '</div>';
   } else {
@@ -1072,7 +1693,7 @@ function renderAlarms(){
     var on = false;
     titleTimer = setInterval(function(){
       on = !on;
-      document.title = on ? '🔔 알람 — TLC 실시간 시술 현황' : 'TLC 실시간 시술 현황';
+      document.title = on ? '🔔 알람 — ' + ((st.site && st.site.name) || 'TLC') : ((st.site && st.site.name) || 'TLC') + ' · 실시간 시술 현황';
     }, 900);
   }
 }
@@ -1153,6 +1774,14 @@ function notifyFor(t, kind){
   } else {
     title = '💧 중간 체크 — '+t.room+' '+t.slot+'번';
     body = '50% 지점입니다 · 잔량과 점적 속도를 확인하세요';
+  }
+  if(kind === 'p80'){
+    title = '💧 80% 체크 — '+t.room+' '+t.slot+'번';
+    body = '80% 들어갔습니다 · 잔량과 마무리를 준비하세요';
+  }
+  if(kind === 'late'){
+    title = '⏰ 시간 초과 — '+t.room+' '+t.slot+'번';
+    body = '종료 시각이 지났습니다 · 지금 확인하세요';
   }
   pushNotification(title, body, 'iv-'+t.id+'-'+kind);
 }
@@ -1290,7 +1919,7 @@ function runHtml(room, slot, t){
   var endLabel = t.paused ? '일시정지' : hhmm(t.endAt)+' 종료';
   return '<div class="runbox'+(t.endFired&&!t.done?' alarm':'')+'" id="rb_'+ri+'_'+slot+'">' +
       '<div class="rbtop">' +
-        '<div><span class="rem" id="rem_'+ri+'_'+slot+'">'+fmtLeft(remainMs(t))+'</span>' +
+        '<div><span class="rem" id="rem_'+ri+'_'+slot+'">'+remText(t)+'</span>' +
           '<span class="remk">남은 시간 · <b id="rend_'+ri+'_'+slot+'">'+endLabel+'</b></span></div>' +
         '<div class="rmeta"><b>'+t.ml+'mL</b> · '+t.min+'분<br>' +
           '<b>'+(c?c.gttMin.toFixed(1):'0')+' gtt/min</b>'+(c?' · '+c.secDrop.toFixed(2)+'초/방울':'')+'</div>' +
@@ -1300,6 +1929,12 @@ function runHtml(room, slot, t){
         '<span class="rstat">세트 <b>'+t.gtt+' gtt/mL</b></span>' +
         '<span class="rstat">속도 <b>'+(c?Math.round(c.mlhr):0)+' mL/hr</b></span>' +
         '<span class="rstat" id="pst_'+ri+'_'+slot+'">'+(t.paused?'일시정지':(t.endFired?'종료 시각 지남':'진행 중'))+'</span>' +
+      '</div>' +
+      '<div class="tbad" id="tbad_'+ri+'_'+slot+'">' +
+        '<button class="tq" type="button" data-tquick="-5" data-slot="'+slot+'" aria-label="5분 줄이기">−5분</button>' +
+        '<button class="tq" type="button" data-tquick="5" data-slot="'+slot+'">+5분</button>' +
+        '<button class="tq" type="button" data-tquick="10" data-slot="'+slot+'">+10분</button>' +
+        '<button class="tq ed" type="button" data-tsedit="'+slot+'" aria-label="시간 직접 수정">⏱ 시간 수정</button>' +
       '</div>' +
     '</div>' +
     '<div class="acts">' +
@@ -1354,6 +1989,7 @@ function paintAlarmCfg(){
     b.classList.toggle('on', Number(b.getAttribute('data-pre')) === Number(st.cfg.preMin));
   });
   var mid = $('#midChip'); if(mid) mid.classList.toggle('on', !!st.cfg.mid);
+  var p80 = $('#p80Chip'); if(p80) p80.classList.toggle('on', !!st.cfg.p80);
   setText('#preChip', st.cfg.preMin > 0 ? (st.cfg.preMin+'분') : '끔');
 }
 
@@ -1428,9 +2064,9 @@ function paint(){
   act.forEach(function(t){
     var ri = roomIdx(t.room), sl = t.slot, rem = remainMs(t);
     var remEl = $('#rem_'+ri+'_'+sl);
-    if(remEl) remEl.textContent = fmtLeft(rem);
+    if(remEl) remEl.textContent = remText(t);
     var sst = $('#sst_'+ri+'_'+sl);
-    if(sst) sst.textContent = t.paused ? '일시정지' : fmtLeft(rem);
+    if(sst) sst.textContent = t.paused ? '일시정지' : remText(t);
     var rend = $('#rend_'+ri+'_'+sl);
     if(rend) rend.textContent = t.paused ? '일시정지' : hhmm(t.endAt)+' 종료';
     var prg = $('#prg_'+ri+'_'+sl);
@@ -1445,6 +2081,7 @@ function paint(){
   });
 
   if(drip.on) dripPaintRem();
+  paintBoardProg();
 }
 
 function renderNames(){
@@ -1457,10 +2094,13 @@ function renderAll(){
   renderSlots();
   renderPresets();
   renderNames();
+  renderIvList();
+  renderExam();
   paintConn();
   paintAlarmCfg();
   paint();
   renderAlarms();
+  renderDoctorBar();
   wakeSync();
 }
 
@@ -1514,6 +2154,348 @@ function fillSlot(room, slot, data){
   save();
   renderSlots();
   paint();
+}
+
+/* =========================================================================
+   v1.3 ① 시간 수정 (현황판 카드 · 수액 타이머 공통)
+   진행 중인 방 카드에서 −5분/+5분/+10분을 한 번에 누르고,
+   ⏱ 수정을 누르면 남은 시간 또는 전체 소요를 분 단위로 직접 맞춥니다.
+   방 카드 수정은 구글 시트(setRoom)에 저장되어 모든 기기에 5초 안에 공유됩니다.
+   ========================================================================= */
+var tEdit = null;
+var T_CHIPS = { left:[5,10,15,20,30,45,60], total:[15,20,30,35,45,60,90] };
+
+function timeEditTarget(){
+  if(!tEdit) return null;
+  if(tEdit.kind === 'room'){
+    var r = bd.rooms[tEdit.room];
+    if(!r || r.status !== 'busy') return null;
+    var s0 = r.startAt || 0, e0 = r.endAt || 0;
+    return { start:s0, end:e0, left:e0 - Date.now(), total:Math.max(60000, e0 - s0) };
+  }
+  var t = findTimer(tEdit.room, tEdit.slot);
+  if(!t || t.done) return null;
+  var now0 = t.paused ? (t.pausedAt || Date.now()) : Date.now();
+  var rem = Math.max(0, t.endAt - now0);
+  var el = Math.max(0, now0 - t.startAt);
+  return { start:t.startAt, end:t.endAt, left:rem, total:Math.max(60000, el + rem) };
+}
+function openTimeEdit(kind, key){
+  if(kind === 'room'){
+    var r = bd.rooms[key];
+    if(!r || r.status !== 'busy'){ toast('진행 중인 방이 아닙니다'); return; }
+    tEdit = { kind:'room', room:key, slot:0, mode:'left' };
+  } else {
+    if(!findTimer(st.room, Number(key))){ toast('진행 중인 수액이 아닙니다'); return; }
+    tEdit = { kind:'timer', room:st.room, slot:Number(key)||0, mode:'left' };
+  }
+  var tg = timeEditTarget();
+  if(!tg){ tEdit = null; toast('진행 중인 방이 아닙니다'); return; }
+  tEdit.val = Math.max(1, Math.round(tg.left/60000));
+  paintTimeEdit();
+  var sh = $('#tSheet');
+  if(sh){ sh.classList.add('on'); sh.setAttribute('aria-hidden','false'); }
+  document.body.style.overflow = 'hidden';
+}
+function closeTimeEdit(){
+  tEdit = null;
+  var sh = $('#tSheet');
+  if(sh){ sh.classList.remove('on'); sh.setAttribute('aria-hidden','true'); }
+  document.body.style.overflow = '';
+}
+function paintTimeEdit(){
+  if(!tEdit) return;
+  var tg = timeEditTarget();
+  if(!tg){ closeTimeEdit(); return; }
+  setText('#tTitle', tEdit.kind === 'room'
+    ? (tEdit.room+' 시간 수정')
+    : (tEdit.room+' · '+tEdit.slot+'번 수액 시간 수정'));
+  var lab = tg.left < 0 ? (Math.max(1, Math.ceil(-tg.left/60000))+'분 초과') : (Math.round(tg.left/60000)+'분 남음');
+  setText('#tSum', hhmm(tg.start)+' 시작 · '+hhmm(tg.end)+' 종료 · '+lab);
+  $$('#tMode button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-tm') === tEdit.mode); });
+  var chips = T_CHIPS[tEdit.mode] || T_CHIPS.left;
+  var box = $('#tChips');
+  if(box){
+    box.innerHTML = chips.map(function(m){
+      return '<button type="button" data-tv="'+m+'" class="'+(Number(tEdit.val)===m?'on':'')+'">'+m+'분</button>';
+    }).join('');
+  }
+  var ti = $('#tMin');
+  if(ti) ti.value = tEdit.val;
+  setText('#tHint', tEdit.mode === 'left'
+    ? '남은 시간 기준 — 지금부터 몇 분 뒤에 끝나는지로 맞춥니다'
+    : '전체 소요 기준 — 시작부터 몇 분 걸리는지로 맞춥니다');
+}
+function applyRoomEnd(room, endAt, startAt){
+  var r = bd.rooms[room];
+  if(!r || r.status !== 'busy') return;
+  r.startAt = startAt || r.startAt || 0;
+  r.endAt = endAt;
+  r.min = Math.max(1, Math.round((endAt - (r.startAt || endAt))/60000));
+  r.updatedAt = Date.now();
+  renderBoard();
+  saveBoard();
+  push({ op:'setRoom', data: packRoom(r) });
+}
+function adjustRoomMin(room, delta){
+  var r = bd.rooms[room];
+  if(!r || r.status !== 'busy'){ toast('진행 중인 방이 아닙니다'); return; }
+  var nowMin = Math.floor(Date.now()/60000)*60000;
+  var end = Math.max(Number(r.endAt)||0, nowMin);
+  var start = r.startAt || (end - (Number(r.min)||0)*60000);
+  var next = end + delta*60000;
+  if(next < start + 60000) next = start + 60000;
+  applyRoomEnd(room, next, start);
+  toast(room+' '+hhmm(next)+' 종료 · '+leftText(next - Date.now()));
+}
+function applyTimerRemain(t, remMs){
+  if(!t || t.done) return;
+  var now0 = t.paused ? (t.pausedAt || Date.now()) : Date.now();
+  remMs = Math.max(0, Math.round(remMs/1000)*1000);
+  var elapsed = Math.max(0, now0 - t.startAt);
+  t.endAt = now0 + remMs;
+  t.totalMs = Math.max(60000, elapsed + remMs);
+  t.min = Math.max(1, Math.round((t.totalMs/60000)*10)/10);
+  var rem = t.endAt - now0;
+  if(t.preMin > 0 && rem > t.preMin*60000 + 30000) t.preFired = false;
+  if(t.mid && elapsed < t.totalMs/2) t.midFired = false;
+  if(rem > 0 && t.endFired){
+    t.endFired = false;
+    alarms = alarms.filter(function(a){ return !(a.tid === t.id && a.kind === 'end'); });
+  }
+  save(); renderAll();
+}
+function adjustTimerMin(slot, delta){
+  var t = findTimer(st.room, slot);
+  if(!t){ toast('진행 중인 수액이 아닙니다'); return; }
+  var now0 = t.paused ? (t.pausedAt || Date.now()) : Date.now();
+  var rem = Math.max(0, t.endAt - now0);
+  var next = rem + delta*60000;
+  if(next < 60000) next = 60000;
+  applyTimerRemain(t, next);
+  toast(st.room+' '+slot+'번 수액 · '+fmtLeftKo(next)+' 남음');
+}
+function applyTimeEdit(val){
+  if(!tEdit) return;
+  val = Math.max(1, Math.round(Number(val)||0));
+  if(tEdit.kind === 'room'){
+    var r = bd.rooms[tEdit.room];
+    if(!r || r.status !== 'busy'){ closeTimeEdit(); return; }
+    var start = r.startAt || (Date.now() - (Number(r.min)||0)*60000);
+    var end = (tEdit.mode === 'left') ? (Date.now() + val*60000) : (start + val*60000);
+    applyRoomEnd(tEdit.room, end, start);
+    tEdit.val = val;
+    paintTimeEdit();
+    toast(tEdit.room+' '+hhmm(end)+' 종료로 수정했습니다');
+  } else {
+    var t = findTimer(tEdit.room, tEdit.slot);
+    if(!t){ closeTimeEdit(); return; }
+    var now0 = t.paused ? (t.pausedAt || Date.now()) : Date.now();
+    var elapsed = Math.max(0, now0 - t.startAt);
+    var rem = (tEdit.mode === 'left') ? val*60000 : Math.max(0, val*60000 - elapsed);
+    applyTimerRemain(t, rem);
+    tEdit.val = val;
+    paintTimeEdit();
+    toast(tEdit.room+' '+tEdit.slot+'번 수액 · '+fmtLeftKo(rem)+' 남음으로 수정했습니다');
+  }
+}
+function applyTimeEditInput(){
+  var ti = $('#tMin');
+  applyTimeEdit(ti ? Number(ti.value) : 0);
+}
+
+/* =========================================================================
+   v1.3 ② 기본 수액 체크 목록 (＋ 없는 수액 추가 → localStorage 영구 저장)
+   체크하면 지금 선택한 방의 1~4번 슬롯에 선택 순서대로 채워집니다.
+   ========================================================================= */
+function ivAll(){
+  var out = IV_DEFAULT.slice();
+  (st.ivs || []).forEach(function(x){
+    if(x && x.name) out.push({ id:x.id, name:x.name, short:x.short || x.name,
+      ml:Number(x.ml)||100, min:Number(x.min)||30, g:3, custom:true });
+  });
+  return out;
+}
+function ivById(id){
+  var r = null;
+  ivAll().forEach(function(x){ if(x.id === id) r = x; });
+  return r;
+}
+function ivSlotOf(room, it){
+  if(!it) return 0;
+  for(var i=1;i<=4;i++){
+    if((slotOf(room, i).name||'').trim() === it.name) return i;
+  }
+  return 0;
+}
+function ivCheckedIn(room){
+  return ivAll().filter(function(it){ return ivSlotOf(room, it) > 0; });
+}
+function firstEmptySlot(room){
+  for(var i=1;i<=4;i++){
+    var s = slotOf(room, i);
+    if(!(s.name||'').trim() && !parseFloat(s.ml) && !parseFloat(s.min)) return i;
+  }
+  return 0;
+}
+function ivCheckInto(room, it){
+  if(!it) return 0;
+  var ex = ivSlotOf(room, it);
+  if(ex) return ex;
+  var slot = firstEmptySlot(room);
+  if(!slot){ toast('1∼4번 수액이 모두 차 있어요 — 슬롯을 비우거나 체크를 해제해 주세요'); return 0; }
+  var s = slotOf(room, slot);
+  s.name = it.name; s.ml = it.ml; s.min = it.min; s.gtt = 20;
+  save();
+  return slot;
+}
+function ivUncheckFrom(room, it){
+  var slot = ivSlotOf(room, it);
+  if(!slot) return 0;
+  st.slots[room][slot-1] = blankSlot();
+  save();
+  return slot;
+}
+function ivRowHtml(it, checked, label, scope){
+  return '<div class="ivit'+(checked?' on':'')+'">' +
+    '<button type="button" class="ivck" data-ivchk="'+esc(it.id)+'" data-ivscope="'+scope+'" aria-pressed="'+(checked?'true':'false')+'">' +
+      '<i class="ckbox" aria-hidden="true">'+(checked?'✓':'')+'</i>' +
+      '<span class="ivn">'+esc(it.short || it.name)+(checked && label ? '<em>'+label+'</em>' : '')+
+        '<span class="ivm">'+it.ml+'mL · '+it.min+'분'+(it.custom?' · 직접 추가':'')+'</span></span>' +
+    '</button>' +
+    (it.custom ? '<button type="button" class="ivdel" data-ivdel="'+esc(it.id)+'" data-ivscope="'+scope+'" aria-label="'+esc(it.name)+' 삭제">🗑</button>' : '') +
+  '</div>';
+}
+function ivListHtml(scope, room){
+  var out = '', prevG = 1;
+  ivAll().forEach(function(it){
+    if(it.g && it.g !== prevG){
+      out += '<div class="ivsep">'+(it.g === 2 ? '원내 IVNT 처방 전체' : '직접 추가한 수액')+'</div>';
+      prevG = it.g;
+    }
+    if(scope === 'timer'){
+      var sl = ivSlotOf(room, it);
+      out += ivRowHtml(it, sl > 0, sl ? sl+'번' : '', 'timer');
+    } else {
+      var at = -1;
+      (dft && dft.ivs ? dft.ivs : []).forEach(function(x, i){ if(x.id === it.id) at = i; });
+      out += ivRowHtml(it, at >= 0, at >= 0 ? (at+1)+'번' : '', 'sheet');
+    }
+  });
+  return out;
+}
+function renderIvList(){
+  var t = $('#ivList');
+  if(t){
+    t.innerHTML = ivListHtml('timer', st.room);
+    var n = ivCheckedIn(st.room).length;
+    setText('#ivPickHint', n ? (n+'종 체크됨') : '체크하면 1~4번에 차례로');
+  }
+  var s = $('#ivListIn');
+  if(s) s.innerHTML = ivListHtml('sheet', '');
+  var isum = $('#ivInSum');
+  if(isum){
+    var m = dft && dft.ivs ? dft.ivs.length : 0;
+    isum.textContent = m ? (m+'종 선택') : '선택 안 함';
+  }
+}
+function toggleIv(id, scope){
+  var it = ivById(id);
+  if(!it) return;
+  if(scope === 'sheet'){
+    if(!dft) return;
+    dft.ivs = dft.ivs || [];
+    var at = -1;
+    dft.ivs.forEach(function(x, i){ if(x.id === id) at = i; });
+    if(at >= 0) dft.ivs.splice(at, 1);
+    else {
+      if(dft.ivs.length >= 4){ toast('수액은 방당 4개까지 넣을 수 있어요'); return; }
+      dft.ivs.push({ id:it.id, name:it.name, ml:it.ml, min:it.min });
+    }
+    renderIvList();
+    return;
+  }
+  var room = st.room;
+  var sl = ivSlotOf(room, it);
+  if(sl){
+    if(findTimer(room, sl)){ toast('진행 중인 수액은 종료한 뒤 빼 주세요'); return; }
+    ivUncheckFrom(room, it);
+    renderAll();
+    toast(it.short+' — '+sl+'번에서 뺐습니다');
+  } else {
+    var got = ivCheckInto(room, it);
+    if(got){ renderAll(); toast(it.short+' → '+got+'번 수액'); }
+  }
+}
+function clearIvChecks(){
+  var room = st.room;
+  var items = ivCheckedIn(room);
+  if(!items.length){ toast('체크된 수액이 없습니다'); return; }
+  confirmModal('수액 체크 해제', room+'에서 체크한 수액 '+items.length+'종을 슬롯에서 뺄까요?', '해제', function(){
+    items.forEach(function(it){
+      var sl = ivSlotOf(room, it);
+      if(sl && !findTimer(room, sl)) st.slots[room][sl-1] = blankSlot();
+    });
+    save(); renderAll(); toast('체크를 해제했습니다');
+  });
+}
+function delIv(id){
+  var it = ivById(id);
+  if(!it || !it.custom) return;
+  confirmModal('수액 삭제', '체크 목록에서 「'+it.name+'」을 삭제할까요? 이미 넣은 슬롯 값은 그대로 둡니다.', '삭제', function(){
+    st.ivs = (st.ivs || []).filter(function(x){ return x.id !== id; });
+    save(); renderIvList(); toast('체크 목록에서 삭제했습니다');
+  });
+}
+var ivSrc = 'timer';
+function openIvAdd(src){
+  ivSrc = (src === 'sheet') ? 'sheet' : 'timer';
+  if(ivSrc === 'sheet' && !dft) return;
+  var n = $('#ivName'), m = $('#ivMl'), t = $('#ivMin');
+  if(n) n.value = '';
+  if(m) m.value = '250';
+  if(t) t.value = '45';
+  var sh = $('#ivSheet');
+  if(sh){ sh.classList.add('on'); sh.setAttribute('aria-hidden','false'); }
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){ try{ if(n) n.focus(); }catch(e){} }, 120);
+}
+function closeIvAdd(){
+  var sh = $('#ivSheet');
+  if(sh){ sh.classList.remove('on'); sh.setAttribute('aria-hidden','true'); }
+  document.body.style.overflow = '';
+}
+function saveIvAdd(){
+  var name = ((($('#ivName')||{}).value)||'').trim();
+  var ml = Number((($('#ivMl')||{}).value)||0);
+  var min = Number((($('#ivMin')||{}).value)||0);
+  if(!name){ toast('수액명을 적어 주세요'); return; }
+  if(!(ml > 0)){ toast('기본 용량(mL)을 넣어 주세요'); return; }
+  if(!(min > 0)){ toast('기본 시간(분)을 넣어 주세요'); return; }
+  var dup = null;
+  ivAll().forEach(function(x){ if(!dup && x.name === name) dup = x; });
+  var it = dup || { id:'ivc'+Date.now(), name:name,
+    short:(name.length > 14 ? name.slice(0, 14)+'…' : name), ml:ml, min:min, custom:true };
+  if(!dup){
+    st.ivs = st.ivs || [];
+    st.ivs.push({ id:it.id, name:it.name, ml:ml, min:min });
+    save();
+  }
+  closeIvAdd();
+  renderIvList();
+  if(ivSrc === 'sheet' && dft){
+    dft.ivs = dft.ivs || [];
+    if(dft.ivs.length >= 4){ toast('목록에 추가했습니다 — 방당 4개까지라 체크는 나중에'); renderIvList(); return; }
+    if(!dft.ivs.some(function(x){ return x.id === it.id; })){
+      dft.ivs.push({ id:it.id, name:it.name, ml:it.ml, min:it.min });
+    }
+    renderIvList();
+    toast('「'+it.name+'」을(를) 추가하고 체크했습니다');
+  } else {
+    var got = ivCheckInto(st.room, it);
+    if(got){ renderAll(); toast('「'+it.name+'」 추가 → '+got+'번 수액'); }
+    else { renderAll(); toast('「'+it.name+'」을(를) 체크 목록에 추가했습니다'); }
+  }
 }
 
 /* 시작/종료/일시정지 */
@@ -1904,6 +2886,276 @@ function openLatest(ver){
 }
 
 /* =========================================================================
+   v1.3 ⑤ 내부 전용 잠금 — 4자리 비밀번호(해시 비교) · 인증한 기기는 저장
+   ========================================================================= */
+var PIN_KEY = 'tlc_iv_pin_ok_v1';
+var PIN_HASH = '2b3a35cd';       /* pinHash(내부 비밀번호) — 문자열은 코드에 두지 않습니다 */
+var pinBuf = '';
+function pinHash(s){
+  var h = 5381, str = String(s||'') + '|tlc-iv-v13';
+  for(var i=0;i<str.length;i++){ h = (((h*33) ^ str.charCodeAt(i)) >>> 0); }
+  return ('0000000' + h.toString(16)).slice(-8);
+}
+function pinUnlocked(){
+  try{ return localStorage.getItem(PIN_KEY) === PIN_HASH; }catch(e){ return false; }
+}
+function showPinGate(show){
+  var g = $('#pinGate');
+  if(!g) return;
+  g.classList.toggle('on', !!show);
+  g.setAttribute('aria-hidden', show ? 'false' : 'true');
+  if(show){
+    pinBuf = ''; pinPaint();
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){
+      try{ var b = $('#pinPad button'); if(b) b.focus(); }catch(e){}
+    }, 120);
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+function pinPaint(){
+  var d = $('#pinDots');
+  if(d) d.innerHTML = [0,1,2,3].map(function(i){ return '<i class="'+(i < pinBuf.length ? 'on' : '')+'"></i>'; }).join('');
+  var e = $('#pinErr');
+  if(e) e.classList.add('hide');
+}
+function pinFail(){
+  pinBuf = '';
+  pinPaint();
+  var e = $('#pinErr');
+  if(e){ e.textContent = '비밀번호가 맞지 않습니다 — 다시 입력해 주세요'; e.classList.remove('hide'); }
+  var b = $('#pinBox');
+  if(b){ b.classList.add('shake'); setTimeout(function(){ b.classList.remove('shake'); }, 520); }
+  vibrate(90);
+}
+function pinOk(){
+  try{ localStorage.setItem(PIN_KEY, PIN_HASH); }catch(e){}
+  showPinGate(false);
+  toast('확인되었습니다 — 오늘도 수고 많으세요');
+  unlockAudio();
+}
+function pinPress(n){
+  if(!$('#pinGate') || !$('#pinGate').classList.contains('on')) return;
+  if(pinBuf.length >= 4) return;
+  pinBuf += String(n);
+  pinPaint();
+  if(pinBuf.length === 4){
+    var v = pinBuf;
+    setTimeout(function(){
+      if(pinHash(v) === PIN_HASH) pinOk(); else pinFail();
+    }, 110);
+  }
+}
+function pinDel(){ pinBuf = pinBuf.slice(0, -1); pinPaint(); }
+
+/* =========================================================================
+   v1.3 ⑥ 브랜딩 (TLC 메디컬 그룹 · 네트워크 병원명) + 📅 내일 계획
+   ========================================================================= */
+var PLAN_PROC = [
+  { k:'r1',  label:'R1 (1회)' },
+  { k:'s1',  label:'S1 (2회)' },
+  { k:'r2',  label:'R2 (3회)' },
+  { k:'mae', label:'매선 (4회)' }
+];
+var PLAN_BANDS = ['09:00~12:00', '13:00~16:00', '16:00~19:00'];
+var SITE_PRESET = [
+  { name:'티엘씨 클리닉 청담', tel:'010-9678-0010' },
+  { name:'티엘씨 클리닉 분당', tel:'010-7940-1425' }
+];
+function defaultTelFor(name){
+  var hit = SITE_PRESET.filter(function(x){ return x.name === name; })[0];
+  if(hit) return hit.tel;
+  if(/분당/.test(name || '')) return '010-7940-1425';
+  return '010-9678-0010';
+}
+function tomorrowDate(){
+  var d = new Date(Date.now() + 86400000);
+  return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+}
+function tomorrowLabel(){
+  var d = new Date(Date.now() + 86400000);
+  var wd = ['일','월','화','수','목','금','토'][d.getDay()];
+  return (d.getMonth()+1)+'/'+d.getDate()+' ('+wd+')';
+}
+function blankPlan(){
+  var b = {};
+  PLAN_PROC.forEach(function(x){ b[x.k] = ''; });
+  var c = {};
+  PLAN_PROC.forEach(function(x){ c[x.k] = 0; });
+  return { date:tomorrowDate(), counts:c, procs:b,
+    bands:PLAN_BANDS.map(function(t){ return { t:t, nurse:'', helper:false }; }) };
+}
+function ensurePlan(){
+  if(!st.plan || !st.plan.counts || !st.plan.bands || st.plan.bands.length !== PLAN_BANDS.length){
+    var old = st.plan || {};
+    st.plan = blankPlan();
+    if(old.counts) for(var k in old.counts) if(st.plan.counts[k] !== undefined) st.plan.counts[k] = Number(old.counts[k])||0;
+    if(old.bands) st.plan.bands = old.bands.map(function(b, i){
+      return { t:PLAN_BANDS[i] || b.t, nurse:b.nurse || '', helper:!!b.helper };
+    });
+    if(old.procs) for(var k2 in old.procs) if(st.plan.procs[k2] !== undefined) st.plan.procs[k2] = old.procs[k2] || '';
+  }
+  st.plan.date = tomorrowDate();
+  return st.plan;
+}
+function allNurseNames(){
+  var out = [];
+  ['cheongdam','bundang'].forEach(function(br){
+    nurseList(br).forEach(function(n){ if(out.indexOf(n) < 0) out.push(n); });
+  });
+  return out;
+}
+function nurseOptions(sel){
+  return '<option value="">— 미배정 —</option>' + allNurseNames().map(function(n){
+    return '<option value="'+esc(n)+'"'+(sel === n ? ' selected' : '')+'>'+esc(n)+'</option>';
+  }).join('');
+}
+function renderPlan(){
+  var p = ensurePlan();
+  setText('#planDate', tomorrowLabel());
+  setText('#planSite', (st.site && st.site.name) || '');
+  var c = $('#planCounts');
+  if(c){
+    c.innerHTML = PLAN_PROC.map(function(x){
+      var n = Number(p.counts[x.k])||0;
+      return '<div class="pcount">' +
+        '<span class="pl">'+x.label+'</span>' +
+        '<button type="button" data-pc="'+x.k+'" data-pd="-1" aria-label="'+x.label+' 줄이기">−</button>' +
+        '<input type="number" inputmode="numeric" min="0" max="99" step="1" data-pci="'+x.k+'" value="'+n+'">' +
+        '<button type="button" data-pc="'+x.k+'" data-pd="1" aria-label="'+x.label+' 늘리기">+</button>' +
+      '</div>';
+    }).join('');
+  }
+  var b = $('#planBands');
+  if(b){
+    b.innerHTML = p.bands.map(function(x, i){
+      return '<div class="pband'+(x.nurse ? '' : ' empty')+'">' +
+        '<span class="pt">'+esc(x.t)+'</span>' +
+        '<select class="psel" data-pb="'+i+'" aria-label="'+esc(x.t)+' 간호사">'+nurseOptions(x.nurse)+'</select>' +
+        '<button type="button" class="phbtn'+(x.helper ? ' on' : '')+'" data-ph="'+i+'" aria-pressed="'+(x.helper?'true':'false')+'">🍼 헬퍼</button>' +
+      '</div>';
+    }).join('');
+  }
+  var pr = $('#planProcs');
+  if(pr){
+    pr.innerHTML = PLAN_PROC.map(function(x){
+      return '<div class="pband">' +
+        '<span class="pt">'+x.label+'</span>' +
+        '<select class="psel" data-pp="'+x.k+'" aria-label="'+x.label+' 담당">'+nurseOptions(p.procs[x.k])+'</select>' +
+      '</div>';
+    }).join('');
+  }
+  setText('#planSum', planSummary());
+}
+function planSummary(){
+  var p = ensurePlan();
+  var L = [];
+  L.push('📅 내일('+tomorrowLabel()+') ' + ((st.site && st.site.name) || 'TLC') + ' 준비');
+  L.push('· ' + PLAN_PROC.map(function(x){ return x.label+' '+(Number(p.counts[x.k])||0)+'건'; }).join(' · '));
+  p.bands.forEach(function(b){
+    var bit = b.nurse || '미배정';
+    if(b.helper) bit += ' + 🍼 소아과 헬퍼';
+    L.push('· '+b.t+'  '+bit);
+  });
+  var pr = PLAN_PROC.filter(function(x){ return p.procs[x.k]; }).map(function(x){ return x.label+' '+p.procs[x.k]; });
+  if(pr.length) L.push('· 담당: ' + pr.join(', '));
+  return L.join('\n');
+}
+function planCount(k, d){
+  var p = ensurePlan();
+  p.counts[k] = Math.max(0, Math.min(99, (Number(p.counts[k])||0) + d));
+  save(); renderPlan();
+}
+function planCountSet(k, v){
+  var p = ensurePlan();
+  p.counts[k] = Math.max(0, Math.min(99, Number(v)||0));
+  save();
+  setText('#planSum', planSummary());
+}
+function planBandNurse(i, nm){
+  var p = ensurePlan();
+  if(!p.bands[i]) return;
+  p.bands[i].nurse = nm || '';
+  save(); renderPlan();
+}
+function planBandHelper(i){
+  var p = ensurePlan();
+  if(!p.bands[i]) return;
+  p.bands[i].helper = !p.bands[i].helper;
+  save(); renderPlan();
+}
+function planProcNurse(k, nm){
+  var p = ensurePlan();
+  p.procs[k] = nm || '';
+  save(); renderPlan();
+}
+function copyPlan(){
+  var txt = planSummary();
+  function done(){ toast('내일 계획 요약을 복사했습니다'); }
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done).catch(function(){ legacyCopy(txt, done); });
+      return;
+    }
+  }catch(e){}
+  legacyCopy(txt, done);
+}
+function legacyCopy(txt, done){
+  try{
+    var ta = document.createElement('textarea');
+    ta.value = txt; ta.style.cssText = 'position:fixed;left:-9999px;top:0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    done();
+  }catch(e){ toast('복사하지 못했습니다 — 요약을 길게 눌러 복사해 주세요'); }
+}
+function paintBrand(){
+  var nm = (st.site && st.site.name) || '티엘씨 클리닉 청담';
+  setText('#siteName', nm);
+  setText('#planSite', nm);
+  paintTab();
+}
+function openSite(){
+  var si = $('#siteInput');
+  if(si) si.value = (st.site && st.site.name) || '';
+  var stel = $('#siteTel');
+  if(stel) stel.value = (st.site && st.site.tel) || '010-9678-0010';
+  var ch = $('#siteChips');
+  if(ch){
+    ch.innerHTML = SITE_PRESET.map(function(x){
+      return '<button type="button" data-site="'+esc(x.name)+'" data-tel="'+esc(x.tel)+'">'+esc(x.name)+'</button>';
+    }).join('');
+  }
+  var sh = $('#siteSheet');
+  if(sh){ sh.classList.add('on'); sh.setAttribute('aria-hidden','false'); }
+  document.body.style.overflow = 'hidden';
+}
+function closeSite(){
+  var sh = $('#siteSheet');
+  if(sh){ sh.classList.remove('on'); sh.setAttribute('aria-hidden','true'); }
+  document.body.style.overflow = '';
+}
+function saveSite(){
+  var v = ((($('#siteInput')||{}).value) || '').trim().slice(0, 30);
+  if(!v){ toast('병원명을 적어 주세요'); return; }
+  var typed = (((($('#siteTel')||{}).value) || '').trim());
+  var prevDefault = defaultTelFor(st.site.name);
+  var tel = typed || defaultTelFor(v);
+  /* 지점만 바꾸고 번호를 그대로 뒀다면 그 지점 기본 핫라인으로 따라갑니다 */
+  if(typed && typedd(typed) === typedd(prevDefault)) tel = defaultTelFor(v);
+  st.site.name = v;
+  st.site.tel = tel.slice(0, 20);
+  save();
+  paintBrand();
+  renderPlan();
+  closeSite();
+  toast('「'+v+'」 · 핫라인 ' + st.site.tel + ' 로 저장했습니다');
+}
+function typedd(s){ return String(s||'').replace(/[^0-9]/g, ''); }
+
+/* =========================================================================
    v1.2 실시간 시술 현황판 (v1.2: 바디 시술 실제 소요 시간 반영)
    Google Sheets(「TLC 실시간 시술 현황 DB」) + Apps Script 웹앱으로 여러 기기가
    같은 현황을 5초 주기로 나눠 봅니다. 끊기면 이 기기 저장값으로 계속 동작합니다.
@@ -1923,17 +3175,710 @@ var PROGRAMS = [
   { k:'m12',  label:'1+2 병합', sub:'R1+울핏+S1 · 1시간',    proc:'바디 1+2회 병합',   detail:'R1 + 울핏 + S1 + 트리플 바디',     min:60 },
   { k:'m34',  label:'3+4 병합', sub:'카복시+매선 · 1시간',   proc:'바디 3+4회 병합',   detail:'카복시 + R2 + S2 + 매선 + LLL',    min:60 },
   { k:'skin', label:'피부',     sub:'피부 시술 · 30분',      proc:'피부 시술',         detail:'',                                min:30 },
+  { k:'cream',label:'🧴 마취연고', sub:'피부 · 35분',         proc:'피부 마취연고',     detail:'마취 크림 30~40분',                min:35 },
+  { k:'skinDr',label:'🩺 원장님 시술', sub:'피부 · 20분',    proc:'피부 시술 · 원장님', detail:'',                                min:20 },
   { k:'scalp',label:'두피',     sub:'두피 시술 · 30분',      proc:'두피 시술',         detail:'',                                min:30 },
   { k:'exam', label:'검사',     sub:'신규 고객 · 30분',      proc:'신규 고객 검사',    detail:'',                                min:30 },
   { k:'iv',   label:'수액',     sub:'수액 단독 · 45분',      proc:'수액 단독',         detail:'',                                min:45 }
 ];
 
-var bd = { rooms:{}, hist:[], rev:0, at:0, mode:'board', pending:[], online:null };
+var bd = { rooms:{}, hist:[], rev:0, at:0, mode:'board', pending:[], online:null, dcNative:false,
+  histSeen:{}, histReady:false, global:{} };
 var dft = null;      /* 입실 시트 작성 중인 값 */
 
 function blankRoom(room){
   return { room:room, tag:ROOM_TAG[room]||'', status:'empty', customer:'', consult:'',
-    proc:'', session:'', program:'', startAt:0, endAt:0, min:0, memo:'', by:'', updatedAt:0 };
+    proc:'', session:'', program:'', startAt:0, endAt:0, min:0, memo:'', by:'', updatedAt:0,
+    doctorCall:'', prepAlert:'', nurse:'', chart:'', signedAt:0, sign:'' };
+}
+
+/* =========================================================================
+   v1.3 ③ 알림 공통 — 매선 원장님 호출 · 입실 준비 완료 · 퇴실 알림
+   · 원장님 호출 / 입실 준비 : 방 레코드 필드(doctorCall · prepAlert)로 공유
+   · 퇴실 알림 : 다른 기기의 History 에 새 퇴실 기록이 생기는 것을 감지해서 알림
+   ========================================================================= */
+var NURSE_DEF = {
+  cheongdam: ['이애영', '김효정', '이지연', '이승주', '김수지', '김효숙'],
+  bundang:   ['마수경', '유미영', '정금주', '김경애', '박진영', '박신애', '정유이', '송지원']
+};
+var BRANCH_LABEL = { cheongdam:'청담', bundang:'분당' };
+function deviceId(){
+  try{
+    var v = localStorage.getItem('tlc_dev_id');
+    if(!v){
+      v = 'd' + Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4);
+      localStorage.setItem('tlc_dev_id', v);
+    }
+    return v;
+  }catch(e){ return 'd0'; }
+}
+function isMine(x){ return !!(x && x.byId && x.byId === deviceId()); }
+function nurseList(branch){
+  var out = (NURSE_DEF[branch] || []).slice();
+  (st.nurses || []).forEach(function(n){ if(n && n.name && out.indexOf(n.name) < 0) out.push(n.name); });
+  return out;
+}
+function isCustomNurse(name){
+  return (st.nurses || []).some(function(n){ return n.name === name; });
+}
+/* --- 🔬 검사실 현황판 (신규 바디 검사 체크 + 실시 간호사) --- */
+var EXAM_DEFAULT = ['체성분(InBody)', '피부 진단', '두피 진단', '혈압·체온', '문진표'];
+function examItems(){ return EXAM_DEFAULT.concat(st.examItems || []); }
+function renderExam(){
+  var box = $('#examList');
+  if(!box) return;
+  var e = st.exam || {};
+  box.innerHTML = examItems().map(function(nm){
+    var it = e[nm] || {};
+    return '<div class="exrow'+(it.done ? ' on' : '')+'">' +
+      '<button type="button" class="exck" data-ex="'+esc(nm)+'" aria-pressed="'+(it.done?'true':'false')+'">' +
+        '<i class="ckbox" aria-hidden="true">'+(it.done ? '✓' : '')+'</i>' +
+        '<span class="exn">'+esc(nm)+(it.done && it.at ? '<em>'+hhmm(it.at)+'</em>' : '')+'</span>' +
+      '</button>' +
+      '<select class="psel exsel" data-exn="'+esc(nm)+'" aria-label="'+esc(nm)+' 실시 간호사">'+nurseOptions(it.nurse || '')+'</select>' +
+    '</div>';
+  }).join('');
+  var done = examItems().filter(function(n){ return (e[n]||{}).done; }).length;
+  setText('#examHint', done + '/' + examItems().length + ' 완료');
+}
+function toggleExam(nm){
+  st.exam = st.exam || {};
+  var it = st.exam[nm] || (st.exam[nm] = {});
+  it.done = !it.done;
+  it.at = it.done ? Date.now() : 0;
+  save(); renderExam();
+}
+function setExamNurse(nm, nurse){
+  st.exam = st.exam || {};
+  var it = st.exam[nm] || (st.exam[nm] = {});
+  it.nurse = nurse || '';
+  if(it.nurse && !it.done){ it.done = true; it.at = Date.now(); }
+  save(); renderExam();
+}
+function addExamItem(){
+  var el = $('#examNew');
+  var v = ((el && el.value) || '').trim().slice(0, 20);
+  if(!v){ toast('검사 항목 이름을 적어 주세요'); return; }
+  st.examItems = st.examItems || [];
+  if(examItems().indexOf(v) < 0) st.examItems.push(v);
+  if(el) el.value = '';
+  save(); renderExam();
+  toast('「'+v+'」 항목을 추가했습니다');
+}
+
+/* =========================================================================
+   v1.3 ③ 매선 원장님 호출 (간호사 폰 → 접수 PC 실시간)
+   방 레코드의 doctorCall 필드로 공유합니다.
+   · 새 Code.gs: rooms 시트 「의사호출」 열에 JSON 으로 저장 (doctorCall 그대로)
+   · 기존 배포판: 필드를 버리기 때문에 같은 내용을 메모(memo)에 #dc: 토큰으로 함께 실어 보냅니다
+     → 백엔드 재배포 전에도 호출이 접수 화면에 도착합니다(화면에는 토큰이 보이지 않음).
+   ========================================================================= */
+var DC_LABEL = '원장님 호출';
+function isMaseon(r){
+  return /매선/.test(((r && r.proc)||'') + ' ' + ((r && r.session)||''));
+}
+function isSkinStage(r){
+  return !!(r && (/마취/.test(r.proc||'') || r.program === 'cream'));
+}
+/* 피부 2단계 — 마취연고 후 원장님 시술로 전환 */
+function startDoctorProc(room){
+  var r = bd.rooms[room];
+  if(!r || r.status !== 'busy'){ toast('진행 중인 방이 아닙니다'); return; }
+  var now = Date.now();
+  r.proc = '피부 시술 · 원장님';
+  r.session = '';
+  r.program = 'skinDr';
+  r.startAt = now;
+  r.endAt = now + 20*60000;
+  r.min = 20;
+  r.updatedAt = now;
+  renderBoard(); saveBoard();
+  push({ op:'setRoom', data:packRoom(r) });
+  toast(room+' 원장님 시술 단계로 바꿨습니다 — 필요하면 🔔 호출을 눌러 주세요');
+}
+/* --- 상담 상태: consult 한 칸에 "먼저/후:none|waiting|active|done:시작:종료" --- */
+function consultBase(v){ return String(v||'').split(':')[0] || ''; }
+function consultParts(v){
+  var p = String(v||'').split(':');
+  return { base:p[0]||'', status:p[1]||'', started:Number(p[2])||0, ended:Number(p[3])||0 };
+}
+function consultVal(base, status, started, ended){
+  if(!base) return '';
+  if(base === 'none') return 'none:done:0:0';
+  return base + ':' + (status||'waiting') + ':' + (started||0) + ':' + (ended||0);
+}
+function consultStatusOf(r){
+  var p = consultParts(r && r.consult);
+  if(!p.base) return '';
+  if(p.base === 'none') return 'none';
+  return p.status || 'waiting';
+}
+function setConsult(room, action){
+  var r = bd.rooms[room];
+  if(!r || r.status !== 'busy') return;
+  var p = consultParts(r.consult);
+  if(!p.base || p.base === 'none'){ toast('상담이 필요 없는 방입니다'); return; }
+  if(action === 'start'){
+    r.consult = consultVal(p.base, 'active', Date.now(), 0);
+    toast(room+' 상담을 시작했습니다');
+  } else {
+    r.consult = consultVal(p.base, 'done', p.started || Date.now(), Date.now());
+    toast(room+' 상담을 마쳤습니다');
+  }
+  r.updatedAt = Date.now();
+  renderBoard(); saveBoard();
+  push({ op:'setRoom', data:packRoom(r) });
+}
+function dcLabel(r){ return isMaseon(r) ? '매선 원장님 호출' : DC_LABEL; }
+/* --- 메모 토큰: 구(현재 배포) Code.gs 에서도 새 필드가 공유되도록 --- */
+var TOK_RE = /#(?:d|c|p|n):[^\s\]]*/g;
+function stripTokens(memo){
+  return String(memo||'').replace(TOK_RE, '').replace(/\s+/g, ' ').trim();
+}
+function parseTokens(memo){
+  var out = { doctorCall:'', prepAlert:'', nurse:'', signedAt:0 };
+  var s = String(memo||'');
+  var m;
+  var re = /#d:(c|a):(\d+)/;
+  if((m = s.match(re))) out.doctorCall = { status:(m[1] === 'c' ? 'calling' : 'ack'), at:Number(m[2])||0 };
+  if((m = s.match(/#p:(\d+)/))) out.prepAlert = { at:Number(m[1])||0 };
+  if((m = s.match(/#n:([^:\s]+):(\d+)/))){ out.nurse = m[1]; out.signedAt = Number(m[2])||0; }
+  return out;
+}
+function composeMemo(r){
+  var base = stripTokens(r.memo);
+  var toks = '';
+  if(r.doctorCall && r.doctorCall.status){
+    toks += '#d:' + (r.doctorCall.status === 'calling' ? 'c' : 'a') + ':' + (r.doctorCall.at || Date.now()) + ' ';
+  }
+  if(r.prepAlert && r.prepAlert.at) toks += '#p:' + r.prepAlert.at + ' ';
+  if(r.nurse) toks += '#n:' + String(r.nurse).slice(0, 10) + ':' + (r.signedAt || 0) + ' ';
+  return (toks + base).slice(0, 80).trim();
+}
+/* 서버에서 받은 방을 화면용으로 정리 */
+function normRoom(r){
+  if(!r) return r;
+  function j(v){ if(typeof v !== 'string') return v; if(!v) return ''; try{ return JSON.parse(v); }catch(e){ return ''; } }
+  var tk = parseTokens(r.memo);
+  var dc = j(r.doctorCall);
+  if(!dc || !dc.status) dc = tk.doctorCall || '';
+  r.doctorCall = (dc && dc.status) ? dc : '';
+  var pa = j(r.prepAlert);
+  if(!pa || !pa.at) pa = tk.prepAlert || '';
+  r.prepAlert = (pa && pa.at) ? pa : '';
+  if(!r.nurse && tk.nurse) r.nurse = tk.nurse;
+  if(!r.signedAt && tk.signedAt) r.signedAt = tk.signedAt;
+  if(typeof r.signedAt === 'string') r.signedAt = Number(r.signedAt) || 0;
+  if(r.chart == null) r.chart = '';
+  if(r.sign == null) r.sign = '';
+  var cp = consultParts(r.consult);
+  if(cp.base === 'before' || cp.base === 'after'){
+    if(!cp.status || ['none','waiting','active','done'].indexOf(cp.status) < 0) r.consult = consultVal(cp.base, 'waiting', cp.started, cp.ended);
+  } else if(cp.base === 'none'){
+    r.consult = 'none:done:0:0';
+  } else if(cp.base !== ''){
+    r.consult = '';
+  }
+  var cp2 = consultParts(r.consult);
+  r.consultStatus = cp2.base ? (cp2.base === 'none' ? 'none' : (cp2.status || 'waiting')) : '';
+  r.consultStartedAt = cp2.started;
+  r.consultEndedAt = cp2.ended;
+  r.memo = stripTokens(r.memo);
+  return r;
+}
+/* 서버로 보낼 방 (구 백엔드에서는 필드를 버리므로 메모에 토큰 동봉) */
+function packRoom(r){
+  var o = {};
+  for(var k in r) o[k] = r[k];
+  delete o.sign;                                /* 서명 이미지는 이 기기에만 */
+  o.memo = bd.dcNative ? stripTokens(r.memo) : composeMemo(r);
+  return o;
+}
+/* --- 🍼 소아과 헬퍼 요청 (전체 기기 · 내과 핫라인) --- */
+function helperCall(){ return (bd.global && bd.global.helperCall) || null; }
+function telRaw(){ return String((st.site && st.site.tel) || '010-9678-0010'); }
+function siteShort(){
+  var n = (st.site && st.site.name) || 'TLC';
+  return String(n).replace('클리닉 ', ' ').replace('클리닉', '').trim() || n;
+}
+function telDigits(){ return telRaw().replace(/[^0-9+]/g, ''); }
+function sendHelper(){
+  var hc = { status:'calling', at:Date.now(), by:stationName(), byId:deviceId(), byName:'', note:'' };
+  bd.global = bd.global || {};
+  bd.global.helperCall = hc;
+  saveBoard(); renderDoctorBar(); checkAlerts();
+  push({ op:'setGlobal', data:{ helperCall:hc } });
+  callHotline();
+  toast('소아과 헬퍼 요청 — 내과 핫라인으로 연결합니다');
+}
+function ackHelper(name){
+  var hc = helperCall();
+  if(!hc) return;
+  hc.status = 'ack';
+  hc.ackAt = Date.now();
+  hc.byName = name || stationName();
+  hc.ackBy = deviceId();
+  bd.global.helperCall = hc;
+  saveBoard(); renderDoctorBar(); checkAlerts();
+  push({ op:'setGlobal', data:{ helperCall:hc } });
+  toast((hc.byName || '') + '님 소아과 헬퍼 지원 확인');
+}
+function clearHelper(){
+  var hc = { status:'', at:Date.now(), by:stationName(), byId:deviceId() };
+  bd.global = bd.global || {};
+  bd.global.helperCall = hc;
+  saveBoard(); renderDoctorBar(); checkAlerts();
+  push({ op:'setGlobal', data:{ helperCall:hc } });
+  toast('헬퍼 요청을 해제했습니다');
+}
+function callHotline(){
+  try{ location.href = 'tel:' + telDigits(); }catch(e){}
+}
+
+function doctorCalls(){
+  return ROOMS.map(function(room){ return bd.rooms[room]; })
+    .filter(function(r){ return r && r.status === 'busy' && r.doctorCall && r.doctorCall.status === 'calling'; });
+}
+function prepAlerts(){
+  return ROOMS.map(function(room){ return bd.rooms[room]; })
+    .filter(function(r){ return r && r.status === 'busy' && r.prepAlert && r.prepAlert.at; });
+}
+function dingdong(){
+  if(!st.cfg.snd) return;
+  unlockAudio();
+  tone(1318.5, 0.22, 0.24, 'sine', 0);
+  tone(1046.5, 0.30, 0.22, 'sine', 0.24);
+  tone(1318.5, 0.22, 0.22, 'sine', 0.64);
+  tone(783.99, 0.42, 0.22, 'sine', 0.88);
+}
+function chime(kind){
+  if(!st.cfg.snd) return;
+  unlockAudio();
+  if(kind === 'prep'){
+    tone(880, 0.16, 0.22, 'sine', 0);
+    tone(1174.7, 0.16, 0.22, 'sine', 0.18);
+    tone(1567.98, 0.26, 0.2, 'sine', 0.36);
+  } else if(kind === 'out'){
+    tone(1046.5, 0.18, 0.2, 'sine', 0);
+    tone(783.99, 0.20, 0.2, 'sine', 0.2);
+    tone(659.25, 0.26, 0.18, 'sine', 0.42);
+  } else if(kind === 'helper'){
+    tone(698.46, 0.20, 0.26, 'square', 0);
+    tone(880, 0.20, 0.26, 'square', 0.22);
+    tone(1046.5, 0.26, 0.26, 'square', 0.44);
+  } else dingdong();
+}
+var alertSeen = {};
+var checkoutAlerts = [];
+function pushCheckoutAlert(h){
+  checkoutAlerts.unshift({ id:h.id, room:h.room, customer:h.customer || '', nurse:h.nurse || '',
+    proc:h.proc || '', at:h.outAt || Date.now() });
+  checkoutAlerts = checkoutAlerts.slice(0, 3);
+  if(isMine(h)){ checkoutAlerts.shift(); return; }
+  chime('out');
+  vibrate([160, 80, 160]);
+  pushNotification('🚪 '+h.room+' '+(h.customer || '고객')+'님 퇴실하십니다',
+    (h.nurse ? '담당: ' + h.nurse + ' · ' : '') + hhmm(h.outAt || Date.now()) + ' 퇴실',
+    'co-' + h.id);
+}
+/* 다른 기기의 새 퇴실 기록(History) 감지 → 접수 퇴실 알림 */
+function syncHistAlerts(){
+  var seen = bd.histSeen || {};
+  var fresh = [];
+  (bd.hist || []).forEach(function(h){
+    if(!h || !h.id) return;
+    if(!seen[h.id]) fresh.push(h);
+    seen[h.id] = 1;
+  });
+  var ids = Object.keys(seen);
+  if(ids.length > 200){
+    var keep = {};
+    (bd.hist || []).slice(0, 60).forEach(function(h){ if(h.id) keep[h.id] = 1; });
+    seen = keep;
+  }
+  bd.histSeen = seen;
+  if(bd.histReady) fresh.forEach(pushCheckoutAlert);
+  bd.histReady = true;
+  saveBoard();
+}
+function checkAlerts(){
+  var now = Date.now();
+  function scan(list, kind, keyOf, atOf, cb){
+    var live = {};
+    list.forEach(function(r){
+      var at = atOf(r), k = r.room + '|' + at;
+      live[k] = 1;
+      var seen = alertSeen[k];
+      var mine = isMine(r.doctorCall || r.prepAlert);
+      if(!seen){
+        alertSeen[k] = now;
+        if(!mine) cb(r, at, true);
+      } else if(!mine && now - seen > 20000){
+        alertSeen[k] = now;
+        cb(r, at, false);
+      }
+    });
+    return live;
+  }
+  var liveDc = scan(doctorCalls(), 'dc', null, function(r){ return r.doctorCall.at || 0; },
+    function(r, at, first){
+      chime('dc');
+      vibrate([180, 90, 180, 90, 320]);
+      if(first) pushNotification('🔔 '+r.room+' '+(r.customer || '고객')+'님 '+dcLabel(r),
+        hhmm(at)+' 호출 — 접수에서 확인해 주세요', 'dc-' + r.room + '-' + at);
+    });
+  var livePrep = scan(prepAlerts(), 'prep', null, function(r){ return r.prepAlert.at || 0; },
+    function(r, at, first){
+      chime('prep');
+      vibrate([120, 70, 120]);
+      if(first) pushNotification('🟢 '+r.room+' '+(r.customer || '고객')+'님 입실 준비 완료!',
+        hhmm(at)+' 접수 알림 — 방을 확인해 주세요', 'prep-' + r.room + '-' + at);
+    });
+  var live = {};
+  for(var k in liveDc) live[k] = 1;
+  for(var k2 in livePrep) live['p' + k2] = 1;
+  /* 🍼 소아과 헬퍼 요청 — 확인 전까지 10초마다 다시 알림 */
+  var hc = helperCall();
+  if(hc && hc.status === 'calling'){
+    var hk = 'helper|' + (hc.at || 0);
+    live[hk] = 1;
+    var hSeen = alertSeen[hk];
+    var hMine = isMine(hc);
+    if(!hSeen){
+      alertSeen[hk] = now;
+      if(!hMine){
+        chime('helper'); vibrate([260, 110, 260, 110, 400]);
+        pushNotification('🍼 [' + siteShort() + '] 소아과 헬퍼 요청 (핫라인: ' + telRaw() + ')', '지원 가능한 간호사 확인해 주세요 (' + hhmm(hc.at || now) + ')',
+          'helper-' + (hc.at || now));
+      }
+    } else if(!hMine && now - hSeen > 10000){
+      alertSeen[hk] = now; chime('helper');
+    }
+  }
+  for(var k3 in alertSeen){
+    var mine = (live[k3] || live['p' + k3]);
+    if(!mine) delete alertSeen[k3];
+  }
+  checkoutAlerts = checkoutAlerts.filter(function(a){ return now - a.at < 5*60000; });
+  renderDoctorBar();
+}
+function renderDoctorBar(){
+  var box = $('#dcBar');
+  if(!box) return;
+  var html = '';
+  var hc = helperCall();
+  if(hc && hc.status === 'calling'){
+    html += '<div class="dcb helper">' +
+      '<div class="dh-top"><span class="dh-ico" aria-hidden="true">🍼</span>' +
+        '<div class="dh-tt"><b>['+esc(siteShort())+'] 소아과 헬퍼 요청</b>' +
+        '<span>(핫라인: '+esc(telRaw())+') · 지원 가능한 간호사 확인</span></div></div>' +
+      '<div class="dh-sub">'+hhmm(hc.at || 0)+' · '+esc(hc.by || '')+' 요청</div>' +
+      '<div class="dh-act">' +
+        '<select class="hsel" id="helperNurse" aria-label="지원 간호사">'+nurseOptions('')+'</select>' +
+        '<button class="dcb-a" type="button" data-helper="ack">✅ 지원 확인</button>' +
+      '</div>' +
+      '<a class="hcall" href="tel:'+esc(telDigits())+'">📞 내과 핫라인 ('+esc(telRaw())+')</a>' +
+    '</div>';
+  } else if(hc && hc.status === 'ack'){
+    html += '<div class="dcb helper ack">' +
+      '<div class="dh-top"><span class="dh-ico" aria-hidden="true">✅</span>' +
+        '<div class="dh-tt"><b>'+esc(hc.byName || '간호사')+'님 소아과 헬퍼 지원 중</b>' +
+        '<span>'+hhmm(hc.ackAt || hc.at || 0)+' 지원 확인</span></div></div>' +
+      '<div class="dh-act">' +
+        '<button class="dcb-a ghost" type="button" data-helper="clear">해제</button>' +
+        '<a class="hcall" href="tel:'+esc(telDigits())+'">📞 '+esc(telRaw())+'</a>' +
+      '</div>' +
+    '</div>';
+  }
+  doctorCalls().forEach(function(r){
+    html += '<div class="dcb">' +
+      '<div class="dcb-l"><div class="dcb-t"><b>🔔 '+esc(r.room)+'</b> '+esc(r.customer||'고객')+'님</div>' +
+        '<div class="dcb-s">'+esc(dcLabel(r))+' · '+hhmm(r.doctorCall.at)+' · '+esc(r.doctorCall.by||'')+'</div></div>' +
+      '<button class="dcb-a" type="button" data-dc="ack" data-room="'+esc(r.room)+'">✅ 접수 확인</button>' +
+    '</div>';
+  });
+  prepAlerts().forEach(function(r){
+    html += '<div class="dcb prep">' +
+      '<div class="dcb-l"><div class="dcb-t"><b>🟢 '+esc(r.room)+'</b> '+esc(r.customer||'고객')+'님 입실 준비 완료!</div>' +
+        '<div class="dcb-s">접수 알림 · '+hhmm(r.prepAlert.at)+' · '+esc(r.proc||'')+'</div></div>' +
+      '<button class="dcb-a" type="button" data-ackprep="'+esc(r.room)+'">확인</button>' +
+    '</div>';
+  });
+  checkoutAlerts.forEach(function(a){
+    html += '<div class="dcb out">' +
+      '<div class="dcb-l"><div class="dcb-t"><b>🚪 '+esc(a.room)+'</b> '+esc(a.customer||'고객')+'님 퇴실하십니다</div>' +
+        '<div class="dcb-s">'+(a.nurse ? '담당: '+esc(a.nurse)+' · ' : '')+hhmm(a.at)+' 퇴실</div></div>' +
+      '<button class="dcb-a" type="button" data-ackco="'+esc(a.id)+'">확인</button>' +
+    '</div>';
+  });
+  if(!html){
+    if(box.innerHTML) box.innerHTML = '';
+    box._html = '';
+    box.classList.remove('on');
+    document.body.classList.remove('has-dc');
+    document.body.style.setProperty('--dcbar-h', '0px');
+    return;
+  }
+  box.classList.add('on');
+  if(box._html !== html){
+    var keepSel = '';
+    var curSel = $('#helperNurse');
+    if(curSel) keepSel = curSel.value;
+    box.innerHTML = html;
+    box._html = html;
+    if(keepSel){ var ns = $('#helperNurse'); if(ns) ns.value = keepSel; }
+  }
+  /* 알림 배너가 카드를 가리지 않도록 본문을 그만큼 내립니다 */
+  var bh = box.offsetHeight || 0;
+  document.body.classList.toggle('has-dc', bh > 0);
+  document.body.style.setProperty('--dcbar-h', bh + 'px');
+}
+function callDoctor(room){
+  var r = bd.rooms[room];
+  if(!r || r.status !== 'busy'){ toast('진행 중인 방이 아닙니다'); return; }
+  r.doctorCall = { status:'calling', at:Date.now(), by:stationName(), byId:deviceId(), label:dcLabel(r) };
+  r.updatedAt = Date.now();
+  renderBoard(); saveBoard();
+  push({ op:'setRoom', data:packRoom(r) });
+  checkAlerts();
+  toast(dcLabel(r)+' — '+room+' 접수에 알렸습니다');
+}
+function ackDoctor(room){
+  var r = bd.rooms[room];
+  if(!r || r.status !== 'busy' || !r.doctorCall || r.doctorCall.status !== 'calling') return;
+  r.doctorCall = { status:'ack', at:r.doctorCall.at || Date.now(), by:r.doctorCall.by || '',
+    byId:r.doctorCall.byId || '', ackAt:Date.now(), ackBy:stationName() };
+  r.updatedAt = Date.now();
+  renderBoard(); saveBoard();
+  push({ op:'setRoom', data:packRoom(r) });
+  checkAlerts();
+  toast(room+' 호출을 접수 확인 처리했습니다');
+}
+function clearDoctor(room){
+  var r = bd.rooms[room];
+  if(!r || !r.doctorCall) return;
+  r.doctorCall = '';
+  r.updatedAt = Date.now();
+  renderBoard(); saveBoard();
+  push({ op:'setRoom', data:packRoom(r) });
+  checkAlerts();
+}
+/* --- 입실 준비 완료 알림 (접수 → 간호사) --- */
+function sendPrep(room, silent){
+  var r = bd.rooms[room];
+  if(!r || r.status !== 'busy'){ if(!silent) toast('진행 중인 방이 아닙니다'); return; }
+  r.prepAlert = { at:Date.now(), by:stationName(), byId:deviceId() };
+  r.updatedAt = Date.now();
+  renderBoard(); saveBoard();
+  push({ op:'setRoom', data:packRoom(r) });
+  checkAlerts();
+  if(!silent) toast(room+' 입실 준비 완료를 간호사에게 알렸습니다');
+}
+function ackPrep(room){
+  var r = bd.rooms[room];
+  if(!r || !r.prepAlert) return;
+  r.prepAlert = '';
+  r.updatedAt = Date.now();
+  renderBoard(); saveBoard();
+  push({ op:'setRoom', data:packRoom(r) });
+  checkAlerts();
+  toast(room+' 입실 준비 알림을 확인했습니다');
+}
+
+/* =========================================================================
+   v1.3 ④ 간호사 차팅 · 서명 (퇴실 시 서명 필수)
+   담당 간호사 + 처치 차팅 + 터치 서명 → 방 상태에 저장, 퇴실 기록(History)에도 남김
+   ========================================================================= */
+var cEdit = null;
+var signPad = { cv:null, ctx:null, drawing:false, dirty:false };
+function renderNurseChips(){
+  var box = $('#cNurseChips');
+  if(!box) return;
+  var br = (st.branch === 'bundang') ? 'bundang' : 'cheongdam';
+  $$('#cBranch button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-br') === br); });
+  setText('#cNursePick', BRANCH_LABEL[br]);
+  box.innerHTML = nurseList(br).map(function(nm){
+    return '<button type="button" data-nurse="'+esc(nm)+'" class="'+(isCustomNurse(nm)?'cus':'')+'">'+
+      esc(nm)+(isCustomNurse(nm)?' <i data-ndel="'+esc(nm)+'">✕</i>':'')+'</button>';
+  }).join('');
+}
+function pickNurse(nm){
+  var ni = $('#cNurse');
+  if(ni){ ni.value = nm; }
+  $$('#cNurseChips button[data-nurse]').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-nurse') === nm); });
+  paintChartState();
+}
+function addNurse(){
+  var el = $('#cNurseNew');
+  var nm = ((el && el.value) || '').trim().slice(0, 12);
+  if(!nm){ toast('직원 이름을 적어 주세요'); return; }
+  st.nurses = st.nurses || [];
+  if(!isCustomNurse(nm)) st.nurses.push({ name:nm });
+  if(el) el.value = '';
+  save();
+  renderNurseChips();
+  pickNurse(nm);
+  toast('「'+nm+'」을(를) 담당자 목록에 추가했습니다');
+}
+function delNurse(nm){
+  st.nurses = (st.nurses || []).filter(function(x){ return x.name !== nm; });
+  save();
+  renderNurseChips();
+  toast('「'+nm+'」을(를) 목록에서 뺐습니다');
+}
+function openChart(room, mode){
+  var r = bd.rooms[room];
+  if(!r || r.status !== 'busy'){ toast('진행 중인 방이 아닙니다'); return; }
+  cEdit = { room:room, mode:(mode === 'checkout' ? 'checkout' : 'chart'),
+    sig:r.sign || '', signedAt:Number(r.signedAt) || 0, cleared:false };
+  setText('#cTitle', (mode === 'checkout' ? '🚪 '+room+' · 퇴실' : '📝 '+room+' · 차팅 · 서명'));
+  setText('#cSum', ((st.site && st.site.name) ? st.site.name + ' · ' : '') + room+' · '+(r.customer || '고객')+' · '+(r.proc || '시술')+(r.session ? ' · '+r.session : ''));
+  var ni = $('#cNurse'); if(ni) ni.value = r.nurse || '';
+  var no = $('#cNote'); if(no) no.value = r.chart || '';
+  var nn = $('#cNurseNew'); if(nn) nn.value = '';
+  renderNurseChips();
+  if(r.nurse) pickNurse(r.nurse);
+  clearSignPad(true);
+  setText('#cHint', mode === 'checkout'
+    ? '담당 간호사와 서명이 있어야 퇴실할 수 있습니다.'
+    : '차팅만 저장하면 방은 그대로 진행 중입니다.');
+  paintChartState();
+  var sh = $('#cSheet');
+  if(sh){ sh.classList.add('on'); sh.setAttribute('aria-hidden','false'); }
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){ try{ var c=$('#cSign'); if(c) c.focus(); }catch(e){} }, 120);
+}
+function closeChart(){
+  cEdit = null;
+  var sh = $('#cSheet');
+  if(sh){ sh.classList.remove('on'); sh.setAttribute('aria-hidden','true'); }
+  document.body.style.overflow = '';
+}
+function chartValid(mode){
+  var nurse = ((($('#cNurse')||{}).value) || '').trim();
+  var hasSign = !!(signPad.dirty || (cEdit && !cEdit.cleared && (cEdit.sig || cEdit.signedAt)));
+  if(!nurse) return false;
+  if(mode === 'checkout' && !hasSign) return false;
+  return true;
+}
+function paintChartState(){
+  var nurse = ((($('#cNurse')||{}).value) || '').trim();
+  var hasSign = !!(signPad.dirty || (cEdit && !cEdit.cleared && (cEdit.sig || cEdit.signedAt)));
+  setText('#cSignState', signPad.dirty ? '서명 입력됨'
+    : (hasSign ? ('서명 저장됨' + (cEdit && cEdit.signedAt ? ' ' + hhmm(cEdit.signedAt) : '')) : '손가락으로 서명해 주세요'));
+  var bo = $('#cSaveOut');
+  if(bo){
+    var ok = !!(nurse && hasSign);
+    bo.classList.toggle('off', !ok);
+    bo.setAttribute('data-ready', ok ? '1' : '0');
+    bo.textContent = ok ? '✓ 서명하고 퇴실' : '✏️ 서명 후 퇴실';
+  }
+  var bs = $('#cSave');
+  if(bs){ bs.classList.toggle('off', !nurse); }
+  var h = $('#cHint');
+  if(h && cEdit){
+    h.textContent = !nurse ? '담당 간호사를 먼저 선택해 주세요.'
+      : (!hasSign && cEdit.mode === 'checkout' ? '서명 후 퇴실할 수 있습니다.'
+      : (cEdit.mode === 'checkout' ? '서명하고 퇴실을 누르면 접수에 퇴실 알림이 전달됩니다.' : '차팅만 저장하면 방은 그대로 진행 중입니다.'));
+  }
+}
+function clearSignPad(showSaved){
+  var cv = signPad.cv || $('#cSign');
+  if(!cv) return;
+  var c = cv.getContext('2d');
+  c.clearRect(0, 0, cv.width, cv.height);
+  signPad.dirty = false;
+  var img = $('#cSignImg');
+  if(img){
+    if(showSaved && cEdit && cEdit.sig){ img.src = cEdit.sig; img.classList.remove('hide'); }
+    else { img.removeAttribute('src'); img.classList.add('hide'); }
+  }
+  var hint = $('#cSignHint'); if(hint) hint.classList.remove('hide');
+  paintChartState();
+}
+function signInit(){
+  var cv = $('#cSign');
+  if(!cv) return;
+  signPad.cv = cv;
+  signPad.ctx = cv.getContext('2d');
+  function pos(ev){
+    var rect = cv.getBoundingClientRect();
+    return { x:(ev.clientX - rect.left) * (cv.width / rect.width),
+             y:(ev.clientY - rect.top) * (cv.height / rect.height) };
+  }
+  cv.addEventListener('pointerdown', function(ev){
+    ev.preventDefault();
+    signPad.drawing = true; signPad.dirty = true;
+    var hint = $('#cSignHint'); if(hint) hint.classList.add('hide');
+    var img = $('#cSignImg'); if(img) img.classList.add('hide');
+    var q = pos(ev), c = signPad.ctx;
+    c.beginPath(); c.moveTo(q.x, q.y);
+    try{ cv.setPointerCapture(ev.pointerId); }catch(e){}
+    paintChartState();
+  });
+  cv.addEventListener('pointermove', function(ev){
+    if(!signPad.drawing) return;
+    ev.preventDefault();
+    var q = pos(ev), c = signPad.ctx;
+    c.lineWidth = 2.8; c.lineCap = 'round'; c.lineJoin = 'round'; c.strokeStyle = '#12303F';
+    c.lineTo(q.x, q.y); c.stroke();
+  });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(function(k){
+    cv.addEventListener(k, function(){ signPad.drawing = false; paintChartState(); });
+  });
+}
+function saveChart(mode){
+  if(!cEdit) return;
+  var room = cEdit.room;
+  var r = bd.rooms[room];
+  if(!r || r.status !== 'busy'){ closeChart(); return; }
+  var nurse = ((($('#cNurse')||{}).value) || '').trim().slice(0, 12);
+  var note = ((($('#cNote')||{}).value) || '').trim().slice(0, 160);
+  var hasSign = !!(signPad.dirty || (!cEdit.cleared && (cEdit.sig || r.signedAt)));
+  if(!nurse){ toast('담당 간호사를 선택하거나 입력해 주세요'); return; }
+  if(mode === 'checkout' && !hasSign){ toast('서명 후 퇴실할 수 있습니다'); return; }
+  r.nurse = nurse;
+  r.chart = note;
+  if(signPad.dirty && signPad.cv){
+    try{ r.sign = signPad.cv.toDataURL('image/png'); }catch(e){}
+    r.signedAt = Date.now();
+  } else if(cEdit.cleared){
+    r.sign = '';
+    r.signedAt = 0;
+  } else if(!r.signedAt && (cEdit.sig || cEdit.signedAt)){
+    r.signedAt = cEdit.signedAt || Date.now();
+    if(cEdit.sig && !r.sign) r.sign = cEdit.sig;
+  }
+  r.updatedAt = Date.now();
+  renderBoard(); saveBoard();
+  push({ op:'setRoom', data:packRoom(r) });
+  if(mode === 'checkout'){
+    closeChart();
+    finishCheckout(room);
+  } else {
+    closeChart();
+    toast(room+' 차팅·서명을 저장했습니다');
+  }
+}
+function finishCheckout(room){
+  var r = bd.rooms[room];
+  if(!r || r.status !== 'busy'){ toast(room + '은 이미 빈 방입니다'); return; }
+  var snap = { room:room, customer:r.customer||'', consult:r.consult||'', proc:r.proc||'',
+    session:r.session||'', startAt:r.startAt||0, endAt:r.endAt||0, by:stationName(),
+    byId:deviceId(), nurse:r.nurse||'', chart:r.chart||'', signedAt:Number(r.signedAt)||0 };
+  endRoomTimers(room);
+  bd.rooms[room] = blankRoom(room);
+  var rec = { id:'l'+Date.now(), outAt:Date.now(), room:room, customer:snap.customer,
+    consult:snap.consult, proc:snap.proc, session:snap.session,
+    startAt:snap.startAt, endAt:snap.endAt, by:snap.by, byId:snap.byId,
+    nurse:snap.nurse, chart:snap.chart, signedAt:snap.signedAt, sign:(r.sign || ''),
+    site:(st.site && st.site.name) || '' };
+  bd.hist.unshift(rec);
+  bd.histSeen = bd.histSeen || {};
+  bd.histSeen[rec.id] = 1;                     /* 내가 한 퇴실은 내 화면에서 알리지 않음 */
+  renderBoard(); saveBoard();
+  push({ op:'checkout', data:snap });
+  toast((snap.customer || room) + ' 퇴실 처리했습니다' + (snap.nurse ? ' · 담당 ' + snap.nurse : ''));
 }
 function stationName(){ return IS_IOS ? '아이폰' : 'PC'; }
 function nowMinute(){ var d = new Date(); d.setSeconds(0,0); return d.getTime(); }
@@ -1958,9 +3903,16 @@ function loadBoard(){
       if(o && typeof o.rev === 'number') bd.rev = o.rev;
       if(o && typeof o.at === 'number') bd.at = o.at;
       if(o && o.pending instanceof Array) bd.pending = o.pending;
+      if(o && o.dcNative === true) bd.dcNative = true;
+      if(o && o.histSeen && typeof o.histSeen === 'object') bd.histSeen = o.histSeen;
+      if(o && o.global && typeof o.global === 'object') bd.global = o.global;
     }
   }catch(e){}
-  ROOMS.forEach(function(r){ if(!bd.rooms[r] || !bd.rooms[r].room) bd.rooms[r] = blankRoom(r); });
+  bd.histReady = false;
+  ROOMS.forEach(function(r){
+    if(!bd.rooms[r] || !bd.rooms[r].room) bd.rooms[r] = blankRoom(r);
+    else normRoom(bd.rooms[r]);
+  });
 }
 var bdSaveTm = 0;
 function saveBoard(){
@@ -1968,7 +3920,8 @@ function saveBoard(){
   bdSaveTm = setTimeout(function(){
     try{
       localStorage.setItem(BOARD_KEY, JSON.stringify({
-        rooms:bd.rooms, hist:bd.hist.slice(0,60), rev:bd.rev, at:bd.at, pending:bd.pending
+        rooms:bd.rooms, hist:bd.hist.slice(0,60), rev:bd.rev, at:bd.at, pending:bd.pending,
+        dcNative:bd.dcNative === true, histSeen:bd.histSeen || {}, global:bd.global || {}
       }));
     }catch(e){}
   }, 100);
@@ -1980,7 +3933,7 @@ function renderBoard(){
   var busy = 0, before = 0, after = 0;
   g.innerHTML = ROOMS.map(function(room){
     var r = bd.rooms[room] || blankRoom(room);
-    var tag = r.tag || ROOM_TAG[room] || '';
+    var tag = ROOM_TAG[room] || r.tag || '';
     if(r.status !== 'busy'){
       return '<button class="bcard free" type="button" data-bact="in" data-room="'+esc(room)+'">' +
         '<span class="btop"><span class="bno">'+esc(room)+'</span><span class="btag">'+esc(tag)+'</span></span>' +
@@ -1988,19 +3941,71 @@ function renderBoard(){
       '</button>';
     }
     busy++;
-    if(r.consult === 'before') before++;
-    if(r.consult === 'after') after++;
+    if(consultBase(r.consult) === 'before') before++;
+    if(consultBase(r.consult) === 'after') after++;
     var left = leftMs(r), late = left < 0, near = !late && left <= 5*60000;
-    var badge = r.consult === 'before' ? '<span class="badge before">💬 상담 먼저</span>'
-      : (r.consult === 'after' ? '<span class="badge after">🩺 시술 후 상담</span>' : '');
-    return '<div class="bcard busy'+(late?' late':(near?' near':''))+'">' +
+    var cB = consultBase(r.consult), cS = consultStatusOf(r);
+    var badge = '', conBtn = '';
+    if(cB === 'none'){
+      badge = '<span class="badge none">🚫 상담 불필요</span>';
+    } else if(cB){
+      var bcls = cS === 'active' ? 'active' : (cS === 'done' ? 'done' : (cB === 'before' ? 'before' : 'after'));
+      var blabel = cS === 'active' ? '💬 상담 중' : (cS === 'done' ? '✅ 상담 완료' : (cB === 'before' ? '💬 상담 대기 · 먼저' : '🩺 상담 대기 · 시술 후'));
+      badge = '<span class="badge '+bcls+'">'+blabel+'</span>';
+      if(cS !== 'done'){
+        conBtn = '<button class="cbtn2'+(cS === 'active' ? ' end' : '')+'" type="button" data-consult="'+esc(room)+'" data-cs="'+(cS === 'active' ? 'end' : 'start')+'">'+(cS === 'active' ? '✅ 상담 종료' : '💬 상담 시작')+'</button>';
+      }
+    }
+    var span = Math.max(60000, (r.endAt||0) - (r.startAt||0));
+    var pct = Math.max(0, Math.min(100, ((Date.now() - (r.startAt||0))/span)*100));
+    var dc = r.doctorCall || '';
+    var dcOn = !!(dc && dc.status === 'calling');
+    var dcAck = !!(dc && dc.status === 'ack');
+    var maseon = isMaseon(r);
+    var skinStage = isSkinStage(r);
+    var dcLine = dcOn
+      ? '<div class="dcst on">🔔 '+esc(dcLabel(r))+' · '+hhmm(dc.at||0)+'</div>'
+      : (dcAck ? '<div class="dcst ack">✅ 접수 확인 · '+hhmm(dc.ackAt || dc.at || 0)+'</div>' : '');
+    var chartLine = (r.nurse || r.signedAt)
+      ? '<div class="chartst">📝 '+esc(r.nurse || '담당 미지정')+(r.signedAt ? ' · 서명 '+hhmm(r.signedAt) : ' · 차팅')+'</div>'
+      : '';
+    var dcBtns;
+    if(dcOn){
+      dcBtns = '<div class="dcrow">' +
+        '<button class="dcbtn ack" type="button" data-dc="ack" data-room="'+esc(room)+'">✅ 접수 확인</button>' +
+        '<button class="dcbtn" type="button" data-dc="call" data-room="'+esc(room)+'">🔔 다시 호출</button>' +
+      '</div>';
+    } else if(skinStage){
+      dcBtns = '<div class="dcrow">' +
+        '<button class="dcbtn skin" type="button" data-skin="'+esc(room)+'">🩺 원장님 시술</button>' +
+        '<button class="dcbtn sm" type="button" data-dc="call" data-room="'+esc(room)+'">🔔 호출</button>' +
+      '</div>';
+    } else {
+      dcBtns = '<button class="dcbtn'+(maseon?' pri':' sm')+'" type="button" data-dc="call" data-room="'+esc(room)+'">'+
+        (dcAck ? '🔔 다시 호출' : (maseon ? '🔔 원장님 호출 (매선)' : '🔔 원장님 호출'))+'</button>';
+    }
+    return '<div class="bcard busy'+(late?' late':(near?' near':''))+(dcOn?' calling':'')+(maseon?' maseon':'')+'">' +
       '<div class="btop"><span class="bno">'+esc(room)+'</span><span class="btag">'+esc(tag)+'</span></div>' +
       '<div class="bname">'+esc(r.customer || '고객')+'</div>' +
-      (badge ? '<div>'+badge+'</div>' : '') +
+      ((badge || conBtn) ? '<div class="bcon">'+badge+conBtn+'</div>' : '') +
       '<div class="bproc">'+esc(r.proc || '시술')+'</div>' +
       (r.session ? '<div class="bsess">'+esc(r.session)+'</div>' : '') +
+      dcLine +
+      chartLine +
       '<div class="btime"><span>'+hhmm(r.startAt)+' ~ '+hhmm(r.endAt)+'</span>' +
         '<span class="left" data-left="'+esc(room)+'">'+leftText(left)+'</span></div>' +
+      '<div class="bprog" data-bprog="'+esc(room)+'"><i style="width:'+pct.toFixed(1)+'%"></i></div>' +
+      '<div class="badj">' +
+        '<button class="tq" type="button" data-tadj="-5" data-room="'+esc(room)+'" aria-label="'+esc(room)+' 5분 줄이기">−5분</button>' +
+        '<button class="tq" type="button" data-tadj="5" data-room="'+esc(room)+'">+5분</button>' +
+        '<button class="tq" type="button" data-tadj="10" data-room="'+esc(room)+'">+10분</button>' +
+        '<button class="tq ed" type="button" data-tedit="1" data-room="'+esc(room)+'" aria-label="'+esc(room)+' 시간 수정">⏱ 수정</button>' +
+      '</div>' +
+      dcBtns +
+      '<div class="crow">' +
+        '<button class="cbtn" type="button" data-chart="'+esc(room)+'">📝 차팅'+(r.signedAt ? ' ✓' : '')+'</button>' +
+        '<button class="pbtn" type="button" data-prep="'+esc(room)+'" aria-label="'+esc(room)+' 입실 준비 완료 알림" title="입실 준비 완료 알림">🟢</button>' +
+      '</div>' +
       '<div class="bacts">' +
         '<button class="bdone" type="button" data-bact="out" data-room="'+esc(room)+'">✓ 완료</button>' +
         '<button class="bic" type="button" data-bact="edit" data-room="'+esc(room)+'" aria-label="수정">✏️</button>' +
@@ -2017,6 +4022,7 @@ function renderBoard(){
   if(ab) ab.classList.toggle('zero', !after);
   renderHist();
   paintLefts();
+  renderDoctorBar();
 }
 function paintLefts(){
   ROOMS.forEach(function(room){
@@ -2032,6 +4038,18 @@ function paintLefts(){
     }
   });
 }
+/* v1.3 — 카드 진행 바(경과 / 전체)를 0.5초마다 갱신 */
+function paintBoardProg(){
+  ROOMS.forEach(function(room){
+    var r = bd.rooms[room];
+    if(!r || r.status !== 'busy') return;
+    var bar = $('[data-bprog="'+room+'"] i');
+    if(!bar) return;
+    var span = Math.max(60000, (r.endAt||0) - (r.startAt||0));
+    var pct = Math.max(0, Math.min(100, ((Date.now() - (r.startAt||0))/span)*100));
+    bar.style.width = pct.toFixed(1)+'%';
+  });
+}
 function renderHist(){
   var box = $('#histList'); if(!box) return;
   var t0 = today0();
@@ -2043,30 +4061,39 @@ function renderHist(){
   }
   box.innerHTML = rows.map(function(h){
     var pr = (h.proc||'') + (h.session ? ' · ' + h.session : '');
+    var sign = (h.nurse || h.signedAt)
+      ? '<span class="hsign">📝 '+esc(h.nurse || '간호사')+(h.signedAt ? ' ✓' : '')+'</span>'
+      : '';
     return '<div class="hit"><span class="hroom">'+esc(h.room)+'</span>' +
       '<span class="hname">'+esc(h.customer||'고객')+'</span>' +
       '<span class="hproc">'+esc(pr)+'</span>' +
+      sign +
       '<span class="htime">'+hhmm(h.outAt)+' 퇴실</span></div>';
   }).join('');
 }
 
 /* ---------- 탭 ---------- */
 function goTab(mode){
-  bd.mode = (mode === 'timer') ? 'timer' : 'board';
+  bd.mode = (mode === 'timer' || mode === 'plan') ? mode : 'board';
   saveBoard();
   paintTab();
+  if(bd.mode === 'plan') renderPlan();
   try{ window.scrollTo({top:0, behavior:'smooth'}); }catch(e){ try{ window.scrollTo(0,0); }catch(e2){} }
 }
 function paintTab(){
-  var isB = bd.mode !== 'timer';
-  var vb = $('#viewBoard'), vt = $('#viewTimer');
+  var isB = bd.mode !== 'timer' && bd.mode !== 'plan';
+  var isT = bd.mode === 'timer';
+  var isP = bd.mode === 'plan';
+  var vb = $('#viewBoard'), vt = $('#viewTimer'), vp = $('#viewPlan');
   if(vb) vb.classList.toggle('hide', !isB);
-  if(vt) vt.classList.toggle('hide', isB);
-  var tb = $('#tabBoard'), tt = $('#tabTimer');
+  if(vt) vt.classList.toggle('hide', !isT);
+  if(vp) vp.classList.toggle('hide', !isP);
+  var tb = $('#tabBoard'), tt = $('#tabTimer'), tp = $('#tabPlan');
   if(tb){ tb.classList.toggle('on', isB); tb.setAttribute('aria-selected', isB ? 'true' : 'false'); }
-  if(tt){ tt.classList.toggle('on', !isB); tt.setAttribute('aria-selected', isB ? 'false' : 'true'); }
-  setText('#topSub', isB ? '8개 방 · 접수팀 ↔ 간호팀 공유' : '방당 1~4번 수액 · 방울·알람');
-  document.title = isB ? 'TLC 실시간 시술 현황' : 'TLC 수액 타이머';
+  if(tt){ tt.classList.toggle('on', isT); tt.setAttribute('aria-selected', isT ? 'true' : 'false'); }
+  if(tp){ tp.classList.toggle('on', isP); tp.setAttribute('aria-selected', isP ? 'true' : 'false'); }
+  setText('#topSub', isB ? ' · 8개 방 · 접수팀 ↔ 간호팀 공유' : (isT ? ' · 방당 1~4번 수액 · 방울·알람' : ' · 내일 시술·간호사 준비'));
+  document.title = ((st.site && st.site.name) || 'TLC') + (isB ? ' · 실시간 시술 현황' : (isT ? ' · 수액 타이머' : ' · 내일 계획'));
 }
 
 /* ---------- 동기화 ---------- */
@@ -2093,6 +4120,10 @@ function doPush(){
       bd.pending.shift(); saveBoard();
       markSync(true, d.rev);
       if(bd.pending.length) doPush(); else pull(true);
+    } else if(d && d.error === 'unknown_action'){
+      /* 구 배포판에는 없는 동작(전역 알림 등) — 대기열에서 빼고 이 기기만 사용 */
+      bd.pending.shift(); bd.noGlobal = true; saveBoard(); markSync(true, d.rev);
+      if(bd.pending.length) doPush();
     } else { markSync(false); retryPush(); }
   }).catch(function(){ pushing = false; markSync(false); retryPush(); });
 }
@@ -2111,13 +4142,32 @@ function pull(force){
 function applyRemote(d){
   (d.rooms||[]).forEach(function(r){
     if(!r || !r.room) return;
+    if('doctorCall' in r || 'nurse' in r) bd.dcNative = true;   /* 새 Code.gs 감지 */
+    var hadSign = null;
+    normRoom(r);
     var cur = bd.rooms[r.room];
+    if(cur){
+      /* 이 기기에만 있는 서명 이미지·차팅은 서버에 없으므로 이어 받습니다 */
+      if(!r.sign && cur.sign) r.sign = cur.sign;
+      if(!r.chart && cur.chart && r.nurse === cur.nurse) r.chart = cur.chart;
+    }
     if(!cur || (Number(r.updatedAt)||0) >= (Number(cur.updatedAt)||0)) bd.rooms[r.room] = r;
   });
-  if(d.hist instanceof Array) bd.hist = d.hist;
+  if(d.hist instanceof Array){
+    bd.hist = d.hist.map(function(h){
+      if(!h) return h;
+      var old = null;
+      (bd.hist||[]).forEach(function(x){ if(x && x.id === h.id) old = x; });
+      if(old){ if(!h.sign && old.sign) h.sign = old.sign; if(!h.chart && old.chart) h.chart = old.chart; }
+      return h;
+    });
+  }
+  if(d.global && typeof d.global === 'object') bd.global = d.global;
   if(d.rev) bd.rev = d.rev;
   saveBoard();
   renderBoard();
+  syncHistAlerts();
+  checkAlerts();
 }
 function markSync(ok, rev){
   if(ok){ bd.online = true; bd.at = Date.now(); if(rev) bd.rev = Math.max(bd.rev||0, rev); }
@@ -2149,13 +4199,20 @@ function openIn(room){
   dft = {
     room: room, edit: edit,
     name: edit ? (r.customer||'') : '',
-    consult: edit ? (r.consult||'') : '',
+    consult: edit ? consultBase(r.consult) : '',
     prog: edit ? (r.program||'') : '',
     proc: edit ? (r.proc||'') : '',
     session: edit ? (r.session||'') : '',
     min: edit ? (Number(r.min)||45) : 45,
     startAt: edit ? (r.startAt||nowMinute()) : nowMinute(),
-    memo: edit ? (r.memo||'') : ''
+    memo: edit ? (r.memo||'') : '',
+    ivs: (function(){
+      var arr = [];
+      ivAll().forEach(function(it){
+        if(arr.length < 4 && ivSlotOf(room, it) > 0) arr.push({ id:it.id, name:it.name, ml:it.ml, min:it.min });
+      });
+      return arr;
+    })()
   };
   var sh = $('#inSheet');
   paintIn();
@@ -2202,6 +4259,13 @@ function paintIn(keepInputs){
   setText('#inSum', (dft.edit ? '수정 저장' : '지금 시작') + ' · ' + min + '분 · ' +
     hhmm(st0 + min*60000) + ' 종료 (' + hhmm(st0) + ' 시작)');
   setText('#inHint', dft.edit ? '고객명·시술·상담 순서를 고쳐 저장하세요' : '이름만 넣고 시술·상담을 고르세요');
+  var dch = $('#inDcHint');
+  if(dch){
+    var ms = /매선/.test((dft.proc||'') + ' ' + (dft.session||''));
+    dch.textContent = ms ? '🔔 매선 시술 — 입실 후 방 카드의 「원장님 호출 (매선)」 버튼으로 원장님을 부릅니다' : '';
+    dch.classList.toggle('hide', !ms);
+  }
+  renderIvList();
   var go = $('#inGo'); if(go) go.textContent = dft.edit ? '✓ 저장' : '▶ 입실 시작';
 }
 function pickProg(k){
@@ -2226,41 +4290,55 @@ function commitIn(){
   var startAt = dft.startAt || nowMinute();
   var me = $('#inMemo');
   var memo = ((me && me.value) || '').trim();
+  var prevDc = dft.edit && bd.rooms[dft.room] ? (bd.rooms[dft.room].doctorCall || '') : '';
+  var prevRoom = bd.rooms[dft.room] || {};
   var rec = {
     room: dft.room, tag: ROOM_TAG[dft.room] || '', status: 'busy',
-    customer: name, consult: dft.consult || '',
+    customer: name,
     proc: dft.proc || memo || '시술', session: dft.session || '', program: dft.prog || '',
     startAt: startAt, endAt: startAt + min*60000, min: min, memo: memo,
-    by: stationName(), updatedAt: Date.now()
+    by: stationName(), updatedAt: Date.now(), doctorCall: prevDc,
+    prepAlert: dft.edit ? (prevRoom.prepAlert || '') : { at:Date.now(), by:stationName(), byId:deviceId() },
+    nurse: dft.edit ? (prevRoom.nurse || '') : '',
+    chart: dft.edit ? (prevRoom.chart || '') : '',
+    signedAt: dft.edit ? (Number(prevRoom.signedAt) || 0) : 0,
+    sign: dft.edit ? (prevRoom.sign || '') : '',
+    consult: consultVal(dft.consult || '',
+      dft.edit ? (consultParts(prevRoom.consult).status || 'waiting') : 'waiting',
+      dft.edit ? consultParts(prevRoom.consult).started : 0,
+      dft.edit ? consultParts(prevRoom.consult).ended : 0)
   };
   bd.rooms[rec.room] = rec;
+  /* v1.3 — 시트에서 미리 체크한 수액을 이 방의 1~4번 슬롯에 넣습니다 */
+  var ivMiss = 0;
+  var ivWant = (dft.ivs || []).slice(0, 4);
+  if(ivWant.length){
+    ivWant.forEach(function(x){
+      var it = ivById(x.id) || x;
+      if(!ivCheckInto(rec.room, it)) ivMiss++;
+    });
+  }
   renderBoard(); saveBoard();
-  push({ op:'setRoom', data: rec });
+  push({ op:'setRoom', data: packRoom(rec) });
   var msg = name + ' 님 ' + rec.room + (dft.edit ? ' 수정 저장' : ' 입실');
+  if(ivWant.length) msg += ' · 수액 ' + (ivWant.length - ivMiss) + '종 준비' + (ivMiss ? ' (' + ivMiss + '종은 슬롯 부족)' : '');
   closeIn();
+  if(ivWant.length){ renderAll(); }
   toast(msg);
   dft = null;
 }
 function completeRoom(room){
+  /* v1.3 — 퇴실은 간호사 차팅·서명 시트를 거칩니다 (서명 필수) */
   var r = bd.rooms[room];
   if(!r || r.status !== 'busy'){ toast(room + '은 이미 빈 방입니다'); return; }
-  var snap = { room:room, customer:r.customer||'', consult:r.consult||'', proc:r.proc||'',
-    session:r.session||'', startAt:r.startAt||0, endAt:r.endAt||0, by:stationName() };
-  endRoomTimers(room);
-  bd.rooms[room] = blankRoom(room);
-  bd.hist.unshift({ id:'l'+Date.now(), outAt:Date.now(), room:room, customer:snap.customer,
-    consult:snap.consult, proc:snap.proc, session:snap.session,
-    startAt:snap.startAt, endAt:snap.endAt, by:snap.by });
-  renderBoard(); saveBoard();
-  push({ op:'checkout', data:snap });
-  toast((snap.customer || room) + ' 퇴실 처리했습니다');
+  openChart(room, 'checkout');
 }
 function clearBoardRoom(room){
   var r = bd.rooms[room];
   if(!r || r.status !== 'busy') return;
   bd.rooms[room] = blankRoom(room);
   renderBoard(); saveBoard();
-  push({ op:'setRoom', data: blankRoom(room) });
+  push({ op:'setRoom', data: packRoom(blankRoom(room)) });
 }
 function endRoomTimers(room){
   var hit = false;
@@ -2293,6 +4371,7 @@ function boardInit(){
 loadState();
 
 function bind(){
+  signInit();
   document.addEventListener('click', function(ev){
     var t = ev.target;
     /* 현황판 카드·탭·입실 시트 */
@@ -2327,6 +4406,140 @@ function bind(){
       if(dft){ dft.min = Math.max(5, (Number(dft.min)||45) + Number(mBtn.getAttribute('data-m'))); paintIn(); }
       return;
     }
+    /* v1.3 — 시간 수정 시트 */
+    if(t.closest && (t.closest('#tClose') || t.closest('#tBg'))){ ev.preventDefault(); closeTimeEdit(); return; }
+    if(t.closest && t.closest('#tApply')){ ev.preventDefault(); applyTimeEditInput(); return; }
+    var tmode = t.closest ? t.closest('#tMode button') : null;
+    if(tmode){
+      ev.preventDefault();
+      if(tEdit){ tEdit.mode = tmode.getAttribute('data-tm'); paintTimeEdit(); }
+      return;
+    }
+    var tchip = t.closest ? t.closest('#tChips button') : null;
+    if(tchip){ ev.preventDefault(); applyTimeEdit(Number(tchip.getAttribute('data-tv'))); return; }
+    var tn = t.closest ? t.closest('.trow button[data-tn]') : null;
+    if(tn){
+      ev.preventDefault();
+      if(tEdit){
+        var ti = $('#tMin');
+        var v = Math.max(1, (Number(ti && ti.value) || 0) + Number(tn.getAttribute('data-tn')));
+        if(ti) ti.value = v;
+        tEdit.val = v;
+        paintTimeEdit();
+      }
+      return;
+    }
+    /* v1.3 — 현황판 카드·수액 슬롯 퀵 조정 */
+    var radj = t.closest ? t.closest('[data-tadj]') : null;
+    if(radj){ ev.preventDefault(); adjustRoomMin(radj.getAttribute('data-room'), Number(radj.getAttribute('data-tadj'))); return; }
+    var redit = t.closest ? t.closest('[data-tedit]') : null;
+    if(redit){ ev.preventDefault(); openTimeEdit('room', redit.getAttribute('data-room')); return; }
+    var qadj = t.closest ? t.closest('[data-tquick]') : null;
+    if(qadj){ ev.preventDefault(); adjustTimerMin(Number(qadj.getAttribute('data-slot')), Number(qadj.getAttribute('data-tquick'))); return; }
+    var tse = t.closest ? t.closest('[data-tsedit]') : null;
+    if(tse){ ev.preventDefault(); openTimeEdit('timer', Number(tse.getAttribute('data-tsedit'))); return; }
+    /* v1.3 — 원장님 호출 */
+    var dcBtn = t.closest ? t.closest('[data-dc]') : null;
+    if(dcBtn){
+      ev.preventDefault();
+      var dcRoom = dcBtn.getAttribute('data-room');
+      if(dcBtn.getAttribute('data-dc') === 'ack') ackDoctor(dcRoom);
+      else callDoctor(dcRoom);
+      return;
+    }
+    /* v1.3 — 차팅 · 입실 준비 알림 */
+    var chBtn = t.closest ? t.closest('[data-chart]') : null;
+    if(chBtn){ ev.preventDefault(); openChart(chBtn.getAttribute('data-chart'), 'chart'); return; }
+    var prBtn = t.closest ? t.closest('[data-prep]') : null;
+    if(prBtn){ ev.preventDefault(); sendPrep(prBtn.getAttribute('data-prep')); return; }
+    var apBtn = t.closest ? t.closest('[data-ackprep]') : null;
+    if(apBtn){ ev.preventDefault(); ackPrep(apBtn.getAttribute('data-ackprep')); return; }
+    var acBtn = t.closest ? t.closest('[data-ackco]') : null;
+    if(acBtn){
+      ev.preventDefault();
+      var cid = acBtn.getAttribute('data-ackco');
+      checkoutAlerts = checkoutAlerts.filter(function(a){ return a.id !== cid; });
+      renderDoctorBar();
+      return;
+    }
+    /* 차팅 · 서명 시트 */
+    if(t.closest && (t.closest('#cClose') || t.closest('#cBg'))){ ev.preventDefault(); closeChart(); return; }
+    if(t.closest && t.closest('#cSave')){ ev.preventDefault(); saveChart('chart'); return; }
+    if(t.closest && t.closest('#cSaveOut')){
+      ev.preventDefault();
+      var nurseNow = ((($('#cNurse')||{}).value) || '').trim();
+      if(!nurseNow){ toast('담당 간호사를 선택하거나 입력해 주세요'); return; }
+      if(!chartValid('checkout')){ toast('서명 후 퇴실할 수 있습니다'); return; }
+      saveChart('checkout');
+      return;
+    }
+    if(t.closest && t.closest('#cSignClear')){
+      ev.preventDefault();
+      if(cEdit){ cEdit.sig = ''; cEdit.signedAt = 0; cEdit.cleared = true; }
+      clearSignPad(false);
+      paintChartState();
+      return;
+    }
+    var ndel = t.closest ? t.closest('[data-ndel]') : null;
+    if(ndel){ ev.preventDefault(); delNurse(ndel.getAttribute('data-ndel')); return; }
+    var nchip = t.closest ? t.closest('#cNurseChips button[data-nurse]') : null;
+    if(nchip){ ev.preventDefault(); pickNurse(nchip.getAttribute('data-nurse')); return; }
+    var brBtn = t.closest ? t.closest('#cBranch button') : null;
+    if(brBtn){ ev.preventDefault(); st.branch = brBtn.getAttribute('data-br'); save(); renderNurseChips(); return; }
+    if(t.closest && t.closest('#cNurseAdd')){ ev.preventDefault(); addNurse(); return; }
+    /* PIN 잠금 */
+    var pinBtn = t.closest ? t.closest('#pinPad button') : null;
+    if(pinBtn){
+      ev.preventDefault();
+      var pk = pinBtn.getAttribute('data-pin');
+      if(pk === 'del') pinDel();
+      else if(pk === 'clr'){ pinBuf = ''; pinPaint(); }
+      else pinPress(pinBtn.getAttribute('data-n'));
+      return;
+    }
+    /* 내일 계획 */
+    var pcBtn = t.closest ? t.closest('[data-pc]') : null;
+    if(pcBtn){ ev.preventDefault(); planCount(pcBtn.getAttribute('data-pc'), Number(pcBtn.getAttribute('data-pd'))||0); return; }
+    var phBtn = t.closest ? t.closest('[data-ph]') : null;
+    if(phBtn){ ev.preventDefault(); planBandHelper(Number(phBtn.getAttribute('data-ph'))); return; }
+    if(t.closest && t.closest('#planCopy')){ ev.preventDefault(); copyPlan(); return; }
+    /* 병원명 설정 */
+    if(t.closest && t.closest('#btnSite')){ ev.preventDefault(); openSite(); return; }
+    if(t.closest && (t.closest('#siteClose') || t.closest('#siteBg'))){ ev.preventDefault(); closeSite(); return; }
+    if(t.closest && t.closest('#siteSave')){ ev.preventDefault(); saveSite(); return; }
+    var sChip = t.closest ? t.closest('#siteChips button') : null;
+    if(sChip){
+      ev.preventDefault();
+      var si2 = $('#siteInput'); if(si2) si2.value = sChip.getAttribute('data-site');
+      var stel2 = $('#siteTel'); if(stel2) stel2.value = sChip.getAttribute('data-tel') || defaultTelFor(sChip.getAttribute('data-site'));
+      return;
+    }
+    /* 🍼 소아과 헬퍼 요청 */
+    if(t.closest && t.closest('#btnHelper')){ ev.preventDefault(); sendHelper(); return; }
+    var hBtn = t.closest ? t.closest('[data-helper]') : null;
+    if(hBtn){
+      ev.preventDefault();
+      if(hBtn.getAttribute('data-helper') === 'clear') clearHelper();
+      else {
+        var hsel = $('#helperNurse');
+        ackHelper(hsel ? hsel.value : '');
+      }
+      return;
+    }
+    /* v1.3 — 수액 체크 목록 */
+    var ivchk = t.closest ? t.closest('[data-ivchk]') : null;
+    if(ivchk){ ev.preventDefault(); toggleIv(ivchk.getAttribute('data-ivchk'), ivchk.getAttribute('data-ivscope')); return; }
+    var ivdelBtn = t.closest ? t.closest('[data-ivdel]') : null;
+    if(ivdelBtn){ ev.preventDefault(); delIv(ivdelBtn.getAttribute('data-ivdel')); return; }
+    if(t.closest && t.closest('#btnIvAdd')){ ev.preventDefault(); openIvAdd('timer'); return; }
+    if(t.closest && t.closest('#btnIvAddIn')){ ev.preventDefault(); openIvAdd('sheet'); return; }
+    if(t.closest && t.closest('#btnIvClear')){ ev.preventDefault(); clearIvChecks(); return; }
+    if(t.closest && (t.closest('#ivClose') || t.closest('#ivBg'))){ ev.preventDefault(); closeIvAdd(); return; }
+    if(t.closest && t.closest('#ivSave')){ ev.preventDefault(); saveIvAdd(); return; }
+    var ivm = t.closest ? t.closest('#ivMlChips button') : null;
+    if(ivm){ ev.preventDefault(); var mEl = $('#ivMl'); if(mEl) mEl.value = ivm.getAttribute('data-v'); return; }
+    var ivmn = t.closest ? t.closest('#ivMinChips button') : null;
+    if(ivmn){ ev.preventDefault(); var mnEl = $('#ivMin'); if(mnEl) mnEl.value = ivmn.getAttribute('data-v'); return; }
     /* 알람 카드 */
     var aa = t.closest ? t.closest('[data-aact]') : null;
     if(aa){
@@ -2365,6 +4578,20 @@ function bind(){
       handleAct(act, slot, actEl);
       return;
     }
+    /* v1.3 — 상담 시작/종료 */
+    var conBtn = t.closest ? t.closest('[data-consult]') : null;
+    if(conBtn){
+      ev.preventDefault();
+      setConsult(conBtn.getAttribute('data-consult'), conBtn.getAttribute('data-cs'));
+      return;
+    }
+    /* 피부 2단계 */
+    var skinBtn = t.closest ? t.closest('[data-skin]') : null;
+    if(skinBtn){ ev.preventDefault(); startDoctorProc(skinBtn.getAttribute('data-skin')); return; }
+    /* 검사실 현황 */
+    var exBtn = t.closest ? t.closest('[data-ex]') : null;
+    if(exBtn){ ev.preventDefault(); toggleExam(exBtn.getAttribute('data-ex')); return; }
+    if(t.closest && t.closest('#examAdd')){ ev.preventDefault(); addExamItem(); return; }
     /* 칩 */
     var chipGtt = t.closest ? t.closest('[data-gtt]') : null;
     if(chipGtt && chipGtt.closest('.slot')){
@@ -2416,6 +4643,14 @@ function bind(){
       st.timers.forEach(function(tm3){ if(!tm3.done) tm3.mid = st.cfg.mid; });
       save();
       toast(st.cfg.mid ? '50% 중간 체크를 켰습니다' : '50% 중간 체크를 껐습니다');
+      return;
+    }
+    if(t.closest && t.closest('#p80Chip')){
+      st.cfg.p80 = !st.cfg.p80;
+      save(); paintAlarmCfg();
+      st.timers.forEach(function(tm4){ if(!tm4.done) tm4.p80 = st.cfg.p80; });
+      save();
+      toast(st.cfg.p80 ? '80% 체크 알람을 켰습니다' : '80% 체크 알람을 껐습니다');
       return;
     }
     if(t.closest && t.closest('#btnNoti')){ askNotify(); return; }
@@ -2489,6 +4724,8 @@ function bind(){
 
   document.addEventListener('input', function(ev){
     var el = ev.target;
+    if(el && el.getAttribute && el.getAttribute('data-pci')){ planCountSet(el.getAttribute('data-pci'), el.value); return; }
+    if(el && el.id === 'cNurse' && cEdit){ paintChartState(); return; }
     if(el && el.id === 'inName' && dft){ dft.name = el.value; return; }
     if(el && el.id === 'inMin' && dft){ dft.min = Number(el.value) || 45; paintIn(true); return; }
     if(el && el.id === 'inMemo' && dft){ dft.memo = el.value; return; }
@@ -2501,11 +4738,48 @@ function bind(){
     updateCalc(st.room, slot);
   });
 
+  document.addEventListener('change', function(ev){
+    var el = ev.target;
+    if(!el || !el.getAttribute) return;
+    if(el.tagName === 'SELECT' && el.getAttribute('data-pb') !== null && el.getAttribute('data-pb') !== undefined){
+      planBandNurse(Number(el.getAttribute('data-pb')), el.value);
+      return;
+    }
+    if(el.tagName === 'SELECT' && el.getAttribute('data-pp')){
+      planProcNurse(el.getAttribute('data-pp'), el.value);
+      return;
+    }
+    if(el.tagName === 'SELECT' && el.getAttribute('data-exn')){
+      setExamNurse(el.getAttribute('data-exn'), el.value);
+      return;
+    }
+  });
+
   document.addEventListener('keydown', function(ev){
+    var gate = $('#pinGate');
+    if(gate && gate.classList.contains('on')){
+      if(/^[0-9]$/.test(ev.key)){ ev.preventDefault(); pinPress(ev.key); return; }
+      if(ev.key === 'Backspace'){ ev.preventDefault(); pinDel(); return; }
+      if(ev.key === 'Enter'){ ev.preventDefault(); return; }
+    }
+    if(ev.key === 'Enter' && ev.target && ev.target.id === 'siteInput'){ ev.preventDefault(); saveSite(); return; }
+    if(ev.key === 'Enter' && ev.target && ev.target.id === 'cNurseNew'){ ev.preventDefault(); addNurse(); return; }
     if(ev.key === 'Enter' && ev.target && ev.target.id === 'inName' && dft){ ev.preventDefault(); commitIn(); return; }
+    if(ev.key === 'Enter' && ev.target && ev.target.id === 'tMin' && tEdit){ ev.preventDefault(); applyTimeEditInput(); return; }
+    if(ev.key === 'Enter' && ev.target && ['ivName','ivMl','ivMin'].indexOf(ev.target.id) >= 0){
+      ev.preventDefault(); saveIvAdd(); return;
+    }
     if(ev.key === 'Escape'){
       var sh = $('#inSheet');
       if(sh && sh.classList.contains('on')){ closeIn(); return; }
+      var ivsh = $('#ivSheet');
+      if(ivsh && ivsh.classList.contains('on')){ closeIvAdd(); return; }
+      var csh = $('#cSheet');
+      if(csh && csh.classList.contains('on')){ closeChart(); return; }
+      var ssh = $('#siteSheet');
+      if(ssh && ssh.classList.contains('on')){ closeSite(); return; }
+      var tsh = $('#tSheet');
+      if(tsh && tsh.classList.contains('on')){ closeTimeEdit(); return; }
       if($('#modal').classList.contains('on')){ closeModal(); return; }
       if(drip.on && !drip.locked) closeDrip();
     }
@@ -2537,7 +4811,7 @@ function bind(){
 
   /* 첫 터치에서 오디오 잠금 해제 */
   ['pointerdown','touchstart','click'].forEach(function(k){
-    document.addEventListener(k, function once(){ unlockAudio(); }, {once:true, passive:true});
+    document.addEventListener(k, function once(){ markGesture(); unlockAudio(); }, {once:true, passive:true});
   });
 
   /* 화면 복귀 — 밀린 알람 즉시 확인 */
@@ -2550,6 +4824,7 @@ function bind(){
 
   /* 알람을 놓치지 않도록 주기 확인 */
   setInterval(function(){ checkAlarms(); paint(); }, 500);
+  setInterval(function(){ checkAlerts(); }, 2000);
   setInterval(function(){ if(!document.hidden) versionCheck(); }, VER_POLL_MS);
   document.addEventListener('visibilitychange', function(){ if(!document.hidden) versionCheck(); });
 }
@@ -2569,11 +4844,14 @@ function clearRoom(){
 
 /* 시작 */
 loadState();
+showPinGate(!pinUnlocked());
 renderAll();
+paintBrand();
 paintConn();
 bind();
 boardInit();
 checkAlarms();
+checkAlerts();
 paint();
 wakeSync();
 versionCheck(true);
@@ -2597,6 +4875,21 @@ window.IV = {
   notifyState: notiPerm,
   wakeState: function(){ return { supported:wake.supported, want:wake.want, held:!!wake.lock, attempts:wake.attempts, err:wake.err }; },
   selectRoom: selectRoom,
+  timeEdit: { open: openTimeEdit, close: closeTimeEdit, target: timeEditTarget, apply: applyTimeEdit },
+  adjustRoom: adjustRoomMin,
+  adjustTimer: adjustTimerMin,
+  iv: { list: ivAll, dt: IV_DEFAULT, checked: ivCheckedIn, toggle: toggleIv, add: saveIvAdd },
+  doctor: { calls: doctorCalls, call: callDoctor, ack: ackDoctor, bar: renderDoctorBar, check: checkAlerts },
+  alerts: { prep: prepAlerts, sendPrep: sendPrep, ackPrep: ackPrep, check: checkAlerts,
+    checkout: function(){ return checkoutAlerts.slice(); } },
+  chart: { open: openChart, close: closeChart, save: saveChart, state: function(){ return cEdit; },
+    checkout: finishCheckout, signDirty: function(){ return signPad.dirty; } },
+  nurses: { list: nurseList, add: addNurse, del: delNurse, branch: function(){ return st.branch; } },
+  pin: { hash: pinHash, unlocked: pinUnlocked, press: pinPress, del: pinDel,
+    buffer: function(){ return pinBuf; } },
+  plan: { render: renderPlan, summary: planSummary, state: ensurePlan, count: planCount,
+    band: planBandNurse, helper: planBandHelper, proc: planProcNurse, copy: copyPlan },
+  site: { name: function(){ return st.site.name; }, open: openSite, save: saveSite },
   board: {
     state: bd, rooms: ROOMS, programs: PROGRAMS, syncUrl: SYNC_URL,
     openIn: openIn, closeIn: closeIn, commit: commitIn, complete: completeRoom,
