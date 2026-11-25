@@ -11,8 +11,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:type" content="website">
-<meta property="og:title" content="TLC 실시간 시술 현황 v1.3">
-<meta property="og:description" content="8개 방 실시간 공유 현황 · 상담 순서 · 바디 12회 프로그램 · 수액 타이머">
+<meta property="og:title" content="TLC 실시간 시술 현황 v1.4">
+<meta property="og:description" content="지점별 8개 방 실시간 공유 현황 · 상담 순서 · 바디 12회 프로그램 · 수액 타이머">
 <meta property="og:image" content="https://tlcmediclinic.github.io/iv-timer/icon-512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
@@ -394,7 +394,7 @@ body.has-upd .tabs{top:calc(120px + env(safe-area-inset-top))}
 .sync .sd.off{background:var(--red)}
 
 /* ---------- 방 카드 ---------- */
-.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px;align-items:start}
 .bcard{position:relative;text-align:left;border-radius:16px;padding:12px;min-height:132px;border:1.5px solid var(--line);
   background:#fff;box-shadow:var(--sh);display:flex;flex-direction:column;gap:5px;width:100%}
 .bcard.free{background:linear-gradient(180deg,#F1FCF7,#E7F8F1);border-color:#AEE6D2;align-items:stretch;justify-content:center;min-height:112px}
@@ -832,39 +832,177 @@ footer .cr3{font-size:11.5px;font-weight:700;color:#8A5310;line-height:1.5;margi
 /* 알림 배너가 떠 있는 동안 본문이 가리지 않도록 */
 .dcbar{max-height:58vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
 body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
+
+/* =========================================================================
+   v1.4 — 개인 서명 비번(PIN) 로그인 · 사용자 전환 · 지점 분리
+   ========================================================================= */
+
+/* ---- 로그인 게이트 ---- */
+.loginGate{position:fixed;inset:0;z-index:130;display:none;align-items:flex-start;justify-content:center;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;padding:calc(16px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
+  background:radial-gradient(120% 90% at 50% 0%,#DCF2FD 0%,#EAF7FE 42%,#F7FBFE 100%)}
+.loginGate.on{display:flex}
+.lbox{width:100%;max-width:400px;background:#fff;border:1px solid var(--line);border-radius:22px;
+  box-shadow:0 18px 50px rgba(21,88,124,.18);padding:18px 16px 16px;text-align:center;margin:auto 0}
+.lbox.shake{animation:pinShake .45s}
+.lico{width:56px;height:56px;margin:0 auto 4px;display:block}
+.lico svg{width:100%;height:100%;display:block}
+.lbox h2{font-size:19px;font-weight:900;letter-spacing:-.03em;margin-top:2px}
+.lline{font-size:12px;font-weight:800;color:#8A5310;background:#FFF8EE;border:1px solid #F0DFC4;
+  border-radius:999px;padding:5px 10px;margin:7px auto 0;display:inline-block;line-height:1.4}
+.lcr{font-size:10.5px;font-weight:700;color:var(--ink3);margin-top:6px;line-height:1.5}
+.llbl{font-size:12.5px;font-weight:900;color:var(--ink3);margin:12px 0 6px;display:flex;
+  align-items:baseline;justify-content:space-between;gap:8px;text-align:left}
+.llbl .hint{font-size:11.5px}
+.lbranch{margin-bottom:2px}
+.lbranch button{min-height:50px;font-size:15.5px}
+.lbranch button.on{background:var(--sky);border-color:var(--sky);color:#fff;box-shadow:0 5px 14px rgba(46,155,214,.24)}
+.lstaff{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px;max-height:246px;overflow-y:auto;
+  -webkit-overflow-scrolling:touch}
+.lstaff button{display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-height:52px;
+  padding:8px 10px;border:1.5px solid var(--line);border-radius:12px;background:#FBFDFF;text-align:left}
+.lstaff button:active{transform:scale(.975);background:#EFF8FD}
+.lstaff button b{font-size:15.5px;font-weight:900;color:var(--ink);letter-spacing:-.02em}
+.lstaff button span{font-size:10.5px;font-weight:800;color:var(--ink3)}
+.lstaff button.reg{border-color:#BFE7D6;background:#F3FCF8}
+.lstaff button.reg span{color:#127A63}
+.lstaff button .adm{font-style:normal;font-size:9.5px;font-weight:900;color:#8A5310;background:#FFF1D9;
+  border-radius:999px;padding:1px 5px;vertical-align:1px}
+.lnote{font-size:11.5px;font-weight:700;color:var(--ink3);line-height:1.55;margin-top:8px;text-align:center}
+.lnote b{color:var(--ink2);font-weight:900}
+.lnote.sub{font-size:11px;margin-top:5px;background:#F7FBFD;border-radius:10px;padding:8px 10px}
+.lmode{font-size:12px;font-weight:900;color:var(--sky-d);background:var(--sky-l);border-radius:999px;
+  padding:5px 11px;display:inline-block;margin:8px 0 4px}
+.lme{font-size:21px;font-weight:900;letter-spacing:-.03em;margin:2px 0 2px;color:var(--ink)}
+.lsub{font-size:12.5px;font-weight:700;color:var(--ink3);margin:2px 0 8px}
+.lcount{font-size:11.5px;font-weight:800;color:var(--ink3);margin:-2px 0 6px;font-variant-numeric:tabular-nums}
+.lback{width:100%;min-height:44px;margin-top:8px;border-radius:12px;background:#F5F9FC;border:1.5px solid var(--line);
+  font-size:13.5px;font-weight:800;color:var(--ink2)}
+.lclose{width:100%;min-height:40px;margin-top:12px;border-radius:12px;border:1px dashed var(--line);
+  background:transparent;font-size:12.5px;font-weight:800;color:var(--ink3)}
+
+/* ---- 상단 사용자 칩 ---- */
+.whochip{display:inline-flex;align-items:center;gap:3px;max-width:44%;flex:none;font-size:11.5px;font-weight:900;
+  color:#0F6B50;background:#EFFAF5;border:1px solid #CBEDDD;border-radius:999px;padding:3px 8px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.whochip:active{transform:scale(.97)}
+.whochip.guest{color:#946015;background:#FFF6E8;border-color:#F0DFC4}
+@media (max-width:430px){ .bt .sub #topSub{display:none} .sitename{max-width:48%} .whochip{max-width:48%} }
+
+/* ---- 계정 시트 ---- */
+.who-card{display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#F3FBF7,#EAF7F1);
+  border:1px solid #CBEDDD;border-radius:14px;padding:12px;margin-bottom:4px}
+.who-card .wico{font-size:26px;line-height:1}
+.who-card .wt{flex:1;min-width:0;text-align:left}
+.who-card .wt b{font-size:19px;font-weight:900;letter-spacing:-.03em;color:#0F6B50;margin-right:6px}
+.who-card .wt span{font-size:12px;font-weight:900;color:#127A63;background:#fff;border:1px solid #BEE7D6;
+  border-radius:999px;padding:2px 8px}
+.who-card .wt em{display:block;font-style:normal;font-size:11.5px;font-weight:700;color:var(--ink3);margin-top:3px}
+#accBranchSeg button.on{background:var(--sky);border-color:var(--sky);color:#fff;box-shadow:0 4px 12px rgba(46,155,214,.22)}
+.arow{display:flex;gap:8px;margin:10px 0 4px}
+.arow .btn{flex:1;min-height:50px;font-size:15px}
+.ulist{display:flex;flex-direction:column;gap:6px;margin-bottom:6px}
+.urow{display:flex;align-items:center;gap:6px;background:#FBFDFF;border:1.5px solid var(--line);
+  border-radius:11px;padding:7px 9px}
+.urow.cur{background:#F3FCF8;border-color:#BFE7D6}
+.urow .ubr{flex:none;font-size:10.5px;font-weight:900;color:#fff;background:var(--sky);border-radius:999px;padding:2px 7px}
+.urow b{flex:none;font-size:14px;font-weight:900;color:var(--ink)}
+.urow em{flex:1;min-width:0;font-style:normal;font-size:10.5px;font-weight:700;color:var(--ink3);text-align:left}
+.urow .mini{flex:none;min-height:36px;font-size:11.5px;padding:0 9px}
+.urow .mini[disabled]{opacity:.45}
+.clogin{font-size:11.5px;font-weight:800;color:#0F6B50;background:#EFFAF5;border:1px solid #CBEDDD;
+  border-radius:9px;padding:6px 9px;margin-bottom:8px;text-align:left}
+
+/* ---- 현황판 카드: 시술/서명 계정 줄 ---- */
+.staffst{display:block;font-size:12px;font-weight:800;color:#1B4F86;background:#EFF6FE;
+  border:1px solid #CFE0F7;border-radius:9px;padding:4px 8px;line-height:1.35}
+.staffst i,.chartst i{font-style:normal;font-weight:800;color:var(--ink3);font-size:10.5px;margin-left:3px}
+.hit .hstaff{flex:none;font-size:11px;font-weight:900;color:#1B4F86;background:#EFF6FE;
+  border:1px solid #CFE0F7;border-radius:999px;padding:2px 7px;white-space:nowrap}
+.nchips button.me{border-color:#8FDCCD;color:#127A63;background:#F3FCF8}
+.nchips button.me.on{background:var(--grn);border-color:var(--grn);color:#fff}
+
+/* 분당 서버 안내 */
+.brwarn{font-size:11.5px;font-weight:700;color:#8A5310;background:#FFF8EE;border:1px dashed #E9C58A;
+  border-radius:10px;padding:8px 10px;margin-top:8px;line-height:1.5}
+.brwarn b{font-weight:900;color:#7A3E00}
+@media (max-width:359px){
+  .lstaff{grid-template-columns:1fr}
+  .lbox h2{font-size:17.5px}
+}
 </style>
 </head>
 <body>
 
-<!-- ===================== v1.3 내부 전용 잠금(PIN) ===================== -->
-<div class="pingate on" id="pinGate" aria-hidden="false">
-  <div class="pinbox" id="pinBox" role="dialog" aria-modal="true" aria-labelledby="pinTitle">
-    <div class="pinico" aria-hidden="true">🔒</div>
-    <h2 id="pinTitle">티엘씨 클리닉</h2>
-    <p class="pinline">내부·개인적 사용 전용 (무단 배포 금지)</p>
-    <p class="pinsub">4자리 비밀번호를 입력하세요</p>
-    <div class="pindots" id="pinDots" aria-live="polite"><i></i><i></i><i></i><i></i></div>
-    <p class="pinerr hide" id="pinErr"></p>
-    <div class="pinpad" id="pinPad">
-      <button type="button" data-n="1">1</button>
-      <button type="button" data-n="2">2</button>
-      <button type="button" data-n="3">3</button>
-      <button type="button" data-n="4">4</button>
-      <button type="button" data-n="5">5</button>
-      <button type="button" data-n="6">6</button>
-      <button type="button" data-n="7">7</button>
-      <button type="button" data-n="8">8</button>
-      <button type="button" data-n="9">9</button>
-      <button type="button" class="fn" data-pin="clr">C</button>
-      <button type="button" data-n="0">0</button>
-      <button type="button" class="fn" data-pin="del" aria-label="한 자 지우기">⌫</button>
+<!-- ===================== v1.4 개인 서명 비번(PIN) 로그인 ===================== -->
+<div class="loginGate on" id="loginGate" aria-hidden="false">
+  <div class="lbox" id="lBox" role="dialog" aria-modal="true" aria-labelledby="lTitle">
+    <div class="lico" aria-hidden="true"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="티엘씨 화합형 로고">
+  <defs>
+    <linearGradient id="tlcG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2EC5AB"/>
+      <stop offset="0.55" stop-color="#12A08B"/>
+      <stop offset="1" stop-color="#0A7265"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="url(#tlcG)"/>
+  <circle cx="32" cy="32" r="29.2" fill="none" stroke="#ffffff" stroke-opacity="0.34" stroke-width="1.1"/>
+  <path d="M12.4 39.6C17.4 51.4 24.2 56.6 32 56.6s14.6-5.2 19.6-17" fill="none" stroke="#ffffff" stroke-opacity="0.95" stroke-width="2.9" stroke-linecap="round"/>
+  <g transform="translate(32 32) scale(0.86) translate(-32 -32)">
+    <path d="M32 47.6C21.6 40.6 12.8 33 12.8 24.5c0-6.1 4.7-10.7 10.3-10.7 3.4 0 6.2 1.6 8.9 4.5 2.7-2.9 5.5-4.5 8.9-4.5 5.6 0 10.3 4.6 10.3 10.7 0 8.5-8.8 16.1-19.2 23.1z" fill="#ffffff"/>
+    <path d="M29.9 20.4h4.2v5.4h5.4v4.2h-5.4v5.4h-4.2v-5.4h-5.4v-4.2h5.4z" fill="#0C8071"/>
+  </g>
+  <path d="M12.4 39.6c3.4 1.4 6.6 1.7 9.5 1M51.6 39.6c-3.4 1.4-6.6 1.7-9.5 1" fill="none" stroke="#F2705C" stroke-width="2.9" stroke-linecap="round"/>
+</svg></div>
+    <h2 id="lTitle">TLC 실시간 시술 현황</h2>
+    <p class="lline">내부·개인적 사용 전용 (무단 배포 금지)</p>
+    <p class="lcr">아이디어·개발·제작: 김효숙 · 무단 복제·외부 유출·상업적 재배포 금지</p>
+
+    <div class="lstep" id="lsStep1">
+      <div class="llbl">지점</div>
+      <div class="seg2 lbranch" id="lBranch" role="group" aria-label="지점 선택">
+        <button type="button" data-lbr="cheongdam" class="on">🏥 청담</button>
+        <button type="button" data-lbr="bundang">🏥 분당</button>
+      </div>
+      <div class="llbl">본인 이름 <span class="hint" id="lWhoHint">청담 직원</span></div>
+      <div class="lstaff" id="lStaff"></div>
+      <div class="nadd">
+        <input id="lNewName" class="inp" type="text" autocomplete="off" placeholder="이름이 없으면 직접 추가">
+        <button type="button" class="mini" id="lNewAdd">＋ 추가</button>
+      </div>
+      <p class="lnote">처음이면 <b>본인 4자리 비번</b>을 새로 만들고, 다음부터는 그 비번으로 들어갑니다.</p>
+      <p class="lnote sub">🔐 비번은 이 기기에 <b>SHA-256 해시</b>로만 저장 · 60일 유지 · 공용 기기는 <b>👤 설정 → 사용자 전환</b></p>
     </div>
-    <p class="pinnote">한 번 입력한 기기는 다음부터 바로 열립니다.</p>
+
+    <div class="lstep hide" id="lsStep2">
+      <p class="lmode" id="lMode">🔒 개인 비번 로그인</p>
+      <p class="lme" id="lMe">청담 · 김효숙</p>
+      <p class="lsub" id="lPinSub">4자리 비번을 입력하세요</p>
+      <div class="pindots" id="lDots" aria-live="polite"><i></i><i></i><i></i><i></i></div>
+      <p class="lcount" id="lCount">0/4</p>
+      <p class="pinerr hide" id="lErr"></p>
+      <div class="pinpad" id="lPad">
+        <button type="button" data-ln="1">1</button>
+        <button type="button" data-ln="2">2</button>
+        <button type="button" data-ln="3">3</button>
+        <button type="button" data-ln="4">4</button>
+        <button type="button" data-ln="5">5</button>
+        <button type="button" data-ln="6">6</button>
+        <button type="button" data-ln="7">7</button>
+        <button type="button" data-ln="8">8</button>
+        <button type="button" data-ln="9">9</button>
+        <button type="button" class="fn" data-lpin="clr">C</button>
+        <button type="button" data-ln="0">0</button>
+        <button type="button" class="fn" data-lpin="del" aria-label="한 자 지우기">⌫</button>
+      </div>
+      <button type="button" class="lback" id="lBack">← 이름 다시 선택</button>
+    </div>
+    <button type="button" class="lclose hide" id="lClose">닫기 (지금 화면 그대로)</button>
   </div>
 </div>
 
 <div class="updbar" id="updBar" role="status">
-  <span>새 버전 <b id="updVer">v1.3</b> 이 있습니다</span>
+  <span>새 버전 <b id="updVer">v1.4</b> 이 있습니다</span>
   <a href="#" id="updBtn" rel="noopener">지금 새로고침</a>
 </div>
 
@@ -889,11 +1027,11 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
 </svg></span>
     <div class="bt">
       <h1 id="appTitle">TLC 메디컬 그룹 네트워크 병원용</h1>
-      <p class="sub"><button type="button" class="sitename" id="btnSite" title="병원명 변경"><span id="siteName">티엘씨 클리닉 청담</span><i aria-hidden="true">✏️</i></button><span id="topSub"> · 8개 방 · 접수팀 ↔ 간호팀 공유</span></p>
+      <p class="sub"><button type="button" class="sitename" id="btnSite" title="병원명 변경"><span id="siteName">티엘씨 클리닉 청담</span><i aria-hidden="true">✏️</i></button><button type="button" class="whochip" id="btnWho" title="계정 · 설정 (사용자 전환)">👤 <span id="whoChip">로그인</span></button><span id="topSub"> · 8개 방 · 접수팀 ↔ 간호팀 공유</span></p>
     </div>
   </div>
   <div class="tools">
-    <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><i class="dot"></i><span id="vbadgeText">v1.3</span></a>
+    <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><i class="dot"></i><span id="vbadgeText">v1.4</span></a>
     <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기"><span aria-hidden="true">🔄</span></a>
   </div>
 </header>
@@ -922,6 +1060,7 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
         <button class="rbtn big" id="btnBoardRefresh" title="지금 새로고침" aria-label="지금 새로고침">🔄</button>
       </div>
       <div class="sync"><i id="syncDot" class="sd"></i><span id="syncTxt">연결 중…</span></div>
+      <p class="brwarn hide" id="brWarn">⚠️ <b>분당</b> 실시간 공유는 Apps Script 새 버전 배포 후 켜집니다 · 지금은 이 기기에만 저장되고 <b>청담 자료와 섮이지 않습니다</b></p>
       <button class="hbtn" id="btnHelper" type="button">🍼 소아과 헬퍼 요청 <span>· 내과 핫라인</span></button>
     </section>
 
@@ -1074,7 +1213,7 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
   <footer>
     <p class="cr">아이디어·개발·제작: 김효숙 (무단 배포 금지)</p>
     <p class="cr3">본 프로그램은 내부·개인적 업무 보조 전용이며, 무단 복제·외부 유출·상업적 재배포를 금지합니다.</p>
-    <p class="cr2">티엘씨 청담의원 · 분당클리닉 · <span id="footVer">v1.3</span></p>
+    <p class="cr2">티엘씨 청담의원 · 분당클리닉 · <span id="footVer">v1.4</span></p>
   </footer>
 </main>
 
@@ -1095,6 +1234,9 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
       <button data-c="after" type="button">🩺 시술 후 상담</button>
       <button data-c="none" type="button">🚫 상담 불필요</button>
     </div>
+
+    <div class="clabel">시술 간호사 <span class="hint" id="inStaffHint">로그인 계정이 기본</span></div>
+    <div class="chips nchips" id="inStaffChips" role="group" aria-label="시술 간호사"></div>
 
     <div class="prog-wrap">
       <div class="prog-lbl">바디 12회 <span>세트1 1~4회 · 세트2 5~8회 · 세트3 9~12회</span></div>
@@ -1145,11 +1287,8 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
     </div>
     <div class="csum" id="cSum">3번방 · 고객 · 시술</div>
 
-    <div class="clabel">담당 간호사 <span class="hint" id="cNursePick">청담</span></div>
-    <div class="seg2 nseg" id="cBranch" role="group" aria-label="근무 지점">
-      <button type="button" data-br="cheongdam" class="on">청담</button>
-      <button type="button" data-br="bundang">분당</button>
-    </div>
+    <div class="clabel">서명 간호사 (실제 시술한 분) <span class="hint" id="cNursePick">청담 직원</span></div>
+    <p class="clogin" id="cLoginLine">로그인</p>
     <div class="chips nchips" id="cNurseChips"></div>
     <div class="nadd">
       <input id="cNurseNew" class="inp" type="text" autocomplete="off" placeholder="직원 이름 직접 추가 (예: 김하늘)">
@@ -1197,6 +1336,43 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
 </div>
 
 <div class="alarm-layer" id="alarmLayer" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- ===================== v1.4 계정 · 설정 (사용자 전환 · 관리자 직원 비번 초기화) ===================== -->
+<div class="sheet" id="accSheet" aria-hidden="true">
+  <div class="sheet-bg" id="accBg"></div>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="accTitle">
+    <div class="sh-top">
+      <b id="accTitle">계정 · 설정</b>
+      <button class="x" id="accClose" aria-label="닫기">✕</button>
+    </div>
+    <div class="who-card">
+      <span class="wico" aria-hidden="true">👤</span>
+      <div class="wt">
+        <b id="accName">김효숙</b>
+        <span id="accBranch">청담</span>
+        <em id="accSince">로그인 · 60일 유지</em>
+      </div>
+    </div>
+    <div class="clabel">지점 <span class="hint">지점을 바꾸려면 그 지점 직원으로 로그인합니다</span></div>
+    <div class="seg2 nseg" id="accBranchSeg" role="group" aria-label="지점 전환">
+      <button type="button" data-abr="cheongdam">🏥 청담</button>
+      <button type="button" data-abr="bundang">🏥 분당</button>
+    </div>
+    <div class="arow">
+      <button class="btn" type="button" id="accSwitch">🔄 사용자 전환</button>
+      <button class="btn ghost" type="button" id="accLogout">🚪 로그아웃</button>
+    </div>
+    <div id="accAdminBox" class="hide">
+      <div class="clabel">관리자 · 이 기기 직원 비번 초기화 <span class="hint">김효숙</span></div>
+      <div id="accUsers" class="ulist"></div>
+      <button class="mini ghost" type="button" id="accResetAll" style="width:100%;min-height:44px;margin-top:6px">이 기기 전체 초기화</button>
+    </div>
+    <div class="clabel">병원명 · 소아과 핫라인 <span class="hint" id="siteBrh">청담 지점</span></div>
+    <button class="btn ghost" type="button" id="accSite">⚙ 병원명 · 핫라인 설정</button>
+    <p class="lnote sub">🔐 비번은 기기에 SHA-256 해시로만 저장되고 서버·시트에 전송되지 않습니다. 비번을 잊으면 관리자(김효숙)가 설정에서 초기화해 줄 수 있습니다.</p>
+    <p class="lnote sub">© 김효숙 (무단 배포 금지) · 내부·개인적 업무 보조 전용</p>
+  </div>
+</div>
 
 <!-- ===================== v1.3 시간 수정 시트 ===================== -->
 <div class="sheet" id="tSheet" aria-hidden="true">
@@ -1309,21 +1485,38 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
 <div class="toast" id="toast" role="status"></div>
 
 <script>/* =========================================================================
-   TLC 실시간 시술 현황 v1.3
-   ① 실시간 시술 현황판(8개 방 공유) ② 수액 타이머 · 방당 1~4번 수액 · 점적 방울 모니터 · 사전/종료 알람
-   ③ v1.3 시간 수정(현황판 카드·수액 타이머) ④ 기본 수액 체크 목록 · 없는 수액 직접 추가
+   TLC 실시간 시술 현황 v1.4
+   ① 실시간 시술 현황판(지점별 8개 방 공유) ② 수액 타이머 · 방당 1~4번 수액 · 점적 방울 모니터 · 사전/종료 알람
+   ③ 시간 수정(현황판 카드·수액 타이머) ④ 기본 수액 체크 목록 · 없는 수액 직접 추가
+   ⑤ v1.4 개인 서명 비번(PIN) 로그인 · 공용 기기 시술/서명 간호사 직접 선택 · 청담·분당 완전 분리
    아이디어·개발·제작·저작권: 김효숙 (티엘씨 청담의원·분당클리닉 총괄실장)
    ========================================================================= */
 (function(){
 'use strict';
 
-var VERSION = 'v1.3';
+var VERSION = 'v1.4';
 var KEY = 'tlc_iv_v1';
-var ROOMS = ['1번방','2번방','3번방','4번방','5번방','6번방','두피시술방','검사실'];
-var ROOM_TAG = {
-  '1번방':'시술·수액', '2번방':'시술·수액', '3번방':'시술·수액', '4번방':'피부+시술 겸용',
-  '5번방':'피부방 · 시술 겸용', '6번방':'시술·수액', '두피시술방':'두피 시술', '검사실':'신규 고객 검사'
+var ADMIN_NAME = '김효숙';
+/* v1.4 — 청담·분당 지점 완전 분리: 방·환자·직원·원장님 호출·소아과 헬퍼·병원명을 지점별로 따로 둡니다 */
+var BR = {
+  cheongdam: {
+    key:'cheongdam', label:'청담', short:'티엘씨 청담', code:'cd',
+    site:'티엘씨 클리닉 청담', tel:'010-9678-0010',
+    rooms:['1번방','2번방','3번방','4번방','5번방','6번방','두피시술방','검사실'],
+    tags:['시술·수액','시술·수액','시술·수액','피부+시술 겸용','피부방 · 시술 겸용','시술·수액','두피 시술','신규 고객 검사'],
+    nurses:['이애영','김효정','이지연','이승주','김수지','김효숙']
+  },
+  bundang: {
+    key:'bundang', label:'분당', short:'티엘씨 분당', code:'bd',
+    site:'티엘씨 클리닉 분당', tel:'010-7940-1425',
+    rooms:['1번방','2번방','3번방','4번방','5번방','6번방','두피시술방','검사실'],
+    tags:['시술·수액','시술·수액','시술·수액','피부+시술 겸용','피부방 · 시술 겸용','시술·수액','두피 시술','신규 고객 검사'],
+    nurses:['마수경','유미영','정금주','김경애','박진영','박신애','정유이','송지원']
+  }
 };
+var ROOMS = BR.cheongdam.rooms.slice();
+var ROOM_TAG = {};
+BR.cheongdam.rooms.forEach(function(rm, i){ ROOM_TAG[rm] = BR.cheongdam.tags[i]; });
 var VOL_CHIPS = [50,100,200,250,500];
 var MIN_CHIPS = [15,30,45,60];
 var GTT_SET = [20,60,15];
@@ -1408,53 +1601,146 @@ function calcText(c, gtt){
     '<span class="mutedx">'+gtt+'gtt/mL 세트</span>';
 }
 
-/* ---------- 상태 ---------- */
+/* ---------- 상태 (v2: 지점별 네임스페이스) ---------- */
 var st = {
-  v:1, room:ROOMS[0], open:'',
+  v:2, room:ROOMS[0], open:'',
   cfg:{ preMin:5, mid:true, p80:true, snd:true, vib:true, wake:true },
-  slots:{}, timers:[], presets:[], names:[], ivs:[], nurses:[], branch:'cheongdam',
-  site:{ name:'티엘씨 클리닉 청담', tel:'010-9678-0010' }, plan:null
+  slots:{}, timers:[], presets:[], names:[], ivs:[],
+  nurses:{ cheongdam:[], bundang:[] },
+  branch:'cheongdam',
+  site:{ cheongdam:{ name:BR.cheongdam.site, tel:BR.cheongdam.tel },
+         bundang:{ name:BR.bundang.site, tel:BR.bundang.tel } },
+  plan:{ cheongdam:null, bundang:null },
+  exam:{ cheongdam:{}, bundang:{} },
+  examItems:{ cheongdam:[], bundang:[] }
 };
 var seq = 0;
 
 function blankSlot(){ return { name:'', ml:'', min:'', gtt:20 }; }
+
+/* ---------- v1.4 지점 헬퍼 ---------- */
+function brKey(){ return st.branch === 'bundang' ? 'bundang' : 'cheongdam'; }
+function brCode(){ return BR[brKey()].code; }
+function brLabel(){ return BR[brKey()].label; }
+function slotKey(room){ return brKey()+'|'+room; }
+function siteName(){ var s = st.site && st.site[brKey()]; return (s && s.name) || BR[brKey()].site; }
+function siteTel(){ var s = st.site && st.site[brKey()]; return (s && s.tel) || BR[brKey()].tel; }
+function applyBranch(b){
+  st.branch = (b === 'bundang') ? 'bundang' : 'cheongdam';
+  ROOMS = BR[st.branch].rooms.slice();
+  Object.keys(ROOM_TAG).forEach(function(k){ delete ROOM_TAG[k]; });
+  BR[st.branch].rooms.forEach(function(rm, i){ ROOM_TAG[rm] = BR[st.branch].tags[i]; });
+  if(ROOMS.indexOf(st.room) < 0) st.room = ROOMS[0];
+  var openRoom = String(st.open||'').split('|')[0];
+  if(ROOMS.indexOf(openRoom) < 0) st.open = st.room+'|1';
+}
+function normSlotRow(arr){
+  if(!(arr instanceof Array) || arr.length !== 4) return [0,1,2,3].map(blankSlot);
+  return arr.map(function(s){
+    s = s || {};
+    return { name:s.name||'', ml:s.ml==null?'':s.ml, min:s.min==null?'':s.min, gtt:parseFloat(s.gtt)||20 };
+  });
+}
+function ensureSlotsAll(){
+  ['cheongdam','bundang'].forEach(function(b){
+    BR[b].rooms.forEach(function(rm){
+      var k = b+'|'+rm;
+      st.slots[k] = normSlotRow(st.slots[k]);
+    });
+  });
+}
+function normNurses(v){
+  var out = { cheongdam:[], bundang:[] };
+  function put(b, x){
+    var nm = String((x && x.name) || x || '').trim().slice(0, 12);
+    if(!nm) return;
+    if(out[b].indexOf(nm) < 0) out[b].push(nm);
+  }
+  if(v instanceof Array) v.forEach(function(x){ put('cheongdam', x); });
+  else if(v && typeof v === 'object'){
+    (v.cheongdam||[]).forEach(function(x){ put('cheongdam', x); });
+    (v.bundang||[]).forEach(function(x){ put('bundang', x); });
+  }
+  return out;
+}
+function normSite(v){
+  var out = { cheongdam:{ name:BR.cheongdam.site, tel:BR.cheongdam.tel },
+              bundang:{ name:BR.bundang.site, tel:BR.bundang.tel } };
+  if(!v) return out;
+  if(v.cheongdam || v.bundang){
+    ['cheongdam','bundang'].forEach(function(b){
+      if(v[b] && v[b].name) out[b].name = String(v[b].name).slice(0, 30);
+      if(v[b] && v[b].tel) out[b].tel = String(v[b].tel).slice(0, 20);
+    });
+  } else if(v.name){
+    var b0 = /분당/.test(String(v.name)) ? 'bundang' : 'cheongdam';
+    out[b0].name = String(v.name).slice(0, 30);
+    if(v.tel) out[b0].tel = String(v.tel).slice(0, 20);
+  }
+  return out;
+}
+function normPlan(v){
+  var out = { cheongdam:null, bundang:null };
+  if(!v) return out;
+  if(v.cheongdam || v.bundang){ out.cheongdam = v.cheongdam || null; out.bundang = v.bundang || null; }
+  else if(v.counts) out.cheongdam = v;
+  return out;
+}
+function normExam(v){
+  var out = { cheongdam:{}, bundang:{} };
+  if(!v) return out;
+  if(v.cheongdam || v.bundang){ out.cheongdam = v.cheongdam || {}; out.bundang = v.bundang || {}; }
+  else out.cheongdam = v;
+  return out;
+}
+function normExamItems(v){
+  var out = { cheongdam:[], bundang:[] };
+  if(v instanceof Array) out.cheongdam = v.filter(function(x){ return x; });
+  else if(v && typeof v === 'object'){
+    out.cheongdam = (v.cheongdam||[]).filter(function(x){ return x; });
+    out.bundang = (v.bundang||[]).filter(function(x){ return x; });
+  }
+  return out;
+}
+function normSlots(v){
+  var out = {};
+  if(!v || typeof v !== 'object') return out;
+  Object.keys(v).forEach(function(k){
+    out[k.indexOf('|') >= 0 ? k : ('cheongdam|' + k)] = v[k];
+  });
+  return out;
+}
+
 function loadState(){
+  var savedRoom = '';
   try{
     var raw = localStorage.getItem(KEY);
     if(raw){
       var o = JSON.parse(raw);
-      if(o && o.v === 1){
+      if(o){
         if(o.cfg) for(var k in o.cfg) if(o.cfg[k] !== undefined) st.cfg[k] = o.cfg[k];
-        if(ROOMS.indexOf(o.room) >= 0) st.room = o.room;
+        if(o.room) savedRoom = String(o.room);
         if(typeof o.open === 'string') st.open = o.open;
         if(o.timers instanceof Array) st.timers = o.timers.filter(function(t){ return t && t.room && t.slot; });
         if(o.presets instanceof Array) st.presets = o.presets;
         if(o.names instanceof Array) st.names = o.names.slice(0, 14);
-        if(o.slots) st.slots = o.slots;
         if(o.ivs instanceof Array) st.ivs = o.ivs.filter(function(x){ return x && x.name; });
-        if(o.nurses instanceof Array) st.nurses = o.nurses.filter(function(x){ return x && x.name; });
+        st.nurses = normNurses(o.nurses);
         if(o.branch === 'cheongdam' || o.branch === 'bundang') st.branch = o.branch;
-        if(o.site && o.site.name) st.site.name = String(o.site.name).slice(0, 30);
-        if(o.site && o.site.tel) st.site.tel = String(o.site.tel).slice(0, 20);
-        if(o.plan && o.plan.counts) st.plan = o.plan;
-        if(o.exam && typeof o.exam === 'object') st.exam = o.exam;
-        if(o.examItems instanceof Array) st.examItems = o.examItems.filter(function(x){ return x; });
+        st.site = normSite(o.site);
+        st.plan = normPlan(o.plan);
+        st.exam = normExam(o.exam);
+        st.examItems = normExamItems(o.examItems);
+        st.slots = normSlots(o.slots);
       }
     }
   }catch(e){}
-  ROOMS.forEach(function(r){
-    var arr = st.slots[r];
-    if(!(arr instanceof Array) || arr.length !== 4){
-      st.slots[r] = [0,1,2,3].map(blankSlot);
-    } else {
-      st.slots[r] = arr.map(function(s){
-        s = s || {};
-        return { name:s.name||'', ml:s.ml==null?'':s.ml, min:s.min==null?'':s.min, gtt:parseFloat(s.gtt)||20 };
-      });
-    }
-  });
+  applyBranch(st.branch);
+  if(savedRoom && ROOMS.indexOf(savedRoom) >= 0) st.room = savedRoom;
+  ensureSlotsAll();
   if(!st.open) st.open = st.room+'|1';
   st.timers.forEach(function(t){
+    t.branch = (t.branch === 'bundang') ? 'bundang' : 'cheongdam';
     if(t.paused === undefined) t.paused = false;
     if(t.preFired === undefined) t.preFired = false;
     if(t.midFired === undefined) t.midFired = false;
@@ -1476,10 +1762,11 @@ function save(){
 }
 
 /* ---------- 타이머 ---------- */
-function activeTimers(){ return st.timers.filter(function(t){ return !t.done; }); }
+/* v1.4 — 화면(현재 지점)의 타이머만 보여 줍니다. 다른 지점 타이머도 알람은 계속 울립니다. */
+function activeTimers(){ return st.timers.filter(function(t){ return !t.done && t.branch === brKey(); }); }
 function findTimer(room, slot){
   var r = null;
-  st.timers.forEach(function(t){ if(!t.done && t.room === room && t.slot === slot) r = t; });
+  st.timers.forEach(function(t){ if(!t.done && t.room === room && t.slot === slot && t.branch === brKey()) r = t; });
   return r;
 }
 function timerById(id){ var r=null; st.timers.forEach(function(t){ if(t.id===id) r=t; }); return r; }
@@ -1495,6 +1782,11 @@ function remText(t){
   }
   return fmtLeft(remainMs(t));
 }
+/* v1.4 — 다른 지점에서 돌고 있는 수액 알람은 지점명을 함께 보여 줍니다 */
+function roomLabel(t){
+  var b = (t && t.branch) || 'cheongdam';
+  return (b !== brKey() ? '[' + BR[b].label + '] ' : '') + ((t && t.room) || '');
+}
 function gttMinOf(t){ var c = compute(t.ml, t.min, t.gtt); return c ? c.gttMin : 0; }
 
 function startTimer(room, slot, cfgOverride){
@@ -1507,7 +1799,7 @@ function startTimer(room, slot, cfgOverride){
   var now = Date.now();
   var t = {
     id: 't'+now+'_'+(++seq),
-    room: room, slot: slot,
+    room: room, slot: slot, branch: brKey(), user: currentUser(),
     name: (s.name||'').trim() || (slot+'번 수액'),
     ml: ml, min: min, gtt: gtt,
     startAt: now, endAt: now + min*60000, totalMs: min*60000,
@@ -1563,7 +1855,7 @@ function finishTimer(id, silent){
   if(!silent) toast(t.room+' '+t.slot+'번 수액을 종료했습니다');
 }
 function nextSlotOf(t){
-  var cfg = st.slots[t.room] || [];
+  var cfg = st.slots[(t.branch||'cheongdam')+'|'+t.room] || [];
   var order = [];
   for(var i=t.slot; i<=4; i++) order.push(i);
   for(var j=1; j<t.slot; j++) order.push(j);
@@ -1640,7 +1932,7 @@ function checkAlarms(){
 function renderAlarms(){
   var layer = $('#alarmLayer'); if(!layer) return;
   if(!alarms.length){
-    layer.innerHTML = ''; stopBeep(); document.title = ((st.site && st.site.name) || 'TLC') + ' · 실시간 시술 현황';
+    layer.innerHTML = ''; stopBeep(); document.title = siteName() + ' · 실시간 시술 현황';
     if(titleTimer){ clearInterval(titleTimer); titleTimer = 0; }
     return;
   }
@@ -1656,7 +1948,7 @@ function renderAlarms(){
       ? '<b>시간 초과 +'+Math.max(1, Math.floor(lateMs/60000))+'분</b> — 확인하지 않은 알람입니다.<br>'
       : '';
     html = '<div class="alarm end'+(a.kind === 'late' ? ' late' : '')+'">' +
-      '<div class="atop"><span class="ak">'+(a.kind === 'late' ? '시간 초과' : '종료')+'</span><span class="at">'+esc(t.room)+' · '+t.slot+'번 수액 '+(a.kind === 'late' ? '초과' : '끝')+'</span></div>' +
+      '<div class="atop"><span class="ak">'+(a.kind === 'late' ? '시간 초과' : '종료')+'</span><span class="at">'+esc(roomLabel(t))+' · '+t.slot+'번 수액 '+(a.kind === 'late' ? '초과' : '끝')+'</span></div>' +
       '<div class="ad">'+lateTxt+'수액을 확인하고 잠그거나 다음 수액을 준비하세요.<br>'+info+' · <b>'+hhmm(t.endAt)+' 종료</b></div>' +
       '<div class="aact">' +
         '<button class="btn ok" data-aact="ack" data-kind="end" data-tid="'+t.id+'">🔔 알람 확인 / 종료</button>' +
@@ -1666,14 +1958,14 @@ function renderAlarms(){
       '</div>';
   } else if(a.kind === 'pre'){
     html = '<div class="alarm pre">' +
-      '<div class="atop"><span class="ak">사전 알람</span><span class="at">'+esc(t.room)+' · '+t.slot+'번 수액</span></div>' +
+      '<div class="atop"><span class="ak">사전 알람</span><span class="at">'+esc(roomLabel(t))+' · '+t.slot+'번 수액</span></div>' +
       '<div class="ad"><b>'+fmtLeftKo(remainMs(t))+' 뒤</b> 끝납니다 — 체크하러 들어가세요.<br>'+info+'</div>' +
       '<div class="aact"><button class="btn star" data-aact="ack" data-kind="pre" data-tid="'+t.id+'">확인</button></div>' +
       (alarms.length>1 ? '<div class="amore">외 '+(alarms.length-1)+'건 알람</div>' : '') +
       '</div>';
   } else if(a.kind === 'p80'){
     html = '<div class="alarm p80">' +
-      '<div class="atop"><span class="ak">80% 체크</span><span class="at">'+esc(t.room)+' · '+t.slot+'번 수액</span></div>' +
+      '<div class="atop"><span class="ak">80% 체크</span><span class="at">'+esc(roomLabel(t))+' · '+t.slot+'번 수액</span></div>' +
       '<div class="ad">80% 들어갔습니다 — 잔량을 확인하고 마무리를 준비하세요.<br>'+info+' · <b>'+fmtLeftKo(remainMs(t))+'</b> 남음</div>' +
       '<div class="aact"><button class="btn" data-aact="ack" data-kind="p80" data-tid="'+t.id+'">확인</button></div>' +
       (alarms.length>1 ? '<div class="amore">외 '+(alarms.length-1)+'건 알람</div>' : '') +
@@ -1681,7 +1973,7 @@ function renderAlarms(){
   } else {
     var half = Math.round(t.min/2);
     html = '<div class="alarm mid">' +
-      '<div class="atop"><span class="ak">중간 체크</span><span class="at">'+esc(t.room)+' · '+t.slot+'번 수액 50%</span></div>' +
+      '<div class="atop"><span class="ak">중간 체크</span><span class="at">'+esc(roomLabel(t))+' · '+t.slot+'번 수액 50%</span></div>' +
       '<div class="ad">절반쯤 들어갔습니다 — 잔량과 점적 속도를 확인하세요.<br>'+info+' · <b>'+half+'분</b> 남음</div>' +
       '<div class="aact"><button class="btn" data-aact="ack" data-kind="mid" data-tid="'+t.id+'">확인</button></div>' +
       (alarms.length>1 ? '<div class="amore">외 '+(alarms.length-1)+'건 알람</div>' : '') +
@@ -1693,7 +1985,7 @@ function renderAlarms(){
     var on = false;
     titleTimer = setInterval(function(){
       on = !on;
-      document.title = on ? '🔔 알람 — ' + ((st.site && st.site.name) || 'TLC') : ((st.site && st.site.name) || 'TLC') + ' · 실시간 시술 현황';
+      document.title = on ? '🔔 알람 — ' + siteName() : siteName() + ' · 실시간 시술 현황';
     }, 900);
   }
 }
@@ -1856,7 +2148,7 @@ function wakeSync(){
 }
 
 /* ---------- 렌더 ---------- */
-function slotOf(room, slot){ return (st.slots[room] || [])[slot-1] || blankSlot(); }
+function slotOf(room, slot){ return (st.slots[slotKey(room)] || [])[slot-1] || blankSlot(); }
 
 function renderRooms(){
   var g = $('#roomGrid'); if(!g) return;
@@ -2098,6 +2390,8 @@ function renderAll(){
   renderExam();
   paintConn();
   paintAlarmCfg();
+  paintWho();
+  paintBrWarn();
   paint();
   renderAlarms();
   renderDoctorBar();
@@ -2352,7 +2646,7 @@ function ivCheckInto(room, it){
 function ivUncheckFrom(room, it){
   var slot = ivSlotOf(room, it);
   if(!slot) return 0;
-  st.slots[room][slot-1] = blankSlot();
+  st.slots[slotKey(room)][slot-1] = blankSlot();
   save();
   return slot;
 }
@@ -2434,7 +2728,7 @@ function clearIvChecks(){
   confirmModal('수액 체크 해제', room+'에서 체크한 수액 '+items.length+'종을 슬롯에서 뺄까요?', '해제', function(){
     items.forEach(function(it){
       var sl = ivSlotOf(room, it);
-      if(sl && !findTimer(room, sl)) st.slots[room][sl-1] = blankSlot();
+      if(sl && !findTimer(room, sl)) st.slots[slotKey(room)][sl-1] = blankSlot();
     });
     save(); renderAll(); toast('체크를 해제했습니다');
   });
@@ -2886,68 +3180,346 @@ function openLatest(ver){
 }
 
 /* =========================================================================
-   v1.3 ⑤ 내부 전용 잠금 — 4자리 비밀번호(해시 비교) · 인증한 기기는 저장
+   v1.4 ⑤ 개인 서명 비번(PIN) 로그인 — 지점 선택 → 내 이름 선택 → 개인 4자리 비번
+   · 처음 쓰는 직원: 본인 4자리 비번을 새로 만들고(확인 입력) 바로 들어갑니다.
+   · 이미 만든 직원: 본인 비번으로 로그인 (이 기기에 SHA-256 + 사용자별 salt 해시로만 저장)
+   · 60일 기기 유지 · 상단/설정에서 사용자 전환 · 관리자(김효숙)는 직원 비번 초기화
+   · 무단 복제·외부 유출·상업적 재배포 금지 고지와 저작권 표기(김효숙)는 로그인 카드·푸터에 유지
    ========================================================================= */
-var PIN_KEY = 'tlc_iv_pin_ok_v1';
-var PIN_HASH = '2b3a35cd';       /* pinHash(내부 비밀번호) — 문자열은 코드에 두지 않습니다 */
-var pinBuf = '';
-function pinHash(s){
-  var h = 5381, str = String(s||'') + '|tlc-iv-v13';
-  for(var i=0;i<str.length;i++){ h = (((h*33) ^ str.charCodeAt(i)) >>> 0); }
-  return ('0000000' + h.toString(16)).slice(-8);
+var AUTH_KEY = 'tlc_iv_auth_v14';
+var SESSION_DAYS = 60;
+var PIN_FAIL_MAX = 5, PIN_LOCK_MS = 30000;
+/* 개인 비번으로 쓰면 안 되는 쉬운 번호(같은 숫자 4개 · 연속 번호 · 예전 공통 번호) */
+var WEAK_PINS = (function(){
+  var out = ['1234', '4321'];
+  for(var i=0;i<10;i++) out.push(String(i) + String(i) + String(i) + String(i));
+  out.push('12' + '16');
+  return out;
+})();
+var auth = { users:{}, session:null, fail:{} };
+var login = { open:false, step:1, branch:'cheongdam', name:'', mode:'login', buf:'', first:'', msg:'' };
+
+function loadAuth(){
+  try{
+    var o = JSON.parse(localStorage.getItem(AUTH_KEY) || 'null');
+    if(o && o.users && typeof o.users === 'object') auth.users = o.users;
+    if(o && o.session && o.session.name && o.session.branch && Number(o.session.exp) > 0) auth.session = o.session;
+    if(o && o.fail && typeof o.fail === 'object') auth.fail = o.fail;
+  }catch(e){}
 }
-function pinUnlocked(){
-  try{ return localStorage.getItem(PIN_KEY) === PIN_HASH; }catch(e){ return false; }
+function saveAuth(){
+  try{ localStorage.setItem(AUTH_KEY, JSON.stringify({ users:auth.users, session:auth.session, fail:auth.fail })); }catch(e){}
 }
-function showPinGate(show){
-  var g = $('#pinGate');
-  if(!g) return;
-  g.classList.toggle('on', !!show);
-  g.setAttribute('aria-hidden', show ? 'false' : 'true');
-  if(show){
-    pinBuf = ''; pinPaint();
-    document.body.style.overflow = 'hidden';
-    setTimeout(function(){
-      try{ var b = $('#pinPad button'); if(b) b.focus(); }catch(e){}
-    }, 120);
-  } else {
-    document.body.style.overflow = '';
+function sessionValid(){ return !!(auth.session && auth.session.name && Number(auth.session.exp) > Date.now()); }
+function sessionDaysLeft(){ return sessionValid() ? Math.max(0, Math.ceil((auth.session.exp - Date.now())/86400000)) : 0; }
+function currentUser(){ return sessionValid() ? String(auth.session.name) : ''; }
+function currentBranch(){ return sessionValid() ? (auth.session.branch === 'bundang' ? 'bundang' : 'cheongdam') : brKey(); }
+function userKey(branch, name){ return (branch === 'bundang' ? 'bundang' : 'cheongdam') + '|' + String(name||''); }
+function pinRegistered(branch, name){ return !!auth.users[userKey(branch, name)]; }
+function isAdmin(){ return currentUser() === ADMIN_NAME; }
+
+/* --- SHA-256 (순수 JS · https/http 모두 동기 동작 · 비번은 평문으로 저장하지 않습니다) --- */
+var SHA_K = [
+ 0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+ 0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+ 0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+ 0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+ 0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+ 0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+ 0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+ 0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+];
+function rotr(x, n){ return (x >>> n) | (x << (32 - n)); }
+function utf8Bytes(s){
+  var out = [], str = String(s);
+  for(var i=0;i<str.length;i++){
+    var c = str.charCodeAt(i);
+    if(c < 0x80) out.push(c);
+    else if(c < 0x800){ out.push(0xC0|(c>>6), 0x80|(c&63)); }
+    else if(c >= 0xD800 && c <= 0xDBFF && i+1 < str.length){
+      var c2 = str.charCodeAt(i+1);
+      var cp = 0x10000 + ((c-0xD800)<<10) + (c2-0xDC00); i++;
+      out.push(0xF0|(cp>>18), 0x80|((cp>>12)&63), 0x80|((cp>>6)&63), 0x80|(cp&63));
+    } else { out.push(0xE0|(c>>12), 0x80|((c>>6)&63), 0x80|(c&63)); }
   }
+  return out;
 }
-function pinPaint(){
-  var d = $('#pinDots');
-  if(d) d.innerHTML = [0,1,2,3].map(function(i){ return '<i class="'+(i < pinBuf.length ? 'on' : '')+'"></i>'; }).join('');
-  var e = $('#pinErr');
-  if(e) e.classList.add('hide');
+function sha256Hex(s){
+  var bytes = utf8Bytes(s), len = bytes.length;
+  var msg = bytes.concat([0x80]);
+  while(msg.length % 64 !== 56) msg.push(0);
+  var hi = Math.floor(len/536870912), lo = (len*8) >>> 0;
+  msg.push((hi>>>24)&255,(hi>>>16)&255,(hi>>>8)&255,hi&255);
+  msg.push((lo>>>24)&255,(lo>>>16)&255,(lo>>>8)&255,lo&255);
+  var H = [0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+  var w = new Array(64);
+  for(var i=0;i<msg.length;i+=64){
+    for(var t=0;t<16;t++){
+      w[t] = ((msg[i+t*4]<<24) | (msg[i+t*4+1]<<16) | (msg[i+t*4+2]<<8) | msg[i+t*4+3]) | 0;
+    }
+    for(t=16;t<64;t++){
+      var s0 = rotr(w[t-15],7) ^ rotr(w[t-15],18) ^ (w[t-15]>>>3);
+      var s1 = rotr(w[t-2],17) ^ rotr(w[t-2],19) ^ (w[t-2]>>>10);
+      w[t] = (w[t-16] + s0 + w[t-7] + s1) | 0;
+    }
+    var a=H[0], b=H[1], c=H[2], d=H[3], e=H[4], f=H[5], g=H[6], h=H[7];
+    for(t=0;t<64;t++){
+      var S1 = rotr(e,6) ^ rotr(e,11) ^ rotr(e,25);
+      var ch = (e & f) ^ ((~e) & g);
+      var t1 = (h + S1 + ch + SHA_K[t] + w[t]) | 0;
+      var S0 = rotr(a,2) ^ rotr(a,13) ^ rotr(a,22);
+      var mj = (a & b) ^ (a & c) ^ (b & c);
+      var t2 = (S0 + mj) | 0;
+      h=g; g=f; f=e; e=(d+t1)|0; d=c; c=b; b=a; a=(t1+t2)|0;
+    }
+    H[0]=(H[0]+a)|0; H[1]=(H[1]+b)|0; H[2]=(H[2]+c)|0; H[3]=(H[3]+d)|0;
+    H[4]=(H[4]+e)|0; H[5]=(H[5]+f)|0; H[6]=(H[6]+g)|0; H[7]=(H[7]+h)|0;
+  }
+  return H.map(function(x){ return ('00000000' + (x>>>0).toString(16)).slice(-8); }).join('');
 }
-function pinFail(){
-  pinBuf = '';
-  pinPaint();
-  var e = $('#pinErr');
-  if(e){ e.textContent = '비밀번호가 맞지 않습니다 — 다시 입력해 주세요'; e.classList.remove('hide'); }
-  var b = $('#pinBox');
-  if(b){ b.classList.add('shake'); setTimeout(function(){ b.classList.remove('shake'); }, 520); }
+function pinSalt(){
+  var s = '';
+  for(var i=0;i<4;i++) s += ('0000' + Math.floor(Math.random()*65536).toString(16)).slice(-4);
+  return s;
+}
+function pinDigest(pin, salt){ return sha256Hex('tlc-iv14|' + salt + '|' + pin + '|sign'); }
+
+/* --- 로그인 화면 --- */
+function loginStaff(branch){
+  var b = (branch === 'bundang') ? 'bundang' : 'cheongdam';
+  var out = BR[b].nurses.slice();
+  if(b === 'bundang' && out.indexOf(ADMIN_NAME) < 0) out.push(ADMIN_NAME);
+  (st.nurses[b] || []).forEach(function(nm){ if(out.indexOf(nm) < 0) out.push(nm); });
+  Object.keys(auth.users).forEach(function(k){
+    var p = k.split('|');
+    if(p[0] === b && p[1] && out.indexOf(p[1]) < 0) out.push(p[1]);
+  });
+  return out;
+}
+function openLogin(opts){
+  opts = opts || {};
+  login.open = true;
+  login.step = 1;
+  login.buf = ''; login.first = ''; login.msg = ''; login.name = '';
+  login.mode = 'login';
+  login.branch = opts.branch || brKey();
+  paintLogin();
+  var g = $('#loginGate');
+  if(g){ g.classList.add('on'); g.setAttribute('aria-hidden','false'); }
+  document.body.style.overflow = 'hidden';
+}
+function closeLogin(){
+  login.open = false;
+  login.step = 1; login.buf = ''; login.first = ''; login.msg = '';
+  var g = $('#loginGate');
+  if(g){ g.classList.remove('on'); g.setAttribute('aria-hidden','true'); }
+  document.body.style.overflow = '';
+  document.body.classList.remove('locked');
+}
+function paintLogin(){
+  var g = $('#loginGate'); if(!g) return;
+  $$('#lBranch button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-lbr') === login.branch); });
+  setText('#lWhoHint', BR[login.branch].label + ' 직원');
+  var box = $('#lStaff');
+  if(box){
+    box.innerHTML = loginStaff(login.branch).map(function(nm){
+      var reg = pinRegistered(login.branch, nm);
+      return '<button type="button" class="lstaff'+(reg?' reg':'')+'" data-lname="'+esc(nm)+'" aria-pressed="false">' +
+        '<b>'+esc(nm)+(nm === ADMIN_NAME ? ' <i class="adm">관리자</i>' : '')+'</b>' +
+        '<span>'+(reg?'🔒 비번 있음':'＋ 비번 만들기')+'</span></button>';
+    }).join('');
+  }
+  var two = (login.step === 2);
+  var s1 = $('#lsStep1'), s2 = $('#lsStep2');
+  if(s1) s1.classList.toggle('hide', two);
+  if(s2) s2.classList.toggle('hide', !two);
+  if(two){
+    setText('#lMe', BR[login.branch].label + ' · ' + login.name);
+    setText('#lPinSub', login.mode === 'set' ? '새로 쓸 4자리 비번을 입력하세요'
+      : (login.mode === 'confirm' ? '확인을 위해 한 번 더 입력하세요' : '본인 4자리 비번을 입력하세요'));
+    setText('#lMode', login.mode === 'login' ? '🔒 개인 비번 로그인' : '🔑 개인 비번 새로 만들기');
+    paintLoginDots();
+  }
+  var e = $('#lErr');
+  if(e){ e.textContent = login.msg || ''; e.classList.toggle('hide', !login.msg); }
+  var lc = $('#lClose');
+  if(lc) lc.classList.toggle('hide', !sessionValid());
+}
+function paintLoginDots(){
+  var d = $('#lDots');
+  if(d) d.innerHTML = [0,1,2,3].map(function(i){ return '<i class="'+(i < login.buf.length ? 'on' : '')+'"></i>'; }).join('');
+  setText('#lCount', login.buf.length + '/4');
+}
+function loginBranchPick(b){
+  login.branch = (b === 'bundang') ? 'bundang' : 'cheongdam';
+  login.buf = ''; login.msg = '';
+  paintLogin();
+}
+function loginNamePick(nm){
+  if(!nm) return;
+  login.name = String(nm).slice(0, 12);
+  login.step = 2;
+  login.buf = ''; login.first = ''; login.msg = '';
+  login.mode = pinRegistered(login.branch, login.name) ? 'login' : 'set';
+  paintLogin();
+  markGesture(); unlockAudio();
+  setTimeout(function(){ try{ var b = $('#lPad button'); if(b) b.focus(); }catch(e){} }, 60);
+}
+function loginBack(){
+  login.step = 1; login.buf = ''; login.first = ''; login.msg = ''; login.name = '';
+  paintLogin();
+}
+function addLoginName(){
+  var el = $('#lNewName');
+  var nm = ((el && el.value) || '').trim().slice(0, 12);
+  if(!nm){ toast('이름을 적어 주세요'); return; }
+  var b = login.branch;
+  st.nurses[b] = st.nurses[b] || [];
+  if(BR[b].nurses.indexOf(nm) < 0 && st.nurses[b].indexOf(nm) < 0) st.nurses[b].push(nm);
+  if(el) el.value = '';
+  save(); paintLogin();
+  toast('「'+nm+'」 이름을 '+BR[b].label+' 목록에 추가했습니다 — 본인 비번을 만들어 주세요');
+}
+function loginFail(msg){
+  login.buf = '';
+  login.msg = msg;
+  paintLoginDots(); paintLogin();
+  var box = $('#lBox');
+  if(box){ box.classList.add('shake'); setTimeout(function(){ box.classList.remove('shake'); }, 520); }
   vibrate(90);
 }
-function pinOk(){
-  try{ localStorage.setItem(PIN_KEY, PIN_HASH); }catch(e){}
-  showPinGate(false);
-  toast('확인되었습니다 — 오늘도 수고 많으세요');
-  unlockAudio();
-}
-function pinPress(n){
-  if(!$('#pinGate') || !$('#pinGate').classList.contains('on')) return;
-  if(pinBuf.length >= 4) return;
-  pinBuf += String(n);
-  pinPaint();
-  if(pinBuf.length === 4){
-    var v = pinBuf;
-    setTimeout(function(){
-      if(pinHash(v) === PIN_HASH) pinOk(); else pinFail();
-    }, 110);
+function loginPress(n){
+  if(!login.open || login.step !== 2) return;
+  var f = auth.fail[userKey(login.branch, login.name)] || {};
+  if(f.until && f.until > Date.now()){
+    login.msg = Math.ceil((f.until - Date.now())/1000) + '초 뒤에 다시 시도해 주세요';
+    paintLogin(); return;
+  }
+  if(login.buf.length >= 4) return;
+  login.buf += String(n);
+  login.msg = '';
+  paintLoginDots();
+  if(login.buf.length === 4){
+    var v = login.buf;
+    setTimeout(function(){ loginDone(v); }, 90);
   }
 }
-function pinDel(){ pinBuf = pinBuf.slice(0, -1); pinPaint(); }
+function loginDel(){ login.buf = login.buf.slice(0, -1); paintLoginDots(); }
+function loginClearAll(){ login.buf = ''; paintLoginDots(); }
+function loginDone(pin){
+  var b = login.branch, nm = login.name;
+  if(!b || !nm) return;
+  if(login.mode === 'set'){
+    if(WEAK_PINS.indexOf(pin) >= 0){
+      loginFail('너무 쉬운 번호입니다 — 다른 4자리로 정해 주세요');
+      return;
+    }
+    login.first = pin;
+    login.mode = 'confirm';
+    login.buf = '';
+    login.msg = '';
+    paintLogin(); paintLoginDots();
+    return;
+  }
+  if(login.mode === 'confirm'){
+    if(pin !== login.first){
+      login.mode = 'set'; login.first = '';
+      loginFail('두 번의 비번이 다릅니다 — 처음부터 다시 정해 주세요');
+      return;
+    }
+    var salt = pinSalt();
+    auth.users[userKey(b, nm)] = { salt:salt, hash:pinDigest(pin, salt), at:Date.now() };
+    auth.fail[userKey(b, nm)] = { n:0, until:0 };
+    saveAuth();
+    loginEnter(b, nm, true);
+    return;
+  }
+  var rec = auth.users[userKey(b, nm)];
+  if(!rec){
+    login.mode = 'set'; login.buf = ''; login.first = '';
+    login.msg = '이 기기에는 아직 비번이 없습니다 — 새로 만들어 주세요';
+    paintLogin(); return;
+  }
+  if(pinDigest(pin, rec.salt) === rec.hash){
+    auth.fail[userKey(b, nm)] = { n:0, until:0 };
+    saveAuth();
+    loginEnter(b, nm, false);
+    return;
+  }
+  var f = auth.fail[userKey(b, nm)] || { n:0, until:0 };
+  f.n = (Number(f.n) || 0) + 1;
+  var locked = false;
+  if(f.n >= PIN_FAIL_MAX){ f.until = Date.now() + PIN_LOCK_MS; f.n = 0; locked = true; }
+  auth.fail[userKey(b, nm)] = f;
+  saveAuth();
+  loginFail(locked ? ('5회 틀렸습니다 — ' + Math.round(PIN_LOCK_MS/1000) + '초 뒤 다시 시도해 주세요')
+    : '비번이 맞지 않습니다 — 다시 입력해 주세요');
+}
+function loginEnter(branch, name, isNew){
+  var now = Date.now();
+  auth.session = { branch:(branch === 'bundang' ? 'bundang' : 'cheongdam'), name:name,
+    at:now, exp:now + SESSION_DAYS*86400000 };
+  saveAuth();
+  closeLogin();
+  switchBranchData(auth.session.branch);
+  toast(isNew ? (name+' 님 — 새 비번으로 로그인했습니다') : (name+' 님 로그인했습니다'));
+  unlockAudio();
+}
+function logoutUser(){
+  auth.session = null; saveAuth();
+  closeAcc();
+  openLogin({ branch: brKey() });
+  toast('로그아웃했습니다 — 이 기기에서 다시 비번을 입력해 주세요');
+}
+function resetUserPin(branch, name){
+  var k = userKey(branch, name);
+  delete auth.users[k];
+  delete auth.fail[k];
+  saveAuth();
+  renderAccUsers(); paintLogin();
+  toast('「'+name+'」 님의 비번을 초기화했습니다 — 다음 로그인 때 새로 만듭니다');
+}
+
+/* --- 계정 · 설정 시트 (로그인 사용자 · 지점 · 관리자 직원 비번 초기화) --- */
+function openAcc(){
+  if(!sessionValid()){ openLogin({}); return; }
+  setText('#accName', currentUser());
+  setText('#accBranch', brLabel());
+  setText('#accSince', '로그인 ' + hhmm(auth.session.at) + ' · 기기 유지 ' + sessionDaysLeft() + '일 남음 (60일)');
+  $$('#accBranchSeg button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-abr') === brKey()); });
+  var adm = $('#accAdminBox');
+  if(adm) adm.classList.toggle('hide', !isAdmin());
+  renderAccUsers();
+  var sh = $('#accSheet');
+  if(sh){ sh.classList.add('on'); sh.setAttribute('aria-hidden','false'); }
+  document.body.style.overflow = 'hidden';
+}
+function closeAcc(){
+  var sh = $('#accSheet');
+  if(sh){ sh.classList.remove('on'); sh.setAttribute('aria-hidden','true'); }
+  document.body.style.overflow = '';
+}
+function renderAccUsers(){
+  var box = $('#accUsers'); if(!box) return;
+  var keys = Object.keys(auth.users);
+  if(!keys.length){ box.innerHTML = '<div class="empty">이 기기에 비번을 만든 직원이 없습니다.</div>'; return; }
+  box.innerHTML = keys.sort().map(function(k){
+    var p = k.split('|'), b = (p[0] === 'bundang') ? 'bundang' : 'cheongdam', nm = p[1] || '';
+    var rec = auth.users[k] || {};
+    var cur = !!(auth.session && auth.session.name === nm && auth.session.branch === b);
+    return '<div class="urow'+(cur?' cur':'')+'">' +
+      '<span class="ubr">'+BR[b].label+'</span><b>'+esc(nm)+'</b>' +
+      (cur ? '<em>로그인 중</em>' : '<em>'+(rec.at ? hhmm(rec.at)+' 등록' : '')+'</em>') +
+      '<button type="button" class="mini ghost" data-pinreset="'+esc(k)+'"'+(cur?' disabled':'')+'>비번 초기화</button>' +
+    '</div>';
+  }).join('');
+}
+function paintWho(){
+  var nm = currentUser();
+  setText('#whoChip', nm ? (brLabel() + ' · ' + nm) : '로그인');
+  var el = $('#btnWho');
+  if(el) el.classList.toggle('guest', !nm);
+}
 
 /* =========================================================================
    v1.3 ⑥ 브랜딩 (TLC 메디컬 그룹 · 네트워크 병원명) + 📅 내일 계획
@@ -2987,24 +3559,23 @@ function blankPlan(){
     bands:PLAN_BANDS.map(function(t){ return { t:t, nurse:'', helper:false }; }) };
 }
 function ensurePlan(){
-  if(!st.plan || !st.plan.counts || !st.plan.bands || st.plan.bands.length !== PLAN_BANDS.length){
-    var old = st.plan || {};
-    st.plan = blankPlan();
-    if(old.counts) for(var k in old.counts) if(st.plan.counts[k] !== undefined) st.plan.counts[k] = Number(old.counts[k])||0;
-    if(old.bands) st.plan.bands = old.bands.map(function(b, i){
-      return { t:PLAN_BANDS[i] || b.t, nurse:b.nurse || '', helper:!!b.helper };
+  var b = brKey();
+  var cur = st.plan[b];
+  if(!cur || !cur.counts || !cur.bands || cur.bands.length !== PLAN_BANDS.length){
+    var old = cur || {};
+    cur = blankPlan();
+    if(old.counts) for(var k in old.counts) if(cur.counts[k] !== undefined) cur.counts[k] = Number(old.counts[k])||0;
+    if(old.bands) cur.bands = old.bands.map(function(bd2, i){
+      return { t:PLAN_BANDS[i] || bd2.t, nurse:bd2.nurse || '', helper:!!bd2.helper };
     });
-    if(old.procs) for(var k2 in old.procs) if(st.plan.procs[k2] !== undefined) st.plan.procs[k2] = old.procs[k2] || '';
+    if(old.procs) for(var k2 in old.procs) if(cur.procs[k2] !== undefined) cur.procs[k2] = old.procs[k2] || '';
+    st.plan[b] = cur;
   }
-  st.plan.date = tomorrowDate();
-  return st.plan;
+  cur.date = tomorrowDate();
+  return cur;
 }
 function allNurseNames(){
-  var out = [];
-  ['cheongdam','bundang'].forEach(function(br){
-    nurseList(br).forEach(function(n){ if(out.indexOf(n) < 0) out.push(n); });
-  });
-  return out;
+  return nurseList(brKey()).slice();
 }
 function nurseOptions(sel){
   return '<option value="">— 미배정 —</option>' + allNurseNames().map(function(n){
@@ -3014,7 +3585,7 @@ function nurseOptions(sel){
 function renderPlan(){
   var p = ensurePlan();
   setText('#planDate', tomorrowLabel());
-  setText('#planSite', (st.site && st.site.name) || '');
+  setText('#planSite', siteName() + ' · ' + brLabel());
   var c = $('#planCounts');
   if(c){
     c.innerHTML = PLAN_PROC.map(function(x){
@@ -3051,7 +3622,7 @@ function renderPlan(){
 function planSummary(){
   var p = ensurePlan();
   var L = [];
-  L.push('📅 내일('+tomorrowLabel()+') ' + ((st.site && st.site.name) || 'TLC') + ' 준비');
+  L.push('📅 내일('+tomorrowLabel()+') ' + siteName() + ' 준비');
   L.push('· ' + PLAN_PROC.map(function(x){ return x.label+' '+(Number(p.counts[x.k])||0)+'건'; }).join(' · '));
   p.bands.forEach(function(b){
     var bit = b.nurse || '미배정';
@@ -3112,22 +3683,24 @@ function legacyCopy(txt, done){
   }catch(e){ toast('복사하지 못했습니다 — 요약을 길게 눌러 복사해 주세요'); }
 }
 function paintBrand(){
-  var nm = (st.site && st.site.name) || '티엘씨 클리닉 청담';
+  var nm = siteName();
   setText('#siteName', nm);
-  setText('#planSite', nm);
+  setText('#planSite', nm + ' · ' + brLabel());
+  paintWho();
   paintTab();
 }
 function openSite(){
   var si = $('#siteInput');
-  if(si) si.value = (st.site && st.site.name) || '';
+  if(si) si.value = siteName();
   var stel = $('#siteTel');
-  if(stel) stel.value = (st.site && st.site.tel) || '010-9678-0010';
+  if(stel) stel.value = siteTel();
   var ch = $('#siteChips');
   if(ch){
     ch.innerHTML = SITE_PRESET.map(function(x){
       return '<button type="button" data-site="'+esc(x.name)+'" data-tel="'+esc(x.tel)+'">'+esc(x.name)+'</button>';
     }).join('');
   }
+  setText('#siteBrh', brLabel() + ' 지점 설정');
   var sh = $('#siteSheet');
   if(sh){ sh.classList.add('on'); sh.setAttribute('aria-hidden','false'); }
   document.body.style.overflow = 'hidden';
@@ -3141,17 +3714,18 @@ function saveSite(){
   var v = ((($('#siteInput')||{}).value) || '').trim().slice(0, 30);
   if(!v){ toast('병원명을 적어 주세요'); return; }
   var typed = (((($('#siteTel')||{}).value) || '').trim());
-  var prevDefault = defaultTelFor(st.site.name);
+  var b = brKey();
+  var prevName = siteName(), prevDefault = defaultTelFor(prevName);
   var tel = typed || defaultTelFor(v);
-  /* 지점만 바꾸고 번호를 그대로 뒀다면 그 지점 기본 핫라인으로 따라갑니다 */
+  /* 지점만 바꾸고 번호를 그대로 두었다면 그 지점 기본 핫라인으로 따라갑니다 */
   if(typed && typedd(typed) === typedd(prevDefault)) tel = defaultTelFor(v);
-  st.site.name = v;
-  st.site.tel = tel.slice(0, 20);
+  st.site[b].name = v;
+  st.site[b].tel = tel.slice(0, 20);
   save();
   paintBrand();
   renderPlan();
   closeSite();
-  toast('「'+v+'」 · 핫라인 ' + st.site.tel + ' 로 저장했습니다');
+  toast(BR[b].label + ' 설정 · 「'+v+'」 핫라인 ' + st.site[b].tel + ' 로 저장했습니다');
 }
 function typedd(s){ return String(s||'').replace(/[^0-9]/g, ''); }
 
@@ -3162,7 +3736,9 @@ function typedd(s){ return String(s||'').replace(/[^0-9]/g, ''); }
    간호사 동선: 빈 방 → 이름·시술·상담 → [▶ 입실 시작] / 사용 중 방 → [✓ 완료]
    ========================================================================= */
 var SYNC_URL = 'https://script.google.com/macros/s/AKfycbxLMWkmpd56AXmlV9s_tTcyQxqbnOkA1sBLw9Lf9TI_PHSAXsXwhGsbCd5hSBUDT0fm/exec';
-var BOARD_KEY = 'tlc_board_v11';
+/* v1.4 — 현황판도 지점별로 따로 저장합니다(청담 키 / 분당 키). v1.3 데이터는 청담으로 옮겨 받습니다. */
+var BOARD_KEYS = { cheongdam:'tlc_board_v14_cd', bundang:'tlc_board_v14_bd' };
+var BOARD_OLD = 'tlc_board_v11';
 var POLL_MS = 5000;
 
 /* v1.2 — 효숙 님이 알려준 실제 소요 시간: 1회 20~30 · 2회 40~50 · 3회 30~40 · 4회 15~20
@@ -3183,13 +3759,14 @@ var PROGRAMS = [
 ];
 
 var bd = { rooms:{}, hist:[], rev:0, at:0, mode:'board', pending:[], online:null, dcNative:false,
-  histSeen:{}, histReady:false, global:{} };
+  histSeen:{}, histReady:false, global:{}, serverBd:null, loaded:false };
 var dft = null;      /* 입실 시트 작성 중인 값 */
 
 function blankRoom(room){
   return { room:room, tag:ROOM_TAG[room]||'', status:'empty', customer:'', consult:'',
     proc:'', session:'', program:'', startAt:0, endAt:0, min:0, memo:'', by:'', updatedAt:0,
-    doctorCall:'', prepAlert:'', nurse:'', chart:'', signedAt:0, sign:'' };
+    doctorCall:'', prepAlert:'', nurse:'', chart:'', signedAt:0, sign:'',
+    staff:'', user:'', signedUser:'' };
 }
 
 /* =========================================================================
@@ -3197,10 +3774,8 @@ function blankRoom(room){
    · 원장님 호출 / 입실 준비 : 방 레코드 필드(doctorCall · prepAlert)로 공유
    · 퇴실 알림 : 다른 기기의 History 에 새 퇴실 기록이 생기는 것을 감지해서 알림
    ========================================================================= */
-var NURSE_DEF = {
-  cheongdam: ['이애영', '김효정', '이지연', '이승주', '김수지', '김효숙'],
-  bundang:   ['마수경', '유미영', '정금주', '김경애', '박진영', '박신애', '정유이', '송지원']
-};
+/* v1.4 — 직원 명단도 지점별로 따로 둡니다 (청담 6명 · 분당 8명 + 지점별 직접 추가) */
+var NURSE_DEF = { cheongdam:BR.cheongdam.nurses.slice(), bundang:BR.bundang.nurses.slice() };
 var BRANCH_LABEL = { cheongdam:'청담', bundang:'분당' };
 function deviceId(){
   try{
@@ -3214,20 +3789,29 @@ function deviceId(){
 }
 function isMine(x){ return !!(x && x.byId && x.byId === deviceId()); }
 function nurseList(branch){
-  var out = (NURSE_DEF[branch] || []).slice();
-  (st.nurses || []).forEach(function(n){ if(n && n.name && out.indexOf(n.name) < 0) out.push(n.name); });
+  var b = (branch === 'bundang') ? 'bundang' : 'cheongdam';
+  var out = (NURSE_DEF[b] || []).slice();
+  (st.nurses[b] || []).forEach(function(nm){ if(nm && out.indexOf(nm) < 0) out.push(nm); });
   return out;
 }
 function isCustomNurse(name){
-  return (st.nurses || []).some(function(n){ return n.name === name; });
+  return (st.nurses[brKey()] || []).indexOf(name) >= 0;
+}
+/* 시술·서명 간호사 선택칩 — 지점 직원 + 현재 로그인 사용자 */
+function staffPickList(){
+  var out = nurseList(brKey());
+  var me = currentUser();
+  if(me && out.indexOf(me) < 0) out.push(me);
+  return out;
 }
 /* --- 🔬 검사실 현황판 (신규 바디 검사 체크 + 실시 간호사) --- */
 var EXAM_DEFAULT = ['체성분(InBody)', '피부 진단', '두피 진단', '혈압·체온', '문진표'];
-function examItems(){ return EXAM_DEFAULT.concat(st.examItems || []); }
+function examState(){ if(!st.exam[brKey()]) st.exam[brKey()] = {}; return st.exam[brKey()]; }
+function examItems(){ if(!st.examItems[brKey()]) st.examItems[brKey()] = []; return EXAM_DEFAULT.concat(st.examItems[brKey()]); }
 function renderExam(){
   var box = $('#examList');
   if(!box) return;
-  var e = st.exam || {};
+  var e = examState();
   box.innerHTML = examItems().map(function(nm){
     var it = e[nm] || {};
     return '<div class="exrow'+(it.done ? ' on' : '')+'">' +
@@ -3242,15 +3826,15 @@ function renderExam(){
   setText('#examHint', done + '/' + examItems().length + ' 완료');
 }
 function toggleExam(nm){
-  st.exam = st.exam || {};
-  var it = st.exam[nm] || (st.exam[nm] = {});
+  var e = examState();
+  var it = e[nm] || (e[nm] = {});
   it.done = !it.done;
   it.at = it.done ? Date.now() : 0;
   save(); renderExam();
 }
 function setExamNurse(nm, nurse){
-  st.exam = st.exam || {};
-  var it = st.exam[nm] || (st.exam[nm] = {});
+  var e = examState();
+  var it = e[nm] || (e[nm] = {});
   it.nurse = nurse || '';
   if(it.nurse && !it.done){ it.done = true; it.at = Date.now(); }
   save(); renderExam();
@@ -3259,8 +3843,8 @@ function addExamItem(){
   var el = $('#examNew');
   var v = ((el && el.value) || '').trim().slice(0, 20);
   if(!v){ toast('검사 항목 이름을 적어 주세요'); return; }
-  st.examItems = st.examItems || [];
-  if(examItems().indexOf(v) < 0) st.examItems.push(v);
+  if(!st.examItems[brKey()]) st.examItems[brKey()] = [];
+  if(examItems().indexOf(v) < 0) st.examItems[brKey()].push(v);
   if(el) el.value = '';
   save(); renderExam();
   toast('「'+v+'」 항목을 추가했습니다');
@@ -3330,19 +3914,23 @@ function setConsult(room, action){
   push({ op:'setRoom', data:packRoom(r) });
 }
 function dcLabel(r){ return isMaseon(r) ? '매선 원장님 호출' : DC_LABEL; }
-/* --- 메모 토큰: 구(현재 배포) Code.gs 에서도 새 필드가 공유되도록 --- */
-var TOK_RE = /#(?:d|c|p|n):[^\s\]]*/g;
+/* --- 메모 토큰: 구(현재 배포) Code.gs 에서도 새 필드가 공유되도록 ---
+   #u: 등록 로그인 계정 · #s: 시술 간호사 · #su: 서명 계정 (v1.4) */
+var TOK_RE = /#(?:d|c|p|n|u|su|s):[^\s\]]*/g;
 function stripTokens(memo){
   return String(memo||'').replace(TOK_RE, '').replace(/\s+/g, ' ').trim();
 }
 function parseTokens(memo){
-  var out = { doctorCall:'', prepAlert:'', nurse:'', signedAt:0 };
+  var out = { doctorCall:'', prepAlert:'', nurse:'', signedAt:0, staff:'', user:'', signedUser:'' };
   var s = String(memo||'');
   var m;
   var re = /#d:(c|a):(\d+)/;
   if((m = s.match(re))) out.doctorCall = { status:(m[1] === 'c' ? 'calling' : 'ack'), at:Number(m[2])||0 };
   if((m = s.match(/#p:(\d+)/))) out.prepAlert = { at:Number(m[1])||0 };
   if((m = s.match(/#n:([^:\s]+):(\d+)/))){ out.nurse = m[1]; out.signedAt = Number(m[2])||0; }
+  if((m = s.match(/#u:([^:\s]+)/))) out.user = m[1];
+  if((m = s.match(/#su:([^:\s]+)/))) out.signedUser = m[1];
+  if((m = s.match(/#s:([^:\s]+)/))) out.staff = m[1];
   return out;
 }
 function composeMemo(r){
@@ -3353,7 +3941,10 @@ function composeMemo(r){
   }
   if(r.prepAlert && r.prepAlert.at) toks += '#p:' + r.prepAlert.at + ' ';
   if(r.nurse) toks += '#n:' + String(r.nurse).slice(0, 10) + ':' + (r.signedAt || 0) + ' ';
-  return (toks + base).slice(0, 80).trim();
+  if(r.user) toks += '#u:' + String(r.user).slice(0, 10) + ' ';
+  if(r.staff) toks += '#s:' + String(r.staff).slice(0, 10) + ' ';
+  if(r.signedUser) toks += '#su:' + String(r.signedUser).slice(0, 10) + ' ';
+  return (toks + base).slice(0, 120).trim();
 }
 /* 서버에서 받은 방을 화면용으로 정리 */
 function normRoom(r){
@@ -3368,6 +3959,12 @@ function normRoom(r){
   r.prepAlert = (pa && pa.at) ? pa : '';
   if(!r.nurse && tk.nurse) r.nurse = tk.nurse;
   if(!r.signedAt && tk.signedAt) r.signedAt = tk.signedAt;
+  if(!r.staff && tk.staff) r.staff = tk.staff;
+  if(!r.user && tk.user) r.user = tk.user;
+  if(!r.signedUser && tk.signedUser) r.signedUser = tk.signedUser;
+  if(r.staff == null) r.staff = '';
+  if(r.user == null) r.user = '';
+  if(r.signedUser == null) r.signedUser = '';
   if(typeof r.signedAt === 'string') r.signedAt = Number(r.signedAt) || 0;
   if(r.chart == null) r.chart = '';
   if(r.sign == null) r.sign = '';
@@ -3396,20 +3993,20 @@ function packRoom(r){
 }
 /* --- 🍼 소아과 헬퍼 요청 (전체 기기 · 내과 핫라인) --- */
 function helperCall(){ return (bd.global && bd.global.helperCall) || null; }
-function telRaw(){ return String((st.site && st.site.tel) || '010-9678-0010'); }
+function telRaw(){ return String(siteTel() || BR[brKey()].tel); }
 function siteShort(){
-  var n = (st.site && st.site.name) || 'TLC';
+  var n = siteName() || 'TLC';
   return String(n).replace('클리닉 ', ' ').replace('클리닉', '').trim() || n;
 }
 function telDigits(){ return telRaw().replace(/[^0-9+]/g, ''); }
 function sendHelper(){
-  var hc = { status:'calling', at:Date.now(), by:stationName(), byId:deviceId(), byName:'', note:'' };
+  var hc = { status:'calling', at:Date.now(), by:stationName(), byId:deviceId(), byName:'', note:'', branch:brLabel() };
   bd.global = bd.global || {};
   bd.global.helperCall = hc;
   saveBoard(); renderDoctorBar(); checkAlerts();
-  push({ op:'setGlobal', data:{ helperCall:hc } });
+  push({ op:'setGlobal', data:{ branch:brCode(), global:{ helperCall:hc } } });
   callHotline();
-  toast('소아과 헬퍼 요청 — 내과 핫라인으로 연결합니다');
+  toast(BR[brKey()].label + ' 소아과 헬퍼 요청 — 내과 핫라인으로 연결합니다');
 }
 function ackHelper(name){
   var hc = helperCall();
@@ -3420,7 +4017,7 @@ function ackHelper(name){
   hc.ackBy = deviceId();
   bd.global.helperCall = hc;
   saveBoard(); renderDoctorBar(); checkAlerts();
-  push({ op:'setGlobal', data:{ helperCall:hc } });
+  push({ op:'setGlobal', data:{ branch:brCode(), global:{ helperCall:hc } } });
   toast((hc.byName || '') + '님 소아과 헬퍼 지원 확인');
 }
 function clearHelper(){
@@ -3428,7 +4025,7 @@ function clearHelper(){
   bd.global = bd.global || {};
   bd.global.helperCall = hc;
   saveBoard(); renderDoctorBar(); checkAlerts();
-  push({ op:'setGlobal', data:{ helperCall:hc } });
+  push({ op:'setGlobal', data:{ branch:brCode(), global:{ helperCall:hc } } });
   toast('헬퍼 요청을 해제했습니다');
 }
 function callHotline(){
@@ -3694,12 +4291,12 @@ var signPad = { cv:null, ctx:null, drawing:false, dirty:false };
 function renderNurseChips(){
   var box = $('#cNurseChips');
   if(!box) return;
-  var br = (st.branch === 'bundang') ? 'bundang' : 'cheongdam';
-  $$('#cBranch button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-br') === br); });
-  setText('#cNursePick', BRANCH_LABEL[br]);
+  var br = brKey();
+  setText('#cNursePick', BRANCH_LABEL[br] + ' 직원');
+  var me = currentUser();
   box.innerHTML = nurseList(br).map(function(nm){
-    return '<button type="button" data-nurse="'+esc(nm)+'" class="'+(isCustomNurse(nm)?'cus':'')+'">'+
-      esc(nm)+(isCustomNurse(nm)?' <i data-ndel="'+esc(nm)+'">✕</i>':'')+'</button>';
+    return '<button type="button" data-nurse="'+esc(nm)+'" class="'+(isCustomNurse(nm)?'cus':'')+(nm===me?' me':'')+'">'+
+      esc(nm)+(nm === me ? ' 👤' : '')+(isCustomNurse(nm)?' <i data-ndel="'+esc(nm)+'">✕</i>':'')+'</button>';
   }).join('');
 }
 function pickNurse(nm){
@@ -3712,16 +4309,17 @@ function addNurse(){
   var el = $('#cNurseNew');
   var nm = ((el && el.value) || '').trim().slice(0, 12);
   if(!nm){ toast('직원 이름을 적어 주세요'); return; }
-  st.nurses = st.nurses || [];
-  if(!isCustomNurse(nm)) st.nurses.push({ name:nm });
+  var b = brKey();
+  st.nurses[b] = st.nurses[b] || [];
+  if(BR[b].nurses.indexOf(nm) < 0 && st.nurses[b].indexOf(nm) < 0) st.nurses[b].push(nm);
   if(el) el.value = '';
   save();
   renderNurseChips();
   pickNurse(nm);
-  toast('「'+nm+'」을(를) 담당자 목록에 추가했습니다');
+  toast('「'+nm+'」을(를) '+BR[b].label+' 담당자 목록에 추가했습니다');
 }
 function delNurse(nm){
-  st.nurses = (st.nurses || []).filter(function(x){ return x.name !== nm; });
+  st.nurses[brKey()] = (st.nurses[brKey()] || []).filter(function(x){ return x !== nm; });
   save();
   renderNurseChips();
   toast('「'+nm+'」을(를) 목록에서 뺐습니다');
@@ -3732,15 +4330,17 @@ function openChart(room, mode){
   cEdit = { room:room, mode:(mode === 'checkout' ? 'checkout' : 'chart'),
     sig:r.sign || '', signedAt:Number(r.signedAt) || 0, cleared:false };
   setText('#cTitle', (mode === 'checkout' ? '🚪 '+room+' · 퇴실' : '📝 '+room+' · 차팅 · 서명'));
-  setText('#cSum', ((st.site && st.site.name) ? st.site.name + ' · ' : '') + room+' · '+(r.customer || '고객')+' · '+(r.proc || '시술')+(r.session ? ' · '+r.session : ''));
-  var ni = $('#cNurse'); if(ni) ni.value = r.nurse || '';
+  setText('#cSum', (siteName() ? siteName() + ' · ' : '') + room+' · '+(r.customer || '고객')+' · '+(r.proc || '시술')+(r.session ? ' · '+r.session : ''));
+  var me = currentUser();
+  var ni = $('#cNurse'); if(ni) ni.value = r.nurse || me || '';
+  setText('#cLoginLine', me ? ('로그인 ' + brLabel() + ' · ' + me + (r.user && r.user !== me ? ' · 등록 ' + r.user : '')) : '로그인 정보 없음');
   var no = $('#cNote'); if(no) no.value = r.chart || '';
   var nn = $('#cNurseNew'); if(nn) nn.value = '';
   renderNurseChips();
-  if(r.nurse) pickNurse(r.nurse);
+  if(ni && ni.value) pickNurse(ni.value);
   clearSignPad(true);
   setText('#cHint', mode === 'checkout'
-    ? '담당 간호사와 서명이 있어야 퇴실할 수 있습니다.'
+    ? '담당 간호사(실제 서명자)와 서명이 있어야 퇴실할 수 있습니다.'
     : '차팅만 저장하면 방은 그대로 진행 중입니다.');
   paintChartState();
   var sh = $('#cSheet');
@@ -3839,15 +4439,19 @@ function saveChart(mode){
   if(mode === 'checkout' && !hasSign){ toast('서명 후 퇴실할 수 있습니다'); return; }
   r.nurse = nurse;
   r.chart = note;
+  if(!r.user) r.user = currentUser();
   if(signPad.dirty && signPad.cv){
     try{ r.sign = signPad.cv.toDataURL('image/png'); }catch(e){}
     r.signedAt = Date.now();
+    r.signedUser = currentUser();
   } else if(cEdit.cleared){
     r.sign = '';
     r.signedAt = 0;
+    r.signedUser = '';
   } else if(!r.signedAt && (cEdit.sig || cEdit.signedAt)){
     r.signedAt = cEdit.signedAt || Date.now();
     if(cEdit.sig && !r.sign) r.sign = cEdit.sig;
+    if(!r.signedUser) r.signedUser = currentUser();
   }
   r.updatedAt = Date.now();
   renderBoard(); saveBoard();
@@ -3865,22 +4469,24 @@ function finishCheckout(room){
   if(!r || r.status !== 'busy'){ toast(room + '은 이미 빈 방입니다'); return; }
   var snap = { room:room, customer:r.customer||'', consult:r.consult||'', proc:r.proc||'',
     session:r.session||'', startAt:r.startAt||0, endAt:r.endAt||0, by:stationName(),
-    byId:deviceId(), nurse:r.nurse||'', chart:r.chart||'', signedAt:Number(r.signedAt)||0 };
+    byId:deviceId(), nurse:r.nurse||'', chart:r.chart||'', signedAt:Number(r.signedAt)||0,
+    staff:r.staff||'', user:r.user||currentUser(), signedUser:r.signedUser||'' };
   endRoomTimers(room);
   bd.rooms[room] = blankRoom(room);
   var rec = { id:'l'+Date.now(), outAt:Date.now(), room:room, customer:snap.customer,
     consult:snap.consult, proc:snap.proc, session:snap.session,
     startAt:snap.startAt, endAt:snap.endAt, by:snap.by, byId:snap.byId,
     nurse:snap.nurse, chart:snap.chart, signedAt:snap.signedAt, sign:(r.sign || ''),
-    site:(st.site && st.site.name) || '' };
+    staff:snap.staff, user:snap.user, signedUser:snap.signedUser,
+    site:siteName() };
   bd.hist.unshift(rec);
   bd.histSeen = bd.histSeen || {};
   bd.histSeen[rec.id] = 1;                     /* 내가 한 퇴실은 내 화면에서 알리지 않음 */
   renderBoard(); saveBoard();
   push({ op:'checkout', data:snap });
-  toast((snap.customer || room) + ' 퇴실 처리했습니다' + (snap.nurse ? ' · 담당 ' + snap.nurse : ''));
+  toast((snap.customer || room) + ' 퇴실 처리했습니다' + (snap.nurse ? ' · 서명 ' + snap.nurse : ''));
 }
-function stationName(){ return IS_IOS ? '아이폰' : 'PC'; }
+function stationName(){ return currentUser() || (IS_IOS ? '아이폰' : 'PC'); }
 function nowMinute(){ var d = new Date(); d.setSeconds(0,0); return d.getTime(); }
 function leftMs(r){ return (r.endAt||0) - Date.now(); }
 function leftText(ms){
@@ -3893,9 +4499,16 @@ function hms(ts){ if(!ts) return '--:--'; var d = new Date(ts); return pad(d.get
 function today0(){ var d = new Date(); d.setHours(0,0,0,0); return d.getTime(); }
 
 /* ---------- 저장 ---------- */
+function boardStoreKey(){ return BOARD_KEYS[brKey()]; }
 function loadBoard(){
+  bd.rooms = {}; bd.hist = []; bd.rev = 0; bd.at = 0; bd.pending = [];
+  bd.dcNative = false; bd.histSeen = {}; bd.global = {};
+  var raw = null;
   try{
-    var raw = localStorage.getItem(BOARD_KEY);
+    raw = localStorage.getItem(boardStoreKey());
+    if(!raw && brKey() === 'cheongdam') raw = localStorage.getItem(BOARD_OLD);
+  }catch(e){}
+  try{
     if(raw){
       var o = JSON.parse(raw);
       if(o && o.rooms) bd.rooms = o.rooms;
@@ -3906,25 +4519,48 @@ function loadBoard(){
       if(o && o.dcNative === true) bd.dcNative = true;
       if(o && o.histSeen && typeof o.histSeen === 'object') bd.histSeen = o.histSeen;
       if(o && o.global && typeof o.global === 'object') bd.global = o.global;
+      if(o && o.serverBd === true) bd.serverBd = true;
     }
   }catch(e){}
   bd.histReady = false;
+  bd.loaded = true;
   ROOMS.forEach(function(r){
     if(!bd.rooms[r] || !bd.rooms[r].room) bd.rooms[r] = blankRoom(r);
     else normRoom(bd.rooms[r]);
   });
 }
+function writeBoard(){
+  try{
+    localStorage.setItem(boardStoreKey(), JSON.stringify({
+      rooms:bd.rooms, hist:bd.hist.slice(0,60), rev:bd.rev, at:bd.at, pending:bd.pending,
+      dcNative:bd.dcNative === true, histSeen:bd.histSeen || {}, global:bd.global || {},
+      serverBd:bd.serverBd === true
+    }));
+  }catch(e){}
+}
 var bdSaveTm = 0;
 function saveBoard(){
   clearTimeout(bdSaveTm);
-  bdSaveTm = setTimeout(function(){
-    try{
-      localStorage.setItem(BOARD_KEY, JSON.stringify({
-        rooms:bd.rooms, hist:bd.hist.slice(0,60), rev:bd.rev, at:bd.at, pending:bd.pending,
-        dcNative:bd.dcNative === true, histSeen:bd.histSeen || {}, global:bd.global || {}
-      }));
-    }catch(e){}
-  }, 100);
+  bdSaveTm = setTimeout(writeBoard, 100);
+}
+function flushBoard(){ clearTimeout(bdSaveTm); bdSaveTm = 0; writeBoard(); }
+
+/* v1.4 — 지점 전환: 이전 지점 대기열을 먼저 저장하고, 새 지점 데이터로 교체합니다 */
+function switchBranchData(b){
+  var target = (b === 'bundang') ? 'bundang' : 'cheongdam';
+  flushBoard();
+  applyBranch(target);
+  loadBoard();
+  renderAll();
+  renderBoard(); renderExam(); renderPlan(); renderSlots();
+  paintBrand(); paintTab(); paintSync(); paintBrWarn();
+  pull(true);
+  try{ window.scrollTo(0, 0); }catch(e){}
+}
+function paintBrWarn(){
+  var el = $('#brWarn'); if(!el) return;
+  var show = (brKey() === 'bundang') && (bd.serverBd === false);
+  el.classList.toggle('hide', !show);
 }
 
 /* ---------- 그리기 ---------- */
@@ -3966,8 +4602,11 @@ function renderBoard(){
     var dcLine = dcOn
       ? '<div class="dcst on">🔔 '+esc(dcLabel(r))+' · '+hhmm(dc.at||0)+'</div>'
       : (dcAck ? '<div class="dcst ack">✅ 접수 확인 · '+hhmm(dc.ackAt || dc.at || 0)+'</div>' : '');
+    var staffLine = r.staff
+      ? '<div class="staffst">🩺 시술 '+esc(r.staff)+(r.user && r.user !== r.staff ? ' <i>계정 '+esc(r.user)+'</i>' : '')+'</div>'
+      : '';
     var chartLine = (r.nurse || r.signedAt)
-      ? '<div class="chartst">📝 '+esc(r.nurse || '담당 미지정')+(r.signedAt ? ' · 서명 '+hhmm(r.signedAt) : ' · 차팅')+'</div>'
+      ? '<div class="chartst">✍ '+esc(r.nurse || '담당 미지정')+(r.signedAt ? ' · 서명 '+hhmm(r.signedAt) : ' · 차팅')+(r.signedUser && r.signedUser !== r.nurse ? ' <i>계정 '+esc(r.signedUser)+'</i>' : '')+'</div>'
       : '';
     var dcBtns;
     if(dcOn){
@@ -3991,6 +4630,7 @@ function renderBoard(){
       '<div class="bproc">'+esc(r.proc || '시술')+'</div>' +
       (r.session ? '<div class="bsess">'+esc(r.session)+'</div>' : '') +
       dcLine +
+      staffLine +
       chartLine +
       '<div class="btime"><span>'+hhmm(r.startAt)+' ~ '+hhmm(r.endAt)+'</span>' +
         '<span class="left" data-left="'+esc(room)+'">'+leftText(left)+'</span></div>' +
@@ -4062,11 +4702,13 @@ function renderHist(){
   box.innerHTML = rows.map(function(h){
     var pr = (h.proc||'') + (h.session ? ' · ' + h.session : '');
     var sign = (h.nurse || h.signedAt)
-      ? '<span class="hsign">📝 '+esc(h.nurse || '간호사')+(h.signedAt ? ' ✓' : '')+'</span>'
+      ? '<span class="hsign">✍ '+esc(h.nurse || '간호사')+(h.signedAt ? ' ✓' : '')+'</span>'
       : '';
+    var stf = (h.staff && h.staff !== h.nurse) ? '<span class="hstaff">🩺 '+esc(h.staff)+'</span>' : '';
     return '<div class="hit"><span class="hroom">'+esc(h.room)+'</span>' +
       '<span class="hname">'+esc(h.customer||'고객')+'</span>' +
       '<span class="hproc">'+esc(pr)+'</span>' +
+      stf +
       sign +
       '<span class="htime">'+hhmm(h.outAt)+' 퇴실</span></div>';
   }).join('');
@@ -4092,8 +4734,8 @@ function paintTab(){
   if(tb){ tb.classList.toggle('on', isB); tb.setAttribute('aria-selected', isB ? 'true' : 'false'); }
   if(tt){ tt.classList.toggle('on', isT); tt.setAttribute('aria-selected', isT ? 'true' : 'false'); }
   if(tp){ tp.classList.toggle('on', isP); tp.setAttribute('aria-selected', isP ? 'true' : 'false'); }
-  setText('#topSub', isB ? ' · 8개 방 · 접수팀 ↔ 간호팀 공유' : (isT ? ' · 방당 1~4번 수액 · 방울·알람' : ' · 내일 시술·간호사 준비'));
-  document.title = ((st.site && st.site.name) || 'TLC') + (isB ? ' · 실시간 시술 현황' : (isT ? ' · 수액 타이머' : ' · 내일 계획'));
+  setText('#topSub', isB ? ' · ' + brLabel() + ' ' + ROOMS.length + '개 방 · 접수팀 ↔ 간호팀 공유' : (isT ? ' · 방당 1~4번 수액 · 방울·알람' : ' · 내일 시술·간호사 준비'));
+  document.title = siteName() + (isB ? ' · 실시간 시술 현황' : (isT ? ' · 수액 타이머' : ' · 내일 계획'));
 }
 
 /* ---------- 동기화 ---------- */
@@ -4105,19 +4747,30 @@ function fetchJSON(url){
 }
 var pushing = false, pulling = false, pushTm = 0;
 function push(op){
-  bd.pending.push({ op:op.op, data:op.data, at:Date.now() });
+  var data = op.data;
+  if(data && typeof data === 'object'){
+    try{ data = JSON.parse(JSON.stringify(data)); }catch(e){ data = op.data; }
+    data.branch = brCode();
+  }
+  bd.pending.push({ op:op.op, data:data, at:Date.now(), br:brKey() });
+  if(bd.pending.length > 120) bd.pending = bd.pending.slice(-120);
   saveBoard(); paintSync();
   doPush();
 }
 function doPush(){
   if(pushing || !bd.pending.length || !SYNC_URL) return;
-  pushing = true;
   var item = bd.pending[0];
-  var url = SYNC_URL + '?action=' + item.op + '&payload=' + encodeURIComponent(JSON.stringify(item.data)) + '&t=' + Date.now();
+  var itemBr = (item.br === 'bundang') ? 'bundang' : 'cheongdam';
+  /* 구(지점 미지원) 서버에는 분당 기록을 보내지 않습니다 — 청담 시트에 섞이지 않게 */
+  if(itemBr === 'bundang' && bd.serverBd !== true) return;
+  pushing = true;
+  var url = SYNC_URL + '?action=' + item.op + '&payload=' + encodeURIComponent(JSON.stringify(item.data)) +
+    '&branch=' + BR[itemBr].code + '&t=' + Date.now();
   fetchJSON(url).then(function(d){
     pushing = false;
     if(d && d.ok){
       bd.pending.shift(); saveBoard();
+      if('branch' in d) bd.serverBd = true;
       markSync(true, d.rev);
       if(bd.pending.length) doPush(); else pull(true);
     } else if(d && d.error === 'unknown_action'){
@@ -4131,25 +4784,39 @@ function retryPush(){ clearTimeout(pushTm); pushTm = setTimeout(doPush, 6000); }
 function pull(force){
   if(pulling || !SYNC_URL) return;
   pulling = true;
-  var url = SYNC_URL + '?action=pull&rev=' + (bd.rev||0) + (force ? '&full=1' : '') + '&t=' + Date.now();
+  var wantB = brKey();
+  var url = SYNC_URL + '?action=pull&rev=' + (bd.rev||0) + (force ? '&full=1' : '') +
+    '&branch=' + brCode() + '&t=' + Date.now();
   fetchJSON(url).then(function(d){
     pulling = false;
+    if(wantB !== brKey()) return;                       /* 그 사이 지점을 바꿨으면 결과를 버립니다 */
     if(!d || !d.ok){ markSync(false); return; }
+    var brAware = ('branch' in d);
+    bd.serverBd = brAware ? true : false;
+    if(!brAware && wantB === 'bundang'){
+      /* 새 Code.gs 배포 전 — 분당은 이 기기에만 저장하고 청담 데이터를 절대 섞지 않습니다 */
+      bd.online = null;
+      paintSync(); paintBrWarn();
+      return;
+    }
     markSync(true, d.rev);
     if(d.changed && d.rooms) applyRemote(d);
-  }).catch(function(){ pulling = false; markSync(false); });
+    paintBrWarn();
+  }).catch(function(){ pulling = false; markSync(false); paintBrWarn(); });
 }
 function applyRemote(d){
   (d.rooms||[]).forEach(function(r){
     if(!r || !r.room) return;
     if('doctorCall' in r || 'nurse' in r) bd.dcNative = true;   /* 새 Code.gs 감지 */
-    var hadSign = null;
     normRoom(r);
     var cur = bd.rooms[r.room];
     if(cur){
       /* 이 기기에만 있는 서명 이미지·차팅은 서버에 없으므로 이어 받습니다 */
       if(!r.sign && cur.sign) r.sign = cur.sign;
       if(!r.chart && cur.chart && r.nurse === cur.nurse) r.chart = cur.chart;
+      if(!r.staff && cur.staff) r.staff = cur.staff;
+      if(!r.user && cur.user) r.user = cur.user;
+      if(!r.signedUser && cur.signedUser) r.signedUser = cur.signedUser;
     }
     if(!cur || (Number(r.updatedAt)||0) >= (Number(cur.updatedAt)||0)) bd.rooms[r.room] = r;
   });
@@ -4178,8 +4845,9 @@ function paintSync(){
   var dot = $('#syncDot'), txt = $('#syncTxt');
   if(!dot || !txt) return;
   var cls = 'sd', s = '';
-  if(bd.pending.length){ cls += ' wait'; s = '저장 중… (' + bd.pending.length + ')'; }
-  else if(bd.online === true){ cls += ' ok'; s = '실시간 공유 · ' + hms(bd.at) + ' 동기화'; }
+  if(brKey() === 'bundang' && bd.serverBd === false){ cls += ' wait'; s = '분당 · 이 기기에만 저장'; }
+  else if(bd.pending.length){ cls += ' wait'; s = '저장 중… (' + bd.pending.length + ')'; }
+  else if(bd.online === true){ cls += ' ok'; s = BR[brKey()].label + ' 실시간 공유 · ' + hms(bd.at) + ' 동기화'; }
   else if(bd.online === false){ cls += ' off'; s = '오프라인 · 이 기기에 저장됨'; }
   else { cls += ' wait'; s = '연결 중…'; }
   dot.className = cls;
@@ -4192,6 +4860,19 @@ function renderInProg(){
   box.innerHTML = PROGRAMS.map(function(p){
     return '<button type="button" data-k="'+p.k+'">'+esc(p.label)+'<small>'+esc(p.sub)+'</small></button>';
   }).join('');
+}
+/* v1.4 — 공용 기기: 로그인 사용자가 기본, 실제 시술 간호사를 직접 선택 */
+function renderStaffChips(){
+  var box = $('#inStaffChips'); if(!box) return;
+  var me = currentUser();
+  var list = staffPickList();
+  if(dft && dft.staff && list.indexOf(dft.staff) < 0) list.push(dft.staff);
+  box.innerHTML = list.map(function(nm){
+    var on = !!(dft && dft.staff === nm);
+    return '<button type="button" class="'+(nm === me ? 'me' : '')+(on ? ' on' : '')+'" data-staff="'+esc(nm)+'" aria-pressed="'+(on?'true':'false')+'">'+
+      esc(nm)+(nm === me ? ' 👤' : '')+'</button>';
+  }).join('');
+  setText('#inStaffHint', me ? (me + ' 님 기본 · 실제 시술 간호사 선택') : '실제 시술 간호사 선택');
 }
 function openIn(room){
   var r = bd.rooms[room] || blankRoom(room);
@@ -4206,6 +4887,8 @@ function openIn(room){
     min: edit ? (Number(r.min)||45) : 45,
     startAt: edit ? (r.startAt||nowMinute()) : nowMinute(),
     memo: edit ? (r.memo||'') : '',
+    staff: edit ? (r.staff || currentUser()) : currentUser(),
+    user: edit ? (r.user || currentUser()) : currentUser(),
     ivs: (function(){
       var arr = [];
       ivAll().forEach(function(it){
@@ -4247,6 +4930,7 @@ function paintIn(keepInputs){
   }
   $$('#inConsult button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-c') === dft.consult); });
   $$('#inProg button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-k') === dft.prog); });
+  renderStaffChips();
   var tb = $('#inTime');
   if(tb){
     tb.innerHTML = timeChips().map(function(c){
@@ -4303,6 +4987,9 @@ function commitIn(){
     chart: dft.edit ? (prevRoom.chart || '') : '',
     signedAt: dft.edit ? (Number(prevRoom.signedAt) || 0) : 0,
     sign: dft.edit ? (prevRoom.sign || '') : '',
+    staff: dft.staff || currentUser(),
+    user: dft.user || currentUser(),
+    signedUser: dft.edit ? (prevRoom.signedUser || '') : '',
     consult: consultVal(dft.consult || '',
       dft.edit ? (consultParts(prevRoom.consult).status || 'waiting') : 'waiting',
       dft.edit ? consultParts(prevRoom.consult).started : 0,
@@ -4341,9 +5028,9 @@ function clearBoardRoom(room){
   push({ op:'setRoom', data: packRoom(blankRoom(room)) });
 }
 function endRoomTimers(room){
-  var hit = false;
+  var hit = false, br = brKey();
   st.timers.forEach(function(t){
-    if(!t.done && t.room === room){ t.done = true; t.endFired = true; clearAlarmsFor(t.id); hit = true; }
+    if(!t.done && t.room === room && t.branch === br){ t.done = true; t.endFired = true; clearAlarmsFor(t.id); hit = true; }
   });
   if(hit){ save(); renderAll(); }
 }
@@ -4358,6 +5045,7 @@ function boardInit(){
   paintTab();
   renderBoard();
   paintSync();
+  paintBrWarn();
   pull(true);
   setInterval(function(){
     if(document.hidden) return;
@@ -4484,17 +5172,75 @@ function bind(){
     if(ndel){ ev.preventDefault(); delNurse(ndel.getAttribute('data-ndel')); return; }
     var nchip = t.closest ? t.closest('#cNurseChips button[data-nurse]') : null;
     if(nchip){ ev.preventDefault(); pickNurse(nchip.getAttribute('data-nurse')); return; }
-    var brBtn = t.closest ? t.closest('#cBranch button') : null;
-    if(brBtn){ ev.preventDefault(); st.branch = brBtn.getAttribute('data-br'); save(); renderNurseChips(); return; }
     if(t.closest && t.closest('#cNurseAdd')){ ev.preventDefault(); addNurse(); return; }
-    /* PIN 잠금 */
-    var pinBtn = t.closest ? t.closest('#pinPad button') : null;
-    if(pinBtn){
+    var stfBtn = t.closest ? t.closest('#inStaffChips button[data-staff]') : null;
+    if(stfBtn){
       ev.preventDefault();
-      var pk = pinBtn.getAttribute('data-pin');
-      if(pk === 'del') pinDel();
-      else if(pk === 'clr'){ pinBuf = ''; pinPaint(); }
-      else pinPress(pinBtn.getAttribute('data-n'));
+      if(dft){ dft.staff = stfBtn.getAttribute('data-staff') || ''; renderStaffChips(); }
+      return;
+    }
+    /* v1.4 — 개인 비번 로그인 */
+    var lbBtn = t.closest ? t.closest('#lBranch button') : null;
+    if(lbBtn){ ev.preventDefault(); loginBranchPick(lbBtn.getAttribute('data-lbr')); return; }
+    var lnBtn = t.closest ? t.closest('#lStaff button[data-lname]') : null;
+    if(lnBtn){ ev.preventDefault(); loginNamePick(lnBtn.getAttribute('data-lname')); return; }
+    if(t.closest && t.closest('#lNewAdd')){ ev.preventDefault(); addLoginName(); return; }
+    if(t.closest && t.closest('#lBack')){ ev.preventDefault(); loginBack(); return; }
+    if(t.closest && t.closest('#lClose')){ ev.preventDefault(); if(sessionValid()) closeLogin(); return; }
+    var lpBtn = t.closest ? t.closest('#lPad button') : null;
+    if(lpBtn){
+      ev.preventDefault();
+      var lk = lpBtn.getAttribute('data-lpin');
+      if(lk === 'del') loginDel();
+      else if(lk === 'clr') loginClearAll();
+      else loginPress(lpBtn.getAttribute('data-ln'));
+      return;
+    }
+    /* v1.4 — 계정 · 설정 시트 */
+    if(t.closest && t.closest('#btnWho')){ ev.preventDefault(); openAcc(); return; }
+    if(t.closest && (t.closest('#accClose') || t.closest('#accBg'))){ ev.preventDefault(); closeAcc(); return; }
+    if(t.closest && t.closest('#accSwitch')){ ev.preventDefault(); closeAcc(); openLogin({ branch: brKey() }); return; }
+    if(t.closest && t.closest('#accLogout')){ ev.preventDefault(); logoutUser(); return; }
+    if(t.closest && t.closest('#accSite')){ ev.preventDefault(); closeAcc(); openSite(); return; }
+    var abrBtn = t.closest ? t.closest('#accBranchSeg button') : null;
+    if(abrBtn){
+      ev.preventDefault();
+      var ab = abrBtn.getAttribute('data-abr');
+      if(ab === brKey()){ toast('지금 ' + brLabel() + ' 현황을 보고 있습니다'); return; }
+      closeAcc();
+      var pickName = '';
+      openLogin({ branch: ab });
+      toast(BR[ab].label + ' 직원으로 로그인하면 ' + BR[ab].label + ' 현황으로 바뀍니다');
+      return;
+    }
+    var prBtn2 = t.closest ? t.closest('[data-pinreset]') : null;
+    if(prBtn2){
+      ev.preventDefault();
+      if(!isAdmin()){ toast('관리자만 직원 비번을 초기화할 수 있습니다'); return; }
+      var ukey = prBtn2.getAttribute('data-pinreset');
+      var pp = ukey.split('|'), pb = (pp[0] === 'bundang') ? 'bundang' : 'cheongdam', pnm = pp[1] || '';
+      if(auth.session && auth.session.name === pnm && auth.session.branch === pb){
+        toast('로그인 중인 본인 비번은 초기화할 수 없습니다');
+        return;
+      }
+      confirmModal('직원 비번 초기화', BR[pb].label + ' · 「' + pnm + '」 님의 비번을 초기화할까요?\n다음 로그인 때 본인이 새 4자리 비번을 만듭니다.', '초기화', function(){
+        resetUserPin(pb, pnm);
+      });
+      return;
+    }
+    if(t.closest && t.closest('#accResetAll')){
+      ev.preventDefault();
+      if(!isAdmin()){ toast('관리자만 직원 비번을 초기화할 수 있습니다'); return; }
+      confirmModal('이 기기 전체 초기화', '이 기기에 저장된 직원 비번을 모두 지울까요? (로그인 중인 본인 비번은 유지됩니다)', '전체 초기화', function(){
+        Object.keys(auth.users).forEach(function(k){
+          var p = k.split('|');
+          if(auth.session && auth.session.name === p[1] && auth.session.branch === p[0]) return;
+          delete auth.users[k];
+        });
+        auth.fail = {};
+        saveAuth(); renderAccUsers(); paintLogin();
+        toast('이 기기 직원 비번을 모두 초기화했습니다');
+      });
       return;
     }
     /* 내일 계획 */
@@ -4756,12 +5502,13 @@ function bind(){
   });
 
   document.addEventListener('keydown', function(ev){
-    var gate = $('#pinGate');
-    if(gate && gate.classList.contains('on')){
-      if(/^[0-9]$/.test(ev.key)){ ev.preventDefault(); pinPress(ev.key); return; }
-      if(ev.key === 'Backspace'){ ev.preventDefault(); pinDel(); return; }
+    var gate = $('#loginGate');
+    if(gate && gate.classList.contains('on') && login.open && login.step === 2){
+      if(/^[0-9]$/.test(ev.key)){ ev.preventDefault(); loginPress(ev.key); return; }
+      if(ev.key === 'Backspace'){ ev.preventDefault(); loginDel(); return; }
       if(ev.key === 'Enter'){ ev.preventDefault(); return; }
     }
+    if(ev.key === 'Enter' && ev.target && ev.target.id === 'lNewName'){ ev.preventDefault(); addLoginName(); return; }
     if(ev.key === 'Enter' && ev.target && ev.target.id === 'siteInput'){ ev.preventDefault(); saveSite(); return; }
     if(ev.key === 'Enter' && ev.target && ev.target.id === 'cNurseNew'){ ev.preventDefault(); addNurse(); return; }
     if(ev.key === 'Enter' && ev.target && ev.target.id === 'inName' && dft){ ev.preventDefault(); commitIn(); return; }
@@ -4770,6 +5517,9 @@ function bind(){
       ev.preventDefault(); saveIvAdd(); return;
     }
     if(ev.key === 'Escape'){
+      if(login.open && sessionValid()){ closeLogin(); return; }
+      var accsh = $('#accSheet');
+      if(accsh && accsh.classList.contains('on')){ closeAcc(); return; }
       var sh = $('#inSheet');
       if(sh && sh.classList.contains('on')){ closeIn(); return; }
       var ivsh = $('#ivSheet');
@@ -4834,7 +5584,7 @@ function clearRoom(){
   var act = activeTimers().filter(function(t){ return t.room === room; });
   confirmModal('이 방 비우기', room+'의 진행 중인 타이머와 입력값을 모두 지웁니다.', '비우기', function(){
     act.forEach(function(t){ t.done = true; clearAlarmsFor(t.id); });
-    st.slots[room] = [0,1,2,3].map(blankSlot);
+    st.slots[slotKey(room)] = [0,1,2,3].map(blankSlot);
     st.open = room+'|1';
     clearBoardRoom(room);
     save(); renderAll();
@@ -4844,7 +5594,8 @@ function clearRoom(){
 
 /* 시작 */
 loadState();
-showPinGate(!pinUnlocked());
+loadAuth();
+if(sessionValid()) applyBranch(auth.session.branch);
 renderAll();
 paintBrand();
 paintConn();
@@ -4855,6 +5606,8 @@ checkAlerts();
 paint();
 wakeSync();
 versionCheck(true);
+if(sessionValid()) closeLogin();
+else openLogin({ branch: brKey() });
 
 /* 테스트·점검용 (화면에는 영향 없음) */
 window.IV = {
@@ -4885,15 +5638,23 @@ window.IV = {
   chart: { open: openChart, close: closeChart, save: saveChart, state: function(){ return cEdit; },
     checkout: finishCheckout, signDirty: function(){ return signPad.dirty; } },
   nurses: { list: nurseList, add: addNurse, del: delNurse, branch: function(){ return st.branch; } },
-  pin: { hash: pinHash, unlocked: pinUnlocked, press: pinPress, del: pinDel,
-    buffer: function(){ return pinBuf; } },
+  auth: { sha256: sha256Hex, digest: pinDigest, users: function(){ return auth.users; },
+    session: function(){ return auth.session; }, fail: function(){ return auth.fail; },
+    current: currentUser, valid: sessionValid, branch: function(){ return brKey(); },
+    login: login, open: openLogin, close: closeLogin, namePick: loginNamePick, press: loginPress,
+    logout: logoutUser, reset: resetUserPin, daysLeft: sessionDaysLeft, isAdmin: isAdmin },
+  branch: { key: function(){ return brKey(); }, code: function(){ return brCode(); },
+    label: function(){ return brLabel(); }, rooms: function(){ return ROOMS.slice(); },
+    switch: switchBranchData, site: function(){ return { name:siteName(), tel:siteTel() }; } },
+  staff: { pick: staffPickList, chips: renderStaffChips },
   plan: { render: renderPlan, summary: planSummary, state: ensurePlan, count: planCount,
     band: planBandNurse, helper: planBandHelper, proc: planProcNurse, copy: copyPlan },
-  site: { name: function(){ return st.site.name; }, open: openSite, save: saveSite },
+  site: { name: function(){ return siteName(); }, tel: function(){ return siteTel(); }, open: openSite, save: saveSite },
   board: {
     state: bd, rooms: ROOMS, programs: PROGRAMS, syncUrl: SYNC_URL,
     openIn: openIn, closeIn: closeIn, commit: commitIn, complete: completeRoom,
-    tab: goTab, pull: pull, render: renderBoard, hist: function(){ return renderHist(); }
+    tab: goTab, pull: pull, render: renderBoard, hist: function(){ return renderHist(); },
+    flush: flushBoard
   }
 };
 
