@@ -1067,6 +1067,75 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
 .livebar.skinbar .lb-ic{color:#B33B76}
 .livebar.skinbar .lb-tx small{color:#FBE3EE}
 .livebar.skinbar .lb-go{color:#B33B76}
+
+/* ==========================================================================
+   v2.1 — 홈 히어로 프리미엄 리뉴얼 (공식 TLC 로고 · 스마트 데일리 케어)
+   · 기존 초록 카드 안에서 흰 네모 박스가 떠 보이던 로고를, 카드 폭 전체의
+     화이트 밴드에 앉혀 로고의 흰 바탕이 카드와 한 덩어리로 이어지게 했습니다.
+   · 아래 본문은 딥 네이비-티얼 그라데이션(공식 로고 네이비 #336179 를 잇는 톤)
+     위에 큰 제목 · 민트 포인트 구분선으로 정리했습니다.
+   ========================================================================== */
+.hero{position:relative;overflow:hidden;border-radius:22px;padding:0;color:#fff;background:#fff;
+  border:1px solid rgba(17,58,72,.08);
+  box-shadow:0 16px 36px rgba(11,44,56,.15),0 2px 6px rgba(11,44,56,.05)}
+.hero:before,.hero:after{content:none;display:none}
+/* 화이트 밴드 — 로고의 흰 바탕과 같은 색이라 박스처럼 보이지 않습니다 */
+.hero-top{display:flex;align-items:center;gap:11px;padding:10px 16px 9px;background-color:#FFFFFF;
+  background-image:radial-gradient(140% 190% at 100% 0%,#EDF9F5 0%,rgba(255,255,255,0) 62%)}
+.hero-logo{display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  width:auto;padding:0;margin:0;background:none;border:0;border-radius:0;box-shadow:none;
+  -webkit-tap-highlight-color:transparent}
+.hero-logo .tlcm{width:56px;height:42px;background-size:contain;background-position:left center}
+.hero .k{align-self:center;min-width:0}
+.hero .k{font-size:12px;font-weight:800;letter-spacing:.155em;line-height:1.3;color:#336179;
+  white-space:nowrap;word-break:keep-all}
+.hero .hero-branch{margin-left:auto;align-self:center;font-size:12px;font-weight:700;letter-spacing:.02em;
+  line-height:1.3;color:#78888F;white-space:nowrap;flex:0 0 auto}
+/* 딥 네이비-티얼 바디 */
+.hero-main{position:relative;padding:15px 16px 16px;color:#fff;overflow:hidden;
+  background:
+    radial-gradient(120% 150% at 100% -12%,rgba(96,226,201,.20) 0%,rgba(96,226,201,0) 56%),
+    linear-gradient(152deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,0) 40%),
+    linear-gradient(135deg,#0E1C26 0%,#193A49 52%,#26606F 100%)}
+.hero-main:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;z-index:2;
+  background:linear-gradient(90deg,#336179 0%,#2EC5AB 46%,rgba(46,197,171,0) 100%)}
+.hero-main:after{content:"";position:absolute;right:-74px;bottom:-132px;width:230px;height:230px;
+  border-radius:50%;pointer-events:none;border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 0 0 22px rgba(255,255,255,.035),inset 0 0 0 1px rgba(255,255,255,.04)}
+.hero h1{position:relative;z-index:1;margin:0 0 6px;font-size:26px;font-weight:800;line-height:1.22;
+  letter-spacing:-.045em;color:#fff;word-break:keep-all}
+.hero p{position:relative;z-index:1;font-size:15px;font-weight:600;line-height:1.5;letter-spacing:-.01em;
+  color:rgba(226,242,245,.9);word-break:keep-all}
+.hero p span{white-space:nowrap}
+.hero p i{font-style:normal;color:rgba(96,226,201,.9);margin:0 6px;font-weight:800}
+@media(max-width:360px){
+  .hero-top{padding:10px 14px 9px;gap:10px}
+  .hero-logo .tlcm{width:54px;height:40px}
+  .hero .k{font-size:12px;letter-spacing:.11em}
+  .hero-main{padding:14px 14px 15px}
+  .hero h1{font-size:24px}
+  .hero p{font-size:15px}
+  .hero p i{margin:0 5px}
+}
+@media(min-width:760px){
+  .hero{display:grid;grid-template-columns:auto 1fr;align-items:stretch}
+  .hero-top{flex-direction:column;align-items:flex-start;justify-content:center;gap:9px;
+    padding:20px 24px;background-color:#FFFFFF;
+    background-image:radial-gradient(150% 150% at 0% 0%,#F4FCF9 0%,rgba(255,255,255,0) 70%)}
+  .hero-logo .tlcm{width:96px;height:72px}
+  .hero-top{gap:8px}
+  .hero .k{font-size:12.5px;letter-spacing:.2em;align-self:flex-start}
+  .hero .hero-branch{font-size:12.5px;margin-left:0;align-self:flex-start}
+  .hero-main{display:flex;flex-direction:column;justify-content:center;
+    padding:22px 28px;background:linear-gradient(115deg,#101F2A 0%,#1B3D4C 52%,#2A6274 100%)}
+  .hero-main:before{left:0;top:0;bottom:0;right:auto;width:2px;height:auto;
+    background:linear-gradient(180deg,#2EC5AB 0%,#336179 100%)}
+  .hero-main:after{right:-96px;bottom:-150px;width:340px;height:340px;
+    border-color:rgba(255,255,255,.13);
+    box-shadow:0 0 0 40px rgba(255,255,255,.045),0 0 0 84px rgba(255,255,255,.022)}
+  .hero h1{font-size:31px;margin-bottom:7px}
+  .hero p{font-size:15px}
+}
 </style>
 </head>
 <body data-part="all">
@@ -1127,7 +1196,7 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
     <div class="logo"><i class="tlcm" role="img" aria-label="티엘씨 공식 로고"></i></div>
     <div class="brand">TLC 메디컬 그룹<br>스마트 데일리 케어<small>티엘씨 청담·분당 실무 인수인계</small></div>
     <div class="vwrap">
-      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v2.0</span></a>
+      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v2.1</span></a>
       <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기"><span aria-hidden="true">🔄</span><span class="rt"> 새로고침</span></a>
     </div>
   </div>
@@ -1146,7 +1215,7 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
 
 <div class="updbar" id="updBar" role="status" aria-live="polite">
   <div class="in">
-    <div class="tx">🆕 <b>새 버전 <span id="updVer">v2.0</span></b>이 준비되었습니다.</div>
+    <div class="tx">🆕 <b>새 버전 <span id="updVer">v2.1</span></b>이 준비되었습니다.</div>
     <a class="upd-a" id="updBtn" href="#" rel="noopener">지금 새로고침</a>
   </div>
 </div>
@@ -1162,11 +1231,17 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
 <!-- ================= HOME ================= -->
 <section class="wrap" id="screen-home">
   <div class="sec">
-    <div class="hero">
-      <div class="hero-logo"><i class="tlcm" role="img" aria-label="티엘씨 공식 로고"></i></div>
-      <div class="k">TLC 메디컬 그룹 스마트 데일리 케어</div>
-      <h1>하나되는 티엘씨,<br>빈틈없는 인수인계</h1>
-      <p>티엘씨 청담·분당 — 오늘 필요한 것만 모았습니다. 실시간 시술 현황 · 인수인계 · 수액 타이머.</p>
+    <!-- v2.1 — 프리미엄 히어로: 흰 밴드에 공식 로고가 자연스럽게 안착 + 딥 네이비-티얼 바디 -->
+    <div class="hero" id="homeHero">
+      <div class="hero-top">
+        <div class="hero-logo"><i class="tlcm" role="img" aria-label="티엘씨 공식 로고"></i></div>
+        <span class="k">TLC MEDICAL GROUP</span>
+        <span class="hero-branch">청담 · 분당</span>
+      </div>
+      <div class="hero-main">
+        <h1>스마트 데일리 케어</h1>
+        <p><span>실시간 시술 현황</span><i>·</i><span>처방</span><i>·</i><span>인수인계</span></p>
+      </div>
     </div>
   </div>
 
@@ -1509,7 +1584,7 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
 <div class="footer wrap" id="globalFooter" style="margin-top:20px">
   <div class="cp">TLC 메디컬 그룹 스마트 데일리 케어</div>
   <div class="cp2">아이디어·개발·제작·저작권: <span>티엘씨메디켈그룹 총괄운영실장 김효숙</span></div>
-  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v2.0</span></div>
+  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v2.1</span></div>
   <div class="cp-lic">본 프로그램은 내부·개인적 업무 보조 전용으로 제작되었으며, 무단 복제·외부 유출·상업적 재배포를 금지합니다. (아이디어·개발·제작: 김효숙)</div>
   <div class="nt">의료기기(SaMD) 아님 · 업무 보조·참고용 · 실제 환자 개인정보 입력 금지(방 번호·가명만) · 기기 내 로컬 저장만 사용 · 알람은 기기·브라우저 설정에 따라 지연될 수 있음 · 공식기관 인증 프로그램 아님</div>
 </div>
@@ -2045,7 +2120,7 @@ DATA.recvForm = [
    TLC 메디컬 그룹 스마트 데일리 케어 — 화면 로직 (티엘씨 청담·분당 실무 인수인계)
    아이디어·개발·제작·저작권: 김효숙 (티엘씨메디켈그룹 총괄운영실장)
    ========================================================================= */
-var VERSION = 'v2.0';
+var VERSION = 'v2.1';
 /* 기존 Apps Script 배포본(참고용 폴백) — GitHub Pages에서는 ./version.json 사용 */
 var EXEC_URL = 'https://script.google.com/macros/s/AKfycbyTf8lTMRCtbmnc3SCOcYH25O_ncRE0IUtm4K8h91-C5MG6ETQo9G4DiF57sgBsicE6/exec';
 var VER_POLL_MS = 180000;
