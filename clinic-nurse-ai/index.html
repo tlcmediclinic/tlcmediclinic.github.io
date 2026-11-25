@@ -741,6 +741,152 @@ table.tbl th,table.tbl td{padding:10px 8px}
 .mic-hint.wide{flex:1 1 100%;width:100%;margin-top:3px;padding:10px 12px;background:var(--pp-l2);
   border:1px solid #D3ECE7;border-radius:12px;color:var(--ink2);line-height:1.6}
 .mic-hint.wide b{color:var(--pp-d)}
+
+/* ==========================================================================
+   v1.6 — 시술실 1~6번방·두피시술방 · 1~4번 수액 슬롯 · 방울 모니터 · 사전/종료 알람
+   ========================================================================== */
+/* 시술실 칩 */
+.roomchips{gap:6px}
+.roomchips .chip{font-size:14px;padding:8px 12px}
+/* 시술실 7곳 현황 */
+.roomboard{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px}
+.rbt{display:flex;flex-direction:column;gap:1px;text-align:left;background:#FAFDFC;border:1.5px solid var(--line);
+  border-radius:12px;padding:8px 9px;transition:background .15s,border-color .15s}
+.rbt.on{background:var(--pp-l);border-color:#9FDCD2}
+.rbt.end{background:var(--red-l);border-color:#F3BFC9}
+.rbt:active{transform:scale(.985)}
+.rbt-n{font-size:12.5px;font-weight:900;color:var(--ink2);letter-spacing:-.03em}
+.rbt.on .rbt-n{color:var(--pp-d)}
+.rbt-v{font:900 17px/1.2 ui-monospace,SFMono-Regular,monospace;color:var(--ink3);letter-spacing:-.03em}
+.rbt.on .rbt-v{color:var(--pp-d)}
+.rbt.end .rbt-v{color:var(--red)}
+.rbt-m{font-size:12px;color:var(--ink3);line-height:1.35;overflow-wrap:anywhere}
+/* 수액 계산 3단 결과 */
+.inf3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:10px}
+.i3{background:#fff;border:1px solid #CDEAE4;border-radius:11px;padding:8px 5px;text-align:center}
+.i3-l{display:block;font-size:12px;font-weight:700;color:var(--ink3)}
+.i3-v{display:block;font-size:20px;font-weight:900;color:var(--pp-d);line-height:1.15;margin-top:1px;letter-spacing:-.03em}
+.i3-u{display:block;font-size:12px;color:var(--ink3);line-height:1.3}
+/* ★ 설정 저장 */
+.pstbar{display:flex;margin-top:4px}
+.pstbar .btn{width:auto;flex:0 0 auto}
+.psts{gap:6px}
+.pst{display:inline-flex;align-items:center;max-width:100%;border:1.5px solid var(--line);border-radius:999px;background:#fff;overflow:hidden}
+.pst-b{white-space:normal;overflow-wrap:anywhere;text-align:left}
+.pst-b{font-size:13.5px;font-weight:800;color:var(--pp-d);padding:8px 11px;text-align:left}
+.pst-x{font-size:13px;font-weight:800;color:var(--ink3);padding:8px 10px;background:#F1F6F5}
+.pst-b:active{background:var(--pp-l)}
+/* 1~4번 수액 슬롯 */
+.tctop .tadd{margin-left:auto;font-size:12.5px;font-weight:800;color:var(--pp);background:var(--pp-l);
+  border-radius:999px;padding:5px 10px;white-space:nowrap}
+.slot{border-top:1px dashed var(--line);padding:9px 0 3px;margin-top:7px}
+.slot:first-of-type{border-top:0;margin-top:2px}
+.slot.wait{opacity:.92}
+.slot.hit{background:var(--yel-l);border-radius:11px;box-shadow:inset 0 0 0 2px #E9C766;transition:none}
+.slot-h{display:flex;align-items:baseline;gap:7px}
+.sl-b{flex:0 0 auto;font-size:12.5px;font-weight:900;color:#fff;background:var(--pp);border-radius:7px;padding:2px 7px}
+.slot.warn .sl-b{background:var(--org)}
+.slot.end .sl-b{background:var(--red)}
+.sl-n{flex:1;min-width:0;font-size:14px;font-weight:800;color:var(--ink2);overflow-wrap:anywhere;line-height:1.4}
+.slot .tleft{flex:0 0 auto;font-size:20px}
+.sl-meta{font-size:12.5px;color:var(--ink3);line-height:1.4;margin-top:3px;overflow-wrap:anywhere}
+.sl-ops{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.sl-end{flex:1 1 100%;padding:12px;border-radius:11px;background:var(--grn-l);color:var(--grn);
+  font-size:15px;font-weight:900;margin-top:2px}
+.sl-end:active{transform:scale(.98)}
+.slot.end .sl-end{background:var(--red);color:#fff;animation:endpulse 1.2s infinite}
+@keyframes endpulse{0%,100%{box-shadow:0 0 0 0 rgba(232,69,95,.35)}50%{box-shadow:0 0 0 9px rgba(232,69,95,0)}}
+.sl-start{flex:1 1 auto;padding:11px;border-radius:11px;background:var(--pp-l);color:var(--pp-d);font-size:14.5px;font-weight:900}
+/* 타이머 4병 입력 */
+.slrow{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:start;margin-bottom:8px;
+  padding:9px;border:1px solid var(--line);border-radius:12px;background:#FBFEFD}
+.slno{font:900 13px/1 ui-monospace,SFMono-Regular,monospace;color:#fff;background:var(--pp);border-radius:8px;padding:8px 0;text-align:center}
+.slfields{display:flex;flex-direction:column;gap:6px;min-width:0}
+.sl2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.slrow .inp{padding:10px 11px;font-size:16px}
+/* 알람 카드 (사전·종료) */
+.tbanner{flex-wrap:wrap;align-items:flex-start;gap:9px}
+.tbn-hd{display:flex;gap:10px;align-items:flex-start;flex:1 1 100%}
+.tbn-tx{flex:1;min-width:0}
+.tbn-tx b{display:block;font-size:15px;line-height:1.4;font-weight:900}
+.tbn-sub{display:block;font-size:12.5px;line-height:1.4;opacity:.92;margin-top:2px}
+.tbn-acts{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:8px}
+.tbn-ok,.tbn-next{flex:1 1 100%;min-height:52px;padding:13px 14px;border-radius:12px;font-size:15.5px;font-weight:900}
+.tbn-ok{background:#fff;color:#B7223B}
+.tbn-next{background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+.tbn-ok:active,.tbn-next:active{transform:scale(.98)}
+.tbanner.end{animation:alarmpulse 1.3s infinite}
+@keyframes alarmpulse{0%,100%{box-shadow:0 12px 30px rgba(183,34,59,.45)}50%{box-shadow:0 12px 46px rgba(183,34,59,.85)}}
+@media(min-width:760px){.tbn-ok,.tbn-next{flex:1 1 auto}}
+/* 방울 모니터 */
+.drip{position:fixed;inset:0;z-index:92;display:none;color:#EAF7FD;overflow:auto;
+  background:radial-gradient(120% 70% at 50% 0%,#123A4A 0%,#0A202B 55%,#07161F 100%);
+  padding:calc(10px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom))}
+.drip.on{display:block}
+.drip-in{max-width:520px;margin:0 auto;display:flex;flex-direction:column;min-height:calc(100% - 4px)}
+.drip-hd{display:flex;align-items:center;gap:10px}
+.drip-title{flex:1;min-width:0;font-size:17px;font-weight:900;color:#fff;line-height:1.35;overflow-wrap:anywhere}
+.drip-x{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:19px}
+.drip-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.dstat{background:rgba(255,255,255,.08);border-radius:10px;padding:7px 5px;text-align:center;min-width:0}
+.d-k{display:block;font-size:12px;color:#9FC6D8}
+.d-v{display:block;font-size:14px;font-weight:900;color:#fff;margin-top:1px;overflow-wrap:anywhere;line-height:1.3}
+.drip-sub{font-size:12.5px;color:#A9CBD9;margin-top:7px;line-height:1.45}
+.drip-canvaswrap{position:relative;flex:1 1 auto;min-height:190px;height:31vh;max-height:340px;margin:8px 0 2px}
+.drip-canvaswrap canvas{width:100%;height:100%;display:block}
+.drip-lockmsg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(88%,320px);
+  background:rgba(7,22,31,.9);border:1.5px solid rgba(255,255,255,.28);border-radius:15px;padding:14px 16px;text-align:center}
+.drip-lockmsg b{display:block;font-size:16px;color:#fff;margin-bottom:4px}
+.drip-lockmsg span{display:block;font-size:13.5px;color:#A9CBD9;line-height:1.45}
+.drip-big{text-align:center;margin-top:4px}
+.drip-big b{font-size:32px;font-weight:900;color:#8FD8F7;letter-spacing:-.02em}
+.drip-big span{font-size:13.5px;color:#A9CBD9;margin-left:6px}
+.drip-tog{display:flex;gap:8px;justify-content:center;margin-top:9px;flex-wrap:wrap}
+.drip .chip{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22);color:#CFE7F2;font-size:14px;padding:9px 13px}
+.drip .chip.on{background:#127EA8;border-color:#2FA6D4;color:#fff;box-shadow:none}
+.drip .chip.off{opacity:.5}
+.drip-note{font-size:12.5px;color:#9FC6D8;text-align:center;margin-top:6px;line-height:1.5}
+@media(max-height:820px){.drip-canvaswrap{height:27vh;min-height:170px}.drip-note{font-size:12px}}
+.drip-ops{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.dbtn{min-height:50px;padding:11px 8px;border-radius:13px;font-size:15px;font-weight:900;line-height:1.3;
+  background:rgba(255,255,255,.13);color:#EAF7FD}
+.dbtn:active{transform:scale(.97)}
+.dbtn.ok{background:#0E8F7E;color:#fff}
+.dbtn.del{background:rgba(232,69,95,.3);color:#FFD9E0}
+.drip.locked .drip-ops .dbtn:not(#dripLock){opacity:.3;pointer-events:none}
+.drip.locked #dripClose{opacity:.25;pointer-events:none}
+.drip.locked .drip-tog{opacity:.35;pointer-events:none}
+.drip.locked #dripLock{background:#0E8F7E;color:#fff}
+@media(min-width:760px){.drip-stats{grid-template-columns:repeat(4,1fr)}.drip-title{font-size:19px}}
+@media(max-width:360px){.i3-v{font-size:18px}.d-v{font-size:13px}.rbt-v{font-size:17px}}
+
+/* v1.6 — 슬롯별 용량·세트 · IVNT 빠른 선택 칩 */
+.ivntchips .chip{font-size:13.5px;padding:8px 11px}
+.slrow.act{border-color:#9FDCD2;box-shadow:0 0 0 2px rgba(14,143,126,.12);background:#F5FCFA}
+.sl3{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.volchips{gap:4px;flex:1 1 auto}
+.vchip{font-size:12.5px;padding:6px 9px}
+.sl-set{flex:0 0 auto;width:auto;min-width:104px;padding:8px 10px;font-size:16px}
+@media(max-width:360px){.sl-set{min-width:96px}.vchip{padding:6px 7px}}
+
+/* v1.6 — 범용 빠른 입력(시간 칩 · 참고 예시 접기) */
+.timechips .chip{font-size:13.5px;padding:8px 11px}
+.ivntref{margin-top:10px;border:1px solid var(--line);border-radius:12px;background:#FBFEFD;padding:9px 11px}
+.ivntref summary{font-size:13.5px;font-weight:800;color:var(--ink2);cursor:pointer;list-style:none}
+.ivntref summary::-webkit-details-marker{display:none}
+.ivntref summary:before{content:'▸ ';color:var(--pp)}
+.ivntref[open] summary:before{content:'▾ '}
+
+/* v1.6 — 알림 허용 · 화면 유지 배지 */
+.hbtns{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.hbtns .sndbtn{margin-left:0}
+.sndbtn.on{background:var(--grn-l);color:var(--grn);border-color:#BCE9D6}
+.sndbtn.off{opacity:.6}
+#notifyGuide b{color:var(--pp-d)}
+
+/* v1.6 — 방울 화면 법적 고지 */
+.drip-legal{font-size:12px;color:#7FA6B6;text-align:center;margin-top:7px;line-height:1.45;padding:0 4px}
+.nw{white-space:nowrap}
 </style>
 </head>
 <body data-part="all">
@@ -750,7 +896,7 @@ table.tbl th,table.tbl td{padding:10px 8px}
     <div class="logo"><i class="tlcm" role="img" aria-label="티엘씨 공식 로고"></i></div>
     <div class="brand">TLC 인수인계<small>티엘씨 청담·분당 실무 인수인계</small></div>
     <div class="vwrap">
-      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.5</span></a>
+      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.6</span></a>
       <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기"><span aria-hidden="true">🔄</span><span class="rt"> 새로고침</span></a>
     </div>
   </div>
@@ -769,7 +915,7 @@ table.tbl th,table.tbl td{padding:10px 8px}
 
 <div class="updbar" id="updBar" role="status" aria-live="polite">
   <div class="in">
-    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.5</span></b>이 준비되었습니다.</div>
+    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.6</span></b>이 준비되었습니다.</div>
     <a class="upd-a" id="updBtn" href="#" rel="noopener">지금 새로고침</a>
   </div>
 </div>
@@ -843,9 +989,10 @@ table.tbl th,table.tbl td{padding:10px 8px}
     </div>
     <div class="card legal" id="legalCard">
       <div class="lg">
-        <div class="lg-h"><span class="n">①</span><b>의료기기(SaMD)가 아닌 업무 보조 도구입니다</b></div>
-        <p>본 앱은 <b>원내 인수인계·수액 계산 보조용</b>입니다. 진단·처방·투약의 최종 판단을 대신하지 않으며,
-          실제 투약·수액 속도·처치 시에는 반드시 <b>담당 의사의 처방</b>과 <b>원내 지침·의약품 허가사항</b>을 우선 확인하세요.</p>
+        <div class="lg-h"><span class="n">①</span><b>의료기기(SaMD)가 아닌 업무 보조·참고용 도구입니다</b></div>
+        <p>본 앱의 <b>수액 계산(gtt/min·mL/hr·초/방울)·방울 모니터·타이머·알람</b>은 업무 보조용 참고 도구이며,
+          의료기기나 의학적 처방을 대체하지 않습니다. 진단·처방·투약의 최종 판단을 대신하지 않으며,
+          실제 투여 속도와 환자 상태 확인은 반드시 <b>담당 의사의 처방</b>과 <b>의료진의 현장 육안 확인</b>·<b>원내 지침·의약품 허가사항</b>을 우선하세요.</p>
       </div>
       <div class="lg">
         <div class="lg-h"><span class="n">②</span><b>환자 개인정보를 입력하지 마세요</b></div>
@@ -857,6 +1004,11 @@ table.tbl th,table.tbl td{padding:10px 8px}
         <p>아이디어·설계·개발·제작 및 저작권은 <b>김효숙</b>에게 있습니다. 특정 병원·의원의 공식 EMR이나
           보건복지부·한국보건의료인국가시험원 등 <b>공공기관의 공식 인증 프로그램이 아닙니다.</b>
           무단 복제·배포·상업적 재판매를 금합니다.</p>
+      </div>
+      <div class="lg">
+        <div class="lg-h"><span class="n">④</span><b>알람·화면 유지는 기기 환경에 따라 지연될 수 있습니다</b></div>
+        <p>브라우저·OS 절전 정책, 네트워크 상태, 알림 권한에 따라 <b>알람 소리·진동·워치 알림·화면 켜짐 유지</b>가
+          늦거나 동작하지 않을 수 있습니다. 수액 종료 시점은 반드시 <b>현장 육안 점검</b>과 함께 확인하세요.</p>
       </div>
     </div>
   </div>
@@ -894,6 +1046,10 @@ table.tbl th,table.tbl td{padding:10px 8px}
         <label>분류 <span class="muted">(터치 선택)</span></label>
         <div class="chips" id="issTags"></div>
         <div class="muted" style="margin-top:7px">회원 등급·문의·비품·콜백은 여기서 <b>한 번만</b> 남기면 접수 서식 ②⑤⑦⑧에 자동으로 모입니다.</div>
+      </div>
+      <div class="field">
+        <label>시술실 <span class="muted">(선택 · 내용 앞에 붙습니다)</span></label>
+        <div class="chips roomchips" id="issRooms"></div>
       </div>
       <div class="field hide" id="memberBox">
         <label>멤버십 회원 <span class="muted">· 선택 사항 · 가명/차트순번만</span></label>
@@ -1007,21 +1163,80 @@ table.tbl th,table.tbl td{padding:10px 8px}
   <div class="sec" id="timerSec">
     <div class="sec-h">
       <h2>⏱️ 진행 중인 수액 타이머</h2><span class="sub" id="timerCnt">0개</span>
-      <button class="sndbtn" id="btnSnd" title="알람 소리 켜기/끄기">🔔 소리 켜짐</button>
+      <div class="hbtns">
+        <button class="sndbtn" id="btnSnd" title="알람 소리 켜기/끄기">🔔 소리 켜짐</button>
+        <button class="sndbtn" id="btnNotify" title="브라우저 알림 허용 — 워치로도 알람">🔔 알림 허용(워치 연동)</button>
+        <button class="sndbtn" id="btnWake" title="화면 자동 꺼짐 방지">☀️ 화면 켜짐 유지</button>
+      </div>
     </div>
     <div class="card">
+      <div class="blk-h" style="margin-bottom:8px">🏥 시술실 현황 <span class="muted">— 진행 중인 방은 탭하면 방울 화면</span></div>
+      <div class="roomboard" id="roomBoard"></div>
       <div id="timerList"></div>
       <div class="divider"></div>
-      <div class="blk-h" style="margin-bottom:8px">타이머 직접 추가</div>
-      <div class="grid2">
-        <div class="field"><label for="tmBed">베드 / 가명</label><input class="inp" id="tmBed" placeholder="예) 수액실 3번"></div>
-        <div class="field"><label for="tmName">수액명</label><input class="inp" id="tmName" placeholder="예) 비타민 500mL"></div>
+      <div class="blk-h" style="margin-bottom:8px">타이머 직접 추가 <span class="muted">— 한 방에 수액 4병까지</span></div>
+      <div class="field">
+        <label>시술실 빠른 선택</label>
+        <div class="chips roomchips" id="tmRooms"></div>
       </div>
       <div class="grid2">
-        <div class="field"><label for="tmMin">남은 시간(분)</label><input class="inp" id="tmMin" type="number" inputmode="numeric" placeholder="예) 120"></div>
-        <div class="field" style="display:flex;align-items:flex-end"><button class="btn sm" id="tmAdd">⏱️ 타이머 시작</button></div>
+        <div class="field"><label for="tmBed">방 / 가명·메모</label><input class="inp" id="tmBed" placeholder="예) 3번방 · 차트 24-118"></div>
+        <div class="field" id="tmNameF"><label for="tmName">수액명</label><input class="inp" id="tmName" placeholder="예) 비타민 500mL"></div>
       </div>
-      <div class="muted">여러 베드를 동시에 돌릴 수 있습니다. 새로고침·화면을 꺼도 종료 시각이 그대로 이어지고, 종료 5분 전과 종료 시 알람이 울립니다.</div>
+      <div class="field">
+        <label>수액 개수 <span class="muted">(한 방에 최대 4병)</span></label>
+        <div class="chips" id="tmCount"></div>
+      </div>
+      <div class="field" id="tmQuickBox">
+        <label>빠른 입력 <span class="muted" id="tmQuickHint">→ 1번 슬롯</span></label>
+        <div class="chips timechips" id="tmTimes"></div>
+        <div class="pstbar" style="margin-top:8px"><button class="btn ghost sm" id="tmSaveSlot">★ 이 슬롯 설정 저장</button></div>
+        <div class="chips psts" id="tmSlotPresets" style="margin-top:8px"></div>
+        <details class="ivntref" id="tmIvntBox">
+          <summary>참고 예시 — 원내 IVNT 안내문 (선택)</summary>
+          <div class="chips ivntchips" id="tmIvnt" style="margin-top:8px"></div>
+          <div class="muted" style="margin-top:6px">누르면 선택한 슬롯에 이름·용량·시간 예시가 채워집니다. 실제 처방(차트) 기준으로 고쳐 쓰세요.</div>
+        </details>
+      </div>
+      <div class="field hide" id="tmModeBox">
+        <label>진행 방식</label>
+        <div class="chips" id="tmMode"></div>
+      </div>
+      <div class="hide" id="tmSlotWrap"></div>
+      <div class="field" id="tmMinF"><label for="tmMin">남은 시간(분)</label><input class="inp" id="tmMin" type="number" inputmode="numeric" placeholder="예) 120"></div>
+      <div class="field">
+        <label>사전 알람 <span class="muted">(체크하러 들어갈 시간)</span></label>
+        <div class="chips" id="tmPre"></div>
+      </div>
+      <button class="btn sm" id="tmAdd" style="margin-top:4px">⏱️ 타이머 시작</button>
+      <div class="muted" id="tmHint" style="margin-top:8px"></div>
+      <div class="muted" id="notifyGuide" style="margin-top:10px">🔔 <b>워치 알람</b> — 알림을 허용하면 화면이 꺼져 있어도 알람이 브라우저 알림으로 나가 아이폰·갤럭시 워치로 진동이 옵니다. 아이폰은 <b>홈 화면에 추가</b> 후 알림 허용, 갤럭시는 <b>웨어러블 앱 → 앱 알림 → 브라우저 알림</b>을 켜 주세요. ☀️ 화면 켜짐 유지는 타이머·방울 화면이 도는 동안 화면이 꺼지지 않게 합니다.</div>
+    </div>
+  </div>
+
+  <div class="sec" id="fluidLegal">
+    <div class="sec-h"><h2>⚖️ 수액 계산·타이머 이용 고지</h2><span class="sub">쓰시기 전에 꼭 확인</span></div>
+    <div class="card legal">
+      <div class="lg">
+        <div class="lg-h"><span class="n">①</span><b>업무 보조·참고용이며 의료기기를 대체하지 않습니다</b></div>
+        <p>수액 계산(gtt/min·mL/hr·초/방울)·방울 모니터·타이머·알람은 <b>업무 보조용 참고 도구</b>입니다.
+          의료기기나 의학적 처방을 대체하지 않으며, 실제 투여 속도와 환자 상태 확인은 반드시 <b>담당 의사의 처방</b>과
+          <b>의료진의 현장 육안 확인</b>을 우선합니다.</p>
+      </div>
+      <div class="lg">
+        <div class="lg-h"><span class="n">②</span><b>알람·화면 유지는 기기 환경에 따라 지연될 수 있습니다</b></div>
+        <p>브라우저·OS 절전 정책, 네트워크 상태, 알림 권한에 따라 <b>알람 소리·진동·워치 알림·화면 켜짐 유지</b>가
+          지연되거나 동작하지 않을 수 있습니다. 종료 시점 확인은 <b>현장 육안 점검과 병행</b>하세요.</p>
+      </div>
+      <div class="lg">
+        <div class="lg-h"><span class="n">③</span><b>개인정보 보호 — 방 번호·가명만 사용</b></div>
+        <p>환자 <b>실명·주민등록번호·연락처</b> 등 민감한 개인정보는 입력하지 말고 <b>방 번호나 가명</b>만 사용하세요.
+          입력한 내용은 외부로 전송되지 않고 <b>이 기기에만</b> 저장됩니다.</p>
+      </div>
+      <div class="lg">
+        <div class="lg-h"><span class="n">④</span><b>저작권</b></div>
+        <p>아이디어·개발·제작: <b>김효숙</b> · © 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구.</p>
+      </div>
     </div>
   </div>
 
@@ -1127,8 +1342,37 @@ table.tbl th,table.tbl td{padding:10px 8px}
 
 <div class="footer wrap" id="globalFooter" style="margin-top:20px">
   <div class="cp">아이디어·개발·제작·저작권: <span>티엘씨메디켈그룹 총괄운영실장 김효숙</span></div>
-  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.5</span></div>
-  <div class="nt">의료기기(SaMD) 아님 · 실제 환자 개인정보 입력 금지 · 기기 내 로컬 저장만 사용 · 공식기관 인증 프로그램 아님</div>
+  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.6</span></div>
+  <div class="nt">의료기기(SaMD) 아님 · 업무 보조·참고용 · 실제 환자 개인정보 입력 금지(방 번호·가명만) · 기기 내 로컬 저장만 사용 · 알람은 기기·브라우저 설정에 따라 지연될 수 있음 · 공식기관 인증 프로그램 아님</div>
+</div>
+
+<div class="drip" id="dripOv" role="dialog" aria-modal="true" aria-labelledby="dripTitle" aria-hidden="true">
+  <div class="drip-in">
+    <div class="drip-hd">
+      <div class="drip-title" id="dripTitle">방울 모니터</div>
+      <button class="drip-x" id="dripClose" aria-label="방울 화면 닫기">✕</button>
+    </div>
+    <div class="drip-stats" id="dripStats"></div>
+    <div class="drip-sub" id="dripSub">—</div>
+    <div class="drip-canvaswrap">
+      <canvas id="dripCv" width="300" height="380" aria-label="수액 챔버 방울 낙하 화면"></canvas>
+      <div class="drip-lockmsg hide" id="dripLockMsg"><b>🔒 화면 잠금</b><span>잠금 버튼을 3초간 길게 누르거나 두 번 탭하면 풀립니다</span></div>
+    </div>
+    <div class="drip-big"><b id="dripSec">—</b><span>초 / 방울</span></div>
+    <div class="drip-tog">
+      <button class="chip" id="dripSnd" aria-pressed="true">🔊 똑딱 소리</button>
+      <button class="chip" id="dripVib" aria-pressed="true">📳 진동</button>
+      <button class="chip" id="dripWake" aria-pressed="false">☀️ 화면 유지</button>
+    </div>
+    <div class="drip-note" id="dripNote"></div>
+    <div class="drip-legal" id="dripLegal">업무 보조·참고용 도구입니다 — 실제 투여 속도와 종료 확인은 담당 의사 처방과 현장 육안 점검을 우선하세요.</div>
+    <div class="drip-ops" id="dripOps">
+      <button class="dbtn del" id="dripStop">■ 정지</button>
+      <button class="dbtn" id="dripPause">⏸ 일시정지</button>
+      <button class="dbtn" id="dripLock">🔒 화면잠금</button>
+      <button class="dbtn ok" id="dripTimer">⏱️ 이대로 타이머 시작</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -1484,6 +1728,33 @@ DATA.rules = [
 ];
 
 
+/* ---------- 우리 병원 시술실 (v1.6 · 효숙 님 지시: 시술실 1-6번방 + 별도 두피시술방) ---------- */
+DATA.rooms = [
+  { id:'r1', n:'1번방' }, { id:'r2', n:'2번방' }, { id:'r3', n:'3번방' },
+  { id:'r4', n:'4번방' }, { id:'r5', n:'5번방' }, { id:'r6', n:'6번방' },
+  { id:'scalp', n:'두피시술방' }
+];
+DATA.roomMap = {};
+DATA.rooms.forEach(function(r){ DATA.roomMap[r.n] = r; });
+function isRoomName(n){ return !!DATA.roomMap[String(n||'').trim()]; }
+
+/* ---------- 원내 IVNT 수액 빠른 선택 (v1.6 · 효숙 님 원내 안내문 기준) ----------
+   · 01 프리미엄 올인원 칵테일(약 60분 내외) · 02 브라이트닝 디톡스/글루타티온(약 15분 내외)
+   · 03 대사 활력 & 혈행 개선/아르기닌 1btl(약 45분 내외) · 에너지 업 · 면역 플러스 · 브레인 케어
+   · 용량·시간은 입력 예시값입니다. 실제 처방(차트) 기준으로 숫자를 고쳐 사용합니다. */
+DATA.ivnt = [
+  { id:'all',    n:'올인원 칵테일',      short:'올인원 칵테일', min:60, ml:500, set:20 },
+  { id:'glut',   n:'글루타티온 디톡스',  short:'글루타티온',    min:15, ml:100, set:20 },
+  { id:'argi',   n:'아르기닌 1btl',      short:'아르기닌',      min:45, ml:250, set:20 },
+  { id:'energy', n:'에너지 업',          short:'에너지 업',     min:30, ml:200, set:20 },
+  { id:'immune', n:'면역 플러스',        short:'면역 플러스',   min:30, ml:200, set:20 },
+  { id:'brain',  n:'브레인 케어',        short:'브레인 케어',   min:30, ml:200, set:20 }
+];
+DATA.ivntMap = {};
+DATA.ivnt.forEach(function(x){ DATA.ivntMap[x.id] = x; });
+DATA.ivntVols = [100, 200, 250, 500];
+DATA.ivntSets = [20, 60, 15];
+
 /* ---------- 계산기 ---------- */
 DATA.calcs = [
   { id:'inf',  n:'수액 계산', ico:'💧' },
@@ -1589,7 +1860,7 @@ DATA.recvForm = [
    TLC 인수인계 — 화면 로직 (티엘씨 청담·분당 실무 인수인계)
    아이디어·개발·제작·저작권: 김효숙 (티엘씨메디켈그룹 총괄운영실장)
    ========================================================================= */
-var VERSION = 'v1.5';
+var VERSION = 'v1.6';
 /* 기존 Apps Script 배포본(참고용 폴백) — GitHub Pages에서는 ./version.json 사용 */
 var EXEC_URL = 'https://script.google.com/macros/s/AKfycbyTf8lTMRCtbmnc3SCOcYH25O_ncRE0IUtm4K8h91-C5MG6ETQo9G4DiF57sgBsicE6/exec';
 var VER_POLL_MS = 180000;
@@ -1735,9 +2006,9 @@ function isStandaloneApp(){
 var IS_IOS = isIOSDevice();
 var IS_IOS_PWA = IS_IOS && isStandaloneApp();
 /* 아이폰에서 웹 마이크가 막혔을 때 그대로 보여 줄 안내 (효숙 님 지시 문구) */
-var IOS_DICT_MSG = '아이폰 홈 화면 앱에서는 Apple 정책상 웹 마이크가 제한될 수 있어요. ' +
+var IOS_DICT_MSG = '아이폰에서 웹 마이크를 시작하지 못했습니다(마이크 권한 또는 기기 제한). ' +
   '입력칸을 누른 뒤 아이폰 키보드 오른쪽 아래 🎙️(받아쓰기) 버튼을 누르면 한·영·숫자 모두 바로 입력됩니다! ' +
-  '(또는 Safari 브라우저에서 열기)';
+  '(설정 → Safari → 마이크 허용도 확인해 주세요)';
 
 function micErrMsg(code){
   if(code === 'not-allowed' || code === 'service-not-allowed')
@@ -2151,16 +2422,12 @@ function initMic(btnId, taId, hintId){
     }
   }
 
-  /* 아이폰 홈 화면 앱(PWA)에서는 웹 마이크가 제한되므로 미리 받아쓰기 안내를 띄워 둠 */
-  if(IS_IOS_PWA && hint){
-    hint.innerHTML = '아이폰 <b>홈 화면 앱</b>에서는 Apple 정책상 웹 마이크가 제한될 수 있어요 — 입력칸을 누른 뒤 키보드 오른쪽 아래 <b>🎙️(받아쓰기)</b>를 쓰면 한·영·숫자 모두 바로 입력됩니다.';
-    hint.classList.add('wide');
-  }
+  /* v1.6 — 아이폰 홈 화면 앱(PWA)에서도 웹 마이크를 먼저 실제로 시도합니다.
+     (실기기에서 홈 화면 앱 마이크가 동작하는 것이 확인되어 선제 차단을 제거 —
+      권한 거부·정책 오류가 실제로 났을 때만 아래 onerror/catch에서 받아쓰기 안내로 전환) */
 
   btn.addEventListener('click', function(){
     var SRC = getSR();
-    /* 아이폰 홈 화면 앱: Apple 정책상 웹 마이크 제한 → 입력칸 포커스 + 키보드 받아쓰기 안내 */
-    if(IS_IOS_PWA){ iosDictationGuide(); return; }
     if(!SRC){
       if(hint) hint.innerHTML = '이 브라우저는 음성 인식을 지원하지 않습니다. <b>키보드 마이크(받아쓰기)</b>를 사용해 주세요.';
       toast('음성 인식 미지원 — 키보드 받아쓰기를 사용해 주세요');
@@ -2570,6 +2837,24 @@ function initIss(){
   renderIssues();
   renderDays();
 }
+function initIssRooms(){
+  var box = $('#issRooms');
+  if(!box || box._bound) return;
+  box.innerHTML = roomChipsHtml('');
+  box.addEventListener('click', function(ev){
+    var b = up(ev.target, '.chip'); if(!b) return;
+    var nm = b.getAttribute('data-room');
+    var ta = $('#issText'); if(!ta) return;
+    var v = ta.value || '';
+    var pre = nm + ' ';
+    var had = v.indexOf(pre) === 0;
+    DATA.rooms.forEach(function(r){ if(v.indexOf(r.n + ' ') === 0) v = v.slice((r.n + ' ').length); });
+    ta.value = had ? v : pre + v;
+    $$('#issRooms .chip').forEach(function(x){ x.classList.toggle('on', !had && x === b); });
+    try{ ta.focus(); }catch(e){}
+  });
+  box._bound = true;
+}
 function renderIssues(){
   refreshRecvAuto();
   var all = getIssues();
@@ -2663,7 +2948,7 @@ function makeShiftText(list){
     L.push('[⏱️ 진행 중 수액 ' + timers.length + '건]');
     timers.forEach(function(t){
       var r = t.paused ? t.remainMs : Math.max(0, t.endAt - now);
-      L.push('· ' + (t.bed||'베드 미지정') + ' ' + (t.name||'수액') + ' — ' + fmtLeft(r) + ' 남음 (' + hmOf(t.endAt) + ' 종료' + (t.paused?', 일시정지':'') + ')');
+      L.push('· ' + (t.bed||'베드 미지정') + (t.slot? ' ' + t.slot + '번' : '') + ' ' + (t.name||'수액') + ' — ' + fmtLeft(r) + ' 남음 (' + hmOf(t.endAt) + ' 종료' + (t.paused?', 일시정지':'') + ')');
     });
   }
   if(carry.length){
@@ -3030,7 +3315,7 @@ function doScreen(){
 
 
 /* =========================================================================
-   계산기 — 수액 계산(신규) + 기존 계산기 5종
+   계산기 — 수액 계산(v1.6 방울·프리셋) + 기존 계산기 5종
    ========================================================================= */
 var infState = { mode:'time' };
 function renderCalc(){
@@ -3051,6 +3336,122 @@ function renderCalcBody(id){
   if(id === 'inf'){ renderInfCalc(); return; }
   legacyCalcBody(id);
 }
+function goInfCalc(){
+  var t = document.querySelector('#calcTabs button[data-c="inf"]');
+  if(t && !t.classList.contains('on')) t.click();
+}
+
+/* ---------- 기존 계산기 5종 (v1.6에서 누락 함수 복구) ---------- */
+var LEGACY_CALCS = {
+  gtt: {
+    n:'점적속도 계산',
+    note:'수액량과 주입 시간으로 gtt/min·mL/hr·방울 간격을 확인합니다. 실제 속도는 담당 의사 처방을 우선합니다.',
+    f:[ { k:'ml', l:'수액 총량(mL)', v:500 }, { k:'min', l:'주입 시간(분)', v:240 },
+        { k:'f', l:'수액세트', v:'20', sel:[['20','20 gtt/mL — 일반'],['60','60 gtt/mL — 미세조정'],['15','15 gtt/mL — 특수']] } ],
+    calc:function(v){
+      if(!v.ml || !v.min || v.min <= 0) return null;
+      var f = Number(v.f) || 20, g = v.ml * f / v.min;
+      return '<div class="big">' + g.toFixed(1) + ' gtt/min</div>' +
+        '<div class="ln">= <b>' + Math.round(v.ml/(v.min/60)) + ' mL/hr</b> · ' + (60/g).toFixed(2) + '초 / 방울</div>';
+    }
+  },
+  time: {
+    n:'종료 시각 계산',
+    note:'수액량과 시간당 속도로 종료 예정 시각을 계산합니다(다음 날 넘어가면 표시).',
+    f:[ { k:'ml', l:'수액 총량(mL)', v:500 }, { k:'rate', l:'속도(mL/hr)', v:125 }, { k:'start', l:'시작 시각', v:'', type:'time' } ],
+    calc:function(v){
+      if(!v.ml || !v.rate || v.rate <= 0) return null;
+      var mins = v.ml / v.rate * 60;
+      var d = new Date();
+      var st = String(v.start || '').split(':');
+      if(st.length === 2 && st[0] !== '') d.setHours(+st[0], +st[1], 0, 0);
+      var end = new Date(d.getTime() + Math.round(mins) * 60000);
+      var cross = end.getDate() !== d.getDate();
+      var h = Math.floor(mins/60), m = Math.round(mins%60);
+      return '<div class="big">' + pad(end.getHours()) + ':' + pad(end.getMinutes()) + ' 종료</div>' +
+        '<div class="ln">총 <b>' + (h ? h + '시간 ' : '') + m + '분</b> · ' + d.getHours() + ':' + pad(d.getMinutes()) +
+        ' 시작' + (cross ? ' (다음 날)' : '') + '</div>';
+    }
+  },
+  dose: {
+    n:'체중당 용량 계산',
+    note:'mg/kg 처방을 체중으로 환산합니다. 농도를 넣으면 mL까지 계산합니다. 실제 투여는 처방·허가사항을 우선합니다.',
+    f:[ { k:'kg', l:'체중(kg)', v:60 }, { k:'mgkg', l:'용량(mg/kg)', v:1 }, { k:'conc', l:'농도(mg/mL) — 모르면 비움', v:'' } ],
+    calc:function(v){
+      if(!v.kg || !v.mgkg) return null;
+      var mg = v.kg * v.mgkg;
+      var t = '<div class="big">' + (Math.round(mg*10)/10) + ' mg</div><div class="ln">' + v.kg + 'kg × ' + v.mgkg + 'mg/kg';
+      if(v.conc && v.conc > 0) t += ' → <b>' + (Math.round(mg / v.conc * 10)/10) + ' mL</b> (' + v.conc + 'mg/mL)';
+      return t + '</div>';
+    }
+  },
+  iron: {
+    n:'철분 결핍량 (Ganzoni)',
+    note:'총 철분 결핍량 = 체중 × (목표 Hb − 현재 Hb) × 2.4 + 저장철 500mg(성인 기준). 실제 투여량은 의사 처방을 따릅니다.',
+    f:[ { k:'kg', l:'체중(kg)', v:60 }, { k:'now', l:'현재 Hb(g/dL)', v:9 }, { k:'target', l:'목표 Hb(g/dL)', v:12 } ],
+    calc:function(v){
+      if(!v.kg || v.now === null || v.target === null) return null;
+      var diff = v.target - v.now;
+      if(diff <= 0) return '<div class="big">—</div><div class="ln">목표 Hb가 현재 Hb보다 높아야 계산됩니다.</div>';
+      var total = v.kg * diff * 2.4 + 500;
+      return '<div class="big">' + Math.round(total) + ' mg</div>' +
+        '<div class="ln">= ' + v.kg + ' × (' + v.target + '−' + v.now + ') × 2.4 + 저장철 500mg<br>철 sucrose 100mg 기준 약 <b>' +
+        (Math.round(total/100*10)/10) + '회</b> 분할</div>';
+    }
+  },
+  peds: {
+    n:'소아 해열제 용량',
+    note:'아세트아미노펜 10~15mg/kg · 이부프로펜 5~10mg/kg 1회 범위입니다. 1일 최대 횟수·간격은 제품 허가사항과 처방을 확인하세요.',
+    f:[ { k:'kg', l:'체중(kg)', v:10 },
+        { k:'drug', l:'약', v:'apap', sel:[['apap','아세트아미노펜 10~15mg/kg'],['ibu','이부프로펜 5~10mg/kg']] },
+        { k:'conc', l:'시럽 농도', v:'32', sel:[['32','아세트아미노펜 160mg/5mL (32mg/mL)'],['20','이부프로펜 100mg/5mL (20mg/mL)']] } ],
+    calc:function(v){
+      if(!v.kg) return null;
+      var lo = v.drug === 'ibu' ? 5 : 10, hi = v.drug === 'ibu' ? 10 : 15;
+      var c = Number(v.conc) || 32;
+      var mlo = v.kg * lo, mhi = v.kg * hi;
+      return '<div class="big">' + (Math.round(mlo/c*10)/10) + ' ~ ' + (Math.round(mhi/c*10)/10) + ' mL</div>' +
+        '<div class="ln">' + v.kg + 'kg · ' + mlo + '~' + mhi + 'mg (' + (v.drug === 'ibu' ? '이부프로펜' : '아세트아미노펜') +
+        ') ÷ ' + c + 'mg/mL<br>1회 범위이며, 1일 최대 횟수·최소 간격은 허가사항을 확인하세요.</div>';
+    }
+  }
+};
+function legacyCalcBody(id){
+  var body = $('#calcBody'); if(!body) return;
+  var cfg = LEGACY_CALCS[id];
+  if(!cfg){ body.innerHTML = '<div class="muted">계산기를 찾을 수 없습니다.</div>'; return; }
+  body.innerHTML =
+    '<div class="blk-h">' + cfg.n + '</div>' +
+    '<div class="grid2" id="lgFields">' + cfg.f.map(function(f){
+      if(f.sel) return '<div class="field"><label for="lg_' + f.k + '">' + f.l + '</label><select class="inp" id="lg_' + f.k + '">' +
+        f.sel.map(function(o){ return '<option value="' + o[0] + '"' + (String(f.v) === String(o[0]) ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></div>';
+      return '<div class="field"><label for="lg_' + f.k + '">' + f.l + '</label><input class="inp" id="lg_' + f.k + '" type="' + (f.type || 'number') + '"' +
+        (f.type === 'time' ? '' : ' inputmode="decimal"') + ' value="' + f.v + '" aria-label="' + f.l + '"></div>';
+    }).join('') + '</div>' +
+    '<div class="res-box" id="lgOut"><div class="big">—</div><div class="ln">값을 입력하면 바로 계산됩니다.</div></div>' +
+    '<div class="muted" style="margin-top:8px">' + cfg.note + '</div>';
+  function vals(){
+    var o = {};
+    cfg.f.forEach(function(f){
+      var el = document.getElementById('lg_' + f.k);
+      if(f.sel) o[f.k] = el ? el.value : f.v;
+      else if(f.type === 'time') o[f.k] = el ? el.value : '';
+      else o[f.k] = el ? num(el.value) : null;
+    });
+    return o;
+  }
+  function paint(){
+    var out = $('#lgOut'); if(!out) return;
+    var r = cfg.calc(vals());
+    out.innerHTML = r || '<div class="big">—</div><div class="ln">값을 입력해 주세요.</div>';
+  }
+  $$('#lgFields input, #lgFields select').forEach(function(el){
+    el.addEventListener('input', paint); el.addEventListener('change', paint);
+  });
+  paint();
+}
+
+/* ---------- 수액 계산 (v1.6) ---------- */
 function infCompute(){
   var ml = num(($('#f1')||{}).value);
   var f = num(($('#f4')||{}).value) || 20;
@@ -3063,7 +3464,20 @@ function infCompute(){
     rate = num(($('#f3r')||{}).value);
     minutes = (ml && rate) ? ml/rate*60 : null;
   }
-  return { ml:ml, f:f, minutes:minutes, rate:rate };
+  var gttMin = (ml && minutes) ? ml * f / minutes : null;
+  return { ml:ml, f:f, minutes:minutes, rate:rate, gttMin:gttMin, secDrop:(gttMin ? 60/gttMin : null) };
+}
+function medTxt(minutes){
+  var h = Math.floor((minutes||0)/60), m = Math.round((minutes||0)%60);
+  return (h ? h + '시간 ' : '') + m + '분';
+}
+function roomChipsHtml(sel){
+  return DATA.rooms.map(function(r){
+    return '<button class="chip' + (r.n === sel ? ' on' : '') + '" data-room="' + esc(r.n) + '">' + esc(r.n) + '</button>';
+  }).join('');
+}
+function markRoomChips(sel, name){
+  $$(sel + ' .chip').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-room') === name); });
 }
 function renderInfCalc(){
   var body = $('#calcBody'); if(!body) return;
@@ -3086,12 +3500,19 @@ function renderInfCalc(){
     '</div>'+
     '<div class="res-box" id="fout"><div class="big">—</div><div class="ln">값을 입력하면 바로 계산됩니다.</div></div>'+
     '<div class="divider"></div>'+
+    '<div class="field">'+
+      '<label>시술실 <span class="muted">— 터치 한 번 (1~6번방 · 두피시술방)</span></label>'+
+      '<div class="chips roomchips" id="fRooms">'+roomChipsHtml('')+'</div>'+
+    '</div>'+
     '<div class="grid2">'+
-      '<div class="field"><label for="fBed">베드 / 가명</label><input class="inp" id="fBed" placeholder="예) 수액실 3번"></div>'+
+      '<div class="field"><label for="fBed">방 / 가명·메모</label><input class="inp" id="fBed" placeholder="예) 3번방 · 차트 24-118"></div>'+
       '<div class="field"><label for="fName">수액명</label><input class="inp" id="fName" placeholder="예) 비타민 수액 500mL"></div>'+
     '</div>'+
-    '<button class="btn" id="fStart">⏱️ 이 수액으로 타이머 시작</button>'+
-    '<div class="muted" style="margin-top:8px">실제 투여 속도는 담당 의사 처방과 원내 지침을 우선합니다. 타이머는 종료 5분 전·종료 시 알람을 울립니다.</div>';
+    '<div class="pstbar"><button class="btn ghost sm" id="fSave">★ 현재 설정 저장</button></div>'+
+    '<div class="chips psts" id="fPresets" style="margin-top:8px"></div>'+
+    '<button class="btn" id="fStart" style="margin-top:12px">⏱️ 이 수액으로 타이머 시작</button>'+
+    '<button class="btn ghost" id="fDrip" style="margin-top:8px">▶ 방울 화면 시작 (초 / 방울)</button>'+
+    '<div class="muted" style="margin-top:8px">실제 투여 속도는 담당 의사 처방과 원내 지침을 우선합니다. 타이머는 종료 전·종료 시 알람을 울립니다.</div>';
 
   $$('#infMode .chip').forEach(function(b){
     b.addEventListener('click', function(){
@@ -3109,7 +3530,29 @@ function renderInfCalc(){
   });
   var fs = $('#fStart');
   if(fs) fs.addEventListener('click', function(){ flash(fs); startFromInf(); });
+  var fd = $('#fDrip');
+  if(fd) fd.addEventListener('click', function(){ flash(fd); openDripFromCalc(); });
+  var fsv = $('#fSave');
+  if(fsv) fsv.addEventListener('click', function(){ flash(fsv); saveInfPreset(); });
+  var fr = $('#fRooms');
+  if(fr) fr.addEventListener('click', function(ev){
+    var b = up(ev.target, '.chip'); if(!b) return;
+    var name = b.getAttribute('data-room');
+    var f = $('#fBed'); if(f) f.value = name;
+    markRoomChips('#fRooms', name);
+    flash(b);
+  });
+  var fb = $('#fBed');
+  if(fb) fb.addEventListener('input', function(){ markRoomChips('#fRooms', (fb.value||'').trim()); });
+  var pr = $('#fPresets');
+  if(pr) pr.addEventListener('click', function(ev){
+    var d = up(ev.target, '[data-del]');
+    if(d){ delInfPreset(d.getAttribute('data-del')); return; }
+    var b = up(ev.target, '[data-pid]');
+    if(b) loadInfPreset(b.getAttribute('data-pid'));
+  });
   infOut();
+  renderInfPresets();
 }
 function infOut(){
   var o = $('#fout'); if(!o) return;
@@ -3118,7 +3561,7 @@ function infOut(){
     o.innerHTML = '<div class="big">—</div><div class="ln">수액량과 주입 시간(또는 처방 속도)을 입력해 주세요.</div>';
     return;
   }
-  var gtt = c.ml * c.f / c.minutes;
+  var gtt = c.gttMin;
   var st = ($('#f5') && $('#f5').value) || nowHM();
   var p = st.split(':');
   var d = new Date(); d.setHours(+p[0], +p[1], 0, 0);
@@ -3129,6 +3572,11 @@ function infOut(){
   var h = Math.floor(c.minutes/60), m = Math.round(c.minutes%60);
   o.innerHTML =
     '<div class="big">' + gtt.toFixed(1) + ' gtt/min</div>' +
+    '<div class="inf3">' +
+      '<div class="i3"><span class="i3-l">점적 속도</span><span class="i3-v">' + gtt.toFixed(1) + '</span><span class="i3-u">gtt/min</span></div>' +
+      '<div class="i3"><span class="i3-l">시간당</span><span class="i3-v">' + Math.round(c.rate) + '</span><span class="i3-u">mL/hr (cc/hr)</span></div>' +
+      '<div class="i3"><span class="i3-l">방울 간격</span><span class="i3-v">' + (60/gtt).toFixed(2) + '</span><span class="i3-u">초 / 방울</span></div>' +
+    '</div>' +
     '<div class="ln">= <b>' + Math.round(c.rate) + ' mL/hr</b> · 10초에 약 ' + Math.round(gtt/6) + '방울<br>' +
     '총 ' + (h?(h+'시간 '):'') + m + '분 · ' + st + ' 시작 → <b>' + pad(ed.getHours()) + ':' + pad(ed.getMinutes()) +
     '</b> 종료 예정' + (cross?' (다음 날)':'') + '</div>';
@@ -3138,23 +3586,485 @@ function startFromInf(){
   if(!c.ml || !c.minutes || c.minutes <= 0){ toast('수액량과 시간(또는 속도)을 먼저 입력해 주세요'); return; }
   var bed = (($('#fBed')||{}).value || '').trim();
   var nm = (($('#fName')||{}).value || '').trim();
-  if(!bed && !nm){ toast('베드/가명이나 수액명을 하나 이상 적어 주세요'); var f=$('#fBed'); if(f) f.focus(); return; }
+  if(!bed && !nm){ toast('방/가명이나 수액명을 하나 이상 적어 주세요'); var f=$('#fBed'); if(f) f.focus(); return; }
   var st = (($('#f5')||{}).value || nowHM()).split(':');
   var d = new Date(); d.setHours(+st[0], +st[1], 0, 0);
-  startTimer({ bed:bed, name:nm, ml:c.ml, rate:c.rate, gtt:c.f, minutes:c.minutes, startAt:d.getTime() });
+  startTimer({ bed:bed, name:nm, ml:c.ml, rate:c.rate, gtt:c.f, gttMin:c.gttMin, minutes:c.minutes, startAt:d.getTime() });
+}
+
+/* ---------- ★ 현재 설정 저장 (최대 5개) ---------- */
+function infPresets(){
+  var l = store.get('tlc_inf_presets', []);
+  return (l instanceof Array) ? l : [];
+}
+function renderInfPresets(){
+  var box = $('#fPresets'); if(!box) return;
+  var list = infPresets();
+  if(!list.length){
+    box.innerHTML = '<span class="muted">자주 쓰는 수액은 ★ 로 저장해 두면 원터치로 불러옵니다 (최대 5개).</span>';
+    return;
+  }
+  box.innerHTML = list.map(function(p){
+    return '<span class="pst"><button class="pst-b" data-pid="' + esc(p.id) + '" title="불러오기">' + esc(infPresetLabel(p)) + '</button>' +
+      '<button class="pst-x" data-del="' + esc(p.id) + '" aria-label="저장 설정 삭제">✕</button></span>';
+  }).join('');
+}
+function infPresetLabel(p){
+  return (p.bed || '자유') + ' · ' + p.ml + 'mL/' + medTxt(p.minutes) + ' · ' + (p.f||20) + 'gtt';
+}
+function saveInfPreset(){
+  var c = infCompute();
+  if(!c.ml || !c.minutes || c.minutes <= 0){ toast('수액량과 시간(또는 속도)을 먼저 입력해 주세요'); return; }
+  var bed = (($('#fBed')||{}).value||'').trim();
+  var name = (($('#fName')||{}).value||'').trim();
+  var list = infPresets().filter(function(x){
+    return !(x.bed===bed && x.name===name && x.ml===c.ml && Math.round(x.minutes)===Math.round(c.minutes) && x.f===c.f);
+  });
+  list.unshift({ id:'p'+Date.now(), bed:bed, name:name, ml:c.ml, minutes:c.minutes, f:c.f, mode:infState.mode, at:Date.now() });
+  if(list.length > 5) list = list.slice(0,5);
+  store.set('tlc_inf_presets', list);
+  renderInfPresets();
+  toast('현재 설정을 저장했습니다 (' + list.length + '/5)');
+}
+function delInfPreset(id){
+  store.set('tlc_inf_presets', infPresets().filter(function(x){ return x.id !== id; }));
+  renderInfPresets();
+  toast('저장한 설정을 삭제했습니다');
+}
+function loadInfPreset(id){
+  var p = null; infPresets().forEach(function(x){ if(x.id === id) p = x; });
+  if(!p) return;
+  infState.mode = p.mode || 'time';
+  $$('#infMode .chip').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-m') === infState.mode); });
+  var tb = $('#fTimeBox'), rb = $('#fRateBox');
+  if(tb) tb.classList.toggle('hide', infState.mode !== 'time');
+  if(rb) rb.classList.toggle('hide', infState.mode !== 'rate');
+  if($('#f1')) $('#f1').value = p.ml;
+  if(infState.mode === 'time'){
+    if($('#f2h')) $('#f2h').value = Math.floor(p.minutes/60);
+    if($('#f2m')) $('#f2m').value = Math.round(p.minutes%60);
+  } else if($('#f3r')){
+    $('#f3r').value = Math.round(p.ml/(p.minutes/60));
+  }
+  if($('#f4')) $('#f4').value = String(p.f || 20);
+  if($('#fBed')) $('#fBed').value = p.bed || '';
+  if($('#fName')) $('#fName').value = p.name || '';
+  markRoomChips('#fRooms', (p.bed||''));
+  infOut();
+  toast('저장한 설정을 불러왔습니다');
+}
+function openDripFromCalc(){
+  var c = infCompute();
+  if(!c.ml || !c.minutes || c.minutes <= 0){ toast('수액량과 시간(또는 속도)을 먼저 입력해 주세요'); return; }
+  openDrip({
+    room:(($('#fBed')||{}).value||'').trim(), name:(($('#fName')||{}).value||'').trim(),
+    ml:c.ml, minutes:c.minutes, gtt:c.f, rate:c.rate, gttMin:c.gttMin
+  });
 }
 
 /* =========================================================================
-   실시간 수액 타이머 (다중 · localStorage 유지)
+   방울 모니터 (점적 바이브 스타일 · canvas 60fps)
    ========================================================================= */
+var drip = {
+  on:false, playing:false, paused:false, locked:false,
+  snd:store.get('tlc_drip_snd', true), vib:store.get('tlc_drip_vib', true),
+  ac:null, room:'', name:'', slot:0, ml:0, minutes:0, gtt:20, gttMin:0, secDrop:0, rate:0,
+  period:1000, nextAt:0, beats:0, splashAt:0, raf:0, timerId:'', fromTimer:null,
+  lockT:0, taps:0, tapAt:0, W:0, H:0, dpr:1, bar:0
+};
+function dripSupportedVib(){
+  /* 아이폰 Safari는 navigator.vibrate를 구현하지 않습니다 — iOS는 소리·화면 반짝임으로 대체 */
+  try{ if(IS_IOS) return false; }catch(e){}
+  try{ return typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function'; }catch(e){ return false; }
+}
+function dripAudio(){
+  if(drip.ac) return drip.ac;
+  try{
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return null;
+    drip.ac = new AC();
+  }catch(e){ drip.ac = null; }
+  return drip.ac;
+}
+function dripSound(){
+  if(!drip.snd) return;
+  var ac = dripAudio(); if(!ac) return;
+  try{
+    if(ac.state === 'suspended'){ try{ ac.resume(); }catch(e){} }
+    var t0 = ac.currentTime;
+    var o = ac.createOscillator(), g = ac.createGain();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(1480, t0);
+    o.frequency.exponentialRampToValueAtTime(720, t0 + 0.06);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.linearRampToValueAtTime(0.20, t0 + 0.006);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.10);
+    o.connect(g); g.connect(ac.destination); o.start(t0); o.stop(t0 + 0.12);
+    var o2 = ac.createOscillator(), g2 = ac.createGain();
+    o2.type = 'sine'; o2.frequency.setValueAtTime(320, t0);
+    g2.gain.setValueAtTime(0.0001, t0);
+    g2.gain.linearRampToValueAtTime(0.07, t0 + 0.01);
+    g2.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.07);
+    o2.connect(g2); g2.connect(ac.destination); o2.start(t0); o2.stop(t0 + 0.09);
+  }catch(e){}
+}
+function dripStatsHtml(){
+  return '<div class="dstat"><span class="d-k">방</span><span class="d-v">' + esc(drip.room || '자유') + '</span></div>' +
+    '<div class="dstat"><span class="d-k">총 용량</span><span class="d-v">' + (drip.ml ? drip.ml + 'mL' : '—') + '</span></div>' +
+    '<div class="dstat"><span class="d-k">진행 시간</span><span class="d-v">' + (drip.minutes ? medTxt(drip.minutes) : '—') + '</span></div>' +
+    '<div class="dstat"><span class="d-k">gtt/min</span><span class="d-v">' + drip.gttMin.toFixed(1) + '</span></div>';
+}
+function openDrip(o){
+  o = o || {};
+  var mins = o.minutes || 0;
+  if(!mins || mins <= 0){ toast('진행 시간을 먼저 확인해 주세요'); return; }
+  var gtt = o.gtt || 20;
+  var gttMin = o.gttMin || (o.ml ? o.ml * gtt / mins : 0);
+  if(!gttMin || gttMin <= 0){ toast('방울 간격을 계산할 수 없습니다'); return; }
+  drip.room = (o.room || '').trim();
+  drip.name = (o.name || '').trim();
+  drip.slot = o.slot || 0;
+  drip.ml = o.ml || 0;
+  drip.minutes = mins;
+  drip.gtt = gtt;
+  drip.gttMin = gttMin;
+  drip.secDrop = 60 / gttMin;
+  drip.rate = o.rate || (drip.ml ? drip.ml/(mins/60) : 0);
+  drip.period = Math.max(120, drip.secDrop * 1000);
+  drip.fromTimer = o.fromTimer || null;
+  drip.beats = 0; drip.splashAt = 0; drip.bar = 0;
+  drip.on = true; drip.locked = false; drip.paused = false; drip.playing = true;
+  if(!dripSupportedVib()) drip.vib = false;
+
+  var ov = $('#dripOv'); if(!ov) return;
+  ov.classList.add('on'); ov.classList.remove('locked');
+  ov.setAttribute('aria-hidden', 'false');
+  var tt = $('#dripTitle');
+  if(tt) tt.textContent = (drip.room || '자유 (방 미지정)') + (drip.slot ? ' · ' + drip.slot + '번 수액' : '') + (drip.name ? ' · ' + drip.name : '');
+  var st = $('#dripStats'); if(st) st.innerHTML = dripStatsHtml();
+  var big = $('#dripSec');
+  if(big) big.textContent = drip.secDrop.toFixed(2);
+  var sub = $('#dripSub');
+  if(sub) sub.textContent = (drip.ml ? '총 ' + drip.ml + 'mL · ' : '') + medTxt(mins) + ' · ' + gtt + 'gtt/mL 세트 · 시간당 ' + Math.round(drip.rate) + 'mL';
+  paintDripToggles();
+  var tb = $('#dripTimer');
+  if(tb) tb.textContent = drip.fromTimer ? '↩︎ 타이머로 돌아가기' : '⏱️ 이대로 타이머 시작';
+  var note = $('#dripNote');
+  if(note){
+    note.textContent = dripSupportedVib()
+      ? '방울이 바닥에 닿는 박자마다 똑딱 소리와 짧은 진동이 함께 울립니다. 소리·진동은 위 버튼으로 끌 수 있습니다.'
+      : (IS_IOS ? '아이폰 Safari는 진동을 지원하지 않아 소리와 화면 반짝임으로 박자를 보여 드립니다.'
+                : '이 기기·브라우저는 진동을 지원하지 않아 소리와 화면 반짝임으로 박자를 보여 드립니다.');
+  }
+  var lp = $('#dripLockMsg'); if(lp) lp.classList.toggle('hide', true);
+  dripSize();
+  dripAudio();
+  try{ if(drip.ac && drip.ac.state === 'suspended') drip.ac.resume(); }catch(e){}
+  drip.nextAt = performance.now() + drip.period;
+  cancelAnimationFrame(drip.raf);
+  drip.raf = requestAnimationFrame(dripFrame);
+  var ps = $('#dripPause'); if(ps) ps.textContent = '⏸ 일시정지';
+  paintWake();
+  wakeSync();
+}
+function closeDrip(silent){
+  drip.on = false; drip.playing = false;
+  cancelAnimationFrame(drip.raf); drip.raf = 0;
+  var ov = $('#dripOv');
+  if(ov){ ov.classList.remove('on'); ov.classList.remove('locked'); ov.setAttribute('aria-hidden', 'true'); }
+  drip.locked = false;
+  if(wakeState.lock && !activeTimers().length) wakeRelease(); else wakeSync();
+  if(!silent) toast('방울 화면을 닫았습니다');
+}
+function dripSize(){
+  var cv = $('#dripCv'); if(!cv) return;
+  var r = cv.getBoundingClientRect();
+  var dpr = Math.min(window.devicePixelRatio || 1, 3);
+  var w = Math.max(200, Math.round(r.width || 300));
+  var h = Math.max(220, Math.round(r.height || 380));
+  if(cv.width !== Math.round(w*dpr) || cv.height !== Math.round(h*dpr)){
+    cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+  }
+  drip.W = w; drip.H = h; drip.dpr = dpr;
+}
+function roundRectC(ctx, x, y, w, h, r){
+  var rr = Math.min(r, w/2, h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+rr, y);
+  ctx.lineTo(x+w-rr, y); ctx.quadraticCurveTo(x+w, y, x+w, y+rr);
+  ctx.lineTo(x+w, y+h-rr); ctx.quadraticCurveTo(x+w, y+h, x+w-rr, y+h);
+  ctx.lineTo(x+rr, y+h); ctx.quadraticCurveTo(x, y+h, x, y+h-rr);
+  ctx.lineTo(x, y+rr); ctx.quadraticCurveTo(x, y, x+rr, y);
+  ctx.closePath();
+}
+function dripFrame(ts){
+  if(!drip.on) return;
+  if(drip.playing && !drip.paused){
+    if(!drip.nextAt) drip.nextAt = ts + drip.period;
+    if(ts - drip.nextAt > drip.period * 4) drip.nextAt = ts + drip.period;
+    var guard = 0;
+    while(ts >= drip.nextAt && guard++ < 40){
+      drip.beats++;
+      drip.splashAt = ts;
+      if(drip.snd) dripSound();
+      if(drip.vib && dripSupportedVib()){ try{ navigator.vibrate(14); }catch(e){} }
+      drip.nextAt += drip.period;
+    }
+  }
+  dripDraw(ts);
+  var cv = $('#dripCv');
+  if(cv) cv.setAttribute('data-beats', String(drip.beats));
+  drip.raf = requestAnimationFrame(dripFrame);
+}
+function dripDraw(ts){
+  var cv = $('#dripCv'); if(!cv) return;
+  var ctx = cv.getContext('2d'); if(!ctx) return;
+  var W = drip.W, H = drip.H, dpr = drip.dpr || 1;
+  if(!W || !H) return;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+
+  var cx = W/2;
+  var tubeW = Math.max(78, Math.min(118, W*0.32));
+  var top = 14, bot = H - 16;
+  var fl = top + (bot - top) * 0.66;
+  var x0 = cx - tubeW/2, x1 = cx + tubeW/2;
+
+  /* chamber glass */
+  var g = ctx.createLinearGradient(x0, top, x1, bot);
+  g.addColorStop(0, 'rgba(180,225,240,.10)');
+  g.addColorStop(0.45, 'rgba(255,255,255,.17)');
+  g.addColorStop(1, 'rgba(120,190,220,.10)');
+  ctx.fillStyle = g;
+  roundRectC(ctx, x0, top, tubeW, bot - top, 18); ctx.fill();
+
+  /* fluid */
+  ctx.save();
+  roundRectC(ctx, x0 + 2, top + 2, tubeW - 4, bot - top - 4, 16); ctx.clip();
+  var fg = ctx.createLinearGradient(0, fl, 0, bot);
+  fg.addColorStop(0, 'rgba(96,196,244,.78)');
+  fg.addColorStop(1, 'rgba(20,92,146,.94)');
+  ctx.fillStyle = fg;
+  var wave = Math.sin((ts || 0)/520) * 2.2;
+  ctx.beginPath();
+  ctx.moveTo(x0, fl + wave);
+  ctx.quadraticCurveTo(cx, fl - wave*1.6, x1, fl + wave);
+  ctx.lineTo(x1, bot); ctx.lineTo(x0, bot); ctx.closePath(); ctx.fill();
+
+  /* drop */
+  var ph = 0;
+  if(drip.playing && !drip.paused && drip.period > 0){
+    ph = 1 - Math.max(0, Math.min(1, (drip.nextAt - ts)/drip.period));
+  }
+  var fall = Math.min(1, ph/0.44);
+  var dropY = top + 16 + (fl - top - 28) * (fall*fall);
+  var dropR = 6.2 + 1.8*(1 - fall);
+  var dy = Math.max(top + 18, Math.min(fl - 3, dropY));
+  if(ph < 0.46 || drip.paused || !drip.playing){
+    var dg = ctx.createRadialGradient(cx - dropR*0.4, dy - dropR*0.5, 1, cx, dy, dropR*1.5);
+    dg.addColorStop(0, '#E4F7FF'); dg.addColorStop(0.5, '#7FCCF1'); dg.addColorStop(1, '#2B8FD0');
+    ctx.fillStyle = dg;
+    ctx.beginPath(); ctx.ellipse(cx, dy, dropR*0.86, dropR*1.16, 0, 0, Math.PI*2); ctx.fill();
+  }
+
+  /* splash ripples */
+  var since = (ts || 0) - drip.splashAt;
+  if(drip.splashAt && since >= 0 && since < 720){
+    var u = since/720;
+    for(var i=0;i<3;i++){
+      var uu = Math.max(0, u - i*0.12);
+      if(uu <= 0) continue;
+      ctx.strokeStyle = 'rgba(175,232,255,' + (0.55*(1-uu)).toFixed(3) + ')';
+      ctx.lineWidth = 2 - i*0.5;
+      ctx.beginPath(); ctx.ellipse(cx, fl + 2, 6 + 34*uu, 2.4 + 11*uu, 0, 0, Math.PI*2); ctx.stroke();
+    }
+    var fa = Math.max(0, 1 - u*2.2);
+    if(fa > 0 && !dripSupportedVib()){
+      ctx.fillStyle = 'rgba(220,246,255,' + (0.14*fa).toFixed(3) + ')';
+      ctx.fillRect(x0, top, tubeW, bot - top);
+    }
+  }
+  ctx.restore();
+
+  /* glass outline + highlight */
+  ctx.strokeStyle = 'rgba(190,236,250,.5)'; ctx.lineWidth = 1.6;
+  roundRectC(ctx, x0, top, tubeW, bot - top, 18); ctx.stroke();
+  ctx.strokeStyle = 'rgba(255,255,255,.26)'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(x0 + 9, top + 20); ctx.lineTo(x0 + 9, bot - 28); ctx.stroke();
+
+  /* line to patient */
+  ctx.strokeStyle = 'rgba(190,236,250,.34)'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(cx, bot); ctx.lineTo(cx, H - 2); ctx.stroke();
+}
+function paintDripToggles(){
+  var s = $('#dripSnd'), v = $('#dripVib');
+  if(s){
+    s.classList.toggle('on', !!drip.snd);
+    s.setAttribute('aria-pressed', drip.snd ? 'true' : 'false');
+  }
+  if(v){
+    v.classList.toggle('on', !!drip.vib);
+    v.setAttribute('aria-pressed', drip.vib ? 'true' : 'false');
+    v.disabled = !dripSupportedVib();
+    v.classList.toggle('off', !dripSupportedVib());
+  }
+}
+function dripPauseToggle(){
+  if(drip.locked) return;
+  drip.paused = !drip.paused;
+  var b = $('#dripPause');
+  if(b) b.textContent = drip.paused ? '▶ 재개' : '⏸ 일시정지';
+  toast(drip.paused ? '방울 화면을 일시정지했습니다' : '다시 시작했습니다');
+}
+function dripLock(){
+  drip.locked = true;
+  drip.taps = 0;
+  var ov = $('#dripOv'); if(ov) ov.classList.add('locked');
+  var lp = $('#dripLockMsg'); if(lp) lp.classList.remove('hide');
+  var lb = $('#dripLock'); if(lb) lb.textContent = '🔓 화면잠금 해제';
+  toast('화면을 잠갔습니다 — 잠금 버튼을 3초 길게 누르면 풀립니다');
+}
+function dripUnlock(){
+  drip.locked = false;
+  drip.unlockAt = Date.now();
+  var ov = $('#dripOv'); if(ov) ov.classList.remove('locked');
+  var lp = $('#dripLockMsg'); if(lp) lp.classList.add('hide');
+  var lb = $('#dripLock'); if(lb) lb.textContent = '🔒 화면잠금';
+  toast('화면 잠금을 풀었습니다');
+}
+function dripLockHold(){
+  clearTimeout(drip.lockT);
+  if(!drip.locked) return;
+  drip.lockT = setTimeout(function(){ if(drip.locked) dripUnlock(); }, 800);
+}
+function dripLockTap(){
+  if(!drip.locked) return false;
+  var now = Date.now();
+  drip.taps = (now - drip.tapAt < 520) ? drip.taps + 1 : 1;
+  drip.tapAt = now;
+  if(drip.taps >= 2){ dripUnlock(); return true; }
+  toast('화면 잠금 — 버튼을 3초 길게 누르거나 두 번 탭하면 풀립니다');
+  return true;
+}
+function dripTimerStart(){
+  if(drip.fromTimer){
+    var t = drip.fromTimer;
+    closeDrip(true);
+    focusTimerCard(t);
+    return;
+  }
+  if(!drip.minutes || drip.minutes <= 0){ toast('진행 시간을 확인해 주세요'); return; }
+  startTimer({ bed:drip.room, name:drip.name, ml:drip.ml, minutes:drip.minutes, rate:drip.rate, gtt:drip.gtt, gttMin:drip.gttMin });
+  var tb = $('#dripTimer');
+  if(tb){ tb.textContent = '✓ 타이머 시작됨 (화면 유지)'; tb.disabled = true; }
+  toast((drip.room || '수액') + ' 타이머를 시작했습니다 — 방울 화면은 계속 볼 수 있습니다');
+}
+function focusTimerCard(t){
+  if(!t) return;
+  goTab('fluid');
+  setTimeout(function(){
+    var el = document.getElementById('tc-' + (t.group || t.id));
+    if(el){ try{ el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} }
+    var row = document.querySelector('.slot[data-id="' + t.id + '"]');
+    if(row){
+      row.classList.add('hit');
+      setTimeout(function(){ row.classList.remove('hit'); }, 1800);
+    }
+  }, 90);
+}
+function bindDrip(){
+  var ov = $('#dripOv'); if(!ov || ov._bound) return;
+  ov._bound = true;
+  var x = $('#dripClose'); if(x) x.addEventListener('click', function(){ if(drip.locked) return; closeDrip(); });
+  var ps = $('#dripPause'); if(ps) ps.addEventListener('click', function(){ flash(ps); dripPauseToggle(); });
+  var lb = $('#dripLock');
+  if(lb){
+    lb.addEventListener('pointerdown', function(){ dripLockHold(); });
+    lb.addEventListener('pointerup', function(){
+      clearTimeout(drip.lockT);
+      dripLockTap();
+    });
+    lb.addEventListener('pointercancel', function(){ clearTimeout(drip.lockT); });
+    lb.addEventListener('click', function(){
+      flash(lb);
+      if(drip.locked) return;
+      if(Date.now() - (drip.unlockAt || 0) < 400) return;
+      dripLock();
+    });
+  }
+  var tb = $('#dripTimer'); if(tb) tb.addEventListener('click', function(){ flash(tb); dripTimerStart(); });
+  var st = $('#dripStop'); if(st) st.addEventListener('click', function(){
+    if(drip.locked) return;
+    closeDrip();
+  });
+  var sb = $('#dripSnd');
+  if(sb) sb.addEventListener('click', function(){
+    drip.snd = !drip.snd; store.set('tlc_drip_snd', drip.snd);
+    paintDripToggles(); if(drip.snd) dripSound();
+    toast(drip.snd ? '똑딱 소리를 켰습니다' : '똑딱 소리를 껐습니다');
+  });
+  var vb = $('#dripVib');
+  if(vb) vb.addEventListener('click', function(){
+    if(!dripSupportedVib()){ toast(IS_IOS ? '아이폰 Safari는 진동을 지원하지 않습니다 — 소리·화면 반짝임을 사용하세요' : '이 기기에서는 진동을 지원하지 않습니다 — 소리·화면 반짝임을 사용하세요'); return; }
+    drip.vib = !drip.vib; store.set('tlc_drip_vib', drip.vib);
+    paintDripToggles();
+    toast(drip.vib ? '진동을 켰습니다' : '진동을 껐습니다');
+  });
+  document.addEventListener('keydown', function(ev){
+    if(ev.key === 'Escape' && drip.on && !drip.locked) closeDrip();
+  });
+  window.addEventListener('resize', function(){ if(drip.on) dripSize(); });
+}
+
+/* =========================================================================
+   실시간 수액 타이머 — 방(시술실)별 1~4번 수액 슬롯 · 사전/종료 알람
+   ========================================================================= */
+var timerSeq = 0;
+function newTimerId(){ timerSeq++; return 't' + Date.now() + '_' + timerSeq; }
 var timerState = {
   list: store.get('tlc_timers', []),
   snd: store.get('tlc_snd', true),
-  ctx: null
+  ctx: null,
+  preMin: store.get('tlc_pre_min', 5),
+  mid: store.get('tlc_mid_alarm', true)
 };
 if(!(timerState.list instanceof Array)) timerState.list = [];
-function activeTimers(){ return timerState.list.filter(function(t){ return !t.done; }); }
+timerState.list.forEach(function(t){
+  if(!t.group) t.group = 'g' + (t.id || Date.now());
+  if(t.slot === undefined) t.slot = 0;
+  if(t.planned === undefined) t.planned = false;
+  if(t.preMin === undefined) t.preMin = timerState.preMin || 5;
+  if(t.mid === undefined) t.mid = timerState.mid !== false;
+  if(t.aMid === undefined) t.aMid = false;
+  if(t.ack === undefined) t.ack = false;
+});
+function activeTimers(){ return timerState.list.filter(function(t){ return !t.done && !t.planned; }); }
+function allTimers(){ return timerState.list.filter(function(t){ return !t.done; }); }
+function findTimer(id){ var r = null; timerState.list.forEach(function(t){ if(t.id === id) r = t; }); return r; }
 function saveTimers(){ store.set('tlc_timers', timerState.list); }
+function timerGroups(){
+  var map = {}, order = [];
+  allTimers().forEach(function(t){
+    var g = t.group || t.id;
+    if(!map[g]){ map[g] = { id:g, bed:t.bed || '', slots:[] }; order.push(g); }
+    map[g].slots.push(t);
+    if(!map[g].bed && t.bed) map[g].bed = t.bed;
+  });
+  return order.map(function(g){
+    var x = map[g];
+    x.slots.sort(function(a,b){ return (a.slot||0) - (b.slot||0); });
+    return x;
+  });
+}
+function gttMinOf(t){
+  if(t.gttMin) return t.gttMin;
+  if(t.ml && t.totalMs) return t.ml * (t.gtt || 20) / (t.totalMs/60000);
+  if(t.ml && t.minutes) return t.ml * (t.gtt || 20) / t.minutes;
+  return 0;
+}
+function timerLabel(t){
+  return (t.bed || '베드 미지정') + (t.slot ? ' · ' + t.slot + '번 수액' : '') + (t.name ? ' · ' + t.name : '');
+}
 function fmtLeft(ms){
   ms = Math.max(0, ms||0);
   var s = Math.floor(ms/1000);
@@ -3190,27 +4100,103 @@ function notify(title, body){
     }
   }catch(e){}
 }
-function showTimerBanner(html, kind){
+
+/* ---------- 사전·종료 알람 (놓치지 않는 알람 카드) ---------- */
+var alarmState = { q:[], cur:null, timer:null, reps:0 };
+function nextPlanned(t){
+  var best = null;
+  timerState.list.forEach(function(x){
+    if(x.done || !x.planned) return;
+    if(x.group !== t.group) return;
+    if((x.slot||0) <= (t.slot||0)) return;
+    if(!best || (x.slot||0) < (best.slot||0)) best = x;
+  });
+  return best;
+}
+function pushAlarm(a){
+  if(alarmState.cur && alarmState.cur.tid === a.tid && alarmState.cur.kind === a.kind) return;
+  for(var i=0;i<alarmState.q.length;i++) if(alarmState.q[i].tid === a.tid && alarmState.q[i].kind === a.kind) return;
+  alarmState.q.push(a);
+  if(!alarmState.cur) nextAlarm();
+}
+function nextAlarm(){
+  if(alarmState.timer){ clearInterval(alarmState.timer); alarmState.timer = null; }
+  if(!alarmState.q.length){ alarmState.cur = null; hideAlarm(); return; }
+  alarmState.cur = alarmState.q.shift();
+  renderAlarm();
+  startAlarmSound();
+}
+function hideAlarm(){
+  var b = $('#timerBanner');
+  if(b){ b.className = 'tbanner'; b.innerHTML = ''; }
+}
+function renderAlarm(){
   var b = $('#timerBanner'); if(!b) return;
-  b.className = 'tbanner on ' + (kind || '');
-  b.innerHTML = '<div class="tbn-ico">' + (kind === 'end' ? '🔔' : '⏳') + '</div>' +
-    '<div class="tbn-tx">' + html + '</div><button class="tbn-x" aria-label="닫기">✕</button>';
-  var x = b.querySelector('.tbn-x');
-  if(x) x.onclick = function(){ b.classList.remove('on'); };
-  clearTimeout(b._t);
-  b._t = setTimeout(function(){ b.classList.remove('on'); }, 20000);
-  try{ if(navigator.vibrate) navigator.vibrate(kind === 'end' ? [200,80,200] : 120); }catch(e){}
+  var a = alarmState.cur; if(!a) return;
+  var t = findTimer(a.tid);
+  var ico = a.kind === 'end' ? '🔔' : '🩺';
+  var dateTxt = t ? hmOf(t.endAt) : '';
+  var title;
+  if(a.kind === 'end') title = '수액이 종료되었습니다';
+  else if(a.kind === 'mid') title = '중간 점검 — 체크하러 들어가세요!';
+  else title = '곧 종료(' + ((t && t.preMin) || 5) + '분 전) — 체크하러 들어가세요!';
+  var label = t ? '[' + (t.bed || '베드 미지정') + (t.slot ? ' · ' + t.slot + '번 수액' : '') + ']' : '';
+  var sub = t ? (dateTxt + ' 종료 예정' + (t.ml ? ' · ' + t.ml + 'mL' : '') + (t.rate ? ' · ' + Math.round(t.rate) + 'mL/hr' : '') +
+    (gttMinOf(t) ? ' · ' + gttMinOf(t).toFixed(1) + 'gtt/min' : '')) : '';
+  var nx = t ? nextPlanned(t) : null;
+  b.className = 'tbanner on ' + (a.kind === 'end' ? 'end' : 'pre');
+  b.innerHTML =
+    '<div class="tbn-hd">' +
+      '<div class="tbn-ico">' + ico + '</div>' +
+      '<div class="tbn-tx"><b>' + esc(label) + ' ' + esc(title) + '</b>' +
+        '<span class="tbn-sub">' + esc(sub) + '</span></div>' +
+      '<button class="tbn-x" aria-label="알람 닫기">✕</button>' +
+    '</div>' +
+    '<div class="tbn-acts">' +
+      '<button class="tbn-ok" id="tbnAck">' + (a.kind === 'end' ? '🔔 알람 끄기 / 수액 종료 확인' : '확인 — 알람 끄기') + '</button>' +
+      (nx ? '<button class="tbn-next" id="tbnNext">▶ 다음(' + nx.slot + '번) 수액 바로 시작</button>' : '') +
+    '</div>';
+  var x = b.querySelector('.tbn-x'); if(x) x.onclick = function(){ ackAlarm(); };
+  var ok = b.querySelector('#tbnAck'); if(ok) ok.onclick = function(){ ackAlarm(); };
+  var nb = b.querySelector('#tbnNext');
+  if(nb) nb.onclick = function(){ startNext(t); };
+  try{ if(navigator.vibrate) navigator.vibrate(a.kind === 'end' ? [220,90,220] : 120); }catch(e){}
+}
+function startAlarmSound(){
+  var a = alarmState.cur; if(!a) return;
+  alarmState.reps = 0;
+  var every = a.kind === 'end' ? 3500 : 6000;
+  var max = a.kind === 'end' ? 14 : 3;
+  var tick = function(){
+    if(!alarmState.cur) return;
+    if(alarmState.reps >= max){
+      if(alarmState.timer){ clearInterval(alarmState.timer); alarmState.timer = null; }
+      return;
+    }
+    alarmState.reps++;
+    beep(a.kind === 'end' ? 'end' : 'pre');
+    try{ if(navigator.vibrate) navigator.vibrate(a.kind === 'end' ? [220,90,220] : 120); }catch(e){}
+  };
+  tick();
+  alarmState.timer = setInterval(tick, every);
+}
+function ackAlarm(){
+  if(alarmState.timer){ clearInterval(alarmState.timer); alarmState.timer = null; }
+  var a = alarmState.cur;
+  if(a && a.kind === 'end'){
+    var t = findTimer(a.tid);
+    if(t){ t.ack = true; saveTimers(); }
+  }
+  nextAlarm();
 }
 function onAlarm(t, kind){
-  var label = (t.bed || '베드 미지정') + ' · ' + (t.name || '수액');
-  if(kind === 'pre'){
-    showTimerBanner('<b>' + esc(label) + '</b> 종료 5분 전입니다. 교체·재확인을 준비하세요.', 'pre');
-    beep('pre'); notify('수액 종료 5분 전', label + ' — 교체 준비');
-  } else {
-    showTimerBanner('<b>' + esc(label) + '</b> 수액이 종료되었습니다. 잔량·라인을 확인하세요.', 'end');
-    beep('end'); notify('수액 종료', label + ' — 잔량·라인 확인');
-  }
+  pushAlarm({ tid:t.id, kind:kind, at:Date.now() });
+  if(kind === 'end') notify('수액 종료', timerLabel(t) + ' — 잔량·라인 확인');
+  else if(kind === 'mid') notify('중간 점검', timerLabel(t) + ' — 체크하러 들어가세요');
+  else notify('수액 종료 ' + ((t.preMin||5)) + '분 전', timerLabel(t) + ' — 교체 준비');
 }
+
+/* ---------- 생성·시작 ---------- */
 function startTimer(o){
   var mins = o.minutes;
   if(!mins || mins <= 0) return false;
@@ -3220,113 +4206,228 @@ function startTimer(o){
   if(startAt < now - 12*3600000) startAt = now;
   var endAt = startAt + Math.round(mins)*60000;
   if(endAt <= now + 3000) endAt = now + Math.round(mins)*60000;
+  var g = o.group || null, slot = o.slot || 0;
+  if(!g){
+    var bed = (o.bed || '').trim();
+    var grp = null;
+    if(bed){
+      timerGroups().forEach(function(x){
+        if(!grp && (x.bed || '').trim() === bed && x.slots.length < 4) grp = x;
+      });
+    }
+    if(grp){
+      g = grp.id;
+      slot = grp.slots.reduce(function(m,t){ return Math.max(m, t.slot||0); }, 0) + 1;
+    } else {
+      g = 'g' + now + '_' + (++timerSeq);
+      slot = 1;
+    }
+  }
   timerState.list.push({
-    id:'t' + now, bed:o.bed || '', name:o.name || '', ml:o.ml || 0, rate:o.rate || 0, gtt:o.gtt || 20,
-    totalMs:Math.round(mins)*60000, startedAt:endAt - Math.round(mins)*60000, endAt:endAt,
-    paused:false, remainMs:0, a5:false, a0:false, done:false
+    id:newTimerId(), group:g, slot:slot, bed:o.bed || '', name:o.name || '',
+    ml:o.ml || 0, rate:o.rate || 0, gtt:o.gtt || 20, gttMin:o.gttMin || 0,
+    minutes:mins, totalMs:Math.round(mins)*60000,
+    startedAt:endAt - Math.round(mins)*60000, endAt:endAt,
+    paused:false, remainMs:0, a5:false, aMid:false, a0:false, ack:false,
+    planned:false, preMin:(o.preMin || timerState.preMin || 5),
+    mid:(o.mid === undefined ? (timerState.mid !== false) : !!o.mid), done:false
   });
   saveTimers();
-  try{
-    if('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
-  }catch(e){}
+  try{ if('Notification' in window && Notification.permission === 'default') Notification.requestPermission(); }catch(e){}
   renderTimers(); updateSummary();
   toast('타이머를 시작했습니다 — ' + fmtLeft(endAt - Date.now()) + ' 남음');
   return true;
 }
+function startGroup(o){
+  var bed = (o.bed || '').trim();
+  var now = Date.now();
+  var gid = 'g' + now + '_' + (++timerSeq);
+  var made = 0;
+  (o.slots || []).forEach(function(s, i){
+    var mins = s.minutes;
+    if(!mins || mins <= 0) return;
+    var planned = (o.mode === 'seq' && i > 0);
+    timerState.list.push({
+      id:newTimerId(), group:gid, slot:i+1, bed:bed,
+      name:(s.name || ((i+1) + '번 수액')).trim(),
+      ml:s.ml || 0, rate:(s.ml ? s.ml/(mins/60) : 0), gtt:s.gtt || 20, gttMin:(s.ml ? s.ml*(s.gtt||20)/mins : 0),
+      minutes:mins, totalMs:Math.round(mins)*60000,
+      startedAt:(planned ? 0 : now), endAt:(planned ? 0 : now + Math.round(mins)*60000),
+      paused:false, remainMs:0, a5:false, aMid:false, a0:false, ack:false,
+      planned:planned, preMin:(o.preMin || 5), mid:(o.mid !== false), done:false
+    });
+    made++;
+  });
+  if(!made) return 0;
+  saveTimers(); renderTimers(); updateSummary();
+  return made;
+}
+function startPlanned(t){
+  if(!t) return null;
+  var now = Date.now();
+  t.planned = false;
+  t.startedAt = now;
+  t.endAt = now + (t.totalMs || Math.round(t.minutes||0)*60000);
+  t.paused = false; t.remainMs = 0; t.a5 = false; t.aMid = false; t.a0 = false; t.ack = false;
+  saveTimers(); renderTimers(); updateSummary();
+  return t;
+}
+function startNext(t){
+  var n = nextPlanned(t);
+  if(!n){ ackAlarm(); return; }
+  ackAlarm();
+  timerState.list = timerState.list.filter(function(x){ return x.id !== t.id; });
+  startPlanned(n);
+  toast((n.slot || '') + '번 수액을 바로 시작했습니다 — ' + fmtLeft(n.endAt - Date.now()) + ' 남음');
+}
+function endSlot(id){
+  var t = findTimer(id); if(!t) return;
+  var nx = nextPlanned(t);
+  timerState.list = timerState.list.filter(function(x){ return x.id !== id; });
+  saveTimers();
+  if(nx){
+    startPlanned(nx);
+    toast((t.slot ? t.slot + '번' : '수액') + ' 종료 — ' + nx.slot + '번 수액을 이어서 시작했습니다');
+  } else {
+    toast((t.slot ? t.slot + '번 수액 ' : '') + '종료 처리했습니다');
+  }
+  renderTimers(); updateSummary();
+}
+
+/* ---------- 1초 틱 ---------- */
 function timerTick(){
   var now = Date.now(), changed = false;
   timerState.list.forEach(function(t){
-    if(t.done) return;
-    if(t.paused) return;
+    if(t.done || t.planned || t.paused) return;
     var remain = t.endAt - now;
     if(remain <= 0){
       if(!t.a0){ t.a0 = true; changed = true; onAlarm(t, 'end'); }
-    } else if(remain <= 300000 && !t.a5){
-      t.a5 = true; changed = true; onAlarm(t, 'pre');
+    } else {
+      if(!t.a5 && remain <= (t.preMin || 5)*60000){ t.a5 = true; changed = true; onAlarm(t, 'pre'); }
+      if(t.mid && !t.aMid && t.totalMs > 0 && (t.totalMs - remain) >= t.totalMs*0.5){
+        t.aMid = true; changed = true; onAlarm(t, 'mid');
+      }
     }
   });
   if(changed) saveTimers();
   paintTimers(now);
   updatePill();
+  updateRoomBoard();
   if(now - (timerTick._lastSum || 0) > 5000){ timerTick._lastSum = now; updateSummary(); }
+}
+
+/* ---------- 그리기 ---------- */
+function slotHtml(t){
+  var lbl = t.slot ? t.slot + '번' : '';
+  var meta;
+  if(t.planned){
+    meta = '설정 ' + fmtLeft(t.totalMs) + (t.ml ? ' · ' + t.ml + 'mL' : '') + (t.rate ? ' · ' + Math.round(t.rate) + 'mL/hr' : '') +
+      (gttMinOf(t) ? ' · ' + gttMinOf(t).toFixed(1) + 'gtt/min · <span class="nw">' + (60/gttMinOf(t)).toFixed(2) + '초/방울</span>' : '');
+  } else {
+    meta = '종료 ' + hmOf(t.endAt) + (t.paused ? ' · 일시정지' : '') + (t.ml ? ' · ' + t.ml + 'mL' : '') +
+      (t.rate ? ' · ' + Math.round(t.rate) + 'mL/hr' : '') + (gttMinOf(t) ? ' · ' + gttMinOf(t).toFixed(1) + 'gtt/min · <span class="nw">' + (60/gttMinOf(t)).toFixed(2) + '초/방울</span>' : '');
+  }
+  return '<div class="slot' + (t.planned ? ' wait' : '') + (t.paused ? ' paused' : '') + '" data-id="' + t.id + '">' +
+    '<div class="slot-h">' + (lbl ? '<span class="sl-b">' + lbl + '</span>' : '') +
+      '<span class="sl-n">' + esc(t.name || '수액') + '</span>' +
+      '<span class="tleft" id="tl-' + t.id + '">' + (t.planned ? '대기' : '--:--') + '</span></div>' +
+    '<div class="sl-meta" id="te-' + t.id + '">' + meta + '</div>' +
+    '<div class="bar"><i id="tb-' + t.id + '" style="width:0%"></i></div>' +
+    '<div class="sl-ops">' +
+      (t.planned
+        ? '<button class="sl-start" data-act="start">▶ ' + (lbl || '수액') + ' 시작</button>' +
+          '<button class="tob del" data-act="del">✕</button>'
+        : '<button class="tob" data-act="pause">' + (t.paused ? '▶ 재개' : '⏸ 일시정지') + '</button>' +
+          '<button class="tob" data-act="minus">−10분</button>' +
+          '<button class="tob" data-act="plus">+10분</button>' +
+          '<button class="tob" data-act="drip">💧 방울</button>' +
+          '<button class="tob del" data-act="del">✕</button>' +
+          '<button class="sl-end" data-act="done">✓ ' + (lbl || '수액') + ' 종료</button>') +
+    '</div></div>';
 }
 function renderTimers(){
   var box = $('#timerList'); if(!box) return;
-  var list = activeTimers();
-  var cnt = $('#timerCnt'); if(cnt) cnt.textContent = list.length + '개';
-  if(!list.length){
+  var groups = timerGroups();
+  var cnt = $('#timerCnt');
+  if(cnt) cnt.textContent = groups.length + '개 방 · 수액 ' + activeTimers().length + '개 진행';
+  if(!groups.length){
     box.innerHTML = '<div class="empty">진행 중인 수액 타이머가 없습니다.<br>위 계산기에서 “이 수액으로 타이머 시작”을 누르거나 아래에서 직접 추가하세요.</div>';
   } else {
-    box.innerHTML = list.map(function(t){
-      return '<div class="tcard" id="tc-'+t.id+'" data-id="'+t.id+'">'+
-        '<div class="tctop"><b>'+esc(t.bed || '베드 미지정')+'</b><span class="tname">'+esc(t.name || '수액')+'</span></div>'+
-        '<div class="tcbody"><div class="tleft" id="tl-'+t.id+'">--:--</div>'+
-          '<div class="tcmeta"><span id="te-'+t.id+'">—</span><br>'+ (t.ml? (t.ml+'mL · ') : '') + (t.rate? (Math.round(t.rate)+'mL/hr · ') : '') + t.gtt + 'gtt</div></div>'+
-        '<div class="bar"><i id="tb-'+t.id+'" style="width:0%"></i></div>'+
-        '<div class="tcops">'+
-          '<button class="tob" data-act="pause">⏸ 일시정지</button>'+
-          '<button class="tob" data-act="minus">−10분</button>'+
-          '<button class="tob" data-act="plus">+10분</button>'+
-          '<button class="tob ok" data-act="done">✓ 완료</button>'+
-          '<button class="tob del" data-act="del">✕</button>'+
-        '</div></div>';
+    box.innerHTML = groups.map(function(g){
+      var run = g.slots.filter(function(t){ return !t.planned; });
+      var head = '<div class="tctop"><b>' + esc(g.bed || '베드 미지정') + '</b>' +
+        '<span class="tname">' + esc(g.slots.length > 1 ? ('수액 ' + g.slots.length + '병') : (g.slots[0].name || '수액')) + '</span>' +
+        '<span class="tag n">' + run.length + '/' + g.slots.length + ' 진행</span>' +
+        '<button class="tadd" data-act="addslot" data-bed="' + esc(g.bed || '') + '">＋ 수액 추가</button></div>';
+      return '<div class="tcard" id="tc-' + g.id + '" data-g="' + g.id + '">' + head +
+        g.slots.map(slotHtml).join('') + '</div>';
     }).join('');
   }
   paintTimers(Date.now());
   updatePill();
+  updateRoomBoard();
+  wakeSync();
 }
 function paintTimers(now){
-  activeTimers().forEach(function(t){
-    var remain = t.paused ? t.remainMs : Math.max(0, t.endAt - now);
+  allTimers().forEach(function(t){
+    var remain = t.paused ? t.remainMs : Math.max(0, (t.endAt||0) - now);
     var el = document.getElementById('tl-' + t.id);
-    if(el) el.textContent = fmtLeft(remain);
-    var te = document.getElementById('te-' + t.id);
-    if(te) te.textContent = '종료 ' + hmOf(t.endAt) + (t.paused ? ' · 일시정지' : '');
+    if(el) el.textContent = t.planned ? '대기' : fmtLeft(remain);
     var bar = document.getElementById('tb-' + t.id);
     if(bar){
-      var pct = t.totalMs ? Math.max(0, Math.min(100, (1 - remain/t.totalMs)*100)) : 0;
+      var pct = (!t.planned && t.totalMs) ? Math.max(0, Math.min(100, (1 - remain/t.totalMs)*100)) : 0;
       bar.style.width = pct.toFixed(1) + '%';
     }
-    var card = document.getElementById('tc-' + t.id);
-    if(card){
-      card.className = 'tcard' + (remain <= 0 ? ' end' : (remain <= 300000 ? ' warn' : '')) + (t.paused ? ' paused' : '');
+    var row = document.querySelector('.slot[data-id="' + t.id + '"]');
+    if(row){
+      row.className = 'slot' + (t.planned ? ' wait' : '') + (t.paused ? ' paused' : '') +
+        (!t.planned && remain <= 0 ? ' end' : '') + (!t.planned && remain > 0 && remain <= 300000 ? ' warn' : '');
+      var pb = row.querySelector('[data-act="pause"],[data-act="resume"]');
+      if(pb){ pb.textContent = t.paused ? '▶ 재개' : '⏸ 일시정지'; pb.setAttribute('data-act', t.paused ? 'resume' : 'pause'); }
     }
-    var pb = card ? card.querySelector('[data-act="pause"]') : null;
-    if(pb){ pb.textContent = t.paused ? '▶ 재개' : '⏸ 일시정지'; pb.setAttribute('data-act', t.paused ? 'resume' : 'pause'); }
+  });
+  timerGroups().forEach(function(g){
+    var card = document.getElementById('tc-' + g.id); if(!card) return;
+    var mn = null;
+    g.slots.forEach(function(t){
+      if(t.planned) return;
+      var r = t.paused ? t.remainMs : Math.max(0, t.endAt - now);
+      if(mn === null || r < mn) mn = r;
+    });
+    card.className = 'tcard' + (mn === null ? '' : (mn <= 0 ? ' end' : (mn <= 300000 ? ' warn' : '')));
   });
 }
 function timerAct(id, act){
-  var t = null;
-  timerState.list.forEach(function(x){ if(x.id === id) t = x; });
-  if(!t) return;
+  var t = findTimer(id); if(!t) return;
   var now = Date.now();
+  if(act === 'drip'){ openDripFromTimer(t); return; }
+  if(act === 'start'){ startPlanned(t); toast((t.slot ? t.slot + '번 ' : '') + '수액을 시작했습니다'); return; }
+  if(act === 'done'){ endSlot(id); return; }
+  if(act === 'del'){
+    timerState.list = timerState.list.filter(function(x){ return x.id !== id; });
+    saveTimers(); renderTimers(); updateSummary();
+    toast('타이머를 삭제했습니다'); return;
+  }
+  if(t.planned) return;
   if(act === 'pause'){
     if(!t.paused){ t.paused = true; t.remainMs = Math.max(0, t.endAt - now); toast('일시정지했습니다'); }
   } else if(act === 'resume'){
     if(t.paused){
       t.paused = false; t.endAt = now + t.remainMs;
-      if(t.remainMs > 300000) t.a5 = false;
-      t.a0 = false;
+      if(t.remainMs > (t.preMin||5)*60000) t.a5 = false;
+      t.a0 = false; t.ack = false;
       toast('다시 시작했습니다');
     }
   } else if(act === 'plus'){
     if(t.paused) t.remainMs += 600000; else t.endAt += 600000;
     var r = t.paused ? t.remainMs : (t.endAt - now);
-    if(r > 300000) t.a5 = false;
-    t.a0 = false;
+    if(r > (t.preMin||5)*60000){ t.a5 = false; }
+    t.a0 = false; t.ack = false;
     toast('10분 늘렸습니다');
   } else if(act === 'minus'){
     if(t.paused) t.remainMs = Math.max(0, t.remainMs - 600000);
     else t.endAt = Math.max(now, t.endAt - 600000);
     toast('10분 줄였습니다');
-  } else if(act === 'done'){
-    timerState.list = timerState.list.filter(function(x){ return x.id !== id; });
-    saveTimers(); renderTimers(); updateSummary();
-    toast('완료 처리했습니다'); return;
-  } else if(act === 'del'){
-    timerState.list = timerState.list.filter(function(x){ return x.id !== id; });
-    saveTimers(); renderTimers(); updateSummary();
-    toast('타이머를 삭제했습니다'); return;
   }
   saveTimers(); renderTimers(); updateSummary();
 }
@@ -3344,46 +4445,551 @@ function updatePill(){
   var tt = $('#timerPillT'); if(tt) tt.textContent = fmtLeft(min);
   pill.className = 'timerpill' + (min <= 300000 ? ' warn' : '');
 }
+
+/* ---------- 알림 허용(워치 연동) · 화면 켜짐 유지(Wake Lock) ---------- */
+var wakeState = { lock:null, want:store.get('tlc_wake', true), supported:false };
+try{ wakeState.supported = !!(navigator.wakeLock && navigator.wakeLock.request); }catch(e){}
+function paintWake(){
+  var b = $('#btnWake');
+  if(b){
+    if(!wakeState.supported){
+      b.textContent = '☀️ 화면유지 미지원';
+      b.classList.add('off');
+    } else {
+      b.classList.remove('off');
+      b.textContent = !wakeState.want ? '🌙 화면 꺼짐 허용' : (wakeState.lock ? '☀️ 화면 켜짐 유지' : '☀️ 화면 유지 대기');
+    }
+  }
+  var d = $('#dripWake');
+  if(d){
+    d.classList.toggle('on', !!wakeState.lock);
+    d.setAttribute('aria-pressed', wakeState.lock ? 'true' : 'false');
+    d.classList.toggle('off', !wakeState.supported);
+    d.textContent = wakeState.lock ? '☀️ 화면 켜짐 유지' : (wakeState.supported ? '🌙 화면 꺼짐 허용' : '🌙 화면유지 미지원');
+  }
+}
+function wakeNeed(){ return !!wakeState.want && (drip.on || activeTimers().length > 0 || !!alarmState.cur); }
+function wakeAcquire(){
+  if(!wakeState.supported || wakeState.lock) return;
+  if(!wakeNeed()) return;
+  try{
+    if(document.hidden) return;
+  }catch(e){}
+  try{
+    navigator.wakeLock.request('screen').then(function(l){
+      wakeState.lock = l;
+      try{ l.addEventListener('release', function(){ wakeState.lock = null; paintWake(); }); }catch(e){}
+      paintWake();
+    }).catch(function(){ paintWake(); });
+  }catch(e){ paintWake(); }
+}
+function wakeRelease(){
+  try{ if(wakeState.lock){ wakeState.lock.release(); } }catch(e){}
+  wakeState.lock = null;
+  paintWake();
+}
+function wakeSync(){ if(wakeNeed()) wakeAcquire(); else wakeRelease(); }
+function paintNotify(){
+  var b = $('#btnNotify'); if(!b) return;
+  var ok = false;
+  try{ ok = ('Notification' in window) && Notification.permission === 'granted'; }catch(e){}
+  b.textContent = ok ? '🔔 알림 켜짐 (워치 연동)' : '🔔 알림 허용(워치 연동)';
+  b.classList.toggle('on', ok);
+}
+function bindNotify(){
+  var b = $('#btnNotify');
+  if(!b || b._bound) return;
+  b._bound = true;
+  b.addEventListener('click', function(){
+    if(!('Notification' in window)){ toast('이 브라우저는 알림을 지원하지 않습니다 — 화면 알람·소리를 사용하세요'); return; }
+    if(Notification.permission === 'granted'){ toast('알림이 이미 허용되어 있습니다 — 워치로도 진동이 옵니다'); return; }
+    if(Notification.permission === 'denied'){ toast('알림이 차단되어 있습니다 — 브라우저 설정에서 허용해 주세요'); return; }
+    try{
+      Notification.requestPermission().then(function(p){
+        paintNotify();
+        if(p === 'granted'){
+          toast('알림을 켰습니다 — 워치로도 알람이 옵니다');
+          try{ new Notification('TLC 인수인계', { body:'알림이 연결되었습니다 — 수액 종료 알람이 워치로도 옵니다', tag:'tlc-notify-hello' }); }catch(e){}
+        } else {
+          toast('알림이 허용되지 않았습니다 — 화면 알람·소리는 그대로 울립니다');
+        }
+      });
+    }catch(e){}
+  });
+  paintNotify();
+}
+function bindWake(){
+  var b = $('#btnWake');
+  if(b && !b._bound){
+    b._bound = true;
+    b.addEventListener('click', function(){
+      wakeState.want = !wakeState.want;
+      store.set('tlc_wake', wakeState.want);
+      wakeSync();
+      toast(wakeState.want ? '화면이 꺼지지 않게 유지합니다' : '화면 자동 꺼짐을 허용합니다');
+    });
+  }
+  var d = $('#dripWake');
+  if(d && !d._bound){
+    d._bound = true;
+    d.addEventListener('click', function(){
+      wakeState.want = !wakeState.want;
+      store.set('tlc_wake', wakeState.want);
+      wakeSync();
+      toast(wakeState.want ? '화면이 꺼지지 않게 유지합니다' : '화면 자동 꺼짐을 허용합니다');
+    });
+  }
+  paintWake();
+}
+/* 백그라운드에서 돌아오면 지나간 알람을 즉시 반영 */
+function bindWakeResume(){
+  if(document._wakeBound) return;
+  document._wakeBound = true;
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden) return;
+    timerTick();
+    wakeSync();
+  });
+  window.addEventListener('pageshow', function(){ timerTick(); wakeSync(); });
+  window.addEventListener('focus', function(){ timerTick(); wakeSync(); });
+}
+
+/* ---------- 시술실 7곳 현황 ---------- */
+function updateRoomBoard(){
+  var box = $('#roomBoard'); if(!box) return;
+  if(!box.getAttribute('data-ready') || !box.querySelector('.rbt')){
+    box.innerHTML = DATA.rooms.map(function(r){
+      return '<button class="rbt" data-room="' + esc(r.n) + '"><span class="rbt-n">' + esc(r.n) + '</span>' +
+        '<span class="rbt-v">—</span><span class="rbt-m"></span></button>';
+    }).join('');
+    box.setAttribute('data-ready', '1');
+  }
+  var now = Date.now();
+  $$('#roomBoard .rbt').forEach(function(btn){
+    var name = btn.getAttribute('data-room');
+    var slots = allTimers().filter(function(t){ return (t.bed || '').trim() === name; });
+    var run = slots.filter(function(t){ return !t.planned; });
+    var v = btn.querySelector('.rbt-v'), m = btn.querySelector('.rbt-m');
+    btn.classList.remove('end');
+    if(run.length){
+      var min = null, who = run[0];
+      run.forEach(function(t){
+        var r = t.paused ? t.remainMs : Math.max(0, t.endAt - now);
+        if(min === null || r < min){ min = r; who = t; }
+      });
+      if(v) v.textContent = fmtLeft(min);
+      if(m) m.textContent = (who.name || '수액') + (who.slot ? ' (' + who.slot + '번)' : '') + ' · ' + Math.round(who.rate || 0) + 'mL/hr';
+      btn.classList.add('on');
+      if(min <= 0) btn.classList.add('end');
+    } else if(slots.length){
+      if(v) v.textContent = '대기 ' + slots.length + '병';
+      if(m) m.textContent = '터치 → 방울 · 시작';
+      btn.classList.add('on');
+    } else {
+      if(v) v.textContent = '비어 있음';
+      if(m) m.textContent = '터치 → 방 선택';
+      btn.classList.remove('on');
+    }
+  });
+}
+function bindRoomBoard(){
+  var box = $('#roomBoard'); if(!box || box._bound) return;
+  box._bound = true;
+  box.addEventListener('click', function(ev){
+    var b = up(ev.target, '.rbt'); if(!b) return;
+    var name = b.getAttribute('data-room');
+    var slots = allTimers().filter(function(t){ return (t.bed || '').trim() === name; });
+    var run = slots.filter(function(t){ return !t.planned; });
+    if(run.length){
+      var now = Date.now(), best = run[0], bm = null;
+      run.forEach(function(t){
+        var r = t.paused ? t.remainMs : Math.max(0, t.endAt - now);
+        if(bm === null || r < bm){ bm = r; best = t; }
+      });
+      openDripFromTimer(best);
+    } else {
+      selectInfRoom(name);
+    }
+  });
+}
+function selectInfRoom(name){
+  goTab('fluid');
+  goInfCalc();
+  var f = $('#fBed'); if(f) f.value = name;
+  markRoomChips('#fRooms', name);
+  setTimeout(function(){
+    var el = document.getElementById('calcTabs');
+    if(el){ try{ el.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){} }
+  }, 80);
+  toast(name + ' — 수액량을 입력하면 바로 계산됩니다');
+}
+function openDripFromTimer(t){
+  if(!t) return;
+  openDrip({
+    room:t.bed, name:t.name, slot:t.slot, ml:t.ml,
+    minutes:((t.totalMs || Math.round((t.minutes||0)*60000))/60000),
+    gtt:t.gtt, gttMin:gttMinOf(t), rate:t.rate, fromTimer:t
+  });
+}
+
+/* ---------- 타이머 직접 추가 (1~4병) ---------- */
+var tmForm = { n:1, mode:'seq', pre:5, mid:true };
+function tmSlotVals(){
+  var out = [];
+  for(var i=1;i<=4;i++){
+    var nm = document.getElementById('tmN' + i);
+    var ml = document.getElementById('tmML' + i);
+    var mn = document.getElementById('tmMN' + i);
+    var st = document.getElementById('tmST' + i);
+    if(!nm) continue;
+    out.push({ name:nm.value, ml:ml ? ml.value : '', minutes:mn ? mn.value : '', set:st ? st.value : '20' });
+  }
+  return out;
+}
+function renderTmSlots(){
+  var wrap = $('#tmSlotWrap'); if(!wrap) return;
+  var prev = tmSlotVals();
+  var html = '';
+  for(var i=1;i<=4;i++){
+    var p = prev[i-1] || {};
+    html += '<div class="slrow' + (i <= tmForm.n ? '' : ' hide') + ((tmForm.cur||1) === i ? ' act' : '') + '" data-i="' + i + '">' +
+      '<span class="slno">' + i + '번</span>' +
+      '<div class="slfields">' +
+        '<input class="inp" id="tmN' + i + '" placeholder="수액명 (예) 비타민 500mL" value="' + esc(p.name || '') + '">' +
+        '<div class="sl2">' +
+          '<input class="inp" id="tmML' + i + '" type="number" inputmode="numeric" placeholder="용량 mL" value="' + esc(p.ml || '') + '">' +
+          '<input class="inp" id="tmMN' + i + '" type="number" inputmode="numeric" placeholder="시간(분)" value="' + esc(p.minutes || '') + '">' +
+        '</div>' +
+        '<div class="sl3">' +
+          '<div class="chips volchips">' + DATA.ivntVols.map(function(v){
+            return '<button class="chip vchip' + (String(p.ml) === String(v) ? ' on' : '') + '" data-vol="' + v + '" data-i="' + i + '">' + v + 'mL</button>';
+          }).join('') + '</div>' +
+          '<select class="inp sl-set" id="tmST' + i + '" aria-label="' + i + '번 수액세트">' +
+            DATA.ivntSets.map(function(g){
+              return '<option value="' + g + '"' + (String(p.set || 20) === String(g) ? ' selected' : '') + '>' + g + 'gtt/mL</option>';
+            }).join('') + '</select>' +
+        '</div>' +
+      '</div></div>';
+  }
+  wrap.innerHTML = html;
+  bindTmSlotUI();
+}
+function bindTmSlotUI(){
+  $$('#tmSlotWrap .slrow').forEach(function(row){
+    row.addEventListener('pointerdown', function(){ setTmSlot(parseInt(row.getAttribute('data-i'), 10)); });
+    row.addEventListener('focusin', function(){ setTmSlot(parseInt(row.getAttribute('data-i'), 10)); });
+  });
+  $$('#tmSlotWrap .vchip').forEach(function(b){
+    b.addEventListener('click', function(){
+      var i = b.getAttribute('data-i');
+      var ml = document.getElementById('tmML' + i);
+      if(ml) ml.value = b.getAttribute('data-vol');
+      $$('#tmSlotWrap .slrow[data-i="' + i + '"] .vchip').forEach(function(x){ x.classList.toggle('on', x === b); });
+      setTmSlot(parseInt(i, 10));
+    });
+  });
+}
+function setTmSlot(i){
+  tmForm.cur = i;
+  $$('#tmSlotWrap .slrow').forEach(function(r){ r.classList.toggle('act', parseInt(r.getAttribute('data-i'), 10) === i); });
+  var h = $('#tmQuickHint');
+  if(h) h.textContent = (tmForm.n === 1 ? '→ 수액명·시간' : '→ ' + i + '번 슬롯');
+}
+function applyIvnt(id){
+  var x = DATA.ivntMap[id];
+  if(!x) return;
+  if(tmForm.n === 1){
+    if($('#tmName')) $('#tmName').value = x.n;
+    if($('#tmMin')) $('#tmMin').value = x.min;
+    toast('참고 예시로 채웠습니다 — 실제 처방(차트)으로 확인하세요');
+    return;
+  }
+  var i = tmForm.cur || 1;
+  if($('#tmN' + i)) $('#tmN' + i).value = x.n;
+  if($('#tmMN' + i)) $('#tmMN' + i).value = x.min;
+  if($('#tmML' + i)) $('#tmML' + i).value = x.ml;
+  if($('#tmST' + i)) $('#tmST' + i).value = String(x.set || 20);
+  $$('#tmSlotWrap .slrow[data-i="' + i + '"] .vchip').forEach(function(b){
+    b.classList.toggle('on', b.getAttribute('data-vol') === String(x.ml));
+  });
+  setTmSlot(i);
+  toast(i + '번 슬롯에 참고 예시를 채웠습니다 — 실제 처방(차트)으로 확인하세요');
+}
+/* ---------- 슬롯 설정 저장 (내 조합 ★) ---------- */
+function slotPresets(){
+  var l = store.get('tlc_slot_presets', []);
+  return (l instanceof Array) ? l : [];
+}
+function renderSlotPresets(){
+  var box = $('#tmSlotPresets'); if(!box) return;
+  var list = slotPresets();
+  if(!list.length){
+    box.innerHTML = '<span class="muted">자주 쓰는 수액 조합을 ★ 로 저장해 두면 슬롯에 원터치로 넣을 수 있습니다 (최대 8개).</span>';
+    return;
+  }
+  box.innerHTML = list.map(function(p){
+    return '<span class="pst"><button class="pst-b" data-spid="' + esc(p.id) + '">' + esc(p.name || '수액') + ' · ' +
+      (p.ml ? p.ml + 'mL/' : '') + medTxt(p.minutes) + ' · ' + (p.set || 20) + 'gtt</button>' +
+      '<button class="pst-x" data-spdel="' + esc(p.id) + '" aria-label="저장 설정 삭제">✕</button></span>';
+  }).join('');
+}
+function tmActiveVals(){
+  if(tmForm.n === 1){
+    return { name:(($('#tmName')||{}).value || '').trim(), ml:0,
+             minutes:num(($('#tmMin')||{}).value) || 0, set:20 };
+  }
+  var i = tmForm.cur || 1;
+  return {
+    name:((document.getElementById('tmN'+i)||{}).value || '').trim(),
+    ml:num((document.getElementById('tmML'+i)||{}).value) || 0,
+    minutes:num((document.getElementById('tmMN'+i)||{}).value) || 0,
+    set:num((document.getElementById('tmST'+i)||{}).value) || 20
+  };
+}
+function saveSlotPreset(){
+  var v = tmActiveVals();
+  if(!v.name){ toast('수액명을 먼저 적어 주세요'); return; }
+  if(!v.minutes || v.minutes <= 0){ toast('시간(분)을 먼저 입력해 주세요'); return; }
+  var list = slotPresets().filter(function(x){
+    return !(x.name === v.name && String(x.ml) === String(v.ml) && x.minutes === v.minutes && String(x.set) === String(v.set));
+  });
+  list.unshift({ id:'s'+Date.now(), name:v.name, ml:v.ml, minutes:v.minutes, set:v.set });
+  if(list.length > 8) list = list.slice(0,8);
+  store.set('tlc_slot_presets', list);
+  renderSlotPresets();
+  toast('이 슬롯 설정을 저장했습니다 (' + list.length + '/8)');
+}
+function applySlotPreset(id){
+  var p = slotPresets().filter(function(x){ return x.id === id; })[0];
+  if(!p) return;
+  if(tmForm.n === 1){
+    if($('#tmName')) $('#tmName').value = p.name;
+    if($('#tmMin')) $('#tmMin').value = p.minutes;
+  } else {
+    var i = tmForm.cur || 1;
+    if($('#tmN' + i)) $('#tmN' + i).value = p.name;
+    if($('#tmML' + i)) $('#tmML' + i).value = p.ml || '';
+    if($('#tmMN' + i)) $('#tmMN' + i).value = p.minutes;
+    if($('#tmST' + i)) $('#tmST' + i).value = String(p.set || 20);
+    $$('#tmSlotWrap .slrow[data-i="' + i + '"] .vchip').forEach(function(b){
+      b.classList.toggle('on', b.getAttribute('data-vol') === String(p.ml));
+    });
+    setTmSlot(i);
+  }
+  toast('저장한 조합을 불러왔습니다');
+}
+function delSlotPreset(id){
+  store.set('tlc_slot_presets', slotPresets().filter(function(x){ return x.id !== id; }));
+  renderSlotPresets();
+  toast('저장한 조합을 삭제했습니다');
+}
+function initTmQuick(){
+  var tb = $('#tmTimes');
+  if(tb && !tb._bound){
+    tb.innerHTML = [15, 30, 45, 60, 120].map(function(m){
+      return '<button class="chip" data-min="' + m + '">' + m + '분</button>';
+    }).join('');
+    tb.addEventListener('click', function(ev){
+      var b = up(ev.target, '.chip'); if(!b) return;
+      var m = b.getAttribute('data-min');
+      if(tmForm.n === 1){
+        if($('#tmMin')) $('#tmMin').value = m;
+      } else {
+        var i = tmForm.cur || 1;
+        if($('#tmMN' + i)) $('#tmMN' + i).value = m;
+      }
+      flash(b);
+    });
+    tb._bound = true;
+  }
+  var iv = $('#tmIvnt');
+  if(iv && !iv._bound){
+    iv.innerHTML = DATA.ivnt.map(function(x){
+      return '<button class="chip" data-ivnt="' + x.id + '">' + esc(x.short) + ' ' + x.min + '분</button>';
+    }).join('');
+    iv.addEventListener('click', function(ev){
+      var b = up(ev.target, '.chip'); if(!b) return;
+      applyIvnt(b.getAttribute('data-ivnt'));
+      flash(b);
+    });
+    iv._bound = true;
+  }
+  var sv = $('#tmSaveSlot');
+  if(sv && !sv._bound){ sv._bound = true; sv.addEventListener('click', function(){ flash(sv); saveSlotPreset(); }); }
+  var sp = $('#tmSlotPresets');
+  if(sp && !sp._bound){
+    sp._bound = true;
+    sp.addEventListener('click', function(ev){
+      var d = up(ev.target, '[data-spdel]');
+      if(d){ delSlotPreset(d.getAttribute('data-spdel')); return; }
+      var b = up(ev.target, '[data-spid]');
+      if(b) applySlotPreset(b.getAttribute('data-spid'));
+    });
+  }
+  renderSlotPresets();
+}
+function syncTmForm(){
+  var multi = tmForm.n > 1;
+  setTmSlot(tmForm.cur || 1);
+  var modeBox = $('#tmModeBox'); if(modeBox) modeBox.classList.toggle('hide', !multi);
+  var nmF = $('#tmNameF'); if(nmF) nmF.classList.toggle('hide', multi);
+  var mnF = $('#tmMinF'); if(mnF) mnF.classList.toggle('hide', multi);
+  var wrap = $('#tmSlotWrap');
+  if(wrap){
+    wrap.classList.toggle('hide', !multi);
+    if(multi) renderTmSlots();
+  }
+  var hint = $('#tmHint');
+  if(hint){
+    hint.textContent = multi
+      ? (tmForm.mode === 'seq'
+        ? '1번이 끝나면 2번이 이어서 자동 시작됩니다. 각 수액은 개별 종료 버튼으로 관리합니다.'
+        : '선택한 수액이 동시에 시작됩니다. 각 수액마다 종료 버튼이 따로 있습니다.')
+      : '여러 베드를 동시에 돌릴 수 있습니다. 새로고침·화면을 꺼도 종료 시각이 그대로 이어집니다.';
+  }
+}
+function initTmForm(){
+  var rooms = $('#tmRooms');
+  if(rooms && !rooms._bound){
+    rooms.innerHTML = roomChipsHtml('');
+    rooms.addEventListener('click', function(ev){
+      var b = up(ev.target, '.chip'); if(!b) return;
+      var bed = $('#tmBed'); if(bed) bed.value = b.getAttribute('data-room');
+      $$('#tmRooms .chip').forEach(function(x){ x.classList.toggle('on', x === b); });
+      flash(b);
+    });
+    rooms._bound = true;
+  }
+  var cb = $('#tmCount');
+  if(cb && !cb._bound){
+    cb.innerHTML = [1,2,3,4].map(function(n){
+      return '<button class="chip' + (n === 1 ? ' on' : '') + '" data-n="' + n + '">' + n + '병</button>';
+    }).join('');
+    cb.addEventListener('click', function(ev){
+      var b = up(ev.target, '.chip'); if(!b) return;
+      tmForm.n = parseInt(b.getAttribute('data-n'), 10) || 1;
+      $$('#tmCount .chip').forEach(function(x){ x.classList.toggle('on', x === b); });
+      syncTmForm(); flash(b);
+    });
+    cb._bound = true;
+  }
+  var mb = $('#tmMode');
+  if(mb && !mb._bound){
+    mb.innerHTML = '<button class="chip on" data-m="seq">연속 (1→2→3→4)</button><button class="chip" data-m="par">동시 (한꺼번에)</button>';
+    mb.addEventListener('click', function(ev){
+      var b = up(ev.target, '.chip'); if(!b) return;
+      tmForm.mode = b.getAttribute('data-m');
+      $$('#tmMode .chip').forEach(function(x){ x.classList.toggle('on', x === b); });
+      syncTmForm(); flash(b);
+    });
+    mb._bound = true;
+  }
+  var pb = $('#tmPre');
+  if(pb && !pb._bound){
+    pb.innerHTML = '<button class="chip' + ((timerState.preMin||5) === 5 ? ' on' : '') + '" data-p="5">종료 5분 전</button>' +
+      '<button class="chip' + ((timerState.preMin||5) === 3 ? ' on' : '') + '" data-p="3">3분 전</button>' +
+      '<button class="chip' + ((timerState.preMin||5) === 10 ? ' on' : '') + '" data-p="10">10분 전</button>' +
+      '<button class="chip' + (timerState.mid !== false ? ' on' : '') + '" data-mid="1">⏱️ 중간 점검 알람</button>';
+    pb.addEventListener('click', function(ev){
+      var b = up(ev.target, '.chip'); if(!b) return;
+      if(b.hasAttribute('data-mid')){
+        tmForm.mid = !tmForm.mid;
+        timerState.mid = tmForm.mid;
+        b.classList.toggle('on', tmForm.mid);
+        store.set('tlc_mid_alarm', tmForm.mid);
+        toast(tmForm.mid ? '중간 점검 알람을 켰습니다' : '중간 점검 알람을 껐습니다');
+        return;
+      }
+      tmForm.pre = parseInt(b.getAttribute('data-p'), 10) || 5;
+      timerState.preMin = tmForm.pre;
+      $$('#tmPre .chip[data-p]').forEach(function(x){ x.classList.toggle('on', x === b); });
+      store.set('tlc_pre_min', tmForm.pre);
+      toast('사전 알람을 종료 ' + tmForm.pre + '분 전으로 했습니다');
+    });
+    pb._bound = true;
+  }
+  tmForm.pre = timerState.preMin || 5;
+  tmForm.mid = timerState.mid !== false;
+  initTmQuick();
+  syncTmForm();
+
+  var add = $('#tmAdd');
+  if(add && !add._bound){
+    add._bound = true;
+    add.addEventListener('click', function(){
+      flash(add);
+      var bed = (($('#tmBed')||{}).value || '').trim();
+      if(tmForm.n === 1){
+        var mins = num(($('#tmMin')||{}).value);
+        var nm = (($('#tmName')||{}).value || '').trim();
+        if(!mins || mins <= 0){ toast('남은 시간(분)을 입력해 주세요'); return; }
+        if(!bed && !nm){ toast('베드/가명이나 수액명을 적어 주세요'); return; }
+        if(startTimer({ bed:bed, name:nm, minutes:mins, preMin:tmForm.pre, mid:tmForm.mid })){
+          if($('#tmMin')) $('#tmMin').value = '';
+          if($('#tmBed')) $('#tmBed').value = '';
+          if($('#tmName')) $('#tmName').value = '';
+          $$('#tmRooms .chip').forEach(function(x){ x.classList.remove('on'); });
+        }
+        return;
+      }
+      var slots = [];
+      for(var i=1;i<=tmForm.n;i++){
+        var nm2 = ((document.getElementById('tmN'+i)||{}).value || '').trim();
+        var ml2 = num((document.getElementById('tmML'+i)||{}).value);
+        var mn2 = num((document.getElementById('tmMN'+i)||{}).value);
+        var st2 = num((document.getElementById('tmST'+i)||{}).value) || 20;
+        if(!mn2 || mn2 <= 0){ toast(i + '번 수액의 시간(분)을 입력해 주세요'); return; }
+        slots.push({ name:(nm2 || (i + '번 수액')), ml:ml2 || 0, minutes:mn2, gtt:st2 });
+      }
+      if(!bed && !slots.length){ toast('시술실을 선택해 주세요'); return; }
+      var made = startGroup({ bed:bed, mode:tmForm.mode, preMin:tmForm.pre, mid:tmForm.mid, slots:slots });
+      if(made){
+        toast(made + '병 수액 타이머를 시작했습니다' + (tmForm.mode === 'seq' ? ' (1번부터 순서대로)' : ' (동시)'));
+        if($('#tmBed')) $('#tmBed').value = '';
+        $$('#tmRooms .chip').forEach(function(x){ x.classList.remove('on'); });
+      }
+    });
+  }
+}
 function bindTimers(){
   var box = $('#timerList');
   if(box){
     box.addEventListener('click', function(ev){
       var b = up(ev.target, '[data-act]');
       if(!b) return;
-      var card = up(b, '.tcard'); if(!card) return;
-      timerAct(card.getAttribute('data-id'), b.getAttribute('data-act'));
+      var act = b.getAttribute('data-act');
+      if(act === 'addslot'){
+        var bed = b.getAttribute('data-bed') || '';
+        var f = $('#tmBed'); if(f) f.value = bed;
+        markRoomChips('#tmRooms', bed);
+        var sec = document.getElementById('timerSec');
+        if(sec){ try{ sec.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){} }
+        toast((bed || '이 방') + ' — 수액 개수를 고르고 추가하세요');
+        return;
+      }
+      var row = up(b, '.slot');
+      if(!row) return;
+      timerAct(row.getAttribute('data-id'), act);
     });
   }
-  var add = $('#tmAdd');
-  if(add) add.addEventListener('click', function(){
-    flash(add);
-    var mins = num(($('#tmMin')||{}).value);
-    var bed = (($('#tmBed')||{}).value || '').trim();
-    var nm = (($('#tmName')||{}).value || '').trim();
-    if(!mins || mins <= 0){ toast('남은 시간(분)을 입력해 주세요'); return; }
-    if(!bed && !nm){ toast('베드/가명이나 수액명을 적어 주세요'); return; }
-    if(startTimer({ bed:bed, name:nm, minutes:mins })){
-      if($('#tmMin')) $('#tmMin').value = '';
-      if($('#tmBed')) $('#tmBed').value = '';
-      if($('#tmName')) $('#tmName').value = '';
-    }
-  });
   var sb = $('#btnSnd');
   function paintSnd(){ if(sb) sb.textContent = timerState.snd ? '🔔 소리 켜짐' : '🔕 소리 꺼짐'; }
-  if(sb) sb.addEventListener('click', function(){
+  if(sb && !sb._bound) sb.addEventListener('click', function(){
     timerState.snd = !timerState.snd; store.set('tlc_snd', timerState.snd);
     paintSnd(); toast(timerState.snd ? '알람 소리를 켰습니다' : '알람 소리를 껐습니다');
     if(timerState.snd) beep('pre');
   });
+  if(sb) sb._bound = true;
   paintSnd();
   var pill = $('#timerPill');
-  if(pill) pill.addEventListener('click', function(){
+  if(pill && !pill._bound) pill.addEventListener('click', function(){
     goTab('fluid');
     setTimeout(function(){
       var el = document.getElementById('timerSec');
       if(el){ try{ el.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){} }
     }, 60);
   });
+  if(pill) pill._bound = true;
 }
 
 /* =========================================================================
@@ -4007,8 +5613,15 @@ function init(){
     if(g){ setPart(g.getAttribute('data-part-go')); }
   });
   initIss();
+  initIssRooms();
   initDrug();
   bindTimers();
+  initTmForm();
+  bindRoomBoard();
+  bindDrip();
+  bindNotify();
+  bindWake();
+  bindWakeResume();
   renderTimers();
   initCheck();
   initRecvForm();
