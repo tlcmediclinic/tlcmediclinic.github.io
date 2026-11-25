@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0E8F7E">
 <title>TLC 인수인계 · 티엘씨 청담·분당 실무 인수인계</title>
-<meta name="description" content="티엘씨 청담의원·분당클리닉 실무 인수인계 — 간호 파트(수액·시술·검사·백신·약품·응급)와 접수 파트(예약·수납·서류·문의·마감) 분리, 수액 계산·실시간 베드 타이머, 파트별 SBAR 인계문">
+<meta name="description" content="티엘씨 청담의원·분당클리닉 실무 인수인계 — 간호 파트(수액·시술·검사·백신·약품·응급)와 접수 파트(예약·수납·서류·문의·마감) 분리, 수액 계산·실시간 베드 타이머, 파트별 SBAR 인계문, 🏥 실시간 시술 현황(방 8곳) 바로가기">
 <meta property="og:type" content="website">
 <meta property="og:title" content="TLC 인수인계 · 티엘씨 청담·분당">
 <meta property="og:description" content="간호 파트 / 접수 파트 분리 실무 인수인계 — 수액 계산·베드 타이머, 파트 점검, SBAR 인계문">
@@ -56,9 +56,9 @@ p{margin:0}
 .logo{width:34px;height:34px;border-radius:11px;background:#fff;border:1px solid #DCEBE8;
   display:grid;place-items:center;flex:0 0 auto;box-shadow:0 3px 10px rgba(14,143,126,.16);overflow:hidden}
 .logo .tlcm{width:26px;height:26px}
-.hero-logo{display:inline-flex;align-items:center;justify-content:center;background:#fff;border-radius:16px;
-  padding:8px 11px;margin-bottom:13px;box-shadow:0 10px 24px rgba(4,60,52,.26);width:auto}
-.hero-logo .tlcm{width:104px;height:80px}
+.hero-logo{display:inline-flex;align-items:center;justify-content:center;background:#fff;border-radius:15px;
+  padding:7px 10px;margin-bottom:11px;box-shadow:0 10px 24px rgba(4,60,52,.26);width:auto}
+.hero-logo .tlcm{width:96px;height:74px}
 @media(max-width:360px){.hero-logo .tlcm{width:92px;height:70px}}
 .brand{font-weight:800;font-size:14.5px;letter-spacing:-.03em;line-height:1.2}
 .brand small{display:block;font-weight:600;font-size:10.5px;color:var(--ink3);letter-spacing:0}
@@ -121,7 +121,7 @@ textarea.inp{resize:vertical;min-height:104px;line-height:1.7}
 .divider{height:1px;background:var(--line);margin:14px 0}
 
 /* ---------- home ---------- */
-.hero{background:linear-gradient(150deg,#0E8F7E,#22AE96 55%,#5FCBB6);border-radius:24px;color:#fff;padding:22px 20px 20px;
+.hero{background:linear-gradient(150deg,#0E8F7E,#22AE96 55%,#5FCBB6);border-radius:24px;color:#fff;padding:17px 18px 16px;
   box-shadow:0 14px 34px rgba(14,143,126,.26);position:relative;overflow:hidden}
 .hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.13);right:-70px;top:-90px}
 .hero:before{content:"";position:absolute;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.09);left:-50px;bottom:-70px}
@@ -887,6 +887,84 @@ table.tbl th,table.tbl td{padding:10px 8px}
 /* v1.6 — 방울 화면 법적 고지 */
 .drip-legal{font-size:12px;color:#7FA6B6;text-align:center;margin-top:7px;line-height:1.45;padding:0 4px}
 .nw{white-space:nowrap}
+
+/* ==========================================================================
+   v1.7 — 🏥 실시간 시술 현황 바로가기 (홈 맨 앞 큰 버튼 · 접수 인수인계 안 바로가기)
+   v1.6까지의 다른 화면·기능은 건드리지 않고 이 블록만 추가했습니다.
+   ========================================================================== */
+a.btn{text-decoration:none}
+
+/* 홈 맨 앞 큰 버튼 */
+.livecard{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#1657A8 0%,#1B8FD6 58%,#2FB6C8 100%);
+  border-radius:20px;padding:15px 14px;box-shadow:0 12px 28px rgba(15,86,150,.28);
+  transition:transform .08s,box-shadow .15s}
+.livecard:before{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.12);right:-48px;top:-70px}
+.livecard:active{transform:scale(.982);box-shadow:0 6px 16px rgba(15,86,150,.24)}
+.livecard .lc-ic{flex:0 0 auto;width:52px;height:52px;border-radius:16px;background:#fff;color:#0E5C96;
+  display:grid;place-items:center;font-size:28px;box-shadow:0 4px 12px rgba(6,40,70,.22);position:relative}
+.livecard .lc-tx{flex:1;min-width:0;display:block;position:relative;word-break:keep-all;overflow-wrap:break-word}
+.livecard .lc-k{display:block;font-size:12.5px;font-weight:800;color:#D8F1FF;letter-spacing:-.01em}
+.livecard .lc-t{display:block;font-size:21px;font-weight:900;line-height:1.25;letter-spacing:-.04em;margin-top:1px}
+.livecard .lc-s{display:block;font-size:13px;font-weight:600;line-height:1.45;color:#EAF7FF;margin-top:3px;word-break:keep-all;overflow-wrap:break-word}
+.livecard .lc-go{flex:0 0 auto;align-self:center;font-size:13.5px;font-weight:900;color:#0E5C96;background:#fff;
+  border-radius:999px;padding:9px 13px;white-space:nowrap;position:relative;box-shadow:0 3px 10px rgba(6,40,70,.18)}
+.lc-note{font-size:13px;color:var(--ink3);line-height:1.5;margin:8px 2px 0;word-break:keep-all;overflow-wrap:break-word}
+@media(max-width:380px){
+  .livecard .lc-t{font-size:19px}
+  .livecard .lc-s{font-size:12.5px}
+  .livecard .lc-ic{width:46px;height:46px;font-size:25px;border-radius:14px}
+  .livecard .lc-go{padding:8px 11px;font-size:13px}
+}
+
+/* 이슈·인계(접수) 화면 안 바로가기 띠 */
+.livebar{display:flex;align-items:center;gap:10px;text-decoration:none;margin:0 2px 10px;
+  background:linear-gradient(135deg,#1657A8,#1B8FD6 62%,#2FB6C8);color:#fff;
+  border-radius:14px;padding:10px 12px;box-shadow:0 8px 20px rgba(15,86,150,.24);transition:transform .08s}
+.livebar:active{transform:scale(.985)}
+.livebar .lb-ic{flex:0 0 34px;height:34px;border-radius:11px;background:#fff;color:#0E5C96;display:grid;place-items:center;font-size:18px}
+.livebar .lb-tx{flex:1;min-width:0;display:block;line-height:1.3;word-break:keep-all;overflow-wrap:break-word}
+.livebar .lb-tx b{display:block;font-size:15px;font-weight:900;letter-spacing:-.03em}
+.livebar .lb-tx small{display:block;font-size:12.5px;font-weight:600;color:#D8F1FF;line-height:1.35;margin-top:1px;overflow-wrap:anywhere}
+.livebar .lb-go{flex:0 0 auto;font-size:13px;font-weight:900;color:#0E5C96;background:#fff;border-radius:999px;padding:8px 11px;white-space:nowrap}
+
+/* ==========================================================================
+   v1.7 — 홈 단순화: 일일마감 바로가기 · 인수인계/수액 카드 · 접히는 법적 고지
+   ========================================================================== */
+.quickbar{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;
+  background:linear-gradient(135deg,#E4573F 0%,#EF6F5B 60%,#F59468 100%);
+  border-radius:18px;padding:15px 14px;box-shadow:0 10px 24px rgba(213,84,58,.26);
+  transition:transform .08s,box-shadow .15s}
+.quickbar:active{transform:scale(.982);box-shadow:0 5px 14px rgba(213,84,58,.22)}
+.quickbar .qb-ic{flex:0 0 auto;width:48px;height:48px;border-radius:15px;background:#fff;color:#D9542F;
+  display:grid;place-items:center;font-size:26px;box-shadow:0 4px 12px rgba(120,40,20,.18)}
+.quickbar .qb-tx{flex:1;min-width:0;display:block;word-break:keep-all;overflow-wrap:break-word}
+.quickbar .qb-tx b{display:block;font-size:18px;font-weight:900;letter-spacing:-.03em;line-height:1.3}
+.quickbar .qb-tx small{display:block;font-size:13px;font-weight:600;color:#FFEDE6;line-height:1.4;margin-top:2px}
+.quickbar .qb-go{flex:0 0 auto;font-size:13.5px;font-weight:900;color:#D9542F;background:#fff;
+  border-radius:999px;padding:9px 13px;white-space:nowrap}
+.quickgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:11px}
+.qcard{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;
+  background:#fff;border-radius:18px;box-shadow:var(--sh);padding:14px 13px;transition:transform .08s,box-shadow .15s}
+.qcard:active{transform:scale(.975);box-shadow:var(--sh2)}
+.qcard .qc-ic{font-size:26px;line-height:1.1;margin-bottom:5px}
+.qcard b{font-size:16px;letter-spacing:-.03em;line-height:1.3}
+.qcard small{font-size:12.5px;color:var(--ink3);line-height:1.45}
+@media(max-width:380px){
+  .quickbar .qb-tx b{font-size:17px}
+  .quickbar .qb-ic{width:44px;height:44px;font-size:23px;border-radius:13px}
+  .qcard b{font-size:15px}
+}
+/* 접히는 법적 고지 */
+.legalfold{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:4px 14px 12px}
+.legalfold>summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;padding:11px 0;cursor:pointer;
+  font-size:15px;font-weight:800;list-style:none}
+.legalfold>summary::-webkit-details-marker{display:none}
+.legalfold>summary:after{content:'▾';margin-left:auto;color:var(--ink3);font-size:14px}
+.legalfold[open]>summary:after{content:'▴'}
+.legalfold .lf-sub{font-size:12.5px;font-weight:600;color:var(--ink3)}
+.legalfold .legal-warn{margin-top:6px}
+.legalfold .legal{padding:0;box-shadow:none}
 </style>
 </head>
 <body data-part="all">
@@ -896,7 +974,7 @@ table.tbl th,table.tbl td{padding:10px 8px}
     <div class="logo"><i class="tlcm" role="img" aria-label="티엘씨 공식 로고"></i></div>
     <div class="brand">TLC 인수인계<small>티엘씨 청담·분당 실무 인수인계</small></div>
     <div class="vwrap">
-      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.6</span></a>
+      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.7</span></a>
       <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기"><span aria-hidden="true">🔄</span><span class="rt"> 새로고침</span></a>
     </div>
   </div>
@@ -915,7 +993,7 @@ table.tbl th,table.tbl td{padding:10px 8px}
 
 <div class="updbar" id="updBar" role="status" aria-live="polite">
   <div class="in">
-    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.6</span></b>이 준비되었습니다.</div>
+    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.7</span></b>이 준비되었습니다.</div>
     <a class="upd-a" id="updBtn" href="#" rel="noopener">지금 새로고침</a>
   </div>
 </div>
@@ -923,9 +1001,8 @@ table.tbl th,table.tbl td{padding:10px 8px}
 <nav class="tabbar" id="tabbar">
   <div class="inner">
     <button class="tb on" data-t="home" title="홈"><span class="i">🏠</span>홈</button>
-    <button class="tb" data-t="iss" title="이슈·인계"><span class="i">📌</span>이슈·인계</button>
-    <button class="tb" data-t="fluid" title="수액·안전"><span class="i">⏱️</span>수액·안전</button>
-    <button class="tb" data-t="check" title="파트 점검"><span class="i">📋</span>파트 점검</button>
+    <button class="tb" data-t="iss" title="일일 인수인계"><span class="i">📌</span>인수인계</button>
+    <button class="tb" data-t="fluid" title="수액 계산·타이머"><span class="i">💧</span>수액·타이머</button>
   </div>
 </nav>
 
@@ -936,58 +1013,58 @@ table.tbl th,table.tbl td{padding:10px 8px}
       <div class="hero-logo"><i class="tlcm" role="img" aria-label="티엘씨 공식 로고"></i></div>
       <div class="k">TLC HANDOVER · 청담 &amp; 분당</div>
       <h1>하나되는 티엘씨,<br>빈틈없는 인수인계</h1>
-      <p>청담·분당 간호와 접수가 하나로 이어지는 실무 인계입니다. 하루의 이슈를 한 번만 남기면
-        교대 인수인계부터 수액 타이머·일일마감 연동까지 한 곳에서 정리됩니다.</p>
-      <div class="pills"><span>👩‍⚕️ 간호 파트</span><span>🖥️ 접수 파트</span><span>⏱️ 수액 타이머</span><span>📋 파트 점검</span></div>
+      <p>오늘 필요한 것만 모았습니다 — 실시간 시술 현황 · 인수인계 · 수액 타이머.</p>
+    </div>
+  </div>
+
+  <!-- v1.7 — 맨 앞: 🏥 실시간 시술 현황 (접수·간호가 함께 보는 방 현황) -->
+  <div class="sec" id="homeLiveSec">
+    <a class="livecard" id="homeLiveCard" href="https://tlcmediclinic.github.io/iv-timer/" target="_blank" rel="noopener" aria-label="실시간 시술 현황 바로 열기 — 방 8곳 · 빈 방 · 진행 시술 · 상담순서 공유">
+      <span class="lc-ic" aria-hidden="true">🏥</span>
+      <span class="lc-tx">
+        <span class="lc-k">접수 · 간호 실시간 방 현황 · 바로 열기</span>
+        <span class="lc-t">실시간 시술 현황</span>
+        <span class="lc-s">방 8곳 · 빈 방 · 상담순서 공유</span>
+      </span>
+      <span class="lc-go">열기 ›</span>
+    </a>
+    <div class="lc-note">1~6번방 · 두피 · 검사실 8곳 — 새 창에서 열립니다</div>
+  </div>
+
+  <!-- v1.7 — 핵심 바로가기 (일일마감 · 인수인계 · 수액 타이머) -->
+  <div class="sec" id="homeQuickSec">
+    <a class="quickbar" id="homeCloseFeat" href="#" target="_blank" rel="noopener" aria-label="티엘씨 일일마감 화면 열기">
+      <span class="qb-ic" aria-hidden="true">💰</span>
+      <span class="qb-tx"><b>티엘씨 일일마감</b><small>입·출금 · 적립금 정산</small></span>
+      <span class="qb-go">열기 ›</span>
+    </a>
+    <div class="quickgrid">
+      <button class="qcard" data-go="iss"><span class="qc-ic" aria-hidden="true">📌</span><b>일일 인수인계</b><small>이슈 등록 · 인계문 복사 · 접수 서식</small></button>
+      <button class="qcard" data-go="fluid"><span class="qc-ic" aria-hidden="true">💧</span><b>수액 · 타이머</b><small>gtt 계산 · 방울 · 시술실 타이머</small></button>
     </div>
   </div>
 
   <div class="sec">
-    <div class="sec-h"><h2>지점 설정</h2><span class="sub">점검 항목이 지점 기준으로 바뀝니다</span></div>
-    <div class="card">
-      <div class="field" style="margin-bottom:10px">
-        <label for="branchSel">지점</label>
-        <select class="inp" id="branchSel"></select>
-      </div>
-      <div class="muted" id="branchDesc">—</div>
-      <div class="chips" id="branchTags" style="margin-top:10px"></div>
-    </div>
-  </div>
-
-  <div class="sec">
-    <div class="sec-h"><h2>🔄 교차근무 인계 사항</h2><span class="sub" id="homeDate">—</span></div>
+    <div class="sec-h"><h2>🔄 오늘 인계 사항</h2><span class="sub" id="homeDate">—</span></div>
     <div class="card sumcard" id="shiftCard"></div>
-    <div class="muted" style="margin:8px 2px 0">출근 직후 30초 안에 확인하세요 — 인계 필수·미완료·회원 응대·진행 중 수액.</div>
   </div>
 
   <div class="sec">
-    <div class="sec-h"><h2>파트 안내</h2><span class="sub">지금 선택한 파트</span></div>
-    <div class="card" id="partGuide"></div>
-  </div>
-
-  <div class="sec">
-    <div class="sec-h"><h2>바로가기</h2><span class="sub">눌러서 시작</span></div>
-    <div class="feats">
-      <button class="feat" data-go="iss"><div class="ic" style="background:var(--org-l);color:var(--org)">📌</div>
-        <h3>이슈 등록</h3><p>근무 중 한 줄 등록 → 교대 전 인계문 정리</p></button>
-      <button class="feat" data-go="fluid"><div class="ic" style="background:var(--pp-l);color:var(--pp)">💧</div>
-        <h3>수액 계산·타이머</h3><p>gtt 계산부터 베드별 종료 알람까지</p></button>
-      <button class="feat" data-go="check"><div class="ic" style="background:var(--grn-l);color:var(--grn)">📋</div>
-        <h3>파트 점검</h3><p>청담·분당 기준 일일 체크리스트</p></button>
-      <button class="feat" data-go="iss" data-scroll="sbarTools"><div class="ic" style="background:var(--blue-l);color:var(--blue)">🗂️</div>
-        <h3>인계문 · 기록함</h3><p>파트별 SBAR 복사 · .txt 저장</p></button>
-      <a class="feat" id="homeCloseFeat" href="#" target="_blank" rel="noopener"><div class="ic" style="background:var(--org-l);color:var(--org)">📊</div>
-        <h3>📊 일일마감 열기</h3><p>입·출금·적립금 마감은 티엘씨 일일마감 앱에서</p></a>
+    <div class="sec-h"><h2>🏥 지점</h2><span class="sub">청담 · 분당</span></div>
+    <div class="card" style="padding:12px">
+      <select class="inp" id="branchSel" aria-label="지점 선택"></select>
+      <div class="muted" id="branchDesc" style="margin-top:8px">—</div>
     </div>
   </div>
 
   <div class="sec">
-    <div class="sec-h"><h2>📌 이용 안내 · 법적 고지</h2><span class="sub">쓰시기 전에 꼭 확인</span></div>
-    <div class="legal-warn">
+    <details class="legalfold" id="legalFold">
+      <summary>⚖️ 이용 안내 · 법적 고지<span class="lf-sub">원내 업무 보조 도구 · 환자 실명 입력 금지</span></summary>
+      <div class="legal-warn">
       <b>원내 업무 보조 도구입니다.</b> 어떤 화면에서도 실제 환자의 <b>실명·등록번호·연락처</b>를 입력하지 마세요.
       모든 기록은 이 기기(브라우저 저장소)에만 남고 외부로 전송되지 않습니다.
     </div>
-    <div class="card legal" id="legalCard">
+      <div class="card legal" id="legalCard">
       <div class="lg">
         <div class="lg-h"><span class="n">①</span><b>의료기기(SaMD)가 아닌 업무 보조·참고용 도구입니다</b></div>
         <p>본 앱의 <b>수액 계산(gtt/min·mL/hr·초/방울)·방울 모니터·타이머·알람</b>은 업무 보조용 참고 도구이며,
@@ -1010,16 +1087,7 @@ table.tbl th,table.tbl td{padding:10px 8px}
         <p>브라우저·OS 절전 정책, 네트워크 상태, 알림 권한에 따라 <b>알람 소리·진동·워치 알림·화면 켜짐 유지</b>가
           늦거나 동작하지 않을 수 있습니다. 수액 종료 시점은 반드시 <b>현장 육안 점검</b>과 함께 확인하세요.</p>
       </div>
-    </div>
-  </div>
-
-  <div class="sec">
-    <div class="sec-h"><h2>이렇게 작동합니다</h2></div>
-    <div class="steps" id="homeSteps"></div>
-  </div>
-
-  <div class="sec">
-    <button class="btn ghost sm" id="btnMobile">📱 휴대폰 화면(390×844)으로 보기</button>
+    </details>
   </div>
 </section>
 
@@ -1027,6 +1095,12 @@ table.tbl th,table.tbl td{padding:10px 8px}
 <section class="wrap hide" id="screen-iss">
   <div class="sec">
     <div class="sec-h"><h2>📌 근무 중 실시간 이슈</h2><span class="sub">한 줄씩 남겨 두면 교대 인계가 가벼워집니다</span></div>
+    <!-- v1.7 — 인수인계(접수) 화면에서도 실시간 시술 현황 바로 열기 -->
+    <a class="livebar" id="issLiveBar" href="https://tlcmediclinic.github.io/iv-timer/" target="_blank" rel="noopener" aria-label="실시간 시술 현황 바로 열기 — 방 8곳 · 상담순서 공유">
+      <span class="lb-ic" aria-hidden="true">🏥</span>
+      <span class="lb-tx"><b>실시간 시술 현황</b><small>방 8곳 · 빈 방 · 진행 시술 · 상담순서 공유 — 새 창에서 열기</small></span>
+      <span class="lb-go">열기 ›</span>
+    </a>
     <div class="issclose" id="issCloseBar">
       <div class="ic">📊</div>
       <div class="tx"><b>일일마감 · 정산</b><small id="issCloseNote">입·출금·적립금 마감은 일일마감 화면에서 (중복 입력 없음)</small></div>
@@ -1095,29 +1169,23 @@ table.tbl th,table.tbl td{padding:10px 8px}
 
   <div class="sec" id="sbarTools">
     <div class="card" style="padding:14px">
-      <div class="blk-h">✨ 교대·마감 인계문 자동 정리</div>
+      <div class="blk-h">🔄 교대 · 마감 인계문</div>
       <button class="btn coral" id="btnSbarShift">🔄 교차근무 일일 인수인계문 (카톡용)</button>
       <div class="row" style="margin-top:8px">
-        <button class="btn ghost sm" id="btnSbarAll">🧾 전체 합쳐서 정리</button>
-      </div>
-      <div class="row" style="margin-top:8px">
-        <button class="btn ghost sm" id="btnSbarNur">👩‍⚕️ 간호 파트만</button>
-        <button class="btn ghost sm" id="btnSbarRecv">🖥️ 접수 파트만</button>
-      </div>
-      <div class="row" style="margin-top:8px">
-        <button class="btn ghost sm" id="btnToPractice" style="display:none">🎤 이 내용으로 인계 연습</button>
-        <button class="btn gray sm" id="btnSaveDay">💾 일별 기록함에 저장</button>
+        <button class="btn ghost sm" id="btnSbarNur">👩‍⚕️ 간호</button>
+        <button class="btn ghost sm" id="btnSbarRecv">🖥️ 접수</button>
+        <button class="btn ghost sm" id="btnSbarAll">🧾 전체</button>
       </div>
       <div class="row" style="margin-top:8px">
         <button class="btn gray sm" id="btnCopySbar">📋 복사</button>
-        <button class="btn gray sm" id="btnTxtSbar">⬇️ .txt 저장</button>
+        <button class="btn gray sm" id="btnTxtSbar">⬇️ .txt</button>
+        <button class="btn gray sm" id="btnSaveDay">💾 기록함 저장</button>
       </div>
-      <div class="muted" style="margin-top:8px">정리된 문장은 아래에서 직접 고쳐도 됩니다. 고친 내용이 저장에 그대로 쓰입니다.</div>
     </div>
   </div>
 
   <div class="sec hide" id="sbarSec">
-    <div class="sec-h"><h2>정리된 인계문 (SBAR)</h2><span class="sub" id="sbarMeta">—</span></div>
+    <div class="sec-h"><h2>정리된 인계문</h2><span class="sub" id="sbarMeta">—</span></div>
     <div class="card">
       <div id="sbarOut"></div>
       <div class="divider"></div>
@@ -1135,10 +1203,19 @@ table.tbl th,table.tbl td{padding:10px 8px}
         <button class="btn ghost sm" id="btnFormCopy">📋 서식 복사</button>
         <button class="btn gray sm" id="btnFormTxt">⬇️ .txt</button>
         <button class="btn gray sm" id="btnFormReset">비우기</button>
+        <a class="btn soft sm" id="recvLiveBtn" href="https://tlcmediclinic.github.io/iv-timer/" target="_blank" rel="noopener" aria-label="실시간 시술 현황 바로 열기">🏥 시술 현황</a>
       </div>
       <div class="muted" style="margin-bottom:10px">원내 종이 서식 10항목 그대로입니다. 직접 적는 항목은 <b>①③⑨⑩ 4개</b>뿐 — <b>②⑤⑦⑧은 이슈 등록에서 자동</b>으로 모이고, <b>④⑥ 입·출금·적립금은 📊 일일마감 앱</b>에서 처리합니다. 가명·차트순번만 적고, 적은 내용은 <b>이 기기에만</b> 저장됩니다.</div>
       <div id="recvForm"></div>
     </div>
+  </div>
+
+<!-- 접수 파트: 적립금 멤버십 · 차량 무료 발렛 (v1.7 단순화에서 인수인계 화면으로 이동) -->
+  <div class="sec" id="memberSec">
+    <div class="sec-h"><h2>🥇 적립금 멤버십 · 차량 무료 발렛</h2><span class="sub">접수 파트</span></div>
+    <div class="privacy">📌 <b>시행일 2026.10.01 부터 누적 적립금 기준</b> — 🥇골드 1,000만 원(10% 적립) · 💜퍼플 2,000만 원(15% 적립) · 🖤블랙 3,000만 원(20% 적립). <b>세 등급 모두 차량 무료 발렛</b>이 적용되며, 실명 대신 차트순번·가명과 차량번호로 기록합니다.</div>
+    <div class="card mem-crit" id="memCriteria"></div>
+    <div class="card" id="memberGuide"></div>
   </div>
 
   <div class="sec">
@@ -1240,100 +1317,6 @@ table.tbl th,table.tbl td{padding:10px 8px}
     </div>
   </div>
 
-  <div class="sec" id="drugSec">
-    <div class="sec-h"><h2>💊 약물·소아용량 안전 1차 확인</h2><span class="sub">의원 다빈도 약제 기준</span></div>
-    <div class="legal-warn" style="margin-bottom:12px">
-      <b>1차 스크리닝 보조 도구입니다.</b> 경고가 없다고 안전한 것이 아니며, 실제 판단은 담당 의사 처방과 허가사항을 따릅니다.
-    </div>
-    <div class="privacy hide" id="drugPartNotice">🖥️ <b>접수 파트</b>에서도 열람할 수 있지만, 이 화면은 <b>간호 파트 핵심 도구</b>입니다. 확인 결과는 처방·원내 지침을 우선합니다.</div>
-    <div class="card">
-      <div class="grid2">
-        <div class="field"><label for="dAge">나이</label><input class="inp" id="dAge" type="number" inputmode="numeric" placeholder="예) 52"></div>
-        <div class="field"><label for="dWeight">체중(kg)</label><input class="inp" id="dWeight" type="number" inputmode="decimal" placeholder="예) 60"></div>
-      </div>
-      <div class="grid2">
-        <div class="field"><label for="dEgfr">eGFR (mL/min)</label><input class="inp" id="dEgfr" type="number" inputmode="numeric" placeholder="모르면 비움"></div>
-        <div class="field"><label for="dHr">맥박 / 혈압</label><input class="inp" id="dHr" placeholder="예) 112 / 92/58"></div>
-      </div>
-      <div class="field">
-        <label>환자 상태 <span class="muted">(해당되는 것 모두 선택)</span></label>
-        <div class="chips" id="dFlags"></div>
-      </div>
-      <div class="field" style="margin-bottom:0">
-        <label>알레르기</label>
-        <div class="chips" id="dAllergy"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec">
-    <div class="card">
-      <div class="field" style="margin-bottom:8px">
-        <label for="dText">처방·투여 내용 <span class="muted">(약명·용량·수액·속도)</span></label>
-        <textarea class="inp" id="dText" style="min-height:96px" placeholder="예) iron sucrose 100mg + N/S 100mL IV over 60min&#10;예) 세픽심 100mg PO tid, 아세트아미노펜 시럽 8mL"></textarea>
-      </div>
-      <div class="chips" id="dQuick" style="margin-bottom:10px"></div>
-      <button class="btn" id="btnScreen">🔍 1차 스크리닝</button>
-    </div>
-  </div>
-
-  <div class="sec hide" id="screenOutSec">
-    <div class="sec-h"><h2>스크리닝 결과</h2><span class="sub" id="screenMeta">—</span></div>
-    <div id="screenOut"></div>
-  </div>
-</section>
-
-<!-- ================= PART CHECK ================= -->
-<section class="wrap hide" id="screen-check">
-  <div class="sec">
-    <div class="sec-h"><h2>📋 파트 점검</h2><span class="sub" id="checkBranch">—</span></div>
-    <div class="card">
-      <div class="chips" id="chkMode" style="margin-bottom:12px"></div>
-      <div class="chkhead">
-        <div>
-          <div class="ckb" id="checkSummary">0 / 0 완료</div>
-          <div class="muted" id="checkReset">오늘 날짜 기준 · 자정이 지나면 새로 시작합니다</div>
-        </div>
-        <div class="donut sm" id="checkDonut" style="--p:0"><i id="checkPct">0</i></div>
-      </div>
-      <div class="row" style="margin-top:10px">
-        <button class="btn gray sm" id="btnCheckReset">오늘 점검 초기화</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="checkGroups"></div>
-
-  <div class="sec">
-    <div class="sec-h"><h2>➕ 우리 지점 맞춤 점검 항목</h2><span class="sub" id="customCount">0개</span></div>
-    <div class="card">
-      <div class="muted" style="margin-bottom:10px">예: 청담 — 시술 후 사진 촬영 여부 / 분당 — 접종 후 15분 관찰 기록.<br>
-        추가한 항목은 선택한 지점·파트 점검 목록에 함께 표시됩니다.</div>
-      <div class="chips" id="customList" style="margin-bottom:10px"></div>
-      <div class="field">
-        <label for="cPart">파트</label>
-        <select class="inp" id="cPart">
-          <option value="nur">👩‍⚕️ 간호 파트</option>
-          <option value="recv">🖥️ 접수 파트</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="cName">항목 이름</label>
-        <input class="inp" id="cName" placeholder="예) 시술 후 사진 촬영 여부 확인">
-      </div>
-      <div class="row">
-        <button class="btn sm" id="btnAddCustom">➕ 추가</button>
-        <button class="btn ghost sm" id="btnResetCustom">맞춤 항목 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec" id="memberSec">
-    <div class="sec-h"><h2>🥇 적립금 멤버십 · 차량 무료 발렛</h2><span class="sub">접수 파트</span></div>
-    <div class="privacy">📌 <b>시행일 2026.10.01 부터 누적 적립금 기준</b> — 🥇골드 1,000만 원(10% 적립) · 💜퍼플 2,000만 원(15% 적립) · 🖤블랙 3,000만 원(20% 적립). <b>세 등급 모두 차량 무료 발렛</b>이 적용되며, 실명 대신 차트순번·가명과 차량번호로 기록합니다.</div>
-    <div class="card mem-crit" id="memCriteria"></div>
-    <div class="card" id="memberGuide"></div>
-  </div>
 </section>
 
 <div class="timerpill hide" id="timerPill"><span class="tp-ico">⏱️</span><span class="tp-n" id="timerPillN">0</span><span class="tp-t" id="timerPillT"></span></div>
@@ -1342,7 +1325,7 @@ table.tbl th,table.tbl td{padding:10px 8px}
 
 <div class="footer wrap" id="globalFooter" style="margin-top:20px">
   <div class="cp">아이디어·개발·제작·저작권: <span>티엘씨메디켈그룹 총괄운영실장 김효숙</span></div>
-  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.6</span></div>
+  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.7</span></div>
   <div class="nt">의료기기(SaMD) 아님 · 업무 보조·참고용 · 실제 환자 개인정보 입력 금지(방 번호·가명만) · 기기 내 로컬 저장만 사용 · 알람은 기기·브라우저 설정에 따라 지연될 수 있음 · 공식기관 인증 프로그램 아님</div>
 </div>
 
@@ -1752,17 +1735,12 @@ DATA.ivnt = [
 ];
 DATA.ivntMap = {};
 DATA.ivnt.forEach(function(x){ DATA.ivntMap[x.id] = x; });
-DATA.ivntVols = [100, 200, 250, 500];
+DATA.ivntVols = [50, 100, 200, 250, 500];
 DATA.ivntSets = [20, 60, 15];
 
 /* ---------- 계산기 ---------- */
 DATA.calcs = [
-  { id:'inf',  n:'수액 계산', ico:'💧' },
-  { id:'gtt',  n:'점적속도',        ico:'🩺' },
-  { id:'time', n:'종료 시각', ico:'⏱️' },
-  { id:'dose', n:'체중당', ico:'⚖️' },
-  { id:'iron', n:'철분', ico:'🩸' },
-  { id:'peds', n:'소아 해열제',      ico:'🧸' }
+  { id:'inf',  n:'수액 계산', ico:'💧' }
 ];
 
 /* ---------- 멤버십 등급별 응대·발렛 안내 (접수 파트) ---------- */
@@ -1829,6 +1807,14 @@ DATA.dailyClose = {
   pcNote: 'v1.0 PC 화면'
 };
 
+/* ---------- 🏥 TLC 실시간 시술 현황 (방 8곳 · 접수·간호 공유 현황판 / 수액 타이머) ---------- */
+DATA.liveBoard = {
+  url: 'https://tlcmediclinic.github.io/iv-timer/',
+  name: 'TLC 실시간 시술 현황',
+  rooms: '1~6번방 · 두피시술방 · 검사실',
+  roomsNote: '방 8곳'
+};
+
 /* ---------- 접수 인수인계 서식 (원내 종이 서식 10항목 · 2026-11-19 A4 simple v2) ---------- */
 DATA.recvForm = [
   /* 원내 종이 서식 순서 그대로 — 직접 작성 / 이슈 자동 / 일일마감 연동 */
@@ -1860,7 +1846,7 @@ DATA.recvForm = [
    TLC 인수인계 — 화면 로직 (티엘씨 청담·분당 실무 인수인계)
    아이디어·개발·제작·저작권: 김효숙 (티엘씨메디켈그룹 총괄운영실장)
    ========================================================================= */
-var VERSION = 'v1.6';
+var VERSION = 'v1.7';
 /* 기존 Apps Script 배포본(참고용 폴백) — GitHub Pages에서는 ./version.json 사용 */
 var EXEC_URL = 'https://script.google.com/macros/s/AKfycbyTf8lTMRCtbmnc3SCOcYH25O_ncRE0IUtm4K8h91-C5MG6ETQo9G4DiF57sgBsicE6/exec';
 var VER_POLL_MS = 180000;
@@ -2489,25 +2475,24 @@ function setPart(id, silent){
   renderIssParts(); renderIssTags(); renderIssues();
   var memSec = $('#memberSec'); if(memSec) memSec.classList.toggle('hide', id === 'nur');
   var rfSec = $('#recvFormSec'); if(rfSec) rfSec.classList.toggle('hide', id === 'nur');
-  renderHome(); renderChecklist(); renderCustom(); renderDrugNotice();
+  renderHome(); renderMemberGuide(); renderCustom(); renderDrugNotice();
   if(!silent) toast(partLabel(id) + ' 기준으로 보여 드립니다');
 }
 function setBranch(id){
   appState.branch = id; store.set('tlc_branch', id);
-  renderHome(); renderChecklist(); renderCustom();
+  renderHome(); renderMemberGuide(); renderCustom();
 }
 
 /* =========================================================================
    탭 전환
    ========================================================================= */
-var TAB_SCREENS = ['home','iss','fluid','check'];
+var TAB_SCREENS = ['home','iss','fluid'];
 function goTab(t){
   if(TAB_SCREENS.indexOf(t) < 0) t = 'home';
   $$('.tb').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-t') === t); });
   TAB_SCREENS.forEach(function(s){
     var el = $('#screen-'+s); if(el) el.classList.toggle('hide', s !== t);
   });
-  if(t === 'check') renderChecklist();
   if(t === 'fluid') renderTimers();
   try{ window.scrollTo({top:0, behavior:'smooth'}); }catch(e){ window.scrollTo(0,0); }
 }
@@ -2549,14 +2534,7 @@ function renderHome(){
   }
   if(sel) sel.value = appState.branch;
   var b = branchInfo();
-  var bd = $('#branchDesc'); if(bd) bd.textContent = b.name + ' · ' + b.sub + ' — ' + b.note;
-  var bt = $('#branchTags');
-  if(bt){
-    var n = (DATA.checks[b.id] && DATA.checks[b.id].nur || []).length;
-    var r = (DATA.checks[b.id] && DATA.checks[b.id].recv || []).length;
-    bt.innerHTML = '<span class="tag">👩‍⚕️ 간호 점검 '+n+'항목</span><span class="tag b">🖥️ 접수 점검 '+r+'항목</span>' +
-      '<span class="tag n">🆕 신규직원 인수인계</span>';
-  }
+  var bd = $('#branchDesc'); if(bd) bd.textContent = b.note;
   var hd = $('#homeDate'); if(hd) hd.textContent = todayKo() + ' · ' + b.name;
   var card = $('#shiftCard');
   if(card && !card._built){
@@ -2572,18 +2550,8 @@ function renderHome(){
       '<button class="sumrow" data-go="iss" data-scroll="recvFormSec"><span class="si">🖥️</span>'+
         '<span class="sm"><b>접수 인수인계 서식</b><small id="shiftForm">—</small></span><span class="sa">›</span></button>'+
       '<button class="sumrow" data-go="iss"><span class="si">📌</span>'+
-        '<span class="sm"><b>오늘 이슈</b><small id="homeIssues">—</small></span><span class="sa">›</span></button>'+
-      '<button class="sumrow" data-go="check"><span class="si">📋</span>'+
-        '<span class="sm"><b>오늘 점검</b><small id="homeChecks">—</small></span><span class="sa">›</span></button>';
+        '<span class="sm"><b>오늘 이슈</b><small id="homeIssues">—</small></span><span class="sa">›</span></button>';
     card._built = true;
-  }
-  renderPartGuide();
-  var st = $('#homeSteps');
-  if(st && !st._built){
-    st.innerHTML = DATA.homeSteps.map(function(s,i){
-      return '<div class="step"><div class="n">'+(i+1)+'</div><div><h4>'+esc(s.h)+'</h4><p>'+esc(s.p)+'</p></div></div>';
-    }).join('');
-    st._built = true;
   }
   updateSummary();
 }
@@ -2639,11 +2607,6 @@ function updateSummary(){
     : '아직 작성 전 — 직접 ' + recvTotalCount() + '항목 · 회원·문의·콜백·비품은 이슈 자동';
   var hi = $('#homeIssues');
   if(hi) hi.textContent = list.length ? list.length + '건 · 미완료 ' + open.length + '건' : '등록된 이슈가 없습니다';
-  var hc = $('#homeChecks');
-  if(hc){
-    var st = checkStats();
-    hc.textContent = (chkMode === 'onb' ? '신규 인수인계 ' : '일일 점검 ') + st.done + ' / ' + st.total + ' (' + st.pct + '%)';
-  }
   var note = $('#shiftNote');
   if(note){
     if(list.length || timers.length){
@@ -3321,6 +3284,7 @@ var infState = { mode:'time' };
 function renderCalc(){
   var tabs = $('#calcTabs'), body = $('#calcBody');
   if(!tabs || !body) return;
+  tabs.classList.toggle('hide', DATA.calcs.length < 2);  /* v1.7: 계산기 1종(수액 계산)만 두어 탭 숨김 */
   tabs.innerHTML = DATA.calcs.map(function(c,i){
     return '<button class="'+(i===0?'on':'')+'" data-c="'+c.id+'">'+c.ico+' '+esc(c.n)+'</button>';
   }).join('');
@@ -3479,6 +3443,9 @@ function roomChipsHtml(sel){
 function markRoomChips(sel, name){
   $$(sel + ' .chip').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-room') === name); });
 }
+function markVolChips(sel, v){
+  $$(sel + ' .vchip').forEach(function(b){ b.classList.toggle('on', String(b.getAttribute('data-vol')) === String(v || '')); });
+}
 function renderInfCalc(){
   var body = $('#calcBody'); if(!body) return;
   var nowT = nowHM();
@@ -3493,6 +3460,8 @@ function renderInfCalc(){
         '<div class="row"><input class="inp" id="f2h" type="number" inputmode="numeric" value="4" aria-label="시간" style="flex:1"><input class="inp" id="f2m" type="number" inputmode="numeric" value="0" aria-label="분" style="flex:1"></div></div>'+
       '<div class="field'+(infState.mode==='time'?' hide':'')+'" id="fRateBox"><label for="f3r">처방 속도(mL/hr)</label><input class="inp" id="f3r" type="number" inputmode="decimal" value="120"></div>'+
     '</div>'+
+    '<div class="chips volchips" id="fVols" style="margin:-2px 0 12px">'+DATA.ivntVols.map(function(v){
+      return '<button class="chip vchip" data-vol="'+v+'">'+v+'mL</button>'; }).join('')+'</div>'+
     '<div class="grid2">'+
       '<div class="field"><label for="f4">수액세트</label><select class="inp" id="f4">'+
         '<option value="20">20 gtt/mL — 일반 세트</option><option value="60">60 gtt/mL — 미세조정</option><option value="15">15 gtt/mL — 특수 세트</option></select></div>'+
@@ -3528,6 +3497,16 @@ function renderInfCalc(){
     var el = $(s); if(!el) return;
     el.addEventListener('input', infOut); el.addEventListener('change', infOut);
   });
+  var fv = $('#fVols');
+  if(fv) fv.addEventListener('click', function(ev){
+    var b = up(ev.target, '.vchip'); if(!b) return;
+    var el = $('#f1'); if(el){ el.value = b.getAttribute('data-vol'); }
+    markVolChips('#fVols', b.getAttribute('data-vol'));
+    flash(b); infOut();
+  });
+  var f1el = $('#f1');
+  if(f1el) f1el.addEventListener('input', function(){ markVolChips('#fVols', f1el.value); });
+  markVolChips('#fVols', (($('#f1')||{}).value)||'');
   var fs = $('#fStart');
   if(fs) fs.addEventListener('click', function(){ flash(fs); startFromInf(); });
   var fd = $('#fDrip');
@@ -5259,6 +5238,26 @@ function initDailyClose(){
 }
 
 /* =========================================================================
+   🏥 TLC 실시간 시술 현황 바로가기 — 홈 맨 앞 · 이슈·인수인계 · 접수 서식
+   ========================================================================= */
+function liveBoardConf(){
+  var c = DATA.liveBoard || {};
+  return { url: c.url || 'https://tlcmediclinic.github.io/iv-timer/', name: c.name || 'TLC 실시간 시술 현황' };
+}
+function initLiveBoard(){
+  var c = liveBoardConf();
+  [['#homeLiveCard', '홈'], ['#issLiveBar', '이슈·인수인계'], ['#recvLiveBtn', '접수 인수인계 서식']].forEach(function(p){
+    var el = $(p[0]);
+    if(!el) return;
+    el.href = c.url;
+    if(!el._bound){
+      el.addEventListener('click', function(){ toast('🏥 ' + c.name + ' 화면을 새 창으로 엽니다'); });
+      el._bound = true;
+    }
+  });
+}
+
+/* =========================================================================
    접수 인수인계 서식 (원내 종이 서식 10항목)
    ========================================================================= */
 function recvAll(){ var a = store.get('tlc_recv_form', {}); return (a && typeof a === 'object') ? a : {}; }
@@ -5623,14 +5622,13 @@ function init(){
   bindWake();
   bindWakeResume();
   renderTimers();
-  initCheck();
+  initCheck();          /* v1.7: 체크리스트 화면 제거 — 멤버십 기준 표만 여기서 생성됩니다 */
   initRecvForm();
   initDailyClose();
+  initLiveBoard();
   renderHome();
-  renderChecklist();
   setPart(appState.part, true);
   initSheet();
-  var mb = $('#btnMobile'); if(mb) mb.addEventListener('click', mobilePreview);
   try{ setInterval(timerTick, 1000); }catch(e){}
   versionCheck(true);
 }
