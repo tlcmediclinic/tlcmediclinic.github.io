@@ -1024,6 +1024,49 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
   .rbtn .rt{display:none}
   .rbtn{padding:6px 8px}
 }
+
+/* ==========================================================================
+   v2.0 — 💉 IVNT 수액 처방 바로 열기 · 💰 일일마감 「허용된 담당자만 접속 가능」 안내
+   · v1.9까지의 다른 화면·기능은 건드리지 않고 이 블록만 추가했습니다.
+   ========================================================================== */
+/* IVNT · 피부시술 스케줄러 — 홈 2장 짝 카드(청담 시술 링크 · 새 창) */
+.linkgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.lcard{display:flex;flex-direction:column;align-items:flex-start;text-decoration:none;
+  background:#fff;border-radius:18px;box-shadow:var(--sh);padding:13px 13px 12px;color:var(--ink);
+  border:1.5px solid #E6F1EF;transition:transform .08s,box-shadow .15s}
+.lcard:active{transform:scale(.975);box-shadow:var(--sh2)}
+.lcard .lk-ico{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;
+  font-size:23px;line-height:1;margin-bottom:8px;background:#E4F7F2}
+.lcard b{display:block;font-size:15.5px;font-weight:900;letter-spacing:-.03em;line-height:1.3;word-break:keep-all}
+.lcard small{display:block;font-size:12.5px;font-weight:700;color:var(--ink3);line-height:1.4;margin-top:3px;word-break:keep-all}
+.lcard .lk-go{margin-top:7px;font-size:12.5px;font-weight:900;color:#0B7A6B;letter-spacing:-.02em}
+.lcard.ivnt{border-color:#C2EDE6}
+.lcard.ivnt .lk-ico{background:#DFF8F3}
+.lcard.skin{border-color:#F7D8E6}
+.lcard.skin .lk-ico{background:#FDE9F1}
+.lcard.skin .lk-go{color:#B33B76}
+@media(max-width:380px){
+  .lcard{padding:12px 11px 11px}
+  .lcard b{font-size:14.5px}
+  .lcard .lk-ico{width:38px;height:38px;font-size:21px;border-radius:12px}
+}
+.qb-note{font-size:13px;color:var(--ink3);line-height:1.5;margin:8px 2px 11px;
+  word-break:keep-all;overflow-wrap:break-word}
+/* 일일마감 — 잠금 안내 배지(입·출금·적립금 정산 아래) */
+.quickbar .qb-tx small.qb-lock{display:inline-block;margin-top:5px;padding:3px 9px;
+  border-radius:999px;background:rgba(255,255,255,.94);color:#B23A1E;
+  font-size:12.5px;font-weight:900;letter-spacing:-.02em;line-height:1.35;white-space:normal}
+/* IVNT · 피부시술 스케줄러 — 간호(수액·타이머) 화면 띠 */
+.livebar.ivntbar{background:linear-gradient(135deg,#0B7A6B,#12A08C 62%,#3BC9B0);
+  box-shadow:0 8px 20px rgba(11,122,107,.24)}
+.livebar.ivntbar .lb-ic{color:#0B7A6B}
+.livebar.ivntbar .lb-tx small{color:#D9FBF4}
+.livebar.ivntbar .lb-go{color:#0B7A6B}
+.livebar.skinbar{background:linear-gradient(135deg,#A8326B,#C9457F 62%,#E77AAE);
+  box-shadow:0 8px 20px rgba(168,50,107,.24)}
+.livebar.skinbar .lb-ic{color:#B33B76}
+.livebar.skinbar .lb-tx small{color:#FBE3EE}
+.livebar.skinbar .lb-go{color:#B33B76}
 </style>
 </head>
 <body data-part="all">
@@ -1084,7 +1127,7 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
     <div class="logo"><i class="tlcm" role="img" aria-label="티엘씨 공식 로고"></i></div>
     <div class="brand">TLC 메디컬 그룹<br>스마트 데일리 케어<small>티엘씨 청담·분당 실무 인수인계</small></div>
     <div class="vwrap">
-      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v1.9</span></a>
+      <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><span class="dot"></span><span id="vbadgeText">v2.0</span></a>
       <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기"><span aria-hidden="true">🔄</span><span class="rt"> 새로고침</span></a>
     </div>
   </div>
@@ -1103,7 +1146,7 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
 
 <div class="updbar" id="updBar" role="status" aria-live="polite">
   <div class="in">
-    <div class="tx">🆕 <b>새 버전 <span id="updVer">v1.9</span></b>이 준비되었습니다.</div>
+    <div class="tx">🆕 <b>새 버전 <span id="updVer">v2.0</span></b>이 준비되었습니다.</div>
     <a class="upd-a" id="updBtn" href="#" rel="noopener">지금 새로고침</a>
   </div>
 </div>
@@ -1141,11 +1184,26 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
     <div class="lc-note">1~6번방 · 두피 · 검사실 8곳 — 새 창에서 열립니다</div>
   </div>
 
-  <!-- v1.7 — 핵심 바로가기 (일일마감 · 인수인계 · 수액 타이머) -->
+  <!-- v2.0 — 💉 IVNT 수액 처방 · 💆‍♀️ 피부시술 스케줄러(청담) · 💰 일일마감 바로가기 · 인수인계/수액 카드 -->
   <div class="sec" id="homeQuickSec">
-    <a class="quickbar" id="homeCloseFeat" href="#" target="_blank" rel="noopener" aria-label="티엘씨 일일마감 화면 열기">
+    <div class="linkgrid" id="homeLinkGrid">
+      <a class="lcard ivnt" id="homeIvntFeat" href="https://script.google.com/macros/s/AKfycbzaIxw-dXDbsTiKYmoJjZdKc9KT-UWfbrlsIzuPtUN6PPjB-t2L9duCAz5Ka8FLuPb1/exec" target="_blank" rel="noopener" aria-label="IVNT 수액 처방 화면 열기 — 원장님 수액 처방 · 실시간 확인">
+        <span class="lk-ico" aria-hidden="true">💉</span>
+        <b>IVNT 수액 처방</b>
+        <small>원장님 수액 처방 · 실시간 확인</small>
+        <span class="lk-go">열기 ›</span>
+      </a>
+      <a class="lcard skin" id="homeSkinFeat" href="https://script.google.com/macros/s/AKfycbyNa-490lUjzuXKWOcyNL3XR1tIVLeu9KTxuq_GjAP-vxC3DjYQfdAdVZZoYIN6lmYTuA/exec" target="_blank" rel="noopener" aria-label="피부시술 스케줄러 화면 열기 — 청담 피부 프로그램 · 월간 달력">
+        <span class="lk-ico" aria-hidden="true">💆‍♀️</span>
+        <b>피부시술 스케줄러</b>
+        <small>청담 피부 프로그램 · 월간 달력</small>
+        <span class="lk-go">열기 ›</span>
+      </a>
+    </div>
+    <div class="qb-note" id="homeLinkNote">새 창에서 열립니다 · 💧 수액·타이머 화면에도 있어요</div>
+    <a class="quickbar" id="homeCloseFeat" href="#" target="_blank" rel="noopener" aria-label="티엘씨 일일마감 화면 열기 — 허용된 담당자만 접속 가능">
       <span class="qb-ic" aria-hidden="true">💰</span>
-      <span class="qb-tx"><b>티엘씨 일일마감</b><small>입·출금 · 적립금 정산</small></span>
+      <span class="qb-tx"><b>티엘씨 일일마감</b><small>입·출금 · 적립금 정산</small><small class="qb-lock">🔒 허용된 담당자만 접속 가능</small></span>
       <span class="qb-go">열기 ›</span>
     </a>
     <div class="quickgrid">
@@ -1340,6 +1398,19 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
 
 <!-- ================= FLUID / SAFETY ================= -->
 <section class="wrap hide" id="screen-fluid">
+  <!-- v2.0 — 간호 파트에서도 청담 시술 링크(IVNT 처방 · 피부시술 스케줄러) 바로 찾기 · 새 창 -->
+  <div class="sec" id="linkNurSec" style="padding-bottom:0">
+    <a class="livebar ivntbar" id="ivntBar" href="https://script.google.com/macros/s/AKfycbzaIxw-dXDbsTiKYmoJjZdKc9KT-UWfbrlsIzuPtUN6PPjB-t2L9duCAz5Ka8FLuPb1/exec" target="_blank" rel="noopener" aria-label="IVNT 수액 처방 화면 열기 — 원장님 수액 처방 · 실시간 확인">
+      <span class="lb-ic" aria-hidden="true">💉</span>
+      <span class="lb-tx"><b>IVNT 수액 처방</b><small>원장님 수액 처방 · 실시간 확인</small></span>
+      <span class="lb-go">새 창 ›</span>
+    </a>
+    <a class="livebar skinbar" id="skinBar" href="https://script.google.com/macros/s/AKfycbyNa-490lUjzuXKWOcyNL3XR1tIVLeu9KTxuq_GjAP-vxC3DjYQfdAdVZZoYIN6lmYTuA/exec" target="_blank" rel="noopener" aria-label="피부시술 스케줄러 화면 열기 — 청담 피부 프로그램 · 월간 달력">
+      <span class="lb-ic" aria-hidden="true">💆‍♀️</span>
+      <span class="lb-tx"><b>피부시술 스케줄러</b><small>청담 피부 프로그램 · 월간 달력</small></span>
+      <span class="lb-go">새 창 ›</span>
+    </a>
+  </div>
   <div class="sec">
     <div class="sec-h"><h2>🧮 수액 계산 · 타이머</h2><span class="sub">gtt/min · mL/hr · 종료 예정</span></div>
     <div class="card">
@@ -1438,7 +1509,7 @@ html.pinlock-on,html.pinlock-on body{overflow:hidden}
 <div class="footer wrap" id="globalFooter" style="margin-top:20px">
   <div class="cp">TLC 메디컬 그룹 스마트 데일리 케어</div>
   <div class="cp2">아이디어·개발·제작·저작권: <span>티엘씨메디켈그룹 총괄운영실장 김효숙</span></div>
-  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v1.9</span></div>
+  <div class="cp2">© 2026 김효숙 · 무단 복제·배포 금지 · 원내 업무 보조 도구 <span id="footVer2">v2.0</span></div>
   <div class="cp-lic">본 프로그램은 내부·개인적 업무 보조 전용으로 제작되었으며, 무단 복제·외부 유출·상업적 재배포를 금지합니다. (아이디어·개발·제작: 김효숙)</div>
   <div class="nt">의료기기(SaMD) 아님 · 업무 보조·참고용 · 실제 환자 개인정보 입력 금지(방 번호·가명만) · 기기 내 로컬 저장만 사용 · 알람은 기기·브라우저 설정에 따라 지연될 수 있음 · 공식기관 인증 프로그램 아님</div>
 </div>
@@ -1929,6 +2000,20 @@ DATA.liveBoard = {
   roomsNote: '방 8곳'
 };
 
+/* ---------- 💉 IVNT 수액 처방 (원장님 처방 실시간 확인 · 새 창으로 열기) ---------- */
+DATA.ivntRx = {
+  url: 'https://script.google.com/macros/s/AKfycbzaIxw-dXDbsTiKYmoJjZdKc9KT-UWfbrlsIzuPtUN6PPjB-t2L9duCAz5Ka8FLuPb1/exec',
+  name: 'IVNT 수액 처방',
+  note: '원장님 수액 처방 · 실시간 확인'
+};
+
+/* ---------- 💆‍♀️ 피부시술 스케줄러 (청담 피부 프로그램 월간 달력 · 새 창으로 열기) ---------- */
+DATA.skinSched = {
+  url: 'https://script.google.com/macros/s/AKfycbyNa-490lUjzuXKWOcyNL3XR1tIVLeu9KTxuq_GjAP-vxC3DjYQfdAdVZZoYIN6lmYTuA/exec',
+  name: '피부시술 스케줄러',
+  note: '청담 피부 프로그램 · 월간 달력'
+};
+
 /* ---------- 접수 인수인계 서식 (원내 종이 서식 10항목 · 2026-11-19 A4 simple v2) ---------- */
 DATA.recvForm = [
   /* 원내 종이 서식 순서 그대로 — 직접 작성 / 이슈 자동 / 일일마감 연동 */
@@ -1960,7 +2045,7 @@ DATA.recvForm = [
    TLC 메디컬 그룹 스마트 데일리 케어 — 화면 로직 (티엘씨 청담·분당 실무 인수인계)
    아이디어·개발·제작·저작권: 김효숙 (티엘씨메디켈그룹 총괄운영실장)
    ========================================================================= */
-var VERSION = 'v1.9';
+var VERSION = 'v2.0';
 /* 기존 Apps Script 배포본(참고용 폴백) — GitHub Pages에서는 ./version.json 사용 */
 var EXEC_URL = 'https://script.google.com/macros/s/AKfycbyTf8lTMRCtbmnc3SCOcYH25O_ncRE0IUtm4K8h91-C5MG6ETQo9G4DiF57sgBsicE6/exec';
 var VER_POLL_MS = 180000;
@@ -5372,6 +5457,32 @@ function initLiveBoard(){
 }
 
 /* =========================================================================
+   💉 IVNT 수액 처방 · 💆‍♀️ 피부시술 스케줄러 바로가기 — 홈 · 간호(수액·타이머) 화면
+   ========================================================================= */
+function ivntRxConf(){
+  var c = DATA.ivntRx || {};
+  return { url: c.url || '', name: c.name || 'IVNT 수액 처방', note: c.note || '원장님 수액 처방 · 실시간 확인' };
+}
+function skinSchedConf(){
+  var c = DATA.skinSched || {};
+  return { url: c.url || '', name: c.name || '피부시술 스케줄러', note: c.note || '청담 피부 프로그램 · 월간 달력' };
+}
+function bindQuickLink(sel, c){
+  var el = $(sel);
+  if(!el) return;
+  if(c.url) el.href = c.url;
+  if(!el._bound){
+    el.addEventListener('click', function(){ toast('🔗 ' + c.name + ' 화면을 새 창으로 엽니다'); });
+    el._bound = true;
+  }
+}
+function initQuickLinks(){
+  var iv = ivntRxConf(), sk = skinSchedConf();
+  bindQuickLink('#homeIvntFeat', iv); bindQuickLink('#ivntBar', iv);
+  bindQuickLink('#homeSkinFeat', sk); bindQuickLink('#skinBar', sk);
+}
+
+/* =========================================================================
    접수 인수인계 서식 (원내 종이 서식 10항목)
    ========================================================================= */
 function recvAll(){ var a = store.get('tlc_recv_form', {}); return (a && typeof a === 'object') ? a : {}; }
@@ -5740,6 +5851,7 @@ function init(){
   initRecvForm();
   initDailyClose();
   initLiveBoard();
+  initQuickLinks();
   renderHome();
   setPart(appState.part, true);
   initSheet();
