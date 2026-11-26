@@ -11,8 +11,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:type" content="website">
-<meta property="og:title" content="TLC 실시간 시술 현황 v1.4">
-<meta property="og:description" content="지점별 8개 방 실시간 공유 현황 · 상담 순서 · 바디 12회 프로그램 · 수액 타이머">
+<meta property="og:title" content="TLC 실시간 시술 현황 v1.5">
+<meta property="og:description" content="지점별 8개 방·검사실 9종·피부 달력 공유 현황 · 상담 순서 · 바디 12회 프로그램 · 수액 타이머">
 <meta property="og:image" content="https://tlcmediclinic.github.io/iv-timer/icon-512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
@@ -930,6 +930,139 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
   .lstaff{grid-template-columns:1fr}
   .lbox h2{font-size:17.5px}
 }
+
+/* =========================================================================
+   v1.5 — 🔬 검사실 현황(원내 9종 처방) · 🗓️ 피부 달력(완료 취소선·드래그 이동)
+   ========================================================================= */
+.tabs{grid-template-columns:repeat(4,1fr) !important}
+.tab{font-size:12px;height:48px}
+@media (max-width:359px){ .tab{font-size:10.5px;letter-spacing:-.05em} }
+
+/* ---- 🔬 검사실 현황 ---- */
+.labnote{font-size:11.5px;font-weight:700;color:var(--ink3);line-height:1.5;margin:2px 0 8px}
+.labnew{width:100%;min-height:52px;font-size:15.5px;margin-bottom:10px}
+.lablist{display:flex;flex-direction:column;gap:10px}
+.labcard{border:1.5px solid var(--line);border-radius:14px;background:#fff;padding:11px;box-shadow:0 2px 8px rgba(21,88,124,.05)}
+.labcard.doing{border-color:#8FDCCD;background:linear-gradient(180deg,#F5FDFA,#fff);box-shadow:0 4px 14px rgba(46,155,166,.12)}
+.labtop{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.labname{flex:1;min-width:0;font-size:19px;font-weight:900;letter-spacing:-.035em;color:var(--ink);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.labst{flex:none;font-size:11.5px;font-weight:900;color:#A9630A;background:#FFF1D9;border:1px solid #F2D8A8;border-radius:999px;padding:3px 9px}
+.labst.doing{color:#0F6B50;background:#E7F8F1;border-color:#BFE7D6}
+.labprog{flex:none;font-size:14px;font-weight:900;color:var(--sky-d);background:var(--sky-l);border-radius:999px;padding:3px 10px;font-variant-numeric:tabular-nums}
+.labmeta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:11.5px;font-weight:800;color:var(--ink3);margin:7px 0 8px}
+.labd{min-height:38px;border:1.5px solid var(--line);border-radius:9px;padding:0 7px;font-size:12.5px;font-weight:800;color:var(--ink);background:#FBFDFF}
+.labroom{font-size:11px;font-weight:900;color:#0B5C8A;background:var(--sky-l2);border-radius:999px;padding:2px 7px}
+.laba{font-size:11px;font-weight:800;color:var(--ink3)}
+.labitems{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:9px}
+@media (max-width:359px){ .labitems{grid-template-columns:1fr} }
+.labit{display:flex;align-items:center;gap:7px;min-height:44px;padding:6px 9px;text-align:left;
+  border:1.5px solid var(--line);border-radius:11px;background:#FBFDFF}
+.labit:active{transform:scale(.985)}
+.labit.on{border-color:#8FDCCD;background:var(--mint-l)}
+.labit.on .ckbox{background:var(--mint);border-color:var(--mint)}
+.labn{flex:1;min-width:0;font-size:12.5px;font-weight:800;color:var(--ink);line-height:1.25;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.labn em{font-style:normal;font-size:10.5px;font-weight:900;color:#127A63;margin-left:5px}
+.labrow{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.labnur{flex:none;width:118px;min-height:44px;font-size:13px}
+.labmemo{flex:1;min-width:120px;min-height:44px;font-size:13px}
+.labacts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.labacts .mini{min-height:42px;font-size:12px;padding:0 10px}
+.labacts .mini.go{background:var(--grn);border-color:var(--grn);color:#fff}
+.labdonerow{margin-top:12px}
+.sec-h.sub h3{font-size:13px;font-weight:900;color:var(--ink2);margin:0}
+.labdone{display:flex;flex-direction:column;gap:6px}
+.labdoneit{display:flex;align-items:center;gap:7px;flex-wrap:wrap;background:#F7FBFD;border:1px solid var(--line);
+  border-radius:11px;padding:8px 10px;font-size:12.5px;font-weight:800;color:var(--ink3)}
+.labdoneit b{font-size:13.5px;font-weight:900;color:var(--ink2);text-decoration:line-through;text-decoration-thickness:2px}
+.labdoneit span:first-of-type{font-weight:900;color:#127A63}
+.labdoneit i{font-style:normal;font-weight:800}
+.labdoneit .ldt{margin-left:auto;font-size:11px;font-weight:800;color:var(--ink3)}
+
+/* 검사 처방 시트 */
+.labdaterow{display:flex;align-items:center;gap:8px;margin:8px 0 6px;font-size:12.5px;font-weight:900;color:var(--ink3)}
+.labdate{max-width:170px;min-height:44px;font-size:14px;font-weight:800}
+.labsum{font-size:12.5px;font-weight:800;color:var(--sky-d);background:var(--sky-l);border-radius:10px;
+  padding:8px 10px;margin-bottom:9px;line-height:1.4}
+.labgroups{display:flex;flex-direction:column;gap:9px;margin-bottom:8px}
+.labgrp b{display:block;font-size:11.5px;font-weight:900;color:var(--ink3);margin-bottom:5px}
+.labchips{display:flex;flex-direction:column;gap:5px}
+.labpick{display:flex;align-items:center;gap:8px;min-height:46px;padding:7px 10px;text-align:left;
+  border:1.5px solid var(--line);border-radius:11px;background:#FBFDFF;font-size:13.5px;font-weight:800;color:var(--ink)}
+.labpick.on{border-color:#8FDCCD;background:var(--mint-l)}
+.labpick.on .ckbox{background:var(--mint);border-color:var(--mint)}
+.labpick span{flex:1;min-width:0;line-height:1.3}
+
+/* ---- 🗓️ 피부 달력 ---- */
+.skinhead{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.skinhead .rbtn{width:44px;min-height:44px;font-size:20px}
+.sktitle-wrap{flex:1;min-width:96px;text-align:center}
+.sktitle-wrap b{display:block;font-size:20px;font-weight:900;letter-spacing:-.03em;color:var(--ink)}
+.skbr{font-size:11px;font-weight:900;color:#127A63}
+.skmonthn{font-size:11.5px;font-weight:800;color:var(--ink3);margin:0 0 4px}
+.sklegend{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;font-weight:800;color:var(--ink3);margin:0 0 7px}
+.sklegend .lg-done{text-decoration:line-through;text-decoration-thickness:2px;color:#8C9AA5}
+.skdow{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px}
+.skdow span{text-align:center;font-size:11px;font-weight:900;color:var(--ink3);padding:2px 0}
+.skdow span:first-child{color:#C0605E}
+.skdow span:last-child{color:#3E7CB1}
+.skgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.skcell{min-height:74px;border:1.5px solid var(--line);border-radius:9px;background:#fff;padding:3px 2px;
+  display:flex;flex-direction:column;gap:2px;overflow:hidden;touch-action:manipulation}
+.skcell.other{background:#F7F9FB;opacity:.62}
+.skcell.today{border-color:var(--sky);box-shadow:0 0 0 2px rgba(46,155,214,.16) inset}
+.skcell.sel{border-color:var(--sky-d);background:#F3FAFF}
+.skcell.skover{border-color:var(--grn);background:#EAFBF4;box-shadow:0 0 0 2px rgba(38,168,132,.25) inset}
+.skdnum{font-size:11.5px;font-weight:900;color:var(--ink2);text-align:right;padding-right:3px;line-height:1.2}
+.skcell.today .skdnum{color:var(--sky-d)}
+.skchips{display:flex;flex-direction:column;gap:2px;min-width:0}
+.skchip{display:flex;flex-direction:column;align-items:flex-start;gap:0;min-width:0;width:100%;
+  padding:2px 3px;border-radius:6px;border:1px solid #CFE0F7;background:#EFF6FE;text-align:left;
+  touch-action:none;cursor:grab;line-height:1.15}
+.skchip .skc-t{font-size:9.5px;font-weight:900;color:#1B4F86;font-variant-numeric:tabular-nums}
+.skchip .skc-n{font-size:10.5px;font-weight:900;color:var(--ink);max-width:100%;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.skchip.done{background:#F1F3F5;border-color:#DDE5EA;cursor:pointer}
+.skchip.done .skc-t,.skchip.done .skc-n{color:#7B8A94;text-decoration:line-through;text-decoration-thickness:1.5px}
+.skchip.dragging{opacity:.35}
+.skmore{font-size:9.5px;font-weight:900;color:var(--ink3);text-align:center}
+.skghost{position:fixed;z-index:400;transform:translate(-50%,0);pointer-events:none;
+  background:var(--sky-d);color:#fff;font-size:13px;font-weight:900;padding:7px 11px;border-radius:999px;
+  box-shadow:0 8px 22px rgba(21,88,124,.34);white-space:nowrap;max-width:70vw;overflow:hidden;text-overflow:ellipsis}
+body.is-drag{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body.is-drag .skcell{cursor:copy}
+.sktimes{display:flex;gap:5px;flex-wrap:wrap;margin:2px 0 10px}
+.skslot{min-width:42px;min-height:42px;border-radius:10px;border:1.5px solid var(--line);background:#FBFDFF;
+  font-size:13px;font-weight:900;color:var(--ink2);font-variant-numeric:tabular-nums}
+.skslot.skover{background:#EAFBF4;border-color:var(--grn);color:#0F6B50;transform:scale(1.06)}
+.sklist{display:flex;flex-direction:column;gap:7px}
+.skrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:58px;padding:9px 11px;text-align:left;
+  border:1.5px solid var(--line);border-radius:12px;background:#FBFDFF}
+.skrow:active{transform:scale(.99)}
+.skr-t{flex:none;font-size:15px;font-weight:900;color:#1B4F86;font-variant-numeric:tabular-nums}
+.skr-n{flex:none;font-size:17px;font-weight:900;letter-spacing:-.03em;color:var(--ink)}
+.skr-p{flex:1;min-width:0;font-size:13.5px;font-weight:800;color:var(--ink2)}
+.skr-r{flex:none;font-size:11px;font-weight:900;color:#0B5C8A;background:var(--sky-l2);border-radius:999px;padding:3px 8px}
+.skr-ok{flex:none;font-size:11px;font-weight:900;color:#127A63;background:#E7F8F1;border:1px solid #BFE7D6;border-radius:999px;padding:3px 8px}
+.skrow.done{background:#F7F9FA;border-color:#E3E9EE}
+.skrow.done .skr-n,.skrow.done .skr-p,.skrow.done .skr-t{color:#8C9AA5;text-decoration:line-through;text-decoration-thickness:2px}
+
+/* 피부 상세 시트 */
+.skprocs,.skrounds,.skrooms{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.skproc,.skroom{min-height:44px;padding:0 11px;border-radius:11px;border:1.5px solid var(--line);background:#FBFDFF;
+  font-size:13px;font-weight:900;color:var(--ink2)}
+.skround{min-height:44px;min-width:46px;border-radius:11px;border:1.5px solid var(--line);background:#FBFDFF;
+  font-size:13px;font-weight:900;color:var(--ink2)}
+.skproc.on,.skroom.on,.skround.on{background:var(--sky);border-color:var(--sky);color:#fff;box-shadow:0 4px 12px rgba(46,155,214,.22)}
+.skpicks{display:flex;flex-direction:column;gap:6px}
+.skpick{display:flex;align-items:center;gap:7px;min-height:46px;padding:7px 10px;text-align:left;
+  border:1.5px solid var(--line);border-radius:11px;background:#FBFDFF;font-size:14px;font-weight:900;color:var(--ink)}
+.skpick b{flex:none;font-size:13px;color:#1B4F86;font-variant-numeric:tabular-nums}
+.skpick i{flex:1;min-width:0;font-style:normal;font-size:11.5px;font-weight:800;color:var(--ink3);text-align:right}
+.skpick.on{background:var(--mint-l);border-color:#8FDCCD}
+#skDoneBtn.ok{background:var(--grn);border-color:var(--grn);color:#fff}
+.labk{flex:none;font-size:11.5px;font-weight:900;color:var(--ink3)}
 </style>
 </head>
 <body>
@@ -1002,7 +1135,7 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
 </div>
 
 <div class="updbar" id="updBar" role="status">
-  <span>새 버전 <b id="updVer">v1.4</b> 이 있습니다</span>
+  <span>새 버전 <b id="updVer">v1.5</b> 이 있습니다</span>
   <a href="#" id="updBtn" rel="noopener">지금 새로고침</a>
 </div>
 
@@ -1031,7 +1164,7 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
     </div>
   </div>
   <div class="tools">
-    <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><i class="dot"></i><span id="vbadgeText">v1.4</span></a>
+    <a class="vbadge" id="vbadgeBtn" href="#" rel="noopener" title="최신 버전으로 새로고침"><i class="dot"></i><span id="vbadgeText">v1.5</span></a>
     <a class="rbtn" id="btnRefresh" href="#" rel="noopener" title="최신 화면으로 새로 열기"><span aria-hidden="true">🔄</span></a>
   </div>
 </header>
@@ -1040,6 +1173,7 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
   <button class="tab on" id="tabBoard" data-tab="board">🏥 시술 현황</button>
   <button class="tab" id="tabTimer" data-tab="timer">💧 수액 타이머</button>
   <button class="tab" id="tabPlan" data-tab="plan">📅 내일 계획</button>
+  <button class="tab" id="tabSkin" data-tab="skin">🗓️ 피부 달력</button>
 </nav>
 
 <div class="dcbar" id="dcBar" aria-live="assertive" aria-atomic="false"></div>
@@ -1066,16 +1200,19 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
 
     <div class="bgrid" id="bGrid"></div>
 
-    <!-- v1.3 검사실 현황판 -->
+    <!-- v1.5 검사실 현황판 — 원내 (비급여 포함) 의료진 CHECK 9종 -->
     <section class="card examcard">
       <div class="sec-h">
         <h2>🔬 검사실 현황</h2>
-        <span class="hint" id="examHint">0/0 완료</span>
+        <span class="hint" id="examHint">대기 0 · 검사 중 0 · 오늘 완료 0</span>
       </div>
-      <div class="exlist" id="examList"></div>
-      <div class="nadd">
-        <input id="examNew" class="inp" type="text" autocomplete="off" placeholder="검사 항목 추가 (예: 체지방 분석)">
-        <button type="button" class="mini" id="examAdd">＋ 항목</button>
+      <p class="labnote">원내 (비급여 포함) 의료진 CHECK — 접수에서 처방 항목을 체크해 검사실로 올리면, 검사실에서 항목별 완료·검사일·검사직원·비고를 기록합니다.</p>
+      <button type="button" class="btn go labnew" id="labNew">🔬 검사 처방 · 검사실로 올리기</button>
+      <p class="brwarn hide" id="labSyncHint">⚠️ 검사·피부 일정 실시간 공유는 <b>Apps Script 새 버전 배포</b> 후 켜집니다 · 지금은 이 기기에 저장됩니다</p>
+      <div class="lablist" id="labList"></div>
+      <div class="labdonerow">
+        <div class="sec-h sub"><h3>오늘 검사 완료</h3><span class="hint" id="labDoneN">0건</span></div>
+        <div class="labdone" id="labDoneList"></div>
       </div>
     </section>
 
@@ -1200,6 +1337,44 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
     </section>
   </div>
 
+  <!-- ===================== v1.5 피부 달력 ===================== -->
+  <div id="viewSkin" class="view hide">
+    <section class="card skincard">
+      <div class="skinhead">
+        <button type="button" class="rbtn" id="skPrev" aria-label="이전 달">‹</button>
+        <div class="sktitle-wrap">
+          <b id="skTitle">2026년 11월</b>
+          <span class="skbr" id="skBranch">청담 지점</span>
+        </div>
+        <button type="button" class="rbtn" id="skNext" aria-label="다음 달">›</button>
+        <button type="button" class="mini" id="skToday">오늘</button>
+        <button type="button" class="mini go" id="skNew">＋ 피부 예약</button>
+      </div>
+      <p class="skmonthn" id="skMonthN">0건</p>
+      <p class="sklegend"><span class="lg-done">완료 (취소선)</span><span class="lg-plan">예정 — 끌어다 놓으면 날짜·시간 이동</span></p>
+      <div class="skdow" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
+      <div class="skgrid" id="skGrid"></div>
+    </section>
+
+    <section class="card skinday">
+      <div class="sec-h">
+        <h2 id="skDayTitle">11월 26일 (목)</h2>
+        <span class="hint" id="skDayN">0건</span>
+      </div>
+      <div class="sktimes" id="skTimes" aria-label="시간대로 이동"></div>
+      <div class="sklist" id="skDayList"></div>
+    </section>
+
+    <section class="card tips">
+      <div class="sec-h"><h2>이렇게 쓰세요</h2></div>
+      <ul>
+        <li>달력에서 <b>예정된 분을 길게(마우스는 바로) 끌어</b> 다른 날짜 칸에 놓으면 날짜가, 위 <b>시간 칸</b>에 놓으면 그 시간으로 바뀝니다.</li>
+        <li><b>완료한 시술은 지워지지 않고</b> 취소선으로 남습니다. 눌러서 <b>↩ 완료 취소</b>도 가능합니다.</li>
+        <li>날짜를 눌러 아래 목록에서 상세를 열고 <b>🏥 4번방·5번방 입실</b>을 누르면 현황판에 바로 올라갑니다. 퇴실하면 그날 예약이 자동으로 완료 처리됩니다.</li>
+      </ul>
+    </section>
+  </div>
+
   <details class="card legalD">
     <summary>법적 고지 · 이용 안내 <span>눌러서 펼치기</span></summary>
     <ol>
@@ -1213,7 +1388,7 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
   <footer>
     <p class="cr">아이디어·개발·제작: 김효숙 (무단 배포 금지)</p>
     <p class="cr3">본 프로그램은 내부·개인적 업무 보조 전용이며, 무단 복제·외부 유출·상업적 재배포를 금지합니다.</p>
-    <p class="cr2">티엘씨 청담의원 · 분당클리닉 · <span id="footVer">v1.4</span></p>
+    <p class="cr2">티엘씨 청담의원 · 분당클리닉 · <span id="footVer">v1.5</span></p>
   </footer>
 </main>
 
@@ -1245,6 +1420,11 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
 
     <div class="insum" id="inSum">지금 시작 · 30분 · 13:30 종료</div>
     <div class="in-hint hide" id="inDcHint"></div>
+
+    <details class="adv skinpickbox hide" id="inSkinBox">
+      <summary>🗓️ 오늘 피부 예약에서 불러오기 <b id="inSkinHint">0건 예정</b></summary>
+      <div class="adv-body"><div class="skpicks" id="inSkinPick"></div></div>
+    </details>
 
     <details class="adv ivdin" id="inIvBox">
       <summary>💧 수액 미리 체크 <b id="ivInSum">선택 안 함</b></summary>
@@ -1336,6 +1516,65 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
 </div>
 
 <div class="alarm-layer" id="alarmLayer" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- ===================== v1.5 🔬 검사 처방 시트 (접수 → 검사실) ===================== -->
+<div class="sheet" id="labSheet" aria-hidden="true">
+  <div class="sheet-bg" id="labBg"></div>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="labTitle">
+    <div class="sh-top">
+      <b id="labTitle">검사 처방 · 검사실로 올리기</b>
+      <button class="x" id="labClose" aria-label="닫기">✕</button>
+    </div>
+    <input id="labName" class="big-inp" type="text" autocomplete="off" placeholder="고객명 (가명·차트번호)">
+    <div class="labdaterow"><span>검사일</span><input id="labDate" type="date" class="inp sm labdate"></div>
+    <div class="labsum" id="labSum">처방할 항목을 체크하세요</div>
+    <div id="labItems" class="labgroups"></div>
+    <div class="nadd">
+      <input id="labNewItem" class="inp" type="text" autocomplete="off" placeholder="목록에 없는 검사 항목 직접 추가">
+      <button type="button" class="mini" id="labAdd">＋ 항목</button>
+    </div>
+    <textarea id="labMemo" class="inp cnote" rows="2" placeholder="비고 (예: 공복 확인, 생리 중, 결과 안내 방법)"></textarea>
+    <button class="btn go huge" id="labGo">🔬 검사실로 올리기</button>
+    <p class="in-hint">검사실 현황판에서 항목별 완료·검사일·검사직원·비고를 기록하면 구글 시트에 함께 남습니다.</p>
+  </div>
+</div>
+
+<!-- ===================== v1.5 🗓️ 피부 시술 상세·등록 시트 ===================== -->
+<div class="sheet" id="skSheet" aria-hidden="true">
+  <div class="sheet-bg" id="skBg"></div>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="skSheetTitle">
+    <div class="sh-top">
+      <b id="skSheetTitle">피부 시술 상세 · 수정</b>
+      <button class="x" id="skClose" aria-label="닫기">✕</button>
+    </div>
+    <input id="skName" class="big-inp" type="text" autocomplete="off" placeholder="고객명 (가명·차트번호)">
+    <div class="frow">
+      <label class="fld"><span>날짜</span><input id="skDate" class="inp" type="date"></label>
+      <label class="fld"><span>시간</span><input id="skTime" class="inp" type="time"></label>
+    </div>
+    <div class="labsum" id="skSum">—</div>
+    <div class="clabel">시술</div>
+    <div class="skprocs" id="skProcs"></div>
+    <div class="clabel">회차</div>
+    <div class="skrounds" id="skRounds"></div>
+    <div class="clabel">방</div>
+    <div class="skrooms" id="skRooms"></div>
+    <div class="frow">
+      <label class="fld"><span>차트·연락처 메모</span><input id="skChart" class="inp" type="text" autocomplete="off" placeholder="차트번호·연락처 등"></label>
+    </div>
+    <label class="fld"><span>메모</span><input id="skMemo" class="inp" type="text" autocomplete="off" placeholder="예: 3주 후 경과 확인"></label>
+    <button class="btn go huge" id="skSave">✓ 저장</button>
+    <div class="cact">
+      <button class="btn ok" id="skDoneBtn">✓ 완료 처리</button>
+      <button class="btn ghost" id="skDelBtn">🗑 삭제</button>
+    </div>
+    <div class="frow" id="skToRoom">
+      <button class="btn" type="button" id="skToRoom4">🏥 4번방 입실</button>
+      <button class="btn" type="button" id="skToRoom5">🏥 5번방 입실</button>
+    </div>
+    <p class="in-hint">완료한 시술은 달력에 <b>취소선</b>으로 남습니다. 예정 시술은 달력에서 끌어다 놓아 날짜·시간을 바꿀 수 있습니다.</p>
+  </div>
+</div>
 
 <!-- ===================== v1.4 계정 · 설정 (사용자 전환 · 관리자 직원 비번 초기화) ===================== -->
 <div class="sheet" id="accSheet" aria-hidden="true">
@@ -1485,16 +1724,18 @@ body.has-dc .wrap{margin-top:calc(var(--dcbar-h, 0px) + 4px)}
 <div class="toast" id="toast" role="status"></div>
 
 <script>/* =========================================================================
-   TLC 실시간 시술 현황 v1.4
+   TLC 실시간 시술 현황 v1.5
    ① 실시간 시술 현황판(지점별 8개 방 공유) ② 수액 타이머 · 방당 1~4번 수액 · 점적 방울 모니터 · 사전/종료 알람
    ③ 시간 수정(현황판 카드·수액 타이머) ④ 기본 수액 체크 목록 · 없는 수액 직접 추가
    ⑤ v1.4 개인 서명 비번(PIN) 로그인 · 공용 기기 시술/서명 간호사 직접 선택 · 청담·분당 완전 분리
+   ⑥ v1.5 🔬 검사실 현황 — 원내 (비급여 포함) 의료진 CHECK 9종 처방·진행·완료·검사일·검사직원·비고
+   ⑦ v1.5 🗓️ 피부 달력 — 월 보기·시간대, 완료 취소선, 예정 드래그 이동(마우스·터치), 4·5번방 연동
    아이디어·개발·제작·저작권: 김효숙 (티엘씨 청담의원·분당클리닉 총괄실장)
    ========================================================================= */
 (function(){
 'use strict';
 
-var VERSION = 'v1.4';
+var VERSION = 'v1.5';
 var KEY = 'tlc_iv_v1';
 var ADMIN_NAME = '김효숙';
 /* v1.4 — 청담·분당 지점 완전 분리: 방·환자·직원·원장님 호출·소아과 헬퍼·병원명을 지점별로 따로 둡니다 */
@@ -2388,6 +2629,7 @@ function renderAll(){
   renderNames();
   renderIvList();
   renderExam();
+  renderSkin();
   paintConn();
   paintAlarmCfg();
   paintWho();
@@ -3759,7 +4001,9 @@ var PROGRAMS = [
 ];
 
 var bd = { rooms:{}, hist:[], rev:0, at:0, mode:'board', pending:[], online:null, dcNative:false,
-  histSeen:{}, histReady:false, global:{}, serverBd:null, loaded:false };
+  histSeen:{}, histReady:false, global:{}, serverBd:null, loaded:false,
+  /* v1.5 — 검사 처방(labs) · 피부 달력(skin) · 화면 상태 */
+  labs:[], skin:[], labDel:{}, skinDel:{}, labNative:null, skinNative:null, skYm:'', skSel:'' };
 var dft = null;      /* 입실 시트 작성 중인 값 */
 
 function blankRoom(room){
@@ -3804,50 +4048,292 @@ function staffPickList(){
   if(me && out.indexOf(me) < 0) out.push(me);
   return out;
 }
-/* --- 🔬 검사실 현황판 (신규 바디 검사 체크 + 실시 간호사) --- */
-var EXAM_DEFAULT = ['체성분(InBody)', '피부 진단', '두피 진단', '혈압·체온', '문진표'];
-function examState(){ if(!st.exam[brKey()]) st.exam[brKey()] = {}; return st.exam[brKey()]; }
-function examItems(){ if(!st.examItems[brKey()]) st.examItems[brKey()] = []; return EXAM_DEFAULT.concat(st.examItems[brKey()]); }
+/* =========================================================================
+   v1.5  🔬 검사실 현황판 — 원내 (비급여 포함) 의료진 CHECK 9종
+   ① 접수: 「🔬 검사 처방」에서 원내 9종(체성분·뇌파/맥파·APG·EKG·혈액/호르몬·NK·유기산·유전체·TLC100)
+      중 처방할 항목을 체크해 「검사실로 올리기」 → 검사실 현황판에 환자 카드가 생깁니다
+   ② 검사실: 항목별 진행/완료 체크 · 검사일 · 검사직원(선택) · 비고 → 기기 저장 + 시트(labs/labs_bd) 기록·공유
+   ③ 완료된 검사는 「오늘 검사 완료」에 남습니다(지점 분리 규칙 동일)
+   ========================================================================= */
+var LAB_CATS = ['Routine 검사', '기타'];
+var LAB_ITEMS = [
+  { k:'inbody', cat:'Routine 검사', name:'체성분검사 (Inbody) + 복부둘레',       short:'체성분 + 복부둘레' },
+  { k:'eeg',    cat:'Routine 검사', name:'뇌파(EEG) / 맥파(PPG) 검사',           short:'뇌파 / 맥파' },
+  { k:'apg',    cat:'Routine 검사', name:'말초혈액순환검사 (APG)',                short:'말초혈액순환 (APG)' },
+  { k:'ekg',    cat:'Routine 검사', name:'심전도 검사 (EKG)',                    short:'심전도 (EKG)' },
+  { k:'blood',  cat:'Routine 검사', name:'일반 혈액 및 호르몬 검사',              short:'일반 혈액·호르몬' },
+  { k:'nk',     cat:'Routine 검사', name:'NK세포 활성도 검사',                   short:'NK세포 활성도' },
+  { k:'oa',     cat:'Routine 검사', name:'소변 유기산 5종 (Organic acids profile)', short:'소변 유기산 5종' },
+  { k:'gene',   cat:'기타',         name:'유전체검사 (진투미, 진투미플러스)',       short:'유전체 (진투미)' },
+  { k:'tlc100', cat:'기타',         name:'TLC100종 + UA (결과책)',                 short:'TLC100종 + UA' }
+];
+function ymd(ts){ var d = new Date(ts); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function labCustom(){ if(!st.examItems[brKey()]) st.examItems[brKey()] = []; return st.examItems[brKey()]; }
+function labDefs(){
+  var out = LAB_ITEMS.slice();
+  labCustom().forEach(function(nm, i){ out.push({ k:'x'+i, cat:'기타', name:nm, short:nm, custom:true }); });
+  return out;
+}
+function labDef(k){ var out = null; labDefs().forEach(function(d){ if(d.k === k) out = d; }); return out; }
+function labsArr(){ if(!bd.labs) bd.labs = []; return bd.labs; }
+function labById(id){ var out = null; labsArr().forEach(function(o){ if(o && o.id === id) out = o; }); return out; }
+function labProg(o){
+  var items = (o && o.items) || [], d = 0;
+  items.forEach(function(it){ if(it && it.d) d++; });
+  return { done:d, all:items.length };
+}
+function labOpen(){
+  return labsArr().filter(function(o){ return o && o.status !== 'done'; })
+    .sort(function(a, b){ return String(a.date||'').localeCompare(String(b.date||'')) || (a.at||0)-(b.at||0); });
+}
+function labDoneToday(){
+  var t0 = today0();
+  return labsArr().filter(function(o){ return o && o.status === 'done' && (o.doneAt||0) >= t0; })
+    .sort(function(a, b){ return (b.doneAt||0)-(a.doneAt||0); });
+}
+function labNurseOpts(sel){
+  var list = staffPickList(), out = '<option value="">검사직원</option>';
+  list.forEach(function(nm){ out += '<option value="'+esc(nm)+'"'+(nm === sel ? ' selected' : '')+'>'+esc(nm)+'</option>'; });
+  if(sel && list.indexOf(sel) < 0) out += '<option value="'+esc(sel)+'" selected>'+esc(sel)+'</option>';
+  return out;
+}
+function labItemHtml(o, it, i){
+  return '<button type="button" class="labit'+(it.d ? ' on' : '')+'" data-lab="'+esc(o.id)+'" data-labi="'+i+'"' +
+    ' aria-pressed="'+(it.d ? 'true' : 'false')+'" title="'+esc(it.n)+'">' +
+    '<i class="ckbox" aria-hidden="true">'+(it.d ? '✓' : '')+'</i>' +
+    '<span class="labn">'+esc(it.s || it.n)+(it.d && it.at ? '<em>'+hhmm(it.at)+'</em>' : '')+'</span>' +
+  '</button>';
+}
+function labCardHtml(o){
+  var p = labProg(o);
+  return '<div class="labcard'+(o.status === 'doing' ? ' doing' : '')+'" data-labcard="'+esc(o.id)+'">' +
+    '<div class="labtop">' +
+      '<b class="labname">'+esc(o.name || '고객')+'</b>' +
+      '<span class="labst'+(o.status === 'doing' ? ' doing' : '')+'">'+(o.status === 'doing' ? '검사 중' : '대기')+'</span>' +
+      '<span class="labprog">'+p.done+'/'+p.all+'</span>' +
+    '</div>' +
+    '<div class="labmeta"><span>검사일</span> <input type="date" class="labd" data-labd="'+esc(o.id)+'" value="'+esc(o.date||'')+'" aria-label="검사일">' +
+      (o.room ? ' <span class="labroom">'+esc(o.room)+'</span>' : '') +
+      (o.at ? ' <span class="laba">접수 '+hhmm(o.at)+'</span>' : '') + '</div>' +
+    '<div class="labitems">'+(o.items||[]).map(function(it, i){ return labItemHtml(o, it, i); }).join('')+'</div>' +
+    '<div class="labrow">' +
+      '<span class="labk">검사직원</span>' +
+      '<select class="psel labnur" data-labnur="'+esc(o.id)+'" aria-label="검사 직원">'+labNurseOpts(o.nurse)+'</select>' +
+      '<input class="inp sm labmemo" data-labmemo="'+esc(o.id)+'" type="text" value="'+esc(o.memo||'')+'" placeholder="비고 (예: 공복 확인)" aria-label="비고">' +
+    '</div>' +
+    '<div class="labacts">' +
+      '<button type="button" class="mini" data-labact="start" data-lab="'+esc(o.id)+'">'+(o.status === 'doing' ? '⏸ 대기로' : '▶ 검사 시작')+'</button>' +
+      '<button type="button" class="mini go" data-labact="done" data-lab="'+esc(o.id)+'">✓ 검사 완료</button>' +
+      '<button type="button" class="mini" data-labact="room" data-lab="'+esc(o.id)+'">🏥 검사실 입실</button>' +
+      '<button type="button" class="mini" data-labact="edit" data-lab="'+esc(o.id)+'">✏️ 처방 수정</button>' +
+      '<button type="button" class="mini ghost" data-labact="del" data-lab="'+esc(o.id)+'">취소</button>' +
+    '</div>' +
+  '</div>';
+}
 function renderExam(){
-  var box = $('#examList');
+  var box = $('#labList');
   if(!box) return;
-  var e = examState();
-  box.innerHTML = examItems().map(function(nm){
-    var it = e[nm] || {};
-    return '<div class="exrow'+(it.done ? ' on' : '')+'">' +
-      '<button type="button" class="exck" data-ex="'+esc(nm)+'" aria-pressed="'+(it.done?'true':'false')+'">' +
-        '<i class="ckbox" aria-hidden="true">'+(it.done ? '✓' : '')+'</i>' +
-        '<span class="exn">'+esc(nm)+(it.done && it.at ? '<em>'+hhmm(it.at)+'</em>' : '')+'</span>' +
-      '</button>' +
-      '<select class="psel exsel" data-exn="'+esc(nm)+'" aria-label="'+esc(nm)+' 실시 간호사">'+nurseOptions(it.nurse || '')+'</select>' +
-    '</div>';
-  }).join('');
-  var done = examItems().filter(function(n){ return (e[n]||{}).done; }).length;
-  setText('#examHint', done + '/' + examItems().length + ' 완료');
+  var ae = document.activeElement;
+  if(ae && box.contains(ae) && (ae.tagName === 'INPUT' || ae.tagName === 'SELECT')) return;   /* 입력 중 화면 보호 */
+  var open = labOpen(), done = labDoneToday();
+  var wait = open.filter(function(o){ return o.status !== 'doing'; }).length;
+  setText('#examHint', '대기 ' + wait + ' · 검사 중 ' + (open.length - wait) + ' · 오늘 완료 ' + done.length);
+  box.innerHTML = open.length ? open.map(labCardHtml).join('')
+    : '<div class="empty">처방된 검사가 없습니다 — 「🔬 검사 처방」으로 검사실에 올려 주세요</div>';
+  var dl = $('#labDoneList');
+  if(dl){
+    dl.innerHTML = done.length ? done.map(function(o){
+      var p = labProg(o);
+      return '<div class="labdoneit"><b>'+esc(o.name || '고객')+'</b>' +
+        '<span>'+p.done+'</span><i>/'+p.all+'종</i>' +
+        (o.nurse ? '<span class="ldn">🩺 '+esc(o.nurse)+'</span>' : '') +
+        '<span class="ldt">'+esc(String(o.date||'').slice(5).replace('-', '/'))+' '+hhmm(o.doneAt||0)+' 완료</span></div>';
+    }).join('') : '<div class="empty">오늘 완료된 검사가 없습니다</div>';
+  }
+  setText('#labDoneN', done.length + '건');
 }
-function toggleExam(nm){
-  var e = examState();
-  var it = e[nm] || (e[nm] = {});
-  it.done = !it.done;
-  it.at = it.done ? Date.now() : 0;
-  save(); renderExam();
+/* --- 검사 처방 저장·공유 --- */
+function labPack(o){
+  return {
+    id:o.id, name:o.name || '', date:o.date || '', time:o.time || '',
+    items:(o.items||[]).map(function(it){ return { k:it.k, n:it.n, s:it.s, d:it.d ? 1 : 0, at:it.at || 0 }; }),
+    nurse:o.nurse || '', memo:o.memo || '', status:o.status || 'waiting', room:o.room || '',
+    at:o.at || 0, doneAt:o.doneAt || 0, by:o.by || '', updatedAt:o.updatedAt || Date.now()
+  };
 }
-function setExamNurse(nm, nurse){
-  var e = examState();
-  var it = e[nm] || (e[nm] = {});
-  it.nurse = nurse || '';
-  if(it.nurse && !it.done){ it.done = true; it.at = Date.now(); }
-  save(); renderExam();
+function labSend(o){
+  o.updatedAt = Date.now();
+  o.by = stationName();
+  o.byId = deviceId();
+  saveBoard(); renderExam();
+  push({ op:'setLab', data:labPack(o) });
 }
-function addExamItem(){
-  var el = $('#examNew');
-  var v = ((el && el.value) || '').trim().slice(0, 20);
+function labDelPush(id){
+  if(!bd.labDel) bd.labDel = {};
+  bd.labDel[id] = Date.now();
+  bd.labs = labsArr().filter(function(o){ return o.id !== id; });
+  saveBoard(); renderExam();
+  push({ op:'delLab', data:{ id:id } });
+}
+function labToggle(id, i){
+  var o = labById(id); if(!o) return;
+  var it = (o.items || [])[i]; if(!it) return;
+  it.d = it.d ? 0 : 1;
+  it.at = it.d ? Date.now() : 0;
+  if(o.status === 'waiting' && it.d) o.status = 'doing';
+  labSend(o);
+}
+function labSetNurse(id, v){ var o = labById(id); if(!o) return; o.nurse = v || ''; labSend(o); }
+function labSetDate(id, v){ var o = labById(id); if(!o || !v) return; o.date = v; labSend(o); }
+function labSetMemo(id, v){ var o = labById(id); if(!o) return; o.memo = v || ''; labSend(o); }
+function labAct(id, act){
+  var o = labById(id); if(!o) return;
+  if(act === 'start'){
+    o.status = (o.status === 'doing') ? 'waiting' : 'doing';
+    labSend(o);
+    toast(o.name + ' · ' + (o.status === 'doing' ? '검사 시작' : '대기로 되돌렸습니다'));
+    return;
+  }
+  if(act === 'done'){
+    var p = labProg(o);
+    if(!p.all){ toast('처방된 항목이 없습니다'); return; }
+    if(p.done < p.all && !confirm(p.all + '종 중 ' + p.done + '종만 완료입니다. 그래도 완료할까요?')) return;
+    o.status = 'done'; o.doneAt = Date.now(); o.nurse = o.nurse || currentUser() || '';
+    labSend(o);
+    toast(o.name + ' 검사 완료 · ' + p.done + '/' + p.all + '종');
+    return;
+  }
+  if(act === 'edit'){ openLab(id); return; }
+  if(act === 'room'){ labToRoom(id); return; }
+  if(act === 'del'){
+    if(!confirm('「' + (o.name || '고객') + '」 검사 처방을 취소할까요?')) return;
+    labDelPush(id);
+    toast('검사 처방을 취소했습니다');
+    return;
+  }
+}
+/* --- 검사 처방 시트 (접수 → 검사실) --- */
+var labDraft = null;
+function sheetOn(sel){
+  var sh = $(sel);
+  if(sh){ sh.classList.add('on'); sh.setAttribute('aria-hidden', 'false'); }
+  document.body.style.overflow = 'hidden';
+}
+function sheetOff(sel){
+  var sh = $(sel);
+  if(sh){ sh.classList.remove('on'); sh.setAttribute('aria-hidden', 'true'); }
+  document.body.style.overflow = '';
+}
+function openLab(id){
+  var o = id ? labById(id) : null;
+  labDraft = {
+    id: o ? o.id : ('L' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5)),
+    edit: !!o,
+    name: o ? (o.name || '') : '',
+    date: o ? (o.date || ymd(Date.now())) : ymd(Date.now()),
+    time: o ? (o.time || '') : '',
+    memo: o ? (o.memo || '') : '',
+    nurse: o ? (o.nurse || '') : (currentUser() || ''),
+    room: o ? (o.room || '') : '',
+    status: o ? o.status : 'waiting',
+    items: o ? (o.items || []).map(function(it){ return { k:it.k, n:it.n, s:it.s, d:it.d ? 1 : 0, at:it.at || 0 }; }) : []
+  };
+  paintLabSheet();
+  sheetOn('#labSheet');
+  setTimeout(function(){ try{ var n = $('#labName'); if(n && !o) n.focus(); }catch(e){} }, 160);
+}
+function closeLab(){ sheetOff('#labSheet'); labDraft = null; }
+function labPickOn(k){
+  if(!labDraft) return false;
+  return labDraft.items.some(function(it){ return it.k === k; });
+}
+function paintLabSheet(){
+  if(!labDraft) return;
+  setText('#labTitle', labDraft.edit ? '검사 처방 수정' : '검사 처방 · 검사실로 올리기');
+  var nm = $('#labName'); if(nm && nm.value !== labDraft.name) nm.value = labDraft.name;
+  var dt = $('#labDate'); if(dt) dt.value = labDraft.date;
+  var groups = {};
+  labDefs().forEach(function(d){ (groups[d.cat] || (groups[d.cat] = [])).push(d); });
+  var box = $('#labItems');
+  if(box){
+    box.innerHTML = LAB_CATS.concat(Object.keys(groups).filter(function(c){ return LAB_CATS.indexOf(c) < 0; })).map(function(cat){
+      var list = groups[cat] || [];
+      if(!list.length) return '';
+      return '<div class="labgrp"><b>'+esc(cat)+'</b><div class="labchips">' + list.map(function(d){
+        var on = labPickOn(d.k);
+        return '<button type="button" class="labpick'+(on ? ' on' : '')+'" data-labpick="'+esc(d.k)+'" aria-pressed="'+(on ? 'true' : 'false')+'">' +
+          '<i class="ckbox" aria-hidden="true">'+(on ? '✓' : '')+'</i><span>'+esc(d.name)+'</span></button>';
+      }).join('') + '</div></div>';
+    }).join('');
+  }
+  var sel = labDraft.items.slice();
+  setText('#labSum', sel.length ? sel.length + '종 · ' + sel.map(function(it){ return it.s || it.n; }).join(', ') : '처방할 항목을 체크하세요');
+  var memo = $('#labMemo'); if(memo && memo.value !== labDraft.memo) memo.value = labDraft.memo;
+  var go = $('#labGo'); if(go) go.textContent = labDraft.edit ? '✓ 저장' : '🔬 검사실로 올리기';
+}
+function labTogglePick(k){
+  if(!labDraft) return;
+  var i = -1;
+  labDraft.items.forEach(function(it, idx){ if(it.k === k) i = idx; });
+  if(i >= 0) labDraft.items.splice(i, 1);
+  else {
+    var d = labDef(k);
+    if(d) labDraft.items.push({ k:d.k, n:d.name, s:d.short, d:0, at:0 });
+  }
+  paintLabSheet();
+}
+function labAddCustom(){
+  var el = $('#labNewItem');
+  var v = ((el && el.value) || '').trim().slice(0, 30);
   if(!v){ toast('검사 항목 이름을 적어 주세요'); return; }
-  if(!st.examItems[brKey()]) st.examItems[brKey()] = [];
-  if(examItems().indexOf(v) < 0) st.examItems[brKey()].push(v);
+  var list = labCustom();
+  var exists = false;
+  labDefs().forEach(function(d){ if(d.name === v) exists = true; });
+  if(!exists) list.push(v);
   if(el) el.value = '';
-  save(); renderExam();
-  toast('「'+v+'」 항목을 추가했습니다');
+  save();
+  var def = null;
+  labDefs().forEach(function(d){ if(d.name === v) def = d; });
+  if(def && labDraft && !labPickOn(def.k)) labDraft.items.push({ k:def.k, n:def.name, s:def.short, d:0, at:0 });
+  paintLabSheet();
+  toast('「' + v + '」 항목을 추가했습니다');
+}
+function labSheetSave(){
+  if(!labDraft) return;
+  var nm = $('#labName');
+  var name = ((nm && nm.value) || '').trim();
+  if(!name){ toast('고객명을 넣어 주세요'); try{ if(nm) nm.focus(); }catch(e){} return; }
+  if(!labDraft.items.length){ toast('처방할 검사 항목을 체크해 주세요'); return; }
+  var dt = $('#labDate'); if(dt && dt.value) labDraft.date = dt.value;
+  var me = $('#labMemo'); labDraft.memo = ((me && me.value) || '').trim();
+  var o = labDraft.edit ? labById(labDraft.id) : null;
+  if(!o){
+    o = { id:labDraft.id, name:name, date:labDraft.date, time:hhmm(Date.now()), items:labDraft.items.slice(),
+      nurse:labDraft.nurse || '', memo:labDraft.memo, status:'waiting', room:'', at:Date.now(), doneAt:0 };
+    labsArr().push(o);
+  } else {
+    o.name = name; o.date = labDraft.date; o.items = labDraft.items.slice(); o.memo = labDraft.memo;
+    if(labDraft.nurse) o.nurse = labDraft.nurse;
+  }
+  labSend(o);
+  closeLab();
+  toast(o.name + ' 님 검사 ' + o.items.length + '종을 검사실로 올렸습니다');
+}
+function labFromRoom(room){
+  /* 검사실 방에서 바로 처방 (고객명은 비워 두고 검사실에서 입력) */
+  var r = bd.rooms[room];
+  openLab('');
+  if(r && r.status === 'busy' && r.customer && labDraft){ labDraft.name = r.customer; labDraft.room = room; paintLabSheet(); }
+}
+function labToRoom(id){
+  var o = labById(id); if(!o) return;
+  o.room = '검사실';
+  labSend(o);
+  labPrefill = { name:o.name || '', proc:'신규 고객 검사', prog:'exam', min:30,
+    memo:(o.items||[]).map(function(it){ return it.s || it.n; }).join(', ') };
+  goTab('board');
+  setTimeout(function(){ openIn('검사실'); }, 60);
+  toast('검사실 입실 시트로 이동했습니다');
 }
 
 /* =========================================================================
@@ -4484,6 +4970,7 @@ function finishCheckout(room){
   bd.histSeen[rec.id] = 1;                     /* 내가 한 퇴실은 내 화면에서 알리지 않음 */
   renderBoard(); saveBoard();
   push({ op:'checkout', data:snap });
+  skAutoDone(room, snap.customer);            /* v1.5 — 4·5번방 퇴실 → 그날 피부 예약 자동 완료 */
   toast((snap.customer || room) + ' 퇴실 처리했습니다' + (snap.nurse ? ' · 서명 ' + snap.nurse : ''));
 }
 function stationName(){ return currentUser() || (IS_IOS ? '아이폰' : 'PC'); }
@@ -4503,6 +4990,7 @@ function boardStoreKey(){ return BOARD_KEYS[brKey()]; }
 function loadBoard(){
   bd.rooms = {}; bd.hist = []; bd.rev = 0; bd.at = 0; bd.pending = [];
   bd.dcNative = false; bd.histSeen = {}; bd.global = {};
+  bd.labs = []; bd.skin = []; bd.labDel = {}; bd.skinDel = {}; bd.labNative = null; bd.skinNative = null;
   var raw = null;
   try{
     raw = localStorage.getItem(boardStoreKey());
@@ -4520,6 +5008,12 @@ function loadBoard(){
       if(o && o.histSeen && typeof o.histSeen === 'object') bd.histSeen = o.histSeen;
       if(o && o.global && typeof o.global === 'object') bd.global = o.global;
       if(o && o.serverBd === true) bd.serverBd = true;
+      if(o && o.labs instanceof Array) bd.labs = o.labs;
+      if(o && o.skin instanceof Array) bd.skin = o.skin;
+      if(o && o.labDel && typeof o.labDel === 'object') bd.labDel = o.labDel;
+      if(o && o.skinDel && typeof o.skinDel === 'object') bd.skinDel = o.skinDel;
+      if(o && o.skYm) bd.skYm = String(o.skYm);
+      if(o && o.skSel) bd.skSel = String(o.skSel);
     }
   }catch(e){}
   bd.histReady = false;
@@ -4534,7 +5028,9 @@ function writeBoard(){
     localStorage.setItem(boardStoreKey(), JSON.stringify({
       rooms:bd.rooms, hist:bd.hist.slice(0,60), rev:bd.rev, at:bd.at, pending:bd.pending,
       dcNative:bd.dcNative === true, histSeen:bd.histSeen || {}, global:bd.global || {},
-      serverBd:bd.serverBd === true
+      serverBd:bd.serverBd === true,
+      labs:(bd.labs||[]).slice(-120), skin:(bd.skin||[]).slice(-400),
+      labDel:bd.labDel || {}, skinDel:bd.skinDel || {}, skYm:bd.skYm || '', skSel:bd.skSel || ''
     }));
   }catch(e){}
 }
@@ -4554,6 +5050,8 @@ function switchBranchData(b){
   renderAll();
   renderBoard(); renderExam(); renderPlan(); renderSlots();
   paintBrand(); paintTab(); paintSync(); paintBrWarn();
+  bd.skYm = ''; bd.skSel = '';
+  renderSkin();
   pull(true);
   try{ window.scrollTo(0, 0); }catch(e){}
 }
@@ -4663,6 +5161,8 @@ function renderBoard(){
   renderHist();
   paintLefts();
   renderDoctorBar();
+  renderExam();
+  renderSkin();
 }
 function paintLefts(){
   ROOMS.forEach(function(room){
@@ -4714,28 +5214,362 @@ function renderHist(){
   }).join('');
 }
 
+/* =========================================================================
+   v1.5  🗓️ 피부 달력 — 청담·분당 지점별 피부 시술 일정
+   ① 월 보기(날짜별 일정) + 날짜를 누르면 그 날 시간대별 목록(큰 글씨)
+   ② 완료된 시술은 자워지지 않고 기록으로 남고 **취소선**으로 구분
+   ③ 예정 시술은 드래그(마우스·모바일 터치)로 다른 날짜/시간대로 이동 — 상세 팝업에서도 변경
+   ④ 4번방(피부+시술)·5번방(피부) 현황판과 서로 연결 (예약 → 입실, 퇴실 → 자동 완료)
+   ========================================================================= */
+var SKIN_PROCS = ['인텐시브 (원장님)', '재생관리', '관리 1차', '관리 2차', '관리 3차',
+  '3COMBO', 'BioFit', 'BioFit IV', '메인턴스', '피부관리'];
+var SKIN_ROOMS = ['4번방', '5번방'];
+var SK_DOW = ['일', '월', '화', '수', '목', '금', '토'];
+var skDraft = null, skPrefill = null, labPrefill = null;
+var skDrag = { id:'', active:false, timer:0, x:0, y:0, ghost:null, tgt:null };
+
+function skinArr(){ if(!bd.skin) bd.skin = []; return bd.skin; }
+function skinById(id){ var out = null; skinArr().forEach(function(o){ if(o && o.id === id) out = o; }); return out; }
+function skinOf(date){
+  return skinArr().filter(function(o){ return o && o.date === date; })
+    .sort(function(a, b){ return String(a.time||'').localeCompare(String(b.time||'')) || String(a.name||'').localeCompare(String(b.name||'')); });
+}
+function parseYmd(s){
+  var p = String(s || '').split('-');
+  if(p.length < 3) return new Date();
+  return new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+}
+function dayKo(s){ var d = parseYmd(s); return (d.getMonth()+1) + '월 ' + d.getDate() + '일 (' + SK_DOW[d.getDay()] + ')'; }
+function dayShort(s){ var d = parseYmd(s); return (d.getMonth()+1) + '/' + d.getDate() + ' (' + SK_DOW[d.getDay()] + ')'; }
+function skYmShift(n){
+  var ym = bd.skYm || ymd(Date.now()).slice(0, 7);
+  var y = Number(ym.slice(0, 4)), m = Number(ym.slice(5, 7)) - 1 + n;
+  var d = new Date(y, m, 1);
+  bd.skYm = d.getFullYear() + '-' + pad(d.getMonth() + 1);
+  renderSkin();
+}
+function skChipHtml(o){
+  return '<button type="button" class="skchip'+(o.done ? ' done' : '')+'" data-skid="'+esc(o.id)+'" data-skday="'+esc(o.date)+'"' +
+    ' title="'+esc((o.time||'') + ' ' + (o.name||'') + ' ' + (o.proc||''))+'">' +
+    '<span class="skc-t">'+esc(o.time || '--:--')+'</span>' +
+    '<span class="skc-n">'+esc(o.name || '고객')+'</span>' +
+  '</button>';
+}
+function renderSkin(){
+  if(!bd.skYm) bd.skYm = ymd(Date.now()).slice(0, 7);
+  if(!bd.skSel) bd.skSel = ymd(Date.now());
+  var y = Number(bd.skYm.slice(0, 4)), m = Number(bd.skYm.slice(5, 7));
+  setText('#skTitle', y + '년 ' + m + '월');
+  setText('#skBranch', brLabel() + ' 지점');
+  var first = new Date(y, m - 1, 1);
+  var start = new Date(y, m - 1, 1 - first.getDay());
+  var todayS = ymd(Date.now());
+  var cells = [];
+  for(var i = 0; i < 42; i++){
+    var d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
+    var ds = ymd(d);
+    var items = skinOf(ds);
+    var cls = 'skcell' + (d.getMonth() !== m - 1 ? ' other' : '') + (ds === todayS ? ' today' : '') + (ds === bd.skSel ? ' sel' : '');
+    cells.push('<div class="'+cls+'" data-skcell="'+ds+'" data-skday="'+ds+'">' +
+      '<div class="skdnum">'+d.getDate()+'</div>' +
+      '<div class="skchips">' + items.slice(0, 3).map(skChipHtml).join('') +
+        (items.length > 3 ? '<div class="skmore">+'+(items.length-3)+'</div>' : '') + '</div>' +
+    '</div>');
+  }
+  var g = $('#skGrid');
+  if(g){
+    var ae = document.activeElement;
+    if(!(ae && g.contains(ae))) g.innerHTML = cells.join('');
+  }
+  /* 월 전체 예정/완료 합계 */
+  var mm = skinArr().filter(function(o){ return o && String(o.date||'').slice(0, 7) === bd.skYm; });
+  var md = mm.filter(function(o){ return o.done; }).length;
+  setText('#skMonthN', mm.length + '건 · 완료 ' + md + ' · 예정 ' + (mm.length - md));
+  renderSkDay();
+}
+function renderSkDay(){
+  var ds = bd.skSel || ymd(Date.now());
+  setText('#skDayTitle', dayKo(ds));
+  var items = skinOf(ds);
+  var done = items.filter(function(o){ return o.done; }).length;
+  setText('#skDayN', items.length + '건 · 완료 ' + done + ' · 예정 ' + (items.length - done));
+  var tb = $('#skTimes');
+  if(tb){
+    var hours = [];
+    for(var h = 8; h <= 20; h++) hours.push(pad(h) + ':00');
+    tb.innerHTML = hours.map(function(t){
+      return '<button type="button" class="skslot" data-skslot="'+ds+'|'+t+'" title="'+t+' — 여기로 끌어다 놓으면 이 시간으로 이동">' + t.slice(0, 2) + '</button>';
+    }).join('');
+  }
+  var box = $('#skDayList');
+  if(box){
+    var ae2 = document.activeElement;
+    if(!(ae2 && box.contains(ae2))) box.innerHTML = items.length ? items.map(skRowHtml).join('')
+      : '<div class="empty">이 날 예약이 없습니다 — 「＋ 피부 예약」으로 추가하세요</div>';
+  }
+}
+function skRowHtml(o){
+  return '<button type="button" class="skrow'+(o.done ? ' done' : '')+'" data-skopen="'+esc(o.id)+'" title="눌러서 상세보기 · 수정">' +
+    '<span class="skr-t">'+esc(o.time || '--:--')+'</span>' +
+    '<span class="skr-n">'+esc(o.name || '고객')+'</span>' +
+    '<span class="skr-p">'+esc(o.proc || '피부 시술')+(o.round ? ' · '+esc(o.round) : '')+'</span>' +
+    (o.room ? '<span class="skr-r">'+esc(o.room)+'</span>' : '') +
+    (o.done ? '<span class="skr-ok">✓ 완료</span>' : '') +
+  '</button>';
+}
+/* --- 저장·공유 --- */
+function skPack(o){
+  return { id:o.id, date:o.date || '', time:o.time || '', name:o.name || '', chart:o.chart || '',
+    proc:o.proc || '', round:o.round || '', room:o.room || '', memo:o.memo || '',
+    done:o.done ? 1 : 0, doneAt:o.doneAt || 0, by:o.by || '', at:o.at || 0, updatedAt:o.updatedAt || Date.now() };
+}
+function skSend(o){
+  o.updatedAt = Date.now();
+  o.by = stationName();
+  o.byId = deviceId();
+  saveBoard(); renderSkin(); renderBoard();
+  push({ op:'setSkin', data:skPack(o) });
+}
+function skDel(id){
+  if(!bd.skinDel) bd.skinDel = {};
+  bd.skinDel[id] = Date.now();
+  bd.skin = skinArr().filter(function(o){ return o.id !== id; });
+  saveBoard(); renderSkin();
+  push({ op:'delSkin', data:{ id:id } });
+}
+function skMove(id, date, time){
+  var o = skinById(id); if(!o) return;
+  if(o.done){ toast('완료된 시술은 옮길 수 없습니다'); return; }
+  if(!date) return;
+  var sameDay = (o.date === date), sameTime = (!time || o.time === time);
+  if(sameDay && sameTime){ toast('같은 날짜·시간입니다'); return; }
+  o.date = date;
+  if(time) o.time = time;
+  bd.skSel = date;
+  var inp = date.slice(0, 7);
+  if(inp !== bd.skYm) bd.skYm = inp;
+  skSend(o);
+  toast('「' + (o.name || '고객') + '」 ' + dayShort(date) + ' ' + (o.time || '') + ' 으로 옮겼습니다');
+}
+/* --- 상세 · 등록 시트 --- */
+function openSkin(id, date){
+  var o = id ? skinById(id) : null;
+  skDraft = o ? {
+    id:o.id, edit:true, date:o.date || ymd(Date.now()), time:o.time || '10:00', name:o.name || '',
+    chart:o.chart || '', proc:o.proc || SKIN_PROCS[0], round:o.round || '', room:o.room || '',
+    memo:o.memo || '', done:o.done ? 1 : 0
+  } : {
+    id:('S' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5)), edit:false,
+    date:date || bd.skSel || ymd(Date.now()), time:'10:00', name:'', chart:'',
+    proc:SKIN_PROCS[0], round:'', room:'', memo:'', done:0
+  };
+  paintSkinSheet();
+  sheetOn('#skSheet');
+  if(!o) setTimeout(function(){ try{ var n = $('#skName'); if(n) n.focus(); }catch(e){} }, 160);
+}
+function closeSkin(){ sheetOff('#skSheet'); skDraft = null; }
+function paintSkinSheet(){
+  if(!skDraft) return;
+  setText('#skSheetTitle', skDraft.edit ? '피부 시술 상세 · 수정' : '피부 예약 추가');
+  var n = $('#skName'); if(n && n.value !== skDraft.name) n.value = skDraft.name;
+  var d = $('#skDate'); if(d) d.value = skDraft.date;
+  var t = $('#skTime'); if(t) t.value = skDraft.time;
+  var c = $('#skChart'); if(c && c.value !== skDraft.chart) c.value = skDraft.chart;
+  var m = $('#skMemo'); if(m && m.value !== skDraft.memo) m.value = skDraft.memo;
+  var pbox = $('#skProcs');
+  if(pbox){ pbox.innerHTML = SKIN_PROCS.map(function(p){
+    return '<button type="button" class="skproc'+(skDraft.proc === p ? ' on' : '')+'" data-skproc="'+esc(p)+'">'+esc(p)+'</button>';
+  }).join(''); }
+  var rbox = $('#skRounds');
+  if(rbox){
+    var rs = ['1회','2회','3회','4회','5회','6회','7회','8회','9회','10회'];
+    rbox.innerHTML = rs.map(function(r){
+      return '<button type="button" class="skround'+(skDraft.round === r ? ' on' : '')+'" data-skround="'+r+'">'+r+'</button>';
+    }).join('');
+  }
+  var bbox = $('#skRooms');
+  if(bbox){ bbox.innerHTML = '미정' !== '' ? ['4번방', '5번방', ''].map(function(r){
+      return '<button type="button" class="skroom'+(skDraft.room === r ? ' on' : '')+'" data-skroom="'+esc(r)+'">'+(r ? esc(r) : '미정')+'</button>';
+    }).join('') : ''; }
+  var sum = $('#skSum');
+  if(sum) sum.textContent = dayKo(skDraft.date) + ' ' + (skDraft.time || '') + ' · ' + (skDraft.proc || '') + (skDraft.round ? ' · ' + skDraft.round : '');
+  var donBtn = $('#skDoneBtn');
+  if(donBtn){
+    donBtn.classList.toggle('hide', !skDraft.edit);
+    donBtn.textContent = skDraft.done ? '↩ 완료 취소' : '✓ 완료 처리';
+    donBtn.classList.toggle('ok', !skDraft.done);
+  }
+  var delBtn = $('#skDelBtn'); if(delBtn) delBtn.classList.toggle('hide', !skDraft.edit);
+  var toRoom = $('#skToRoom'); if(toRoom) toRoom.classList.toggle('hide', !skDraft.edit || !!skDraft.done);
+}
+function skinSave(){
+  if(!skDraft) return;
+  var name = ((($('#skName') || {}).value) || '').trim();
+  if(!name){ toast('고객명을 넣어 주세요'); return; }
+  var date = ((($('#skDate') || {}).value) || '').trim() || skDraft.date;
+  var time = ((($('#skTime') || {}).value) || '').trim() || skDraft.time || '10:00';
+  var chart = ((($('#skChart') || {}).value) || '').trim();
+  var memo = ((($('#skMemo') || {}).value) || '').trim();
+  var o = skDraft.edit ? skinById(skDraft.id) : null;
+  if(!o){ o = { id:skDraft.id, done:0, doneAt:0, at:Date.now() }; skinArr().push(o); }
+  o.name = name; o.date = date; o.time = time; o.proc = skDraft.proc; o.round = skDraft.round;
+  o.room = skDraft.room; o.chart = chart; o.memo = memo;
+  skSend(o);
+  bd.skSel = date; bd.skYm = date.slice(0, 7);
+  closeSkin();
+  renderSkin();
+  toast('「' + name + '」 ' + dayShort(date) + ' ' + time + ' 예약 ' + (skDraft === null ? '' : '') + '저장했습니다');
+}
+function skinDoneToggle(){
+  if(!skDraft || !skDraft.edit) return;
+  var o = skinById(skDraft.id); if(!o) return;
+  o.done = o.done ? 0 : 1;
+  o.doneAt = o.done ? Date.now() : 0;
+  skDraft.done = o.done;
+  skSend(o);
+  paintSkinSheet();
+  toast(o.done ? '완료 처리했습니다 (달력에 취소선으로 남습니다)' : '완료를 취소했습니다');
+}
+function skinDelete(){
+  if(!skDraft || !skDraft.edit) return;
+  var o = skinById(skDraft.id); if(!o) return;
+  if(!confirm('「' + (o.name || '고객') + '」 ' + dayShort(o.date) + ' 예약을 삭제할까요?')) return;
+  skDel(o.id);
+  closeSkin();
+  toast('예약을 삭제했습니다');
+}
+function skinToRoom(room){
+  if(!skDraft || !skDraft.edit) return;
+  var o = skinById(skDraft.id); if(!o) return;
+  skPrefill = { name:o.name || '', proc:o.proc || '피부 시술', memo:(o.chart || o.memo || ''), skinId:o.id };
+  closeSkin();
+  goTab('board');
+  setTimeout(function(){ openIn(room); }, 60);
+}
+/* 퇴실 시 그날 같은 이름의 피부 예약을 자동 완료 */
+function skAutoDone(room, customer){
+  if(room !== '4번방' && room !== '5번방') return;
+  var ds = ymd(Date.now()), hit = null;
+  skinArr().forEach(function(o){ if(o && !o.done && o.date === ds && o.name === customer) hit = o; });
+  if(!hit) return;
+  hit.done = 1; hit.doneAt = Date.now(); hit.room = room;
+  skSend(hit);
+}
+/* --- 드래그 앤 드롭 (마우스 · 모바일 터치) --- */
+function skTargetAt(x, y){
+  var el = document.elementFromPoint(x, y);
+  if(!el) return null;
+  var slot = el.closest ? el.closest('[data-skslot]') : null;
+  if(slot){ var p = String(slot.getAttribute('data-skslot')).split('|'); return { date:p[0], time:p[1] || '' }; }
+  var cell = el.closest ? el.closest('[data-skcell]') : null;
+  if(cell) return { date:cell.getAttribute('data-skcell'), time:'' };
+  return null;
+}
+function skMarkTarget(t){
+  $$('.skcell.skover, .skslot.skover').forEach(function(e){ e.classList.remove('skover'); });
+  if(!t) return;
+  var el = t.time ? $('[data-skslot="'+t.date+'|'+t.time+'"]') : $('[data-skcell="'+t.date+'"]');
+  if(el) el.classList.add('skover');
+}
+function skDragStart(ev){
+  var id = skDrag.id;
+  var it = skinById(id);
+  if(!it || it.done) return;
+  skDrag.active = true;
+  document.body.classList.add('is-drag');
+  var chip = $('[data-skid="'+id+'"]');
+  var g = document.createElement('div');
+  g.className = 'skghost';
+  g.textContent = (it.time || '') + ' ' + (it.name || '고객');
+  document.body.appendChild(g);
+  skDrag.ghost = g;
+  if(chip) chip.classList.add('dragging');
+  skGhostMove(ev.clientX, ev.clientY);
+  try{ vibrate(20); }catch(e){}
+}
+function skGhostMove(x, y){
+  if(!skDrag.ghost) return;
+  skDrag.ghost.style.left = x + 'px';
+  skDrag.ghost.style.top = (y - 26) + 'px';
+}
+function skDragEnd(){
+  clearTimeout(skDrag.timer); skDrag.timer = 0;
+  skDrag.active = false;
+  document.body.classList.remove('is-drag');
+  if(skDrag.ghost && skDrag.ghost.parentNode) skDrag.ghost.parentNode.removeChild(skDrag.ghost);
+  skDrag.ghost = null;
+  $$('.skchip.dragging').forEach(function(e){ e.classList.remove('dragging'); });
+  skMarkTarget(null);
+  document.removeEventListener('pointermove', skPointerMove, true);
+  document.removeEventListener('pointerup', skPointerUp, true);
+  document.removeEventListener('pointercancel', skPointerCancel, true);
+}
+function skPointerDown(ev){
+  var chip = ev.target.closest ? ev.target.closest('[data-skid]') : null;
+  if(!chip) return;
+  var id = chip.getAttribute('data-skid');
+  var it = skinById(id);
+  if(!it) return;
+  if(ev.button != null && ev.button > 0) return;
+  skDrag.id = id;
+  skDrag.x = ev.clientX; skDrag.y = ev.clientY;
+  skDrag.active = false;
+  document.addEventListener('pointermove', skPointerMove, true);
+  document.addEventListener('pointerup', skPointerUp, true);
+  document.addEventListener('pointercancel', skPointerCancel, true);
+  clearTimeout(skDrag.timer);
+  if(it.done){ return; }                       /* 완료된 시술은 이동 불가 (누르면 상세만) */
+  if(ev.pointerType === 'mouse') skDragStart(ev);
+  else skDrag.timer = setTimeout(function(){ skDragStart(ev); }, 200);
+}
+function skPointerMove(ev){
+  if(!skDrag.active){
+    if(Math.abs(ev.clientX - skDrag.x) > 10 || Math.abs(ev.clientY - skDrag.y) > 10){ clearTimeout(skDrag.timer); skDrag.timer = 0; }
+    return;
+  }
+  if(ev.cancelable) ev.preventDefault();
+  skGhostMove(ev.clientX, ev.clientY);
+  skDrag.tgt = skTargetAt(ev.clientX, ev.clientY);
+  skMarkTarget(skDrag.tgt);
+}
+function skPointerUp(ev){
+  var wasActive = skDrag.active, id = skDrag.id, tgt = skDrag.tgt;
+  clearTimeout(skDrag.timer);
+  if(wasActive){ skDragEnd(); if(tgt && id) skMove(id, tgt.date, tgt.time); return; }
+  skDragEnd();
+  if(id) openSkin(id);
+}
+function skPointerCancel(){ skDragEnd(); }
+
 /* ---------- 탭 ---------- */
+var TABS = ['board', 'timer', 'plan', 'skin'];
 function goTab(mode){
-  bd.mode = (mode === 'timer' || mode === 'plan') ? mode : 'board';
+  bd.mode = (mode === 'timer' || mode === 'plan' || mode === 'skin') ? mode : 'board';
   saveBoard();
   paintTab();
   if(bd.mode === 'plan') renderPlan();
+  if(bd.mode === 'skin') renderSkin();
   try{ window.scrollTo({top:0, behavior:'smooth'}); }catch(e){ try{ window.scrollTo(0,0); }catch(e2){} }
 }
 function paintTab(){
-  var isB = bd.mode !== 'timer' && bd.mode !== 'plan';
+  var isB = bd.mode !== 'timer' && bd.mode !== 'plan' && bd.mode !== 'skin';
   var isT = bd.mode === 'timer';
   var isP = bd.mode === 'plan';
-  var vb = $('#viewBoard'), vt = $('#viewTimer'), vp = $('#viewPlan');
+  var isS = bd.mode === 'skin';
+  var vb = $('#viewBoard'), vt = $('#viewTimer'), vp = $('#viewPlan'), vs = $('#viewSkin');
   if(vb) vb.classList.toggle('hide', !isB);
   if(vt) vt.classList.toggle('hide', !isT);
   if(vp) vp.classList.toggle('hide', !isP);
-  var tb = $('#tabBoard'), tt = $('#tabTimer'), tp = $('#tabPlan');
+  if(vs) vs.classList.toggle('hide', !isS);
+  var tb = $('#tabBoard'), tt = $('#tabTimer'), tp = $('#tabPlan'), ts = $('#tabSkin');
   if(tb){ tb.classList.toggle('on', isB); tb.setAttribute('aria-selected', isB ? 'true' : 'false'); }
   if(tt){ tt.classList.toggle('on', isT); tt.setAttribute('aria-selected', isT ? 'true' : 'false'); }
   if(tp){ tp.classList.toggle('on', isP); tp.setAttribute('aria-selected', isP ? 'true' : 'false'); }
-  setText('#topSub', isB ? ' · ' + brLabel() + ' ' + ROOMS.length + '개 방 · 접수팀 ↔ 간호팀 공유' : (isT ? ' · 방당 1~4번 수액 · 방울·알람' : ' · 내일 시술·간호사 준비'));
-  document.title = siteName() + (isB ? ' · 실시간 시술 현황' : (isT ? ' · 수액 타이머' : ' · 내일 계획'));
+  if(ts){ ts.classList.toggle('on', isS); ts.setAttribute('aria-selected', isS ? 'true' : 'false'); }
+  setText('#topSub', isB ? ' · ' + brLabel() + ' ' + ROOMS.length + '개 방 · 접수팀 ↔ 간호팀 공유'
+    : (isT ? ' · 방당 1~4번 수액 · 방울·알람'
+    : (isP ? ' · 내일 시술·간호사 준비' : ' · 피부 시술 일정 · 완료/이동')));
+  document.title = siteName() + (isB ? ' · 실시간 시술 현황' : (isT ? ' · 수액 타이머' : (isP ? ' · 내일 계획' : ' · 피부 달력')));
 }
 
 /* ---------- 동기화 ---------- */
@@ -4800,9 +5634,85 @@ function pull(force){
       return;
     }
     markSync(true, d.rev);
+    if(d.changed){
+      bd.labNative = (d.labs instanceof Array);      /* 새 Code.gs(v1.5) 배포 확인 */
+      bd.skinNative = (d.skin instanceof Array);
+    }
     if(d.changed && d.rooms) applyRemote(d);
     paintBrWarn();
+    paintLabSync();
   }).catch(function(){ pulling = false; markSync(false); paintBrWarn(); });
+}
+/* --- v1.5 검사·피부 목록 병합 (이 기기 대기 중인 변경은 지킵니다) --- */
+function pendIds(opName){
+  var m = {};
+  (bd.pending || []).forEach(function(p){ if(p.op === opName && p.data && p.data.id) m[p.data.id] = 1; });
+  return m;
+}
+function normLabRow(r){
+  if(!r || !r.id) return null;
+  var items = r.items;
+  if(typeof items === 'string'){ try{ items = JSON.parse(items); }catch(e){ items = []; } }
+  if(!(items instanceof Array)) items = [];
+  return { id:String(r.id), name:String(r.name||''), date:String(r.date||''), time:String(r.time||''),
+    items:items.map(function(it){ return { k:String(it.k||''), n:String(it.n||''), s:String(it.s||''), d:it.d ? 1 : 0, at:Number(it.at) || 0 }; }),
+    nurse:String(r.nurse||''), memo:String(r.memo||''), status:String(r.status||'waiting'), room:String(r.room||''),
+    at:Number(r.at) || 0, doneAt:Number(r.doneAt) || 0, by:String(r.by||''), updatedAt:Number(r.updatedAt) || 0 };
+}
+function normSkinRow(r){
+  if(!r || !r.id) return null;
+  return { id:String(r.id), date:String(r.date||''), time:String(r.time||''), name:String(r.name||''),
+    chart:String(r.chart||''), proc:String(r.proc||''), round:String(r.round||''), room:String(r.room||''),
+    memo:String(r.memo||''), done:(r.done === 1 || r.done === '1' || r.done === true) ? 1 : 0,
+    doneAt:Number(r.doneAt) || 0, by:String(r.by||''), at:Number(r.at) || 0, updatedAt:Number(r.updatedAt) || 0 };
+}
+function pruneDel(map){
+  var out = {};
+  var lim = Date.now() - 30*60000;
+  Object.keys(map || {}).forEach(function(id){ if((map[id]||0) > lim) out[id] = map[id]; });
+  return out;
+}
+function mergeLabs(list){
+  var keep = pendIds('setLab'), del = bd.labDel || {};
+  var map = {};
+  (bd.labs || []).forEach(function(o){ if(o && o.id) map[o.id] = o; });
+  var out = [];
+  list.forEach(function(r){
+    var nr = normLabRow(r);
+    if(!nr || del[nr.id]) return;
+    var cur = map[nr.id];
+    if(!cur || nr.updatedAt >= cur.updatedAt) out.push(nr); else out.push(cur);
+    delete map[nr.id];
+  });
+  Object.keys(map).forEach(function(id){
+    /* 서버 목록에 없고 이 기기에서 보낼 것이 남아 있는 항목만 지킵니다 (서버가 기준) */
+    if(keep[id]) out.push(map[id]);
+  });
+  bd.labs = out;
+  bd.labDel = pruneDel(bd.labDel);
+}
+function mergeSkin(list){
+  var keep = pendIds('setSkin'), del = bd.skinDel || {};
+  var map = {};
+  (bd.skin || []).forEach(function(o){ if(o && o.id) map[o.id] = o; });
+  var out = [];
+  list.forEach(function(r){
+    var nr = normSkinRow(r);
+    if(!nr || del[nr.id]) return;
+    var cur = map[nr.id];
+    if(!cur || nr.updatedAt >= cur.updatedAt) out.push(nr); else out.push(cur);
+    delete map[nr.id];
+  });
+  Object.keys(map).forEach(function(id){
+    if(keep[id]) out.push(map[id]);
+  });
+  bd.skin = out;
+  bd.skinDel = pruneDel(bd.skinDel);
+}
+function paintLabSync(){
+  var el = $('#labSyncHint'); if(!el) return;
+  var off = (bd.labNative === false) || (bd.skinNative === false);
+  el.classList.toggle('hide', !off);
 }
 function applyRemote(d){
   (d.rooms||[]).forEach(function(r){
@@ -4830,6 +5740,8 @@ function applyRemote(d){
     });
   }
   if(d.global && typeof d.global === 'object') bd.global = d.global;
+  if(d.labs instanceof Array) mergeLabs(d.labs);
+  if(d.skin instanceof Array) mergeSkin(d.skin);
   if(d.rev) bd.rev = d.rev;
   saveBoard();
   renderBoard();
@@ -4889,6 +5801,7 @@ function openIn(room){
     memo: edit ? (r.memo||'') : '',
     staff: edit ? (r.staff || currentUser()) : currentUser(),
     user: edit ? (r.user || currentUser()) : currentUser(),
+    skinId: '',
     ivs: (function(){
       var arr = [];
       ivAll().forEach(function(it){
@@ -4897,6 +5810,27 @@ function openIn(room){
       return arr;
     })()
   };
+  /* v1.5 — 검사 처방 → 검사실 입실 (고객·검사 항목 미리 채움) */
+  if(labPrefill && !edit && room === '검사실'){
+    dft.name = labPrefill.name || '';
+    dft.proc = labPrefill.proc || '신규 고객 검사';
+    dft.prog = labPrefill.prog || 'exam';
+    dft.min = labPrefill.min || 30;
+    dft.memo = labPrefill.memo || '';
+    labPrefill = null;
+  }
+  labPrefill = null;
+  /* v1.5 — 피부 달력 → 4·5번방 입실 (고객·시술 미리 채움) */
+  if(skPrefill && !edit && (room === '4번방' || room === '5번방')){
+    dft.name = skPrefill.name || '';
+    dft.proc = skPrefill.proc || dft.proc;
+    dft.prog = 'skin';
+    dft.min = 30;
+    dft.memo = skPrefill.memo || '';
+    dft.skinId = skPrefill.skinId || '';
+    skPrefill = null;
+  }
+  skPrefill = null;
   var sh = $('#inSheet');
   paintIn();
   if(sh){ sh.classList.add('on'); sh.setAttribute('aria-hidden','false'); }
@@ -4950,6 +5884,7 @@ function paintIn(keepInputs){
     dch.classList.toggle('hide', !ms);
   }
   renderIvList();
+  renderInSkinPick();
   var go = $('#inGo'); if(go) go.textContent = dft.edit ? '✓ 저장' : '▶ 입실 시작';
 }
 function pickProg(k){
@@ -4960,6 +5895,38 @@ function pickProg(k){
   if(dft.prog === k){ dft.prog = ''; dft.proc = ''; dft.session = ''; }
   else { dft.prog = k; dft.proc = p.proc; dft.session = p.detail; dft.min = p.min; }
   paintIn();
+}
+/* v1.5 — 4·5번방 입실 시 오늘 피부 예약 칩 (누르면 고객·시술 채움) */
+function renderInSkinPick(){
+  var wrap = $('#inSkinBox');
+  if(!wrap) return;
+  var room = dft ? dft.room : '';
+  var show = (room === '4번방' || room === '5번방');
+  wrap.classList.toggle('hide', !show);
+  if(!show) return;
+  var box = $('#inSkinPick');
+  if(!box) return;
+  var items = skinOf(ymd(Date.now())).filter(function(o){ return !o.done; });
+  box.innerHTML = items.length ? items.map(function(o){
+    var on = !!(dft && dft.skinId === o.id);
+    return '<button type="button" class="skpick'+(on ? ' on' : '')+'" data-skpick="'+esc(o.id)+'">' +
+      '<b>'+esc(o.time || '--:--')+'</b> '+esc(o.name || '고객')+'<i>'+esc(o.proc || '')+(o.round ? ' · '+esc(o.round) : '')+'</i></button>';
+  }).join('') : '<span class="hint">오늘 피부 예약이 없습니다 · 피부 달력에서 추가하세요</span>';
+  setText('#inSkinHint', items.length + '건 예정');
+}
+function pickSkinForRoom(id){
+  if(!dft) return;
+  var o = skinById(id);
+  if(!o) return;
+  dft.skinId = o.id;
+  dft.name = o.name || '';
+  dft.proc = o.proc || '피부 시술';
+  dft.session = o.round ? (o.proc || '') + ' · ' + o.round : (o.proc || '');
+  dft.prog = 'skin';
+  dft.min = 30;
+  dft.memo = o.chart || o.memo || '';
+  paintIn();
+  toast('피부 예약 「' + (o.name || '고객') + '」 을(를) 불러웠습니다');
 }
 function commitIn(){
   if(!dft) return;
@@ -5062,6 +6029,43 @@ function bind(){
   signInit();
   document.addEventListener('click', function(ev){
     var t = ev.target;
+    /* v1.5 — 🔬 검사실 · 🗓️ 피부 달력 */
+    if(t.closest && (t.closest('#labClose') || t.closest('#labBg'))){ ev.preventDefault(); closeLab(); return; }
+    if(t.closest && t.closest('#labGo')){ ev.preventDefault(); labSheetSave(); return; }
+    if(t.closest && t.closest('#labAdd')){ ev.preventDefault(); labAddCustom(); return; }
+    if(t.closest && t.closest('#labNew')){ ev.preventDefault(); openLab(''); return; }
+    var labPickBtn = t.closest ? t.closest('[data-labpick]') : null;
+    if(labPickBtn){ ev.preventDefault(); labTogglePick(labPickBtn.getAttribute('data-labpick')); return; }
+    var labActBtn = t.closest ? t.closest('[data-labact]') : null;
+    if(labActBtn){ ev.preventDefault(); labAct(labActBtn.getAttribute('data-lab'), labActBtn.getAttribute('data-labact')); return; }
+    var labItBtn = t.closest ? t.closest('[data-labi]') : null;
+    if(labItBtn){ ev.preventDefault(); labToggle(labItBtn.getAttribute('data-lab'), Number(labItBtn.getAttribute('data-labi'))); return; }
+    if(t.closest && t.closest('#skPrev')){ ev.preventDefault(); skYmShift(-1); return; }
+    if(t.closest && t.closest('#skNext')){ ev.preventDefault(); skYmShift(1); return; }
+    if(t.closest && t.closest('#skToday')){ ev.preventDefault(); bd.skYm = ymd(Date.now()).slice(0,7); bd.skSel = ymd(Date.now()); renderSkin(); return; }
+    if(t.closest && t.closest('#skNew')){ ev.preventDefault(); openSkin('', bd.skSel || ymd(Date.now())); return; }
+    if(t.closest && (t.closest('#skClose') || t.closest('#skBg'))){ ev.preventDefault(); closeSkin(); return; }
+    if(t.closest && t.closest('#skSave')){ ev.preventDefault(); skinSave(); return; }
+    if(t.closest && t.closest('#skDoneBtn')){ ev.preventDefault(); skinDoneToggle(); return; }
+    if(t.closest && t.closest('#skDelBtn')){ ev.preventDefault(); skinDelete(); return; }
+    if(t.closest && t.closest('#skToRoom4')){ ev.preventDefault(); skinToRoom('4번방'); return; }
+    if(t.closest && t.closest('#skToRoom5')){ ev.preventDefault(); skinToRoom('5번방'); return; }
+    var skProcBtn = t.closest ? t.closest('[data-skproc]') : null;
+    if(skProcBtn){ ev.preventDefault(); if(skDraft){ skDraft.proc = skProcBtn.getAttribute('data-skproc'); paintSkinSheet(); } return; }
+    var skRoundBtn = t.closest ? t.closest('[data-skround]') : null;
+    if(skRoundBtn){
+      ev.preventDefault();
+      if(skDraft){ var rr = skRoundBtn.getAttribute('data-skround'); skDraft.round = (skDraft.round === rr) ? '' : rr; paintSkinSheet(); }
+      return;
+    }
+    var skRoomBtn = t.closest ? t.closest('[data-skroom]') : null;
+    if(skRoomBtn){ ev.preventDefault(); if(skDraft){ skDraft.room = skRoomBtn.getAttribute('data-skroom') || ''; paintSkinSheet(); } return; }
+    var skPickBtn = t.closest ? t.closest('[data-skpick]') : null;
+    if(skPickBtn){ ev.preventDefault(); pickSkinForRoom(skPickBtn.getAttribute('data-skpick')); return; }
+    var skOpenBtn = t.closest ? t.closest('[data-skopen]') : null;
+    if(skOpenBtn){ ev.preventDefault(); openSkin(skOpenBtn.getAttribute('data-skopen')); return; }
+    var skCell = t.closest ? t.closest('[data-skcell]') : null;
+    if(skCell){ ev.preventDefault(); bd.skSel = skCell.getAttribute('data-skcell'); renderSkin(); return; }
     /* 현황판 카드·탭·입실 시트 */
     var bt = t.closest ? t.closest('[data-bact]') : null;
     if(bt){
@@ -5470,6 +6474,19 @@ function bind(){
 
   document.addEventListener('input', function(ev){
     var el = ev.target;
+    /* v1.5 — 검사·피부 시트 입력값을 초안에 바로 반영 (다시 그려도 지워지지 않게) */
+    if(el && el.id === 'labName' && labDraft){ labDraft.name = el.value; return; }
+    if(el && el.id === 'labMemo' && labDraft){ labDraft.memo = el.value; return; }
+    if(el && el.id === 'skName' && skDraft){ skDraft.name = el.value; return; }
+    if(el && el.id === 'skChart' && skDraft){ skDraft.chart = el.value; return; }
+    if(el && el.id === 'skMemo' && skDraft){ skDraft.memo = el.value; return; }
+    if(el && el.id === 'labDate' && labDraft){ labDraft.date = el.value; return; }
+    if(el && (el.id === 'skDate' || el.id === 'skTime') && skDraft){
+      if(el.id === 'skDate') skDraft.date = el.value; else skDraft.time = el.value;
+      var sm = $('#skSum');
+      if(sm) sm.textContent = dayKo(skDraft.date) + ' ' + (skDraft.time || '') + ' · ' + (skDraft.proc || '') + (skDraft.round ? ' · ' + skDraft.round : '');
+      return;
+    }
     if(el && el.getAttribute && el.getAttribute('data-pci')){ planCountSet(el.getAttribute('data-pci'), el.value); return; }
     if(el && el.id === 'cNurse' && cEdit){ paintChartState(); return; }
     if(el && el.id === 'inName' && dft){ dft.name = el.value; return; }
@@ -5499,6 +6516,20 @@ function bind(){
       setExamNurse(el.getAttribute('data-exn'), el.value);
       return;
     }
+    /* v1.5 — 검사일·검사직원·비고 · 피부 달력 입력 */
+    if(el.getAttribute('data-labd')){ labSetDate(el.getAttribute('data-labd'), el.value); return; }
+    if(el.tagName === 'SELECT' && el.getAttribute('data-labnur')){ labSetNurse(el.getAttribute('data-labnur'), el.value); return; }
+    if(el.getAttribute('data-labmemo') !== null && el.getAttribute('data-labmemo') !== undefined){
+      labSetMemo(el.getAttribute('data-labmemo'), el.value);
+      return;
+    }
+    if(el.id === 'skDate' || el.id === 'skTime'){ if(skDraft){ paintSkinSheet(); } return; }
+  });
+
+  /* v1.5 — 피부 달력 드래그(마우스·터치) */
+  document.addEventListener('pointerdown', function(ev){
+    if(!bd || bd.mode !== 'skin') return;
+    skPointerDown(ev);
   });
 
   document.addEventListener('keydown', function(ev){
@@ -5655,6 +6686,20 @@ window.IV = {
     openIn: openIn, closeIn: closeIn, commit: commitIn, complete: completeRoom,
     tab: goTab, pull: pull, render: renderBoard, hist: function(){ return renderHist(); },
     flush: flushBoard
+  },
+  /* v1.5 — 검사실 처방 · 피부 달력 */
+  lab: { items: LAB_ITEMS, defs: labDefs, list: function(){ return (bd.labs||[]).slice(); },
+    open: function(){ return labOpen(); }, done: function(){ return labDoneToday(); },
+    byId: labById, prog: labProg, toggle: labToggle, act: labAct, send: labSend,
+    openSheet: openLab, closeSheet: closeLab, togglePick: labTogglePick, saveSheet: labSheetSave,
+    addCustom: labAddCustom, setNurse: labSetNurse, setDate: labSetDate, setMemo: labSetMemo,
+    draft: function(){ return labDraft; }, pack: labPack, toRoom: labToRoom },
+  skin: {
+    list: function(){ return (bd.skin||[]).slice(); }, of: skinOf, byId: skinById,
+    month: function(){ return bd.skYm; }, sel: function(){ return bd.skSel; },
+    render: renderSkin, shift: skYmShift, open: openSkin, close: closeSkin, save: skinSave,
+    doneToggle: skinDoneToggle, del: skDel, move: skMove, draft: function(){ return skDraft; },
+    drag: skDrag, pack: skPack, toRoom: skinToRoom, procs: SKIN_PROCS, autoDone: skAutoDone
   }
 };
 
